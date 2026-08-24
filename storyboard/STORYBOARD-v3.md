@@ -107,7 +107,7 @@ page margins, so the light escapes its container.
 
     one figure, from behind, motionless
     → the monument changes behind them
-    → the badge alternates WHITE (01–05) and CYAN (06/08/09)
+    → the badge alternates WHITE (01–05, 09) and CYAN (06, 08)
     → the crop tightens with each step
     → frames begin to overlap and register like a contact sheet
     → the sheet ASSEMBLES into a grid of nine
@@ -265,3 +265,39 @@ markers: green opens the descent, red closes the floor.
 
 Every beat names a real file with a verified timecode. Nothing here assumes footage we do
 not have.
+
+
+---
+
+## CORRECTIONS FROM THE BUILD
+
+Written down because each one was wrong in a way that reads as right until you check.
+
+**The badge alternation is WHITE 01–05 and 09, CYAN 06 and 08.** v3 listed 09 as cyan. It is
+white — confirmed by cropping the badge on the mid-frame of every clip and looking at it at
+size. Two automated attempts to classify it by colour both failed, locking onto bright sky
+rather than the artwork, and both returned a confident WHITE for all eight including the two
+that are plainly cyan. The eye on a tight crop settled it.
+
+**There is no SUD_07.** The set is eight clips, not nine. The ninth panel of the contact
+sheet is a photograph — `STF00176` — which is also the only frame in the beat that carries
+the Torre Latinoamericana, and it carries a cyan badge. So the still is not filler: it adds
+a monument and reinforces the alternation. It also answers the note that this beat has to
+prove the still/video relationship, since it is the one panel that never moves.
+
+**The match cut is at 31.07–31.61, not 0:29.** There is no athlete at 0:29 — that window is
+the Miami beach and an aerial stadium, both carrying burned-in `FROM DECEMBER 4th TO 6th`
+titles. The pose arrives at 31.07: an adaptive athlete pressing a barbell from chin to full
+overhead lockout. It is the better cut on its own terms, because the figure already HOLDS
+the raised-arm pose and the athlete ARRIVES at it — which is what the beat asked for. The
+film burns its own mark into the bottom-right of this shot, so the encode crops the right
+15% rather than setting that mark opposite ours in the same frame.
+
+**A match cut cannot sit on a section boundary.** Built as its own section it arrived as a
+wipe — a sticky stage releases and slides, and between a dark street and a white tent that
+edge is unmissable. The lift now lives inside Beat 5 and switches on at a single scroll
+position, after the dive to one full frame has completed. Nine raised arms, then one.
+
+**The panels play; they do not scrub.** The figure is motionless while the city streams past,
+so looping at uneven rates (0.78x to 1.18x) is what makes the nine breathe out of sync.
+Scrubbing eight all-keyframe clips at once would also have cost 36 MB against 4.3 MB.
