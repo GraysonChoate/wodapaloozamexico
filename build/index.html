@@ -10,10 +10,10 @@
   /* palette — page 2 of the client's own usage guide */
   :root{
     --green:#6CC180; --blue:#35A7DF;
-    /* sampled off the lona itself in STF00130 — the LATAM Cup artwork, not the Mexico City
-       palette. This is the single deliberate magenta in the film, and it is here because the
-       banner really is that colour, hanging on the Monumento a la Revolución. */
-    --lona-magenta:#DA5B97; --lona-cyan:#7EC3D6;
+    /* The lona's cyan and magenta are deliberately NOT tokens here. They were measured off
+       the banner artwork (research/BRAND.md) and they belong to that one physical object in
+       one shot — promoting them to :root would make them part of the site palette, which is
+       green-to-blue. Beat 6 shows those colours by showing the banner, ungraded. */
     --ink:#fff; --ground:#000;
     --p:0;              /* progress inside the current beat */
     --exit:0;           /* 0 while the beat holds, 1 once its stage has slid away */

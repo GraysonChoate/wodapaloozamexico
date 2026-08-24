@@ -9,3 +9,6 @@ reference/*.mp4
 
 .DS_Store
 WPL MEXICO VIDEOS/
+
+# real-browser verification screenshots — regenerate with build/verify-browser.sh
+build/.verify-shots/

@@ -14,7 +14,9 @@ Silent throughout — audio is stripped from every derivative, per the decision.
 | 1 | `scrub/b01_cockpit.mp4` | WZA_MX_LOGO.mp4 | 3.80–5.52 | scrub |
 | 2 | `scrub/b02_aerial.mp4` | WZA_MX_LOGO.mp4 | 11.60–13.20 | **scrub — critical** |
 | 4 | `scrub/b04_car.mp4` | WZA_MX_LOGO.mp4 | 5.70–8.20 | scrub |
-| 5 | `scrub/b05_sud01…09.mp4` | SUD_01–09.mov | full | scrub ×8 |
+| 5 | `loop/b05_sud01…09.mp4` | SUD_01–09.mov | 0–12s (04 is 0–5.5s) | **loop ×8** |
+| 5 | `still/b05_torre.jpg` | STF00176.jpg | — | still, 9th panel |
+| 5 | `scrub/b05b_lift.mp4` | WZA_MX_LOGO.mp4 | 31.05–31.60 | **scrub — the match cut** |
 | 6 | `scrub/b06_banner.mp4` | LONA_0198.mov | full (7.13s) | **scrub — critical** |
 | 7 | `scrub/b07_stickers.mp4` | STICKERS_03_V1.mov | full | scrub |
 | 8 | `loop/b08_newspaper.mp4` | QUALIFIER_v3_05.mov | full | loop |
@@ -128,6 +130,21 @@ and no burned-in titles. Kept vertical at 720×1280 because the beat depends on 
 height — the scroll travels the frame down the banner, and on a 1440×900 viewport a
 1080×1920 source leaves 1,660 px below the fold to travel through. Cropping it to landscape
 would have thrown away the beat.
+
+**Beat 5 panels are LOOP encodes, not scrub.** They were originally cut all-keyframe at
+720x406 — 36 MB for eight clips, and eight simultaneous seeks per frame. The figure is
+motionless while the city streams past, so the panels play under their own playback at
+uneven rates (0.78x to 1.18x) instead. Normal GOP, 540 wide: **4.3 MB**. The eight
+all-keyframe versions were deleted; nothing referenced them.
+
+`SUD_04` is 5.5s where the rest are 15s+, so that panel wraps far more often than the
+others. That is fine on screen — the panels are deliberately out of sync — but it does break
+naive playback checks, which read the wrap as a stall.
+
+**Beat 5b — `31.05–31.60`, cropped right 15%.** The film burns its own WODAPALOOZA mark into
+the bottom-right of this shot; cropping it keeps that mark from sitting opposite ours in the
+same frame. There is no athlete at 0:29 as the storyboard claimed — that window is the Miami
+beach and an aerial stadium under burned-in date titles.
 
 **The general rule:** pick a scrub window for what happens *inside the letters*, not for what
 the shot looks like whole, and confirm the window against the source frame by frame.

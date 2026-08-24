@@ -1,0 +1,157 @@
+# CLAUDE_HANDOFF
+
+How this build is run so an independent reviewer can audit it without taking anything on
+trust. Written for Codex; binding on Claude.
+
+---
+
+## SOURCE OF TRUTH
+
+In this order. Where they disagree, the higher one wins:
+
+    SUPERPROMPT.md
+    research/BRAND.md            palette, typeface, mark, voice
+    research/CREATIVE.md         the single idea
+    research/CITY.md             early art direction — SUPERSEDED, kept for provenance
+    storyboard/STORYBOARD-v3.md  13 beats, plus CORRECTIONS FROM THE BUILD at the end
+    build/media/MEDIA-MAP.md     every derivative, its source, its in/out point, and why
+
+**The superprompt and the storyboard outrank the README.** README language is prose and goes
+stale; it is not a spec. Where the README still says something the storyboard has moved past,
+the storyboard is right and the README is a bug.
+
+**The storyboard is not infallible either.** It was written before the footage was cut frame
+by frame, and three of its claims turned out to be wrong about the material (see CORRECTIONS
+FROM THE BUILD). When the storyboard and the footage disagree, **the footage wins** — and the
+correction gets written down there rather than silently absorbed.
+
+---
+
+## THE LOCKED SYSTEM
+
+Not open for re-litigation inside a milestone. Changing any of these is a direction decision,
+which is the reviewer's call, not Claude's.
+
+- **Descent.** The film comes down: cockpit → car → street → floor. It does not climb.
+- **Green to blue.** `#6CC180 → #35A7DF`, from page 2 of the client's own usage guide.
+  Magenta is the Miami parent brand and appears exactly once, deliberately — on the real lona
+  in Beat 6, by being photographed rather than applied. The lona's own cyan and magenta are
+  recorded in `research/BRAND.md` and are deliberately **not** CSS tokens.
+- **Black ground.** The interface is white and black. All colour comes from the footage.
+- **Restrained compositing.** The footage carries the motion; the page frames it and gets out
+  of the way.
+- **Rhythm:** motion → stillness → detail → tension → motion. Quiet beats are built, not left.
+- **Silent.** No audio anywhere.
+- **English-led**, Spanish where it lands hardest.
+- **No invented venue.** None is public.
+- **No outside footage, no generated imagery.** Every pixel is the client's. The crop is the
+  design. If a beat needs something the material does not contain, the beat changes — the
+  material does not get fabricated to fit it.
+
+---
+
+## DIVISION OF LABOUR
+
+**Claude owns:** media intake, cutting windows against the source, encoding, implementation,
+and browser verification. Reporting what was actually done, including what broke.
+
+**The independent reviewer owns:** creative direction, comparison against the motion
+references, secondary assets, still/video integration, and cross-beat coherence.
+
+Claude does not make direction calls alone. Where the footage forces a change to a beat's
+mechanic, Claude implements the honest version, says so explicitly, and flags it for review
+rather than presenting it as the plan working.
+
+---
+
+## HOW WORK IS SHIPPED
+
+**Reviewable milestones.** A milestone is a beat, or a tightly-related group of beats, plus
+whatever media, checks, and documentation it needed. Not a week of work in one commit.
+
+**Every completed milestone is pushed to `main`.** Nothing is held locally for a tidier story
+later. If it is done, it is pushed and it is auditable.
+
+**Every milestone push is followed by the report below**, in full, in the message that
+announces it.
+
+---
+
+## VERIFICATION — WHAT COUNTS AND WHAT DOES NOT
+
+**A beat is never claimed verified from the preview pane or a headless run alone.**
+
+Two environments in this setup lie about this page, and both lie silently:
+
+- **The embedded preview pane** never fires `scroll` events at all — measured `scrollY` moving
+  0 → 6037 with **zero** scroll events — and never starts media playback, even though `play()`
+  resolves without error and `pause()` is never called. Both failures look exactly like page
+  bugs. A whole afternoon went into a scrub that was working.
+- **Headless Chromium** composites differently and will not present frames for a fully
+  occluded video, so a correct poster handoff can read as broken.
+
+So the claim of record comes from `build/verify-browser.sh`, which drives **headed Chromium —
+a real window with a real compositor** — at 1440×900 and 375×812, and asserts the UA carries
+no `Headless` marker before it reports anything.
+
+    ./build/verify-browser.sh          # real browser window, both viewports
+    ./build/regress.sh                 # all four gates (see below)
+
+`regress.sh` runs, in order:
+
+    0  the dev server answers HTTP 206      python http.server does NOT do byte ranges,
+                                            and without them no video can seek at all —
+                                            every other gate then passes on a frozen page
+    1  scripts/check.sh                     source rules
+    2  scripts/scrub-audit.sh               behaviour: decoded at rest, tracks, reverses, degrades
+    3  scripts/contrast.sh                  measured WCAG contrast for every piece of
+                                            interface type, every 5% of the page
+
+Checks live in the `motion-site` skill at `~/.claude/skills/motion-site/scripts/`. They are
+outside this repo; treat their output as evidence, not as proof, and re-run them yourself.
+
+**Tools have been wrong.** Four times so far a check reported a working page as broken or a
+broken page as fine — `visibility:hidden` in the contrast tool also hid the `::before` that
+carries the ground plate, so it measured the page with its own protection removed. Every such
+case is disclosed in the milestone report, not quietly fixed.
+
+---
+
+## THE MILESTONE REPORT
+
+Every push is announced with all eight, in this order:
+
+1. **Milestone name and beat range.**
+2. **Commit SHA and branch.**
+3. **Preview URL and the local command to run it.**
+4. **Every changed file**, grouped: build code · media · posters/images · checks ·
+   documentation.
+5. **For every beat touched:** exact source filename, timecode or frame range, derivative
+   filename, and mode (scrub / loop / still).
+6. **What was verified in a normal browser** at 1440px and 375px — named explicitly as headed,
+   never implied.
+7. **State coverage:** down-scroll, up-scroll, stopped, no-JS, reduced motion, poster and
+   first-load behaviour, media seek behaviour.
+8. **Everything not clean:** known bugs, compromises, browser limitations, temporary
+   stand-ins, assets not yet viewed, and anything unpushed.
+
+Item 8 is not optional and is not a footnote. A gap disclosed after the conclusion has
+already contaminated the conclusion.
+
+---
+
+## STANDING FACTS A REVIEWER WILL WANT
+
+- **The dev server must speak HTTP Range.** `build/serve.py` does. `python3 -m http.server`
+  does not, and under it every seek snaps back to zero while the page itself is perfectly
+  correct. It works over `file://`, which is exactly how this hides.
+- **Raw client media is not in this repository.** `.gitignore` excludes `assets/video/**` and
+  `assets/images/**`; those live in Drive. What is committed is `build/media/` — the
+  derivatives the page actually loads.
+- **Archivo Variable is a stand-in for Normalidad.** It carries a real `wdth` axis so the
+  width mechanic is honest, but the letterforms are not final.
+- **Beats 7–13 are not built.** Their derivatives exist in `build/media/` from the original
+  intake pass and are listed in the media map, but every one of them still needs its window
+  cut against the source frame by frame before use. Three of the six windows checked so far
+  were wrong — two ran past a hard cut into a different scene, one ran into burned-in client
+  titles. Assume the remaining ones are wrong until checked.

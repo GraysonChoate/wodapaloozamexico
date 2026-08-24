@@ -196,3 +196,23 @@ Do not invent any of this. If the site needs it, it has to come from the client.
 - https://en.wikipedia.org/wiki/Wodapalooza — Miami history
 - https://www.asdeporte.com/ — organizer scale
 - https://fonts.adobe.com/fonts/normalidad-variable — the typeface
+
+
+---
+
+## THE LONA ARTWORK IS NOT THE PALETTE
+
+Measured off the banner in `STF00130`: cyan `#7EC3D6`, magenta `#DA5B97`.
+
+These are the **LATAM Cup** artwork colours printed on one physical banner. They are recorded
+here so nobody has to re-sample them, and for one reason only: to make it explicit that they
+are **not** site palette. The palette is `#6CC180 → #35A7DF`, from page 2 of the client's own
+usage guide.
+
+They are deliberately not CSS tokens. Beat 6 shows these colours by showing the banner,
+ungraded, in its own afternoon light — the film's single magenta, earned by being real rather
+than applied as a style. A `--lona-magenta` token at `:root` was written and then removed for
+exactly this reason: an unused root token is still a standing invitation to use it.
+
+The same clip sampled in shade returns `#416A7C` — the lona reads muted in `LONA_0198` and
+vivid in the stills. Same object, different light. Do not correct one to the other.
