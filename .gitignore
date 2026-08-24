@@ -1,0 +1,11 @@
+# Raw client media — 1.4 GB. Lives in Drive, never in git.
+assets/video/**/*.mov
+assets/video/**/*.mp4
+assets/images/**/*.jpg
+Motion Site Screen recordings/
+
+# Reference downloads
+reference/*.mp4
+
+.DS_Store
+WPL MEXICO VIDEOS/

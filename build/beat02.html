@@ -1,0 +1,214 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Beat 02 — SUCEDERÁ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@400;700&display=swap">
+
+<style>
+  /* WZA MEXICO CITY — the palette, from page 2 of the client's usage guide */
+  :root{
+    --green:#6CC180;
+    --blue:#35A7DF;
+    --ink:#ffffff;
+    --ground:#000000;
+    --scroll:0;          /* 0 → 1 across the beat, written by the rAF loop */
+  }
+  *{box-sizing:border-box}
+  html{background:var(--ground)}
+  body{
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:Archivo, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ── the beat: a tall scroll track with a sticky stage inside it ────────── */
+  .beat{ height:420svh; position:relative }
+  .stage{
+    position:sticky; top:0; height:100svh; overflow:clip;
+    display:grid; place-items:center; background:var(--ground);
+  }
+
+  /* the footage sits underneath everything and is revealed only through type */
+  .plate{ position:absolute; inset:0 }
+  .plate video, .plate img{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:50% 50%;
+    /* the push-in: the camera never sits still */
+    transform:scale(calc(1.06 + var(--scroll) * .12));
+    transform-origin:50% 46%;
+  }
+  /* poster shows until the video can actually play — visible is the base state */
+  .plate img{ z-index:1 }
+  .plate.ready img{ opacity:0 }
+
+  /* the knockout: black everywhere EXCEPT inside the letterforms */
+  .knockout{ position:absolute; inset:0; z-index:2; width:100%; height:100% }
+
+  /* everything else rides above */
+  .hud{
+    position:absolute; z-index:4; inset:0; pointer-events:none;
+    font:700 11px/1 "JetBrains Mono", ui-monospace, monospace;
+    letter-spacing:.18em; text-transform:uppercase;
+  }
+  .alt{ position:absolute; top:26px; right:28px; color:var(--ink); opacity:.72 }
+  .alt b{ font-weight:700; color:var(--green) }
+  .sub{
+    position:absolute; left:28px; bottom:30px; color:var(--ink); opacity:.6;
+    letter-spacing:.22em;
+  }
+
+  /* the next beat, only here to prove the hand-off */
+  .next{
+    height:100svh; display:grid; place-items:center; background:var(--ground);
+    border-top:1px solid rgba(255,255,255,.08);
+  }
+  .next h2{
+    margin:0; font-size:clamp(2rem,7vw,5rem); font-weight:800;
+    font-variation-settings:"wdth" 118;
+    background:linear-gradient(100deg,var(--green),var(--blue));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* ── SAFETY NETS — every one resolves to VISIBLE ────────────────────────── */
+  @media (prefers-reduced-motion: reduce){
+    .plate video, .plate img{ transform:none !important }
+    .beat{ height:100svh }
+    .stage{ position:relative }
+  }
+  @media (max-width:760px){
+    .alt{ top:18px; right:16px; font-size:10px }
+    .sub{ left:16px; bottom:20px; font-size:10px }
+  }
+</style>
+
+<section class="beat" id="beat">
+  <div class="stage">
+    <div class="plate" id="plate">
+      <img src="media/poster/b02_aerial.jpg" alt="Mexico City from the air">
+      <video id="v" src="media/scrub/b02_aerial.mp4"
+             muted playsinline preload="auto" disablepictureinpicture></video>
+    </div>
+
+    <!-- black plane with SUCEDERÁ cut out of it -->
+    <svg class="knockout" id="ko" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <mask id="cut" maskUnits="userSpaceOnUse">
+          <rect id="mrect" x="0" y="0" fill="#fff"/>
+          <text id="word" x="0" y="0" fill="#000"
+                text-anchor="middle" font-family="Archivo, Arial, sans-serif"
+                font-weight="800" font-size="132" letter-spacing="-1">SUCEDERÁ</text>
+        </mask>
+      </defs>
+      <rect id="krect" x="0" y="0" fill="#000" mask="url(#cut)"/>
+    </svg>
+
+    <div class="hud">
+      <div class="alt"><b id="metres">2,240</b> M</div>
+      <div class="sub">IT WILL HAPPEN</div>
+    </div>
+  </div>
+</section>
+
+<section class="next"><h2>EN CDMX</h2></section>
+
+<script>
+(() => {
+  const beat  = document.getElementById('beat');
+  const v     = document.getElementById('v');
+  const plate = document.getElementById('plate');
+  const word  = document.getElementById('word');
+  const ko    = document.getElementById('ko');
+  const metres= document.getElementById('metres');
+  const root  = document.documentElement;
+  const RM    = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* THE POSTER STAYS UNTIL A FRAME IS ACTUALLY ON SCREEN.
+     `loadeddata` only means bytes arrived — a video that has never played or seeked
+     paints NOTHING, so hiding the poster there gives you a black rectangle. At the top
+     of the page the scrub loop never fires either, because the playhead already equals
+     the target. Result: black word on black ground. Wait for a real painted frame. */
+  const ready = () => plate.classList.add('ready');
+  function armPoster(){
+    if ('requestVideoFrameCallback' in v) v.requestVideoFrameCallback(() => ready());
+    else v.addEventListener('seeked', ready, {once:true});
+  }
+  if (v.readyState >= 2) armPoster(); else v.addEventListener('loadeddata', armPoster, {once:true});
+
+  // and force one seek so the very first frame is decoded and composited
+  function primeFirstFrame(){
+    try { v.currentTime = 0.04; } catch(e){}
+  }
+  if (v.readyState >= 1) primeFirstFrame();
+  else v.addEventListener('loadedmetadata', primeFirstFrame, {once:true});
+
+  let dur = 0;
+  const gotDur = () => { dur = isFinite(v.duration) ? v.duration : 0; };
+  if (v.readyState >= 1) gotDur(); else v.addEventListener('loadedmetadata', gotDur, {once:true});
+
+  // one rAF loop, driven by POSITION so it works scrolling up as well as down
+  let ticking = false, want = 0;
+  function frame(){
+    ticking = false;
+    const r = beat.getBoundingClientRect();
+    const travel = r.height - innerHeight;
+    const p = travel > 0 ? Math.min(1, Math.max(0, -r.top / travel)) : 0;
+
+    root.style.setProperty('--scroll', p.toFixed(4));
+
+    // the WIDTH AXIS is the signature: Compact at altitude, Extended at the floor
+    const wdth = 62 + p * 58;                 // Archivo stands in for Normalidad
+    word.style.fontVariationSettings = `"wdth" ${wdth.toFixed(1)}, "wght" 800`;
+
+    /* THE SVG MAPS 1:1 TO CSS PIXELS. A scaled viewBox with `slice` always crops, and on
+       a portrait phone it crops savagely — the first real mobile test showed only "CEDE".
+       Sizing in real pixels means the word fits by construction on any screen. */
+    const W = innerWidth, H = innerHeight;
+    ko.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    for (const id of ['mrect','krect']) {
+      const r = document.getElementById(id);
+      r.setAttribute('width', W); r.setAttribute('height', H);
+    }
+    const m = ko.querySelector('mask');
+    m.setAttribute('x',0); m.setAttribute('y',0);
+    m.setAttribute('width', W); m.setAttribute('height', H);
+
+    // fit the word to 88% of the width, whatever the width axis is currently doing
+    const MAXW = W * 0.88;
+    let size = Math.min(H * 0.34, W * 0.30);
+    word.setAttribute('x', W / 2);
+    word.setAttribute('y', H / 2 + size * 0.34);
+    word.setAttribute('font-size', size.toFixed(1));
+    let guard = 0;
+    while (word.getComputedTextLength() > MAXW && guard++ < 60) {
+      size *= 0.95;
+      word.setAttribute('font-size', size.toFixed(1));
+      word.setAttribute('y', H / 2 + size * 0.34);
+    }
+
+    // the altimeter counts DOWN — the descent made literal
+    metres.textContent = Math.round(2240 * (1 - p)).toLocaleString('en-US');
+
+    // scrub: scroll position IS the playhead
+    if (dur && !RM) want = p * (dur - 0.05);
+    ticking = false;
+  }
+  function onScroll(){ if (!ticking){ ticking = true; requestAnimationFrame(frame); } }
+  addEventListener('scroll', onScroll, {passive:true});
+  addEventListener('resize', onScroll);
+
+  // seek on its own cadence so we never queue seeks faster than the decoder retires them
+  let seeking = false;
+  function pump(){
+    if (dur && !RM && !seeking && Math.abs(v.currentTime - want) > 1/48){
+      seeking = true;
+      v.currentTime = want;
+    }
+    requestAnimationFrame(pump);
+  }
+  v.addEventListener('seeked', () => { seeking = false; });
+  requestAnimationFrame(pump);
+
+  frame();
+})();
+</script>

@@ -1,0 +1,94 @@
+# MEDIA MAP — beat → source → derivative
+
+**Originals are untouched.** Everything in `assets/` is the client's material as delivered.
+Everything in `build/media/` is a derivative and can be regenerated from the commands below.
+
+Silent throughout — audio is stripped from every derivative, per the decision.
+
+---
+
+## THE MAP
+
+| beat | derivative | source | in–out | mode |
+|---|---|---|---|---|
+| 1 | `scrub/b01_cockpit.mp4` | WZA_MX_LOGO.mp4 | 0:04–0:07 | scrub |
+| 2 | `scrub/b02_aerial.mp4` | WZA_MX_LOGO.mp4 | 0:01–0:05 | **scrub — critical** |
+| 4 | `scrub/b04_car.mp4` | WZA_MX_LOGO.mp4 | 0:06–0:10 | scrub |
+| 5 | `scrub/b05_sud01…09.mp4` | SUD_01–09.mov | full | scrub ×8 |
+| 6 | `scrub/b06_banner.mp4` | LONA_0198.mov | full | **scrub — critical** |
+| 7 | `scrub/b07_stickers.mp4` | STICKERS_03_V1.mov | full | scrub |
+| 8 | `loop/b08_newspaper.mp4` | QUALIFIER_v3_05.mov | full | loop |
+| 10 | `loop/b10_floor.mp4` | WZA_MX_LOGO.mp4 | 0:28–0:34 | loop |
+| 11 | `scrub/b11_face.mp4` | WZA_MX_LOGO.mp4 | 0:35–0:38 | scrub |
+| 12 | `scrub/b12_zocalo_empty.mp4` | WZA_MX_LOGO.mp4 | 0:45–0:47 | scrub |
+| 12b | `scrub/b12b_zocalo_full.mp4` | WZA_MX_LOGO.mp4 | 0:54–0:56 | **scrub — critical** |
+| 13 | `loop/b13_close.mp4` | WZA_MX_LOGO.mp4 | 0:55–0:58 | loop |
+
+Poster frames: `poster/<name>.jpg`, one per derivative, 640px wide.
+
+---
+
+## ENCODING
+
+**Scrub clips — every frame is a keyframe.**
+
+    ffmpeg -ss IN -to OUT -i SRC -an -vf "scale=1280:-2" \
+      -c:v libx264 -pix_fmt yuv420p \
+      -g 1 -keyint_min 1 -sc_threshold 0 \
+      -crf 26 -preset slow -movflags +faststart DEST
+
+`-g 1` is the whole trick. A normal web encode places a keyframe every 2–4 seconds, so
+seeking to an arbitrary time forces the decoder to walk forward from the last one — which is
+what makes most scroll-video sites stutter. All-keyframe costs roughly 3× the bytes and buys
+sub-frame seeking.
+
+Vertical clips use `scale=720:-2` and `-crf 27`.
+
+**Loop clips — normal encode**, since they play rather than seek:
+
+    ffmpeg -ss IN -to OUT -i SRC -an -vf "scale=1280:-2" \
+      -c:v libx264 -pix_fmt yuv420p -crf 24 -preset slow -movflags +faststart DEST
+
+---
+
+## MEASURED
+
+Seek latency, Chromium, 24 random seeks per clip:
+
+    b02_aerial  (1280 landscape)   median 2.6 ms   worst 6.9 ms
+    b06_banner  (720 vertical)     median 2.6 ms   worst 4.4 ms
+
+A 60 fps frame budget is 16.7 ms. **Seeks land inside a single frame**, so scrubbing is
+smooth rather than stepped.
+
+Weight:
+
+    scrub    64 MB   16 files
+    loop    5.1 MB    3 files
+    poster  916 KB   19 files
+    TOTAL    70 MB   from 1.2 GB of source
+
+70 MB is above the 40 MB target and that is a deliberate trade. Visual stability and seek
+performance matter more than the total, and **nothing loads the whole set** — beats load
+their own media as they approach. Working set at any moment is roughly 5 MB.
+
+If it needs to come down: drop scrub clips to 960px wide, or reduce the SUD panels from
+eight to five. Do not raise `-g` on the critical three.
+
+---
+
+## A NOTE ON SOURCE INTEGRITY
+
+`SUD_01.mov` first downloaded truncated at 94 MB and failed to decode — `Invalid NAL unit
+size`. Re-downloaded at 112 MB and it decodes clean. **Every source was then verified with
+`ffmpeg -v error -i FILE -f null -`; all twelve pass.** Worth repeating that check after any
+future bulk download from Drive.
+
+---
+
+## NOT YET ENCODED
+
+- The 18 guerrilla stills (4000×6000+) still need web derivatives — they are 181 MB raw.
+  Beat 5 and Beat 9 both use them.
+- `LONA00130412.mov` and `LONA00130598.mov` — not downloaded, per the operator: only the
+  first lona clip is wanted.
