@@ -13,7 +13,7 @@ Silent throughout — audio is stripped from every derivative, per the decision.
 |---|---|---|---|---|
 | 1 | `scrub/b01_cockpit.mp4` | WZA_MX_LOGO.mp4 | 3.80–5.52 | scrub |
 | 2 | `scrub/b02_aerial.mp4` | WZA_MX_LOGO.mp4 | 11.60–13.20 | **scrub — critical** |
-| 4 | `scrub/b04_car.mp4` | WZA_MX_LOGO.mp4 | 0:06–0:10 | scrub |
+| 4 | `scrub/b04_car.mp4` | WZA_MX_LOGO.mp4 | 5.70–8.20 | scrub |
 | 5 | `scrub/b05_sud01…09.mp4` | SUD_01–09.mov | full | scrub ×8 |
 | 6 | `scrub/b06_banner.mp4` | LONA_0198.mov | full | **scrub — critical** |
 | 7 | `scrub/b07_stickers.mp4` | STICKERS_03_V1.mov | full | scrub |
@@ -116,6 +116,12 @@ legible at all.
 
 The client's Wodapalooza mark is burned into the bottom-right of this shot. It falls outside
 the masked letterforms and is never visible — verified on screen, not assumed.
+
+**Beat 4 — `5.70–8.20`.** Car interior, highway headlight streaks, out on the pink CDMX
+taxi. The film burns in a `WODAPALOOZA / COMES TO MEXICO!` lockup that fades up between
+**8.20 and 8.30** — measured by sampling the luminance of the band where the lockup sits,
+not by eye. The original cut ran to 0:10 and carried the client titles through its last
+third and a half.
 
 **The general rule:** pick a scrub window for what happens *inside the letters*, not for what
 the shot looks like whole, and confirm the window against the source frame by frame.
