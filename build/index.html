@@ -26,16 +26,43 @@
     font:700 11px/1 "JetBrains Mono",ui-monospace,monospace;
     letter-spacing:.18em; text-transform:uppercase;
   }
-  /* Every HUD element sits directly on footage that ranges from black cockpit to a blown-out
-     windscreen, so none of them can rely on the frame behind them. A shadow costs nothing and
-     guarantees the type survives the brightest frame in the film — measured, not assumed. */
+  /* ── HUD LEGIBILITY IS A SYSTEM, NOT A PER-ELEMENT PATCH ────────────────
+     Every HUD element sits on footage that ranges from a black cockpit to a blown-out
+     windscreen, so none of them can rely on the frame behind them. Three rules:
+
+     1. The scrim is anchored to the HUD, never to the footage. The bright part of a shot
+        moves as the frame is cropped — on a phone the windscreen rides up into the corner
+        that holds the altimeter — so a scrim placed by where the picture is bright is wrong
+        by the next viewport. Placed where the TYPE is, it is right in every frame.
+     2. It is feathered to nothing. A hard-edged plate would read as a card, and type sits
+        directly on the footage in this grammar — never in a box.
+     3. It is local. The footage is never dulled globally to make copy legible.
+
+     The shadow underneath is a second line of defence, not the mechanism. */
+  .hud::before,.hud::after{
+    content:""; position:absolute; left:0; right:0; pointer-events:none;
+  }
+  .hud::before{
+    top:0; height:150px;
+    background:linear-gradient(to bottom,
+      rgba(0,0,0,.66) 0%, rgba(0,0,0,.34) 42%, rgba(0,0,0,.10) 72%, transparent 100%);
+  }
+  .hud::after{
+    bottom:0; height:190px;
+    background:linear-gradient(to top,
+      rgba(0,0,0,.62) 0%, rgba(0,0,0,.30) 44%, rgba(0,0,0,.09) 74%, transparent 100%);
+  }
+  @media (max-width:760px){
+    .hud::before{height:120px}
+    .hud::after{height:150px}
+  }
   .hud,.b1cap,.b2sub,.b3line{
     text-shadow:0 1px 3px rgba(0,0,0,.9), 0 0 16px rgba(0,0,0,.6);
   }
   .mk img{ filter:drop-shadow(0 1px 3px rgba(0,0,0,.85)) }
-  .alt{ position:absolute; top:26px; right:28px; opacity:.78 }
+  .alt{ position:absolute; top:26px; right:28px; opacity:.78; z-index:1 }
   .alt b{ color:var(--green); font-weight:700 }
-  .mk{ position:absolute; top:22px; left:26px; width:74px; opacity:.9 }
+  .mk{ position:absolute; top:22px; left:26px; width:74px; opacity:.9; z-index:1 }
   .mk img{ width:100%; height:auto }
   @media (max-width:760px){
     .alt{top:16px;right:14px;font-size:10px}
