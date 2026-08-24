@@ -83,7 +83,7 @@
   .alt,.mk{ position:absolute; z-index:1 }
   .alt::before,.mk::before,
   .b1cap::before,.b2sub::before,.b3line::before,.b4copy::before,
-  .b5cap::before,.b5bcap::before{
+  .b5cap::before,.b5bcap::before,.b7strip span::before{
     content:""; position:absolute; inset:-11px -20px; z-index:-1;
     /* Size the ellipse EXPLICITLY rather than letting it default to farthest-corner. On a
        long single line the default fades out well before the last few glyphs, which is
@@ -95,14 +95,18 @@
   }
   /* the mark is white line art with no mass to it, so it needs a deeper, wider ground than
      a run of solid type does — it measured 2.22:1 over the contact sheet on mobile */
+  /* On a bright frame the mark ground read as a defined chip — a card, which this grammar
+     does not allow. Smaller opaque core, much longer feather: same protection, no edge. */
   .mk::before{
-    inset:-13px -15px;
-    background:radial-gradient(ellipse at center,
-      rgba(0,0,0,.94) 0%, rgba(0,0,0,.88) 46%, rgba(0,0,0,.58) 72%, transparent 100%);
+    inset:-20px -22px;
+    background:radial-gradient(ellipse 52% 54% at 50% 50%,
+      rgba(0,0,0,.92) 0%, rgba(0,0,0,.80) 34%, rgba(0,0,0,.44) 58%,
+      rgba(0,0,0,.16) 80%, transparent 100%);
   }
   .alt{ top:26px; right:28px; opacity:.78 }
   .alt b{ color:var(--green); font-weight:700 }
   .alt.at-floor b{ color:var(--blue) }
+  .alt.at-floor .unit{ display:none }   /* FLOOR is a place, not a quantity in metres */
   .mk{ top:22px; left:26px; width:74px; opacity:.9 }
   .mk img{ width:100%; height:auto }
   @media (max-width:760px){
@@ -295,6 +299,41 @@
      monument, which is also where the altimeter reads FLOOR. The banner becomes the ground
      of what follows by being the ground: Beat 7 opens on the artwork itself. */
 
+  /* ── B7 · OCCUPATION ──────────────────────────────────────────────────────
+     The clip is two things joined: 0-3.30s is the ACT — the figure walks to a pole on
+     Paseo de la Reforma, reaches up and presses the badge on — and 3.30-15.68s is the
+     consequence, seventy-four cuts of that same badge on seventy-four surfaces.
+
+     So the beat is one placement, then the accumulation. It is held LOCKED OFF on purpose:
+     Beat 6 owns the travelling move, and the whole point here is that the frame does not
+     change while the city behind the mark does. Fragmenting this into a strip of cards was
+     considered and rejected — it would have thrown away the act and turned real placement
+     into a graphic transition.
+
+     Cross-axis motion lives in the INTERFACE, not in the footage: the metadata line runs
+     sideways while the page runs down. The picture is never tilted, tinted or graded. */
+  #b7{ height:560svh }
+  #b7 .plate video,#b7 .plate img{ transform:scale(calc(1.03 + var(--p) * .05)) }
+
+  /* Camera-metadata register, and every word of it is true. The storyboard called for
+     REFORMA · 06:41 · NO PERMIT · NO CUTS. The time was invented, the permit claim is not
+     mine to make, and NO CUTS is contradicted by footage that is nothing but cuts — the
+     count is 74, stable at 73-75 across detection thresholds. Saying so is stronger than
+     the line that was planned. */
+  .b7strip{
+    position:absolute; z-index:5; left:0; right:0; bottom:30px; overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+            mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  }
+  .b7strip span{
+    position:relative; z-index:1;
+    display:inline-block; white-space:nowrap; will-change:transform;
+    transform:translateX(calc(var(--p) * -46%));
+    font:700 11px/1 "JetBrains Mono",ui-monospace,monospace;
+    letter-spacing:.34em; text-transform:uppercase; opacity:.82;
+  }
+  @media (max-width:760px){ .b7strip{ bottom:22px } .b7strip span{ font-size:9px } }
+
   /* ── safety nets — everything resolves to VISIBLE ───────────────────────── */
   @media (prefers-reduced-motion:reduce){
     .beat{ height:100svh !important }
@@ -308,13 +347,14 @@
     .sheet{ transform:none !important }
     .cell video,.cell img{ transform:none !important }
     .b5cap,.b5bcap{ opacity:1 !important }
+    .b7strip span{ transform:none !important }
     #b6 .plate video,#b6 .plate img{ object-position:50% 50% !important }
   }
 </style>
 
 <div class="hud">
   <div class="mk"><img src="media/logo/mark-white.png" alt="Wodapalooza Mexico City"></div>
-  <div class="alt"><b id="metres">2,240</b> M</div>
+  <div class="alt"><b id="metres">2,240</b><span class="unit"> M</span></div>
 </div>
 
 <!-- ─────────── BEAT 1 · APPROACH ─────────── -->
@@ -402,6 +442,17 @@
   </div>
 </section>
 
+<!-- ─────────── BEAT 7 · OCCUPATION ─────────── -->
+<section class="beat" id="b7" data-src="media/scrub/b07_stickers.mp4" data-scrub-warp="0.34,0.21">
+  <div class="stage">
+    <div class="plate">
+      <img src="media/poster/b07_stickers.jpg" alt="The Wodapalooza badge stuck to a pole on Paseo de la Reforma">
+      <video muted playsinline preload="auto" disablepictureinpicture></video>
+    </div>
+    <div class="b7strip"><span>REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;</span></div>
+  </div>
+</section>
+
 <script>
 (() => {
   const RM   = matchMedia('(prefers-reduced-motion:reduce)').matches;
@@ -428,6 +479,7 @@
     const v = plate ? plate.querySelector('video') : b.querySelector('video');
     b._v = v; b._want = HEAD; b._seeking = false;
     b._range = b.dataset.scrubRange ? b.dataset.scrubRange.split(',').map(Number) : null;
+    b._warp  = b.dataset.scrubWarp  ? b.dataset.scrubWarp.split(',').map(Number)  : null;
 
     let revealed = false;
     const reveal = () => { if (revealed) return; revealed = true; plate.classList.add('ready'); };
@@ -604,7 +656,14 @@
         /* data-scrub-range lets a clip occupy part of a beat instead of all of it, which is
            what makes a hard cut possible inside a single beat. */
         const rg = b._range;
-        b._want = wantAt(b._v, rg ? Math.min(1, Math.max(0, (p - rg[0]) / (rg[1] - rg[0]))) : p);
+        let q = rg ? Math.min(1, Math.max(0, (p - rg[0]) / (rg[1] - rg[0]))) : p;
+        /* data-scrub-warp bends scroll against runtime. Beat 7 spends 21% of its clip on the
+           placement and 79% on the montage, but the act deserves a third of the scroll and
+           the montage reads better fast. Piecewise-linear, so it stays reversible. */
+        const wp = b._warp;
+        if (wp) q = q < wp[0] ? (q / wp[0]) * wp[1]
+                              : wp[1] + ((q - wp[0]) / (1 - wp[0])) * (1 - wp[1]);
+        b._want = wantAt(b._v, q);
       }
     }
 

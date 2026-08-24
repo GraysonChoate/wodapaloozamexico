@@ -18,7 +18,7 @@ Silent throughout — audio is stripped from every derivative, per the decision.
 | 5 | `still/b05_torre.jpg` | STF00176.jpg | — | still, 9th panel |
 | 5 | `scrub/b05b_lift.mp4` | WZA_MX_LOGO.mp4 | 31.05–31.60 | **scrub — the match cut** |
 | 6 | `scrub/b06_banner.mp4` | LONA_0198.mov | full (7.13s) | **scrub — critical** |
-| 7 | `scrub/b07_stickers.mp4` | STICKERS_03_V1.mov | full | scrub |
+| 7 | `scrub/b07_stickers.mp4` | STICKERS_03_V1.mov | full (15.73s) | scrub, warped |
 | 8 | `loop/b08_newspaper.mp4` | QUALIFIER_v3_05.mov | full | loop |
 | 10 | `loop/b10_floor.mp4` | WZA_MX_LOGO.mp4 | 0:28–0:34 | loop |
 | 11 | `scrub/b11_face.mp4` | WZA_MX_LOGO.mp4 | 0:35–0:38 | scrub |
@@ -145,6 +145,15 @@ naive playback checks, which read the wrap as a stall.
 the bottom-right of this shot; cropping it keeps that mark from sitting opposite ours in the
 same frame. There is no athlete at 0:29 as the storyboard claimed — that window is the Miami
 beach and an aerial stadium under burned-in date titles.
+
+**Beat 7 — the whole clip, and the intake encode held.** First beat where the original
+derivative survived review: 720x1280, 472/472 keyframes, 15.73s, 12 MB, no burned-in titles
+anywhere (checked at 1s intervals across the lower third). Nothing needed re-cutting.
+
+It is scrubbed with a **time warp**, not a straight mapping. The placement is 0–3.30s, 21% of
+the runtime, but it is the act the whole beat rests on, so `data-scrub-warp="0.34,0.21"` gives
+it 34% of the scroll and lets the seventy-four-cut montage run faster over the rest.
+Piecewise-linear, so it stays reversible.
 
 **The general rule:** pick a scrub window for what happens *inside the letters*, not for what
 the shot looks like whole, and confirm the window against the source frame by frame.

@@ -328,3 +328,37 @@ also the film's one deliberate magenta, and it is earned rather than applied.
 
 **The altimeter reaches FLOOR here** and changes from green to blue. It stops being an
 altitude and becomes a place, which is what the rest of the film is about.
+
+**Beat 7's surfaces are not the ones v3 named, and its label line was not true.** v3 described
+"the badge on a teal post, a yellow wall, a purple mural". There is no yellow wall and no
+purple mural in `STICKERS_03_V1`. What is there is better than the description: from 3.30s the
+clip is a **rapid montage of the same badge on seventy-four surfaces**, identically framed,
+cutting every ~0.17s — five frames a shot. Grey poles, a dark teal pole at 3.85s, deep blue at
+4.00s, yellow behind at 4.15s, Talavera azulejo, a blue MEX payphone, a red bus. The count is
+stable at 73–75 across scene-detection thresholds and clusters on 74.
+
+**The first 3.30s is the ACT and was nearly thrown away.** The figure — in the cyan-badge
+hoodie, the same wardrobe as `SUD_06` and `SUD_08` — walks to a pole on Paseo de la Reforma
+below the Ángel, reaches up, presses the badge on, and the camera cuts to it stuck there. So
+the beat is **one placement, then seventy-four surfaces**: the act, then the accumulation. That
+rhymes exactly with Beat 5 (one figure, nine monuments) and Beat 6 (the figure who hung the
+banner). The same person claims the city three ways — body, banner, badge.
+
+**The filmstrip was designed and rejected.** v3 asked for a horizontal strip travelling
+sideways. Built from this clip it would have meant cutting real footage into cards, which
+discards the placement and turns real physical work into a graphic transition. The footage
+stays whole and locked off — Beat 6 owns the travelling move, and the point here is that the
+frame does NOT change while the city behind the mark does. The cross-axis motion the beat
+wanted now lives in the interface: the metadata line runs sideways while the page runs down.
+
+**The label line is rewritten because three quarters of it was untrue.** v3: `REFORMA · 06:41
+· NO PERMIT · NO CUTS`. The time was invented; the permit claim is not mine to make on the
+client's behalf; and `NO CUTS` is flatly contradicted by footage that is nothing but cuts.
+Now: `REFORMA · ONE MARK · SEVENTY-FOUR CUTS · NO GRADE`. Every word is measured or true, and
+inverting the planned line into the real one is stronger in the same metadata register.
+
+**The accent-takes-the-wall-colour idea is NOT implemented, deliberately.** v3's "to eleven"
+had the interface accent momentarily take each surface's colour. That is applied colour
+outside the green-to-blue palette, which under the locked system is a direction decision, not
+Claude's call. The mechanism is cheap to add if the reviewer wants it. Flagged, not silently
+dropped, and not silently built.
