@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WODAPALOOZA MEXICO CITY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@400;700&display=swap">
+
+<style>
+  /* palette — page 2 of the client's own usage guide */
+  :root{
+    --green:#6CC180; --blue:#35A7DF;
+    --ink:#fff; --ground:#000;
+    --p:0;              /* progress inside the current beat */
+    --exit:0;           /* 0 while the beat holds, 1 once its stage has slid away */
+    --alt:1;            /* 1 at altitude, 0 at the floor */
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--ground);color:var(--ink)}
+  body{font-family:Archivo,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  img,video{display:block}
+
+  /* ── persistent devices ─────────────────────────────────────────────────── */
+  .hud{
+    position:fixed; inset:0; z-index:60; pointer-events:none;
+    font:700 11px/1 "JetBrains Mono",ui-monospace,monospace;
+    letter-spacing:.18em; text-transform:uppercase;
+  }
+  /* Every HUD element sits directly on footage that ranges from black cockpit to a blown-out
+     windscreen, so none of them can rely on the frame behind them. A shadow costs nothing and
+     guarantees the type survives the brightest frame in the film — measured, not assumed. */
+  .hud,.b1cap,.b2sub,.b3line{
+    text-shadow:0 1px 3px rgba(0,0,0,.9), 0 0 16px rgba(0,0,0,.6);
+  }
+  .mk img{ filter:drop-shadow(0 1px 3px rgba(0,0,0,.85)) }
+  .alt{ position:absolute; top:26px; right:28px; opacity:.78 }
+  .alt b{ color:var(--green); font-weight:700 }
+  .mk{ position:absolute; top:22px; left:26px; width:74px; opacity:.9 }
+  .mk img{ width:100%; height:auto }
+  @media (max-width:760px){
+    .alt{top:16px;right:14px;font-size:10px}
+    .mk{top:14px;left:14px;width:56px}
+  }
+
+  /* ── a beat is a tall track with a sticky stage ─────────────────────────── */
+  .beat{ position:relative }
+  .stage{
+    position:sticky; top:0; height:100svh; overflow:clip;
+    display:grid; place-items:center; background:var(--ground);
+    /* A sticky stage releases and slides up at scroll speed, which guillotines whatever is
+       on it against the top edge — the word read as a scrolling artifact rather than a cut.
+       Fading it out across the release turns the wipe into a dissolve. --p cannot drive this:
+       it is already pinned at 1 before the stage begins to move. */
+    opacity:calc(1 - var(--exit));
+  }
+  .plate{ position:absolute; inset:0 }
+  .plate video,.plate img{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; transform-origin:50% 46%;
+  }
+  .plate img{ z-index:1 }
+  .plate.ready img{ opacity:0 }
+
+  /* B1 — approach */
+  #b1{ height:300svh }
+  #b1 .plate video,#b1 .plate img{ transform:scale(calc(1.04 + var(--p)*.10)) }
+  .b1cap{
+    position:absolute; z-index:5; left:50%; bottom:14vh; transform:translateX(-50%);
+    font:700 11px/1.9 "JetBrains Mono",ui-monospace,monospace;
+    letter-spacing:.34em; text-align:center; white-space:nowrap;
+    opacity:calc(var(--p)*2.6);
+  }
+
+  /* B2 — the word */
+  #b2{ height:420svh }
+  #b2 .plate video,#b2 .plate img{ transform:scale(calc(1.06 + var(--p)*.12)) }
+  .knockout{ position:absolute; inset:0; z-index:2; width:100%; height:100% }
+  .b2sub{
+    position:absolute; z-index:5; left:28px; bottom:30px;
+    font:700 11px/1 "JetBrains Mono",ui-monospace,monospace;
+    letter-spacing:.22em; opacity:.55;
+  }
+  @media (max-width:760px){ .b2sub{left:14px;bottom:22px;font-size:10px} }
+
+  /* B3 — the mark */
+  #b3{ height:260svh }
+  #b3 .stage{ background:var(--ground) }
+  .markwrap{ position:relative; z-index:3; width:min(46vw,420px) }
+  @media (max-width:760px){ .markwrap{ width:74vw } }
+  .markwrap img{ position:static; width:100%; height:auto; object-fit:contain }
+  /* the gradient light that reveals it */
+  .glow{
+    position:absolute; z-index:2; left:50%; top:50%;
+    width:min(120vw,1100px); aspect-ratio:1; transform:translate(-50%,-50%);
+    background:radial-gradient(circle at 50% 50%,
+      color-mix(in oklab,var(--green) 42%,transparent) 0%,
+      color-mix(in oklab,var(--blue)  26%,transparent) 38%,
+      transparent 66%);
+    filter:blur(40px);
+    opacity:calc(.15 + var(--p)*.85);
+  }
+  .b3line{
+    position:absolute; z-index:5; bottom:16vh; left:50%; transform:translateX(-50%);
+    font:700 10px/1 "JetBrains Mono",ui-monospace,monospace;
+    letter-spacing:.4em; opacity:calc((var(--p)-.55)*2.4); white-space:nowrap;
+  }
+
+  /* ── safety nets — everything resolves to VISIBLE ───────────────────────── */
+  @media (prefers-reduced-motion:reduce){
+    .beat{ height:100svh !important }
+    .stage{ position:relative }
+    .plate video,.plate img{ transform:none !important }
+    .stage{ opacity:1 !important }
+    .b1cap,.b3line{ opacity:1 !important }
+    .glow{ opacity:.6 !important }
+  }
+</style>
+
+<div class="hud">
+  <div class="mk"><img src="media/logo/mark-white.png" alt="Wodapalooza Mexico City"></div>
+  <div class="alt"><b id="metres">2,240</b> M</div>
+</div>
+
+<!-- ─────────── BEAT 1 · APPROACH ─────────── -->
+<section class="beat" id="b1" data-src="media/scrub/b01_cockpit.mp4">
+  <div class="stage">
+    <div class="plate">
+      <img src="media/poster/b01_cockpit.jpg" alt="Approach into Mexico City">
+      <video muted playsinline preload="auto" disablepictureinpicture></video>
+    </div>
+    <div class="b1cap">CIUDAD DE MÉXICO · 2,240 M</div>
+  </div>
+</section>
+
+<!-- ─────────── BEAT 2 · SUCEDERÁ ─────────── -->
+<section class="beat" id="b2" data-src="media/scrub/b02_aerial.mp4">
+  <div class="stage">
+    <div class="plate">
+      <img src="media/poster/b02_aerial.jpg" alt="Mexico City at night">
+      <video muted playsinline preload="auto" disablepictureinpicture></video>
+    </div>
+    <svg class="knockout" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs><mask id="cut" maskUnits="userSpaceOnUse">
+        <rect class="mrect" x="0" y="0" fill="#fff"/>
+        <text class="word" x="0" y="0" fill="#000" text-anchor="middle"
+              font-family="Archivo,Arial,sans-serif" font-weight="800">SUCEDERÁ</text>
+      </mask></defs>
+      <rect class="krect" x="0" y="0" fill="#000" mask="url(#cut)"/>
+    </svg>
+    <div class="b2sub">IT WILL HAPPEN</div>
+  </div>
+</section>
+
+<!-- ─────────── BEAT 3 · THE MARK ─────────── -->
+<section class="beat" id="b3">
+  <div class="stage">
+    <div class="glow"></div>
+    <div class="markwrap"><img src="media/logo/mark-gradient.png" alt="Wodapalooza Mexico City"></div>
+    <div class="b3line">4 · 5 · 6 DICIEMBRE 2026</div>
+  </div>
+</section>
+
+<script>
+(() => {
+  const RM   = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const beats = [...document.querySelectorAll('.beat')];
+  const metres = document.getElementById('metres');
+
+  /* attach a video to every beat that declares one, and hold its poster until a frame
+     has ACTUALLY been painted — `loadeddata` only means bytes arrived, and a video that
+     has never played or seeked paints nothing at all. */
+  /* Every clip is scrubbed over [HEAD, duration-TAIL]. HEAD is not cosmetic: the resting
+     position at scroll 0 must be the SAME frame the prime seeks to. When it was not, the
+     prime seeked to 0.04, the scrub loop immediately seeked back to 0 to match its own
+     target, and cancelling a seek with a seek to the position the video already holds
+     presents no frame at all — so requestVideoFrameCallback never fired and the poster
+     never lifted. The page looked fine and was a still image the whole way down. */
+  const HEAD = 0.04, TAIL = 0.05;
+  const wantAt = (v, p) => HEAD + p * Math.max(0, (v.duration || 0) - HEAD - TAIL);
+
+  for (const b of beats) {
+    const src = b.dataset.src; if (!src) continue;
+    const v = b.querySelector('video'), plate = b.querySelector('.plate');
+    b._v = v; b._want = HEAD; b._seeking = false;
+
+    let revealed = false;
+    const reveal = () => { if (revealed) return; revealed = true; plate.classList.add('ready'); };
+
+    /* Arm the frame gate only AFTER the load algorithm has committed. Assigning .src runs
+       the media load algorithm, which DISCARDS any pending requestVideoFrameCallback — so
+       arming before the assignment silently registers a callback that is thrown away and
+       the poster stays up forever.
+
+       Arm BOTH triggers, because rVFC alone deadlocks here: the poster is opaque and sits
+       on top of the video, so the video is fully occluded, and a fully occluded element is
+       never asked to present a frame. No frame -> no callback -> the poster never lifts ->
+       the video stays occluded. `seeked` breaks the cycle, and unlike `loadeddata` it is
+       honest: a completed seek means that frame really is decoded. Whichever fires first
+       wins; `revealed` makes the handoff idempotent. */
+    const armReveal = () => {
+      if ('requestVideoFrameCallback' in v) v.requestVideoFrameCallback(reveal);
+      v.addEventListener('seeked', reveal, {once:true});
+    };
+
+    v.addEventListener('seeked', () => { b._seeking = false; });
+
+    /* force one seek so a frame actually decodes. At the top of the page the scrub loop
+       never fires on its own — the playhead already equals its target — so without this
+       the video element paints nothing and the poster hides a black rectangle. */
+    const prime = () => { b._seeking = true; try { v.currentTime = HEAD; } catch(e){} };
+    const begin = () => { armReveal(); prime(); };
+
+    v.addEventListener('loadedmetadata', begin, {once:true});
+    v.src = src;
+    if (v.readyState >= 1) begin();
+  }
+
+  /* the word is sized in REAL CSS PIXELS. A scaled viewBox with `slice` always crops,
+     and on a portrait phone it crops to four letters. */
+  function fitWord(beat, p){
+    const svg = beat.querySelector('.knockout'); if (!svg) return;
+    const W = innerWidth, H = innerHeight;
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.querySelectorAll('rect').forEach(r => { r.setAttribute('width',W); r.setAttribute('height',H); });
+    const m = svg.querySelector('mask');
+    m.setAttribute('x',0); m.setAttribute('y',0); m.setAttribute('width',W); m.setAttribute('height',H);
+    const word = svg.querySelector('.word');
+    word.style.fontVariationSettings = `"wdth" ${(62 + p*58).toFixed(1)}, "wght" 800`;
+    let size = Math.min(H*0.34, W*0.30), guard = 0;
+    word.setAttribute('x', W/2);
+    const set = () => { word.setAttribute('font-size', size.toFixed(1));
+                        word.setAttribute('y', H/2 + size*0.34); };
+    set();
+    while (word.getComputedTextLength() > W*0.88 && guard++ < 60) { size *= 0.95; set(); }
+  }
+
+  /* NO rAF GATE ON CORRECTNESS. Scroll events are already frame-aligned, and a page whose
+     state only advances inside requestAnimationFrame freezes completely when the tab is
+     backgrounded — rAF measured 0 calls per second in a hidden pane. Compute directly on
+     scroll; use rAF only for work that genuinely needs a paint tick. */
+  function frame(){
+    const H = innerHeight;
+    let deepest = 0;
+
+    for (const b of beats){
+      const r = b.getBoundingClientRect();
+      const travel = Math.max(1, r.height - H);
+      const p = Math.min(1, Math.max(0, -r.top / travel));
+      b.style.setProperty('--p', p.toFixed(4));
+
+      /* once p is pinned at 1 the stage starts sliding; measure that slide separately so
+         the beat can dissolve on its way out instead of being cut off by the frame edge */
+      const exit = Math.min(1, Math.max(0, (-r.top - travel) / (H * 0.85)));
+      b.style.setProperty('--exit', exit.toFixed(4));
+
+      // how far through the WHOLE page are we — drives the altimeter
+      const onScreen = r.top < H && r.bottom > 0;
+      if (onScreen) fitWord(b, p);
+      if (b._v && !RM) b._want = wantAt(b._v, p);
+    }
+
+    // altimeter: total document progress, 2,240 -> 0
+    const doc = document.documentElement;
+    const total = doc.scrollHeight - H;
+    const gp = total > 0 ? Math.min(1, Math.max(0, scrollY / total)) : 0;
+    metres.textContent = Math.round(2240 * (1 - gp)).toLocaleString('en-US');
+    document.documentElement.style.setProperty('--alt', (1-gp).toFixed(3));
+  }
+  const onScroll = () => frame();
+  addEventListener('scroll', onScroll, {passive:true});
+  addEventListener('resize', onScroll);
+  addEventListener('visibilitychange', onScroll);
+
+  /* NEVER hang correctness on the scroll event alone. It does not fire at all in some
+     embedded and automated contexts — scrollY moved 0 -> 6037 with exactly zero scroll
+     events, so every beat stayed frozen at --p:0 while the page scrolled the whole way
+     down. The loop below re-derives position from geometry each tick, so the scroll
+     listener is only an optimisation for responsiveness, never the source of truth. */
+  let lastY = -1;
+  function tick(){
+    if (scrollY !== lastY){ lastY = scrollY; frame(); }
+
+    // seek on its own cadence — never queue a seek while one is in flight
+    for (const b of beats){
+      const v = b._v; if (!v || RM || b._seeking) continue;
+      if (v.duration && Math.abs(v.currentTime - b._want) > 1/48){
+        b._seeking = true; v.currentTime = b._want;
+      }
+    }
+    schedule();
+  }
+  /* rAF when the page is visible, a timer when it is not. rAF is suspended outright in a
+     hidden tab — measured 0 calls per second — so without the timer branch a backgrounded
+     page resumes showing a stale frame. */
+  function schedule(){
+    if (document.hidden) setTimeout(tick, 120);
+    else requestAnimationFrame(tick);
+  }
+  schedule();
+  frame();
+})();
+</script>

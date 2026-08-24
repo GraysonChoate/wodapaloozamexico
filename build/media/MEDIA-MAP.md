@@ -11,8 +11,8 @@ Silent throughout — audio is stripped from every derivative, per the decision.
 
 | beat | derivative | source | in–out | mode |
 |---|---|---|---|---|
-| 1 | `scrub/b01_cockpit.mp4` | WZA_MX_LOGO.mp4 | 0:04–0:07 | scrub |
-| 2 | `scrub/b02_aerial.mp4` | WZA_MX_LOGO.mp4 | 0:01–0:05 | **scrub — critical** |
+| 1 | `scrub/b01_cockpit.mp4` | WZA_MX_LOGO.mp4 | 3.80–5.52 | scrub |
+| 2 | `scrub/b02_aerial.mp4` | WZA_MX_LOGO.mp4 | 11.60–13.20 | **scrub — critical** |
 | 4 | `scrub/b04_car.mp4` | WZA_MX_LOGO.mp4 | 0:06–0:10 | scrub |
 | 5 | `scrub/b05_sud01…09.mp4` | SUD_01–09.mov | full | scrub ×8 |
 | 6 | `scrub/b06_banner.mp4` | LONA_0198.mov | full | **scrub — critical** |
@@ -92,3 +92,30 @@ future bulk download from Drive.
   Beat 5 and Beat 9 both use them.
 - `LONA00130412.mov` and `LONA00130598.mov` — not downloaded, per the operator: only the
   first lona clip is wanted.
+
+
+---
+
+## WHY THESE IN/OUT POINTS
+
+The source film carries burned-in English titles and hard cuts that do not announce
+themselves. Both opening beats were originally cut past them and had to be re-timed.
+
+**Beat 1 — `3.80–5.52`.** `WELCOME TO MEXICO CITY` is burned into the frame until ~3.7s, so
+anything earlier inherits their typography. At **5.6s the film cuts to a car interior** — the
+first cut was 0:04–0:07 and spent its whole last third inside Beat 4's footage, so the
+approach ended on a highway chase. Scene detection misses this cut at default sensitivity:
+both shots are dark night interiors and score below threshold. Found at `scene>0.08`.
+
+**Beat 2 — `11.60–13.20`.** The Ángel de la Independencia, night into first light. The shot
+runs 11.51–14.60 but **begins a cross-dissolve at ~13.7s** into a flat overhead street grid.
+That grid is the worst possible fill for masked type: it is a uniform mid-grey, so the
+letterforms lose all internal contrast exactly where the word is widest and most exposed.
+The night portion carries lit windows and headlight trails, which is what makes the knockout
+legible at all.
+
+The client's Wodapalooza mark is burned into the bottom-right of this shot. It falls outside
+the masked letterforms and is never visible — verified on screen, not assumed.
+
+**The general rule:** pick a scrub window for what happens *inside the letters*, not for what
+the shot looks like whole, and confirm the window against the source frame by frame.
