@@ -11,38 +11,48 @@ the project. It is the complete grounding.
 
     SUPERPROMPT.md        the full brief — give this to Codex or any new agent
     research/BRAND.md     typeface, palette, mark, voice — MEASURED, with method recorded
-    research/CITY.md      Mexico City art direction — materials, the Barragán bridge
-    storyboard/           the beat-by-beat map. Nothing gets built until this is agreed.
+    research/CITY.md      early art-direction notes — SUPERSEDED by CREATIVE.md
+    storyboard/           STORYBOARD-v3.md — 13 beats, every one naming a real file
     assets/video/         client footage
     assets/images/        client stills
-    assets/logos/         marks — currently only a 150px badge, need vector from client
+    assets/logos/         all four lockups + the .ai vectors
     assets/audio/         if the piece takes sound
     reference/            look-and-feel references, competitor teardowns
-    build/                the site itself. Stays empty until the storyboard is signed off.
+    build/index.html      THE FILM — beats 1-5
+    build/regress.sh      run after every beat; all four gates must be green
+    build/serve.py        the dev server. python http.server cannot serve video seeks
+    build/media/          derivatives + MEDIA-MAP.md (every in/out point, and why)
 
 ## Order of work
 
 1. ✅ Research
-2. ✅ Brand extraction
-3. ⬜ Footage intake — see what actually exists before designing to it
-4. ⬜ Storyboard — agreed before any code
-5. ⬜ Build
+2. ✅ Brand extraction — hexes read off the client's own usage guide
+3. ✅ Footage intake — every asset viewed, film at 1fps across all 58s
+4. ✅ Storyboard — storyboard/STORYBOARD-v3.md, 13 beats
+5. 🔨 Build — Beats 1–5 running continuous in `build/index.html`, 8 to go
 
-## The three things that decide whether this is good
+## The four things that decide whether this is good
 
-**Ascent.** Sea level to 7,350 feet. 145 athletes to 2,000. Qualifier to floor. Everything
-in this story moves upward, which is the natural shape of a scroll.
+**Descent.** The film opens in an aeroplane cockpit, then a car at night, then the street,
+then the floor. You do not climb to Mexico City. You arrive, and it swallows you.
 
-**Belonging.** Their own words: *demostrar que pertenecen* · *es momento de ganarte tu
-lugar*. It speaks to the athlete, never about the event.
+**Belonging.** Their own words: *demostrar que pertenecen* · *es momento de ganarte tu lugar*.
+It speaks to the athlete, never about the event.
 
-**The city is not a fiesta.** Volcanic, brutalist, high. Their brand magenta is already
-Barragán's *rosa mexicano* — nothing needs inventing.
+**Green to blue, never magenta.** `#6CC180 → #35A7DF`, printed on page 2 of the client's own
+usage guide. Magenta is the Miami parent brand and appears exactly once, deliberately.
 
-## Open questions for the client
+**The mark is a sticker.** Monoline black-and-white so it goes on top of whatever colour a
+wall already is. Mexico City supplies the colour; the brand supplies the mark.
 
-- The venue is not public. Can we name one?
-- Spanish-only, English-only, or bilingual? This changes the typography.
-- High-resolution / vector mark?
-- Does Miami's format — the Gauntlet, spectator workouts, exhibitor village — carry over?
-- Ticket tiers and pricing?
+## Settled
+
+English-led, Spanish where it hits hardest · silent, no audio · no venue named (none is
+public; the Zócalo empty-then-full answers it) · vector marks held locally.
+
+This is a MOCKUP built for impact, not a production site.
+
+## Open
+
+- **Normalidad** needs an Adobe Fonts kit. Archivo Variable stands in — it also carries a
+  `wdth` axis, so the mechanic is honest, but the letterforms are not final.
