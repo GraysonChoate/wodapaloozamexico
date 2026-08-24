@@ -10,6 +10,10 @@
   /* palette — page 2 of the client's own usage guide */
   :root{
     --green:#6CC180; --blue:#35A7DF;
+    /* sampled off the lona itself in STF00130 — the LATAM Cup artwork, not the Mexico City
+       palette. This is the single deliberate magenta in the film, and it is here because the
+       banner really is that colour, hanging on the Monumento a la Revolución. */
+    --lona-magenta:#DA5B97; --lona-cyan:#7EC3D6;
     --ink:#fff; --ground:#000;
     --p:0;              /* progress inside the current beat */
     --exit:0;           /* 0 while the beat holds, 1 once its stage has slid away */
@@ -98,6 +102,7 @@
   }
   .alt{ top:26px; right:28px; opacity:.78 }
   .alt b{ color:var(--green); font-weight:700 }
+  .alt.at-floor b{ color:var(--blue) }
   .mk{ top:22px; left:26px; width:74px; opacity:.9 }
   .mk img{ width:100%; height:auto }
   @media (max-width:760px){
@@ -263,6 +268,33 @@
     opacity:calc(var(--cutcap,0) * .9);
   }
 
+  /* ── B6 · THE BANNER ──────────────────────────────────────────────────────
+     The storyboard called for a scroll-driven UNFURL. The footage does not contain one:
+     the lona is fully hung in frame 0 and breathes in the wind on a locked-off camera for
+     all 7.1 seconds. Faking the drop would invent an event that never happened.
+
+     What the footage does contain is 1080x1920 of vertical material — 1,660px below the
+     fold on a 1440x900 frame. So scroll travels the FRAME down the banner instead of
+     unfurling the cloth: a real move through real footage, and the cloth breathes as you
+     go because the clip scrubs at the same time. On a portrait phone the source already
+     fits by height, so there is nothing to travel through and the beat is the wind and a
+     slow push-in. Each viewport gets exactly the move its material can pay for.
+
+     No type is added. The banner carries its own. */
+  #b6{ height:460svh }
+  #b6 .plate video,#b6 .plate img{
+    /* start below the blank stone at the very top of the frame — two full stops of empty
+       wall is not stillness, it is a gap. The descent runs from just above the figure on
+       the ledge, down past the banner, to the steps at the foot of the monument. */
+    object-position:50% calc(16% + var(--p) * 84%);
+    transform:scale(calc(1.02 + var(--p) * .07));
+  }
+  /* No synthetic colour flood here. A mixed magenta-to-cyan field read as a pale wash, and
+     the banner it was supposed to represent is right there in the frame — richer, real, and
+     lit by the actual afternoon. The descent simply lands on the steps at the foot of the
+     monument, which is also where the altimeter reads FLOOR. The banner becomes the ground
+     of what follows by being the ground: Beat 7 opens on the artwork itself. */
+
   /* ── safety nets — everything resolves to VISIBLE ───────────────────────── */
   @media (prefers-reduced-motion:reduce){
     .beat{ height:100svh !important }
@@ -276,6 +308,7 @@
     .sheet{ transform:none !important }
     .cell video,.cell img{ transform:none !important }
     .b5cap,.b5bcap{ opacity:1 !important }
+    #b6 .plate video,#b6 .plate img{ object-position:50% 50% !important }
   }
 </style>
 
@@ -358,6 +391,16 @@
   </div>
 </section>
 
+
+<!-- ─────────── BEAT 6 · THE BANNER ─────────── -->
+<section class="beat" id="b6" data-src="media/scrub/b06_banner.mp4">
+  <div class="stage">
+    <div class="plate">
+      <img src="media/poster/b06_banner.jpg" alt="A banner reading SUCEDERÁ EN CDMX hung on the Monumento a la Revolución">
+      <video muted playsinline preload="auto" disablepictureinpicture></video>
+    </div>
+  </div>
+</section>
 
 <script>
 (() => {
@@ -572,7 +615,10 @@
     const doc = document.documentElement;
     const gEnd = ground ? (ground.offsetTop + ground.offsetHeight - H) : (doc.scrollHeight - H);
     const gp = gEnd > 0 ? Math.min(1, Math.max(0, scrollY / gEnd)) : 0;
-    metres.textContent = Math.round(2240 * (1 - gp)).toLocaleString('en-US');
+    /* 2,240 -> 0 -> FLOOR. Once the descent is spent the readout stops being an altitude
+       and becomes a place, which is what the rest of the film is about. */
+    metres.textContent = gp >= 1 ? 'FLOOR' : Math.round(2240 * (1 - gp)).toLocaleString('en-US');
+    document.querySelector('.alt').classList.toggle('at-floor', gp >= 1);
     document.documentElement.style.setProperty('--alt', (1-gp).toFixed(3));
   }
   const onScroll = () => frame();

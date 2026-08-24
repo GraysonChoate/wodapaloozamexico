@@ -301,3 +301,30 @@ position, after the dive to one full frame has completed. Nine raised arms, then
 **The panels play; they do not scrub.** The figure is motionless while the city streams past,
 so looping at uneven rates (0.78x to 1.18x) is what makes the nine breathe out of sync.
 Scrubbing eight all-keyframe clips at once would also have cost 36 MB against 4.3 MB.
+
+**Beat 6 does not contain an unfurl.** v3 called for a scroll-driven drop — *you scroll, it
+drops* — on the grounds that the real-world action already was one. `LONA_0198` is not that
+shot. The lona is fully hung in frame 0 and breathes in the wind on a locked-off camera for
+all 7.1 seconds; measured across the clip, the banner's extent never changes. Building the
+drop would have meant inventing an event that never happened.
+
+The honest version of the same idea is already in the file: the source is 1080×1920, which
+is **1,660 px of vertical material below the fold** on a 1440×900 frame. So scroll travels
+the FRAME down the banner rather than unfurling the cloth — a real move through real
+footage, with the clip scrubbing as you go so the lona breathes on the way down. The descent
+runs stone arch → **the hooded figure standing on the ledge** → `SUCEDERÁ EN CDMX` → the
+steps at the foot of the monument. The figure being in this shot was not in the storyboard
+and is the best thing in the beat: Beat 5's anonymous claimant turns out to be the one who
+hung it.
+
+On a portrait phone the source already fits by height, so there is nothing to travel through
+and the beat is the wind and a slow push-in. Each viewport gets the move its material can
+pay for.
+
+**No colour flood.** The planned magenta-to-cyan field read as a pale wash, and the banner it
+was meant to stand for is right there in the frame — richer, real, lit by the actual
+afternoon. The magenta stays where it belongs: on the real lona, in the real shot. That is
+also the film's one deliberate magenta, and it is earned rather than applied.
+
+**The altimeter reaches FLOOR here** and changes from green to blue. It stops being an
+altitude and becomes a place, which is what the rest of the film is about.

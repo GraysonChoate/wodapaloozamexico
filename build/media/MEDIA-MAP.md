@@ -15,7 +15,7 @@ Silent throughout — audio is stripped from every derivative, per the decision.
 | 2 | `scrub/b02_aerial.mp4` | WZA_MX_LOGO.mp4 | 11.60–13.20 | **scrub — critical** |
 | 4 | `scrub/b04_car.mp4` | WZA_MX_LOGO.mp4 | 5.70–8.20 | scrub |
 | 5 | `scrub/b05_sud01…09.mp4` | SUD_01–09.mov | full | scrub ×8 |
-| 6 | `scrub/b06_banner.mp4` | LONA_0198.mov | full | **scrub — critical** |
+| 6 | `scrub/b06_banner.mp4` | LONA_0198.mov | full (7.13s) | **scrub — critical** |
 | 7 | `scrub/b07_stickers.mp4` | STICKERS_03_V1.mov | full | scrub |
 | 8 | `loop/b08_newspaper.mp4` | QUALIFIER_v3_05.mov | full | loop |
 | 10 | `loop/b10_floor.mp4` | WZA_MX_LOGO.mp4 | 0:28–0:34 | loop |
@@ -122,6 +122,12 @@ taxi. The film burns in a `WODAPALOOZA / COMES TO MEXICO!` lockup that fades up 
 **8.20 and 8.30** — measured by sampling the luminance of the band where the lockup sits,
 not by eye. The original cut ran to 0:10 and carried the client titles through its last
 third and a half.
+
+**Beat 6 — the whole clip.** No trimming needed: it is a locked-off 7.1s take with no cuts
+and no burned-in titles. Kept vertical at 720×1280 because the beat depends on that extra
+height — the scroll travels the frame down the banner, and on a 1440×900 viewport a
+1080×1920 source leaves 1,660 px below the fold to travel through. Cropping it to landscape
+would have thrown away the beat.
 
 **The general rule:** pick a scrub window for what happens *inside the letters*, not for what
 the shot looks like whole, and confirm the window against the source frame by frame.
