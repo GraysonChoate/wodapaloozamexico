@@ -205,14 +205,26 @@ Do not invent any of this. If the site needs it, it has to come from the client.
 Measured off the banner in `STF00130`: cyan `#7EC3D6`, magenta `#DA5B97`.
 
 These are the **LATAM Cup** artwork colours printed on one physical banner. They are recorded
-here so nobody has to re-sample them, and for one reason only: to make it explicit that they
-are **not** site palette. The palette is `#6CC180 → #35A7DF`, from page 2 of the client's own
-usage guide.
+here so nobody has to re-sample them, and to mark a boundary that is easy to state wrongly.
 
-They are deliberately not CSS tokens. Beat 6 shows these colours by showing the banner,
-ungraded, in its own afternoon light — the film's single magenta, earned by being real rather
-than applied as a style. A `--lona-magenta` token at `:root` was written and then removed for
-exactly this reason: an unused root token is still a standing invitation to use it.
+**The restriction is on APPLIED colour, not on colour that is in the picture.**
+
+The palette — `#6CC180 → #35A7DF`, page 2 of the client's own usage guide — governs what the
+*page paints*: CSS tokens, type, rules, gradients, washes, scrims, marks. Magenta is not in
+that palette and must not be added to it.
+
+It says nothing about what is allowed to be *in front of the camera*. The lona is magenta.
+Miami footage is magenta. A CDMX taxi is pink. That colour is the material telling the truth
+about itself, and it is never limited or counted. Grading it toward the Mexico palette would
+be the real error: correcting the client's own record of their own event to match a swatch.
+
+So: **never colour-correct source footage toward the palette**, and never promote a colour
+sampled out of footage into a CSS token. The test is not whether magenta is on screen. It is
+whether the page put it there.
+
+Beat 6 shows these colours by showing the banner, ungraded, in its own afternoon light. A
+`--lona-magenta` token at `:root` was written and then removed: an unused root token is still
+a standing invitation to use it.
 
 The same clip sampled in shade returns `#416A7C` — the lona reads muted in `LONA_0198` and
 vivid in the stills. Same object, different light. Do not correct one to the other.

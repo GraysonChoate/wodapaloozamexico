@@ -33,10 +33,30 @@ Not open for re-litigation inside a milestone. Changing any of these is a direct
 which is the reviewer's call, not Claude's.
 
 - **Descent.** The film comes down: cockpit → car → street → floor. It does not climb.
-- **Green to blue.** `#6CC180 → #35A7DF`, from page 2 of the client's own usage guide.
-  Magenta is the Miami parent brand and appears exactly once, deliberately — on the real lona
-  in Beat 6, by being photographed rather than applied. The lona's own cyan and magenta are
-  recorded in `research/BRAND.md` and are deliberately **not** CSS tokens.
+- **Green to blue.** `#6CC180 → #35A7DF`, from page 2 of the client's own usage guide. This
+  governs the **interface**: CSS colour, type, rules, marks, gradients, washes, anything the
+  page paints.
+
+- **Source-native colour is not applied colour.** These are different things and only one of
+  them is restricted:
+
+  **Source-native** — colour that is in the footage or the photograph because it was in front
+  of the camera. The lona really is magenta and cyan. Miami footage really is magenta. A CDMX
+  taxi really is pink. None of this is a palette decision and none of it is limited. It is
+  simply what the material looks like, and grading it toward the Mexico palette would be a
+  worse offence than showing it: it would be correcting the client's own documentation of
+  their own event. **Do not colour-correct source footage toward the palette.**
+
+  **Applied** — colour the page introduces: a CSS token, a gradient, a wash, a scrim tint, a
+  type colour, a border. Here the palette is binding, and magenta is not in it. A magenta
+  field behind Beat 6 was built and removed for this reason; the `--lona-magenta` and
+  `--lona-cyan` tokens were written and then deleted, because an unused root token is still a
+  standing invitation to use it.
+
+  The test is not *is there magenta on screen* but *did the page put it there*. Beat 6 shows
+  magenta by pointing a camera at a magenta banner, ungraded, in its own afternoon light.
+  That is source-native and it is correct. The measured values live in `research/BRAND.md`
+  for reference and are deliberately **not** CSS tokens.
 - **Black ground.** The interface is white and black. All colour comes from the footage.
 - **Restrained compositing.** The footage carries the motion; the page frames it and gets out
   of the way.
@@ -123,7 +143,11 @@ Every push is announced with all eight, in this order:
 
 1. **Milestone name and beat range.**
 2. **Commit SHA and branch.**
-3. **Preview URL and the local command to run it.**
+3. **Preview URL and the local command to run it.** There is no hosted preview; say so
+   plainly rather than implying one. Instead, **every milestone ships a visual audit set** to
+   `audit/<sha>/` — desktop and mobile frames captured in a headed browser from the pushed
+   commit, plus contact sheets and an `AUDIT.md` naming what each frame is for. A reviewer
+   who only has GitHub can still see the film.
 4. **Every changed file**, grouped: build code · media · posters/images · checks ·
    documentation.
 5. **For every beat touched:** exact source filename, timecode or frame range, derivative
