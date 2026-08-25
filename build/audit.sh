@@ -59,6 +59,10 @@ read -r -d '' STOPS <<'TABLE' || true
 37-running-through|b10|0.40|the film's own cut sits inside this window
 38-miami-magenta|b10|0.70|**source-native** — the wall is magenta, nothing is applied
 39-celebrate|b10|1.00|interface stays green-to-blue against hot footage
+40-the-embrace|b11|0.06|two athletes holding each other — individual, before collective
+41-the-eruption|b11|0.48|the film's own cut; confetti over the whole floor
+42-the-numbers|b11|0.80|`DIVISIONS (16) · CITIES EVER (3) · FIRST EDITION (1)` — all sourced, all about THIS event
+43-first-edition|b11|1.00|the count lands on 1; the podium winner is preserved at the right edge
 TABLE
 
 write_index () {
