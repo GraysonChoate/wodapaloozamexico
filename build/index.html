@@ -934,11 +934,19 @@
   #b1 .plate{
     --aw:min(60vw, 1040px);                 /* identical to Beat 0's held plate */
     --ah:calc(var(--aw) / 2.1843);
+    /* WINDSHIELD LOCK. The horizontal edges release first, so the aperture becomes a wide
+       band before it becomes a frame — and that band is the windshield's own geometry. The
+       vertical edges follow, and the cockpit is already sitting in its own shape by the time
+       the full frame arrives.
+       Chosen against the brief's opening quality bar by capturing all three named forms on
+       identical material and timing: diagonal registration read as two overlapping pictures
+       mid-wipe, and the recessed plate's off-centre anchor fought Beat 0's centred print
+       composition. A uniform centre collapse is the thing that bar exists to reject. */
     clip-path:inset(
-      calc((100svh - var(--ah)) / 2 * (1 - var(--open,1)))
-      calc((100vw  - var(--aw)) / 2 * (1 - var(--open,1)))
-      calc((100svh - var(--ah)) / 2 * (1 - var(--open,1)))
-      calc((100vw  - var(--aw)) / 2 * (1 - var(--open,1)))
+      calc((100svh - var(--ah)) / 2 * (1 - var(--oV,1)))
+      calc((100vw  - var(--aw)) / 2 * (1 - var(--oH,1)))
+      calc((100svh - var(--ah)) / 2 * (1 - var(--oV,1)))
+      calc((100vw  - var(--aw)) / 2 * (1 - var(--oH,1)))
     );
   }
   @media (max-width:900px){ #b1 .plate{ --aw:min(88vw, 560px) } }
@@ -1558,7 +1566,10 @@
         /* Opens from Beat 0's held plate to the full frame. Ten per cent of a 300svh beat is
            about a third of a viewport of scroll -- long enough to read as an aperture
            releasing, short enough that the descent is not kept waiting behind it. */
-        b.style.setProperty('--open', ease(seg(p, 0.00, 0.10)).toFixed(4));
+        /* Width first, then height. The ramps overlap slightly so the corners never read as
+           a stepped rectangle. */
+        b.style.setProperty('--oH', ease(seg(p, 0.00, 0.05)).toFixed(4));
+        b.style.setProperty('--oV', ease(seg(p, 0.04, 0.14)).toFixed(4));
       }
       if (b.id === 'b6') {
         /* Closes into the vertical strip over the last twelve per cent, while the badge is
