@@ -80,6 +80,23 @@ The Cali lesson is useful utility and clarity, not permanent clutter: no invente
 no made-up partner logos, no generic ticker. If verified sponsor/partner facts arrive later, they
 may become one purposeful rail or banner with a reason to exist.
 
+### Opening functional hierarchy — approved direction
+
+The fold-and-breach opening may use its two moving side surfaces for the minimum information a
+new reader needs, with each item physically converging into the central cockpit aperture:
+
+- **identity/place:** `WODAPALOOZA / MEXICO CITY / DEC 4–6 2026`;
+- **one immediate action:** `ONLINE QUALIFIER / AUG 18–26 / ENTER ↗` using the verified
+  CompetitionCorner destination;
+- an optional short invitation such as `ARE YOU READY?` only if it is needed after layout review,
+  never as a substitute for identity or action.
+
+The side information rides the folding surfaces; it is pushed into the center/released with them,
+never arbitrarily overlaid. It is not a second footage-inside-type trick: Beat 2 retains that
+signature aperture language. The compact mark/home and the same `QUALIFIER ↗` escape hatch can
+continue after the cockpit as the restrained functional layer. The editorial index and remaining
+fact rails arrive later at real held places, not all in the opening.
+
 ## Source, truth, and accessibility
 
 - Footage keeps source-native colour. UI remains neutral/green-to-blue; discrete print objects may use campaign colours.
