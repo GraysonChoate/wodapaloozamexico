@@ -46,7 +46,9 @@
 > **Immediate build only:** read `TRANSITION-PASS-BRIEF.md`. The whole-film audit found that
 > thirteen boundaries use the same generic black dip. Build and evidence only Beat 0 → 1 and
 > Beat 6 → 7 as specified there; stop for review. Do not retune other boundaries or begin a
-> ticker, navigation rail, flag, timelapse, or new print surface.
+> ticker, navigation rail, flag, timelapse, or new print surface. Once those two proofs are
+> approved, the next and only next source treatment is the contained civic-flag interruption in
+> `MIDFILM-FRAME-SELECTION.md`; the Reforma day-to-night plate is explicitly second-wave.
 
 How this build is run so an independent reviewer can audit it without taking anything on
 trust. Written for Codex; binding on Claude.

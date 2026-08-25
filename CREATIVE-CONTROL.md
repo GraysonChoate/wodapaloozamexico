@@ -212,13 +212,16 @@ The completed foundation is now frozen pending the final whole-film review:
 
 Then:
 
-4. Perform the uninterrupted whole-film review and mark the exact places where a reader
-   needs a graphic pause, a factual orientation, or an action destination. It must include
-   Beat 0 and the action index, not the obsolete 13-beat-only audit.
-5. Select only the next source-supported framed-footage / campaign-print intervention from
-   that review. Day-to-night Reforma and the civic flag remain candidates, not commitments.
-6. Integrate only the proven next treatment, then complete final pacing, copy, typography,
-   and responsive polish.
+4. Complete the focused transition pass: replace the generic black-dip treatment only at
+   Beat 0 → 1 and Beat 6 → 7, using the relationships specified in
+   `TRANSITION-PASS-BRIEF.md`. Review those proofs in continuous playback before extending
+   the vocabulary.
+5. Then prototype one source-supported mid-film framed interruption: the contained civic-flag
+   pause specified in `MIDFILM-FRAME-SELECTION.md`. It is a brief editorial place between
+   Beat 7 and Beat 8, not a new full-screen city beat.
+6. Re-audit the whole work, then complete final pacing, copy, functional navigation/CTA,
+   typography, and responsive polish. The Reforma day-to-night city clock remains a second-wave
+   candidate only if that review identifies a real narrative job for it.
 
 ## Mandatory decision check
 
@@ -246,17 +249,22 @@ superseding earlier prompts where they differ. No agent may continue from a stal
 treatments. Beat 0 is now integrated at commit `06aed29`: Ángel full bleed → print-frame hold
 → black plate → cockpit. The HUD and altimeter are absent throughout Beat 0 and begin only with
 the aircraft; the altimeter stays flat at `2,240` until that handoff. The night-aerial Beat 1
-prelude remains rejected and reverted. The baseline full-film review is complete; the final
-whole-film review happens after the final action place is integrated.
+prelude remains rejected and reverted. The final action place and HUD release are integrated.
+The first uninterrupted whole-film audit is complete at `audit/whole-film/` (commit `3176477`):
+it found an overused generic black dip at thirteen of fourteen boundaries. The immediate
+transition pass is deliberately limited to Beat 0 → 1 and Beat 6 → 7 before any new effect is
+added.
 
 **Footage:** every delivered client video source has an intentional home in
 `CLIP-COVERAGE-MAP.md`. The next source pass is not about forced coverage; it identifies the
 best fragments to become contained moving frames, crop windows, or spatial plane fields.
 Daytime overhead windows at `39.29–40.08` and `41.67–43.00` in `WZA_MX_LOGO.mp4` are strong
 internal candidates. The approved Ángel pull-back in `Other B-Roll/` recording 1 (`10.0–27.3s`)
-is now the live opening, not a candidate; the Zócalo flag in recording 4 (`2.6–5.9s`) remains a
-later candidate. Sixteen guerrilla stills remain available for campaign-print/editorial use, not
-as excuses to add arbitrary beats.
+is now the live opening, not a candidate. The Zócalo flag in recording 4 (`2.6–5.9s`) is the
+selected next framed-interruption prototype after the transition pass; see
+`MIDFILM-FRAME-SELECTION.md`. Reforma's day-to-night recording remains second-wave, not a
+commitment. Sixteen guerrilla stills remain available for campaign-print/editorial use, not as
+excuses to add arbitrary beats.
 
 **Campaign-print world:** initial source components and original authored materials exist:
 `reference/material-components/v1/`, `reference/authored-materials/v1/`,
