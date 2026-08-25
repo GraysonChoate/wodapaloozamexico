@@ -79,6 +79,11 @@ material contract lives in `reference/KINETIC-NAV-AND-MATERIAL-KIT.md`. Build it
 kinetic rail, not separate floating buttons: `W / MENU`, changing current-place readout, and a
 real persistent `QUALIFIER ↗` escape hatch. It releases before the final action surface.
 
+The first one-time information-rail motion reference is
+`reference/prototypes/qualifier-rail-motion.html`: city/film → off-axis registration arrival →
+readable Online Qualifier action → purposeful release. It establishes a functional web place,
+not a sponsor ticker or a permanent banner.
+
 - kinetic persistent utility rail: mark/menu, quiet current-place/progress readout, and one real
   `QUALIFIER ↗` escape hatch; it changes contrast against its environment and moves in as one
   system, rather than reading as scattered floating controls;
