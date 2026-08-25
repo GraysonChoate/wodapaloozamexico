@@ -472,8 +472,17 @@
 
      Spanish, and not translated — this is where the locked "Spanish where it lands hardest"
      lands hardest, and it is hand-written by the client in the street rather than set by us. */
-  #b8{ height:520svh }
-  #b8 .stage{ background:var(--ground) }
+  /* Beat 8 starts one viewport EARLY and sits behind Beat 7. That is the whole fix for the
+     second transition: with the default layout the two sticky stages tile, so when Beat 7's
+     stage unsticks the composition slides up and off while a fresh one rises from below — a
+     new frame arriving after the cut had already happened. Overlapped, Beat 8 is already
+     pinned and stationary, and Beat 7's street simply parts to reveal it. The film knew this
+     already: Beat 9's own note says a match cut on a section boundary arrives as a wipe. */
+  #b8{ height:520svh; margin-top:-100svh }
+  #b8 .stage{ background:var(--ground); z-index:2 }
+  /* transparent, so the gap masked out of the street reveals Beat 8 rather than Beat 7's own
+     black ground */
+  #b7 .stage{ background:transparent; z-index:3 }
   /* THE ONE BEAT THAT IS NOT FULL BLEED, and the rule it breaks is worth stating.
      Everywhere else footage is the ground and the frame crops it. Here the frame carries a
      MESSAGE, and a cropped message is not a message. The source is 1080x1920; a 1440x900
@@ -960,7 +969,7 @@
     clip-path:inset(0 calc(var(--reg,0) * 41%) 0 calc(var(--reg,0) * 41%));
   }
   /* Beat 7 opens from the 6 → 7 registration strip, then LEAVES by splitting. */
-  #b7 .plate:not(.next){
+  #b7 .plate{
     clip-path:inset(0 calc(var(--reg,0) * 41%) 0 calc(var(--reg,0) * 41%));
     /* The two halves are made by masking a band out of the middle rather than by duplicating
        the video: one decode, one element, and the gap is a real hole the next scene shows
@@ -976,15 +985,7 @@
     transform:scale(calc(1.03 + var(--p) * .05 + var(--fwd,0) * .09));
   }
   /* the message, waiting behind the seam at its first sheet */
-  #b7 .plate.next{ z-index:1 }
-  #b7 .plate:not(.next){ z-index:2 }
-  /* The same printed edges Beat 8 sits against, already in place behind the street. When the
-     street parts it uncovers ink and message together, so the sides are never empty and the
-     composition Beat 8 continues is the composition the gap revealed. */
-  #b7 .b8ink{ z-index:0 }
-  /* contained, exactly as Beat 8 presents it, so the gap reveals the frame Beat 8 will keep
-     rather than a full-bleed blow-up of the same footage */
-  #b7 .plate.next video,#b7 .plate.next img{ object-fit:contain; object-position:50% 50% }
+  #b7 .plate{ z-index:2 }
   /* The word he is holding, pulled off the paper as page-owned type and brought forward on the
      same scroll that peels the sheet. Outline only — it echoes the handwriting, it does not
      imitate it, and it is gone before the next sheet is readable. */
@@ -1034,7 +1035,7 @@
     #b1 .plate{ clip-path:none !important }
     #b6 .plate,#b7 .plate{ clip-path:none !important }
     #b7 .plate{ mask-image:none !important }
-    #b7 .plate.next,.b7word{ display:none !important }
+    .b7word{ display:none !important }
     .b8ink{ display:none !important }
 
     .b1cap,.b3line{ opacity:1 !important }
@@ -1184,22 +1185,11 @@
 </section>
 
 <!-- ─────────── BEAT 7 · OCCUPATION ─────────── -->
-<section class="beat" id="b7" data-src="media/scrub/b07_stickers.mp4" data-scrub-warp="0.34,0.21" data-join-in>
+<section class="beat" id="b7" data-src="media/scrub/b07_stickers.mp4" data-scrub-warp="0.34,0.21" data-join-in data-split-exit>
   <div class="stage">
-    <div class="b8ink b8ink-l"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
-    <div class="b8ink b8ink-r"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
     <div class="plate">
       <img src="media/poster/b07_stickers.jpg" alt="The Wodapalooza badge stuck to a pole on Paseo de la Reforma">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
-    </div>
-    <!-- The message is already there, behind the street, held on its first sheet. It must come
-         AFTER the beat's own plate: the loader takes the first `.plate video` in DOM order, so a
-         second video placed ahead of it silently becomes the beat's scrub target — which is what
-         happened here, and the newspaper played across the whole of Beat 7. Stacking is z-index's
-         job, not the DOM's. -->
-    <div class="plate next">
-      <img src="media/poster/b08_newspaper.jpg" alt="">
-      <video data-full="media/scrub/b08_newspaper.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
     <div class="b7word" aria-hidden="true"><b>RECUERDA</b></div>
     <div class="b7strip" data-marquee><span>REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;</span></div>
@@ -1207,7 +1197,7 @@
 </section>
 
 <!-- ─────────── BEAT 8 · THE MESSAGE ─────────── -->
-<section class="beat" id="b8" data-src="media/scrub/b08_newspaper.mp4" data-scrub-warp="0.60,0.71" data-scrub-from="1.95" data-join-in>
+<section class="beat" id="b8" data-src="media/scrub/b08_newspaper.mp4" data-scrub-warp="0.60,0.71" data-join-in>
   <div class="stage">
     <div class="b8ink b8ink-l"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
     <div class="b8ink b8ink-r"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
@@ -1609,7 +1599,12 @@
         ? Math.sqrt(Math.min(1, Math.max(0, (H - r.top) / (H * 0.5))))
         : Math.min(1, Math.max(0, 1 - r.top / (H * 0.5)));
       b.style.setProperty('--exit', exit.toFixed(4));
-      b.style.setProperty('--sv', Math.min(enter, 1 - exit).toFixed(4));
+      /* A beat that leaves by SPLITTING must not also dissolve: the mask already removes it,
+         and fading as well ghosts the outgoing shot over the incoming one instead of cutting
+         cleanly through it. Beat 7 disappears entirely by 0.72 of its overlap, so there is
+         nothing left for a fade to do. */
+      b.style.setProperty('--sv', (b.hasAttribute('data-split-exit')
+        ? enter : Math.min(enter, 1 - exit)).toFixed(4));
 
       // how far through the WHOLE page are we — drives the altimeter
       /* Two and a half viewports of lead. Enough for the largest clip in the film to be
@@ -1667,23 +1662,18 @@
         /* Beat 7 does not collapse to a thin strip any more — it SPLITS. The badge advances
            toward the reader while a gap opens down the pole, and the message that was always
            behind the street shows through it. Half-gap in vw, so 50 is a fully parted frame. */
-        b.style.setProperty('--fwd', ease(seg(p, 0.86, 1.00)).toFixed(4));
-        b.style.setProperty('--gap', (50 * ease(seg(p, 0.88, 1.00))).toFixed(3));
-        /* The message in the gap is LIVE. It plays 0.90s to 1.95s of its own clip across the
-           split — RECUERDA held, then the sheet folding down and dropping away — and Beat 8
-           picks the same shot up at 1.95 via data-scrub-from, so nothing rewinds and there is
-           no second arrival. The frame opens because he opens it. */
-        const full = b._full;
-        if (full && full.duration && !RM) {
-          const want = 0.90 + seg(p, 0.86, 1.00) * (1.95 - 0.90);
-          if (!full._seeking && Math.abs(full.currentTime - want) > 1/48) {
-            full._seeking = true; full.currentTime = want;
-          }
-        }
-        /* The word rides the peel: in as the sheet starts to fold, forward as it drops, gone
-           before the sheet behind it is readable. */
-        b.style.setProperty('--wordo', Math.min(seg(p, 0.90, 0.94), 1 - seg(p, 0.975, 1.00)).toFixed(3));
-        b.style.setProperty('--wordz', ease(seg(p, 0.90, 1.00)).toFixed(3));
+        /* Driven by the EXIT, not by --p: --p is pinned at 1 for the whole overlap, and the
+           overlap is exactly where Beat 8 is pinned behind waiting to be revealed. The street
+           is fully masked away by 0.72 of it, so the stage slide that follows has nothing left
+           to show and is invisible. */
+        const ex = Math.min(1, Math.max(0, (-r.top - travel) / H));
+        b.style.setProperty('--fwd', ease(Math.min(1, ex / 0.72)).toFixed(4));
+        b.style.setProperty('--gap', (50 * ease(Math.min(1, ex / 0.72))).toFixed(3));
+        /* No stand-in and no second playhead: what the gap uncovers is Beat 8 itself, already
+           pinned behind and already running, so there is nothing to hand over and nothing to
+           rewind. The word rides the peel and is gone before the next sheet is readable. */
+        b.style.setProperty('--wordo', Math.min(seg(ex, 0.10, 0.24), 1 - seg(ex, 0.60, 0.74)).toFixed(3));
+        b.style.setProperty('--wordz', ease(Math.min(1, ex / 0.72)).toFixed(3));
       }
 
 
