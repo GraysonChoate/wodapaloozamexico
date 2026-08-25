@@ -10,3 +10,8 @@ the visual language from which both are derived.
 
 The source assets are in `../material-components/v1/`; no generated image, invented texture,
 or applied footage grade is used.
+# `moving-print-frame.html`
+
+Standalone choreography specimen: authored print field → angled contained source plate → lock for
+copy → scale-through release. It is not a live-film beat; it is the reusable visual grammar for
+turning a fragment of cleared city or athlete footage into a cinematic web object.

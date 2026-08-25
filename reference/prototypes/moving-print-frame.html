@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Moving Print Frame — Wodapalooza Mexico</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body { margin: 0; height: 420svh; background:#050505; font-family:Arial, Helvetica, sans-serif; }
+    .stage { position:sticky; top:0; width:100%; height:100svh; overflow:hidden; background:#050505; perspective:1400px; }
+    .paper { position:absolute; inset:0; opacity:0; background:#f3f0e9 url('../authored-materials/v1/print-field-01.png') center/cover; transform:scale(.94); }
+    .gesture { position:absolute; width:min(110vw,1500px); left:-15vw; top:7vh; opacity:0; pointer-events:none; transform-origin:center; }
+    .frame { position:absolute; width:min(56vw,800px); aspect-ratio:1.2; left:50%; top:50%; overflow:hidden; background:#111; border:1px solid rgba(255,255,255,.85); box-shadow:0 30px 85px #0008; transform:translate(-130%,-50%) rotateY(12deg) rotateZ(-4deg) scale(.72); transform-style:preserve-3d; }
+    .frame img { width:100%; height:100%; object-fit:cover; object-position:50% 35%; display:block; }
+    .edge { position:absolute; inset:0; border:9px solid transparent; border-image:linear-gradient(120deg,#0bb9db,#e6178b,#f6ba20) 1; mix-blend-mode:screen; opacity:.8; }
+    .caption { position:absolute; left:clamp(18px,4vw,64px); bottom:clamp(22px,5vw,68px); color:#111; opacity:0; max-width:26ch; letter-spacing:-.055em; font-size:clamp(30px,6vw,88px); font-weight:900; line-height:.86; }
+    .meta { position:absolute; right:4vw; top:5vh; color:#101010; opacity:0; font:600 11px/1.3 monospace; letter-spacing:.08em; text-align:right; }
+    @media(max-width:600px){ .frame{width:84vw;aspect-ratio:.92}.caption{max-width:19ch}.gesture{width:160vw;left:-42vw;top:18vh} }
+    @media(prefers-reduced-motion:reduce){ body{height:auto}.stage{position:relative}.paper{opacity:1;transform:none}.frame{transform:translate(-50%,-50%);width:min(72vw,680px)}.gesture{opacity:.8}.caption,.meta{opacity:1} }
+  </style>
+</head>
+<body>
+  <main class="stage" aria-label="Moving print frame study">
+    <div class="paper"></div>
+    <img class="gesture" src="../authored-materials/v1/ink-gesture-01.png" alt="">
+    <figure class="frame"><img src="../material-components/v1/sticker-contact-blue.jpg" alt="Wodapalooza Mexico sticker installed on a blue surface"><i class="edge"></i></figure>
+    <div class="caption">THE CITY<br>IS A<br>SURFACE.</div>
+    <div class="meta">WODAPALOOZA<br>MEXICO CITY<br>2026</div>
+  </main>
+  <script>
+    const stage=document.querySelector('.stage'), paper=document.querySelector('.paper'), gesture=document.querySelector('.gesture'), frame=document.querySelector('.frame'), caption=document.querySelector('.caption'), meta=document.querySelector('.meta');
+    function clamp(n){return Math.max(0,Math.min(1,n));}
+    function tick(){
+      const r=stage.getBoundingClientRect(), p=clamp(-r.top/(r.height-innerHeight));
+      const arrive=clamp(p/.34), hold=clamp((p-.34)/.24), release=clamp((p-.60)/.40);
+      paper.style.opacity=Math.min(1,arrive*1.4); paper.style.transform=`scale(${.94+arrive*.06})`;
+      gesture.style.opacity=Math.min(.94,arrive*1.15)*(1-release*.55); gesture.style.transform=`translate(${(1-arrive)*-9}vw,${(1-arrive)*4}vh) rotate(${-8+arrive*8}deg) scale(${.9+arrive*.12})`;
+      const x=-130+(arrive*80)-(release*0), rotY=12*(1-arrive), rotZ=-4*(1-arrive), scale=.72+arrive*.28+release*.72;
+      frame.style.transform=`translate(${x}%,-50%) rotateY(${rotY}deg) rotateZ(${rotZ}deg) scale(${scale})`;
+      frame.style.borderColor=`rgba(255,255,255,${.85-release*.85})`; frame.style.boxShadow=`0 ${30-release*30}px ${85-release*85}px #000${Math.round((.53-release*.53)*255).toString(16).padStart(2,'0')}`;
+      caption.style.opacity=hold*(1-release*1.3); meta.style.opacity=hold*(1-release*1.4);
+      requestAnimationFrame(tick);
+    } tick();
+  </script>
+</body>
+</html>
