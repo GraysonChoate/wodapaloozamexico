@@ -334,6 +334,37 @@
   }
   @media (max-width:760px){ .b7strip{ bottom:22px } .b7strip span{ font-size:9px } }
 
+  /* ── B8 · THE MESSAGE ─────────────────────────────────────────────────────
+     The one beat that carries information, and the one that does the least to it.
+
+     v3 described this as "hold, almost nothing moves". The footage is not a hold — it is a
+     performance: hand-written newspaper sheets released one at a time, Dylan cue-card
+     style. RECUERDA / EL ONLINE QUALIFIER / COMIENZA / ES DEL 18 AL 26 DE AGOSTO. But the
+     instinct was right and the stillness IS in there: measured frame-to-frame, the drops
+     spike to 35-43 and the date is then held for 3.2 seconds at a motion of 5.6-7.8.
+
+     So scroll delivers the message card by card, and then stops on the date. Nothing else:
+     no push-in, no ambient spill, no scrim tint, no added type, no frame-edge labels. Beat
+     7 had seventy-four cuts and a ticker running sideways; this has one locked frame and a
+     hand letting go of paper. That contrast IS the beat.
+
+     Spanish, and not translated — this is where the locked "Spanish where it lands hardest"
+     lands hardest, and it is hand-written by the client in the street rather than set by us. */
+  #b8{ height:520svh }
+  #b8 .stage{ background:var(--ground) }
+  /* THE ONE BEAT THAT IS NOT FULL BLEED, and the rule it breaks is worth stating.
+     Everywhere else footage is the ground and the frame crops it. Here the frame carries a
+     MESSAGE, and a cropped message is not a message. The source is 1080x1920; a 1440x900
+     viewport shows 35% of that height while the card occupies 45% of it, so cover clipped
+     ES DEL off the top and no amount of object-position could fit three lines into a band
+     that is smaller than they are. contain shows the whole card at every viewport —
+     pillarboxed on desktop, letterboxed on a phone — and the black it sits on is the same
+     black the rest of the film stands on.
+
+     It also happens to be exactly what this beat was asked to do: the opposite of
+     everything before it. The only portrait frame in the film. */
+  #b8 .plate video,#b8 .plate img{ object-fit:contain; transform:none }
+
   /* ── safety nets — everything resolves to VISIBLE ───────────────────────── */
   @media (prefers-reduced-motion:reduce){
     .beat{ height:100svh !important }
@@ -450,6 +481,16 @@
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
     <div class="b7strip"><span>REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;</span></div>
+  </div>
+</section>
+
+<!-- ─────────── BEAT 8 · THE MESSAGE ─────────── -->
+<section class="beat" id="b8" data-src="media/scrub/b08_newspaper.mp4" data-scrub-warp="0.60,0.71">
+  <div class="stage">
+    <div class="plate">
+      <img src="media/poster/b08_newspaper.jpg" alt="A hand-written newspaper sheet reading RECUERDA held up in the street">
+      <video muted playsinline preload="auto" disablepictureinpicture></video>
+    </div>
   </div>
 </section>
 

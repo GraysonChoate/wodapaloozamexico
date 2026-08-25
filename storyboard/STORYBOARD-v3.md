@@ -389,3 +389,30 @@ and `audit/sucedera-wide-AFTER.gif` show both.
 **The general lesson, and it applies to every remaining beat:** a still frame cannot approve a
 state whose whole job is to be carried by moving footage. Pick a scrub window by measuring the
 region the design actually samples, across time — not by looking at whole frames.
+
+**Beat 8 is not a hold, but the hold is in it.** v3 said "hold. Almost nothing moves." The
+footage is a *performance*: hand-written newspaper sheets released one at a time, Dylan
+cue-card style, reading **RECUERDA / EL ONLINE QUALIFIER / COMIENZA / ES DEL 18 AL 26 DE
+AGOSTO**. The instinct was right and the stillness is genuinely there — measured
+frame-to-frame across the clip, the drops spike to 35–43 and the date is then held for
+**3.2 seconds at a motion of 5.6–7.8**. So scroll delivers the message card by card and then
+stops on the date. `data-scrub-warp="0.60,0.71"` gives that final hold 40% of the beat's
+scroll for 29% of its runtime.
+
+v3's type was `THE ONLINE QUALIFIER / AUGUST 18–26`. The newspaper says it in Spanish, in the
+client's own handwriting, in the street. Nothing is added and nothing is translated — this is
+where "Spanish where it lands hardest" lands hardest.
+
+**Cut 0.00–11.20.** The film's own `WODAPALOOZA MEXICO CITY` end card fades in over the frame
+at ~11.3s once the figure has walked away, and the shot goes black at 14.53s. Ending on the
+held date keeps the performance and avoids setting the client's mark against our own.
+
+**This is the only beat in the film that is not full bleed, and it is a deliberate exception.**
+Everywhere else footage is the ground and the frame crops it. Here the frame carries a
+MESSAGE, and a cropped message is not a message: the source is 1080×1920, a 1440×900 viewport
+shows 35% of that height, and the card occupies 45% of it — so cover clipped `ES DEL` off the
+top and no `object-position` could fit three lines into a band smaller than they are.
+`object-fit: contain` shows the whole card at every viewport, pillarboxed on desktop and
+letterboxed on a phone, on the same black the rest of the film stands on. It also happens to
+be exactly what this beat was asked to be: the opposite of everything before it, and the only
+portrait frame in the film.

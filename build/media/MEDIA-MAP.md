@@ -19,7 +19,7 @@ Silent throughout — audio is stripped from every derivative, per the decision.
 | 5 | `scrub/b05b_lift.mp4` | WZA_MX_LOGO.mp4 | 31.05–31.60 | **scrub — the match cut** |
 | 6 | `scrub/b06_banner.mp4` | LONA_0198.mov | full (7.13s) | **scrub — critical** |
 | 7 | `scrub/b07_stickers.mp4` | STICKERS_03_V1.mov | full (15.73s) | scrub, warped |
-| 8 | `loop/b08_newspaper.mp4` | QUALIFIER_v3_05.mov | full | loop |
+| 8 | `scrub/b08_newspaper.mp4` | QUALIFIER_v3_05.mov | 0.00–11.20 | **scrub, warped** |
 | 10 | `loop/b10_floor.mp4` | WZA_MX_LOGO.mp4 | 0:28–0:34 | loop |
 | 11 | `scrub/b11_face.mp4` | WZA_MX_LOGO.mp4 | 0:35–0:38 | scrub |
 | 12 | `scrub/b12_zocalo_empty.mp4` | WZA_MX_LOGO.mp4 | 0:45–0:47 | scrub |
@@ -160,6 +160,12 @@ The second looked right as stills but failed in motion: the band the letterforms
 dead from 12.98–13.70s (motion ~1.5, median 41), and the old out-point at 13.20 put the widest,
 most exposed letters right in it. The window now ends on 12.26–12.53, the richest stretch of
 the shot. **Pick a scrub window by measuring the region the design samples, across time.**
+
+**Beat 8 — `0.00–11.20`, and it moved from loop to SCRUB.** The intake encode had it as a
+loop clip, which is wrong for it: this is a performance with a beginning, a message and an
+end, not a texture. The film's own end card fades in at ~11.3s once the figure walks away, and
+the shot cuts to black at 14.53s; ending on the held date keeps the performance and avoids
+putting the client's mark against ours. The old loop encode was deleted.
 
 **The general rule:** pick a scrub window for what happens *inside the letters*, not for what
 the shot looks like whole, and confirm the window against the source frame by frame.
