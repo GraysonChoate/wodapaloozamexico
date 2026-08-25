@@ -1012,19 +1012,23 @@
      and the only thing that happens is that it leaves. Perspective does the magnifying: at
      1200 a 1050px push is an eight-fold blow-up, so it genuinely passes the reader rather
      than merely getting larger. */
+  /* STRAIGHT AT THE READER. Twice I built this with `perspective()` plus `translateZ` while
+     also animating `left`/`top`, and twice it drifted off to the side — because a perspective
+     push magnifies about the element's own transform-origin, so moving the element and
+     projecting it at the same time are two transforms fighting for the same axis.
+
+     A flat badge gains nothing from a real Z push that a scale cannot give it, so this is a
+     plain scale about a box that is pinned to the exact centre of the viewport. The only other
+     movement is the small registration offset that puts it on the sticker at rest, and that
+     offset runs to zero as the push begins. Its centre is the screen's centre for the whole
+     travel, so it cannot go anywhere but at you. */
   .b7badge{
-    /* It starts registered on the sticker, which sits at 48%/48%, and travels to dead centre
-       as it pushes. Without that it magnifies about its own off-centre point, and at an
-       eight-fold blow-up a two per cent offset throws it right off the side of the screen —
-       which is exactly what it was doing. */
-    position:fixed; z-index:5; width:34vw;
-    left:calc(48% + var(--push,0) * 2%);
-    top:calc(48% + var(--push,0) * 2%);
+    position:fixed; left:50%; top:50%; width:34vw; z-index:5;
     opacity:var(--badge,0); visibility:var(--halvesvis,hidden); pointer-events:none;
-    /* perspective lives on the element's own transform, never on the stage: `perspective` on
-       an ancestor makes it a containing block for fixed descendants, which quietly re-anchored
-       the halves to the sliding stage and put the vertical travel straight back. */
-    transform:perspective(1200px) translate(-50%,-50%) translateZ(calc(var(--push,0) * 1050px));
+    transform-origin:50% 50%;
+    transform:translate(-50%,-50%)
+              translate(calc(var(--boff,1) * -2vw), calc(var(--boff,1) * -2vh))
+              scale(var(--bs,1));
   }
   .b7badge img{ width:100%; height:auto; display:block }
   @media (max-width:900px){ .b7badge{ width:39vw } }
@@ -1744,8 +1748,11 @@
         b.style.setProperty('--halvesvis', ex > 0.001 ? 'visible' : 'hidden');
         b.style.setProperty('--part', part.toFixed(4));
         b.style.setProperty('--push', push.toFixed(4));
-        /* registered and invisible at rest, gone once it is past the lens */
-        b.style.setProperty('--badge', (ex > 0.001 ? 1 - seg(ex, 0.34, 0.44) : 0).toFixed(3));
+        /* the registration offset collapses first, then it is pure growth on the centre line */
+        b.style.setProperty('--boff', (1 - Math.min(1, push / 0.25)).toFixed(4));
+        b.style.setProperty('--bs',   (1 + push * 7).toFixed(3));
+        /* it covers the screen, and only then dissipates */
+        b.style.setProperty('--badge', (ex > 0.001 ? 1 - seg(push, 0.74, 1.00) : 0).toFixed(3));
         /* What the opening uncovers is Beat 8 itself, already pinned behind and already
            running — nothing to hand over, nothing to rewind. */
       }

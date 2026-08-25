@@ -1,38 +1,42 @@
-# Beat 7 → Beat 8 — badge through the lens, street opens flat, words set as written
+# Beat 7 → Beat 8 — the badge comes straight at the reader
 
-## Three corrections
+## The badge, finally
 
-**1. The badge comes straight at the reader.** It was drifting off to the left. It sits
-registered on the sticker at 48%/48%, and `perspective()` magnifies about the element's own
-centre — so at an eight-fold blow-up a two per cent offset throws it clean off the side. It now
-travels to dead centre as it pushes: `left: calc(48% + var(--push) * 2%)`, same for top. It
-starts on the sticker and arrives at the middle of the frame.
+Twice I built this with `perspective()` plus `translateZ` while also animating `left`/`top`, and
+twice it drifted off to the side. The reason: **a perspective push magnifies about the element's
+own transform-origin**, so moving the element and projecting it at the same time are two
+transforms fighting over the same axis. Nudging `left` toward centre did not cancel that; it
+added to it.
 
-**2. The black bar of type is gone.** That was `.b7strip`, Beat 7's own marquee — absolutely
-positioned inside a stage that is *releasing*, so it rode upward while still running sideways.
-It belongs to the street beat and has no business in the handover; it clears the instant the
-split begins.
+A flat badge gains nothing from a real Z push that a scale cannot give it. So it is now a plain
+`scale()` about a box pinned to the exact centre of the viewport, with the only other movement
+being the small registration offset that puts it on the sticker at rest — and that offset runs
+to zero as the push begins.
 
-**3. The words are set the way he wrote them.**
+Measured, 1440×900 (viewport centre is 720,450):
 
-```
-RECUERDA          EL ONLINE          COMIENZA          ES DEL
-                  QUALIFIER                            18 AL 26
-                                                       DE AGOSTO
-```
+| push | badge centre | width | opacity |
+|---:|---|---:|---:|
+| 0 | 691,432 | 490 | 0 |
+| 0.04 | 696,435 | 625 | 1 |
+| 0.13 | 707,442 | 950 | 1 |
+| **0.31** | **720,450** | 1569 | 1 |
+| 0.60 | **720,450** | 2557 | 1 |
+| 0.82 | **720,450** | 3292 | 0.70 |
+| 0.94 | **720,450** | 3706 | 0.24 |
+| 1.00 | **720,450** | 3916 | 0 |
 
-Broken exactly where the sheets break. The outline is a tracing of what he is holding, so it has
-to be laid out the way he laid it out — run as one long line it stops being his handwriting and
-becomes a caption.
+It leaves the sticker, locks to the centre line by a third of the way through, and stays there
+for the whole rest of the travel — eight times its size, covering the screen, then dissipating.
+It cannot go anywhere but at the reader.
 
-## Unchanged
+## Everything else, unchanged
 
-No vertical travel: the halves are viewport-anchored and the perspective lives on the badge's own
-transform, not on the stage. Beat 8 still pins behind Beat 7 so no second frame arrives. The
-frame still grows 1 → 1.30 across the sheets. The words still push six-fold and pass the reader.
+No vertical travel. `.b7strip` clears at the split. The street opens flat, two halves outward.
+Beat 8 pins behind so no second frame arrives. The frame grows 1 → 1.30 across the sheets. Four
+words, set as written: `EL ONLINE / QUALIFIER`, `ES DEL / 18 AL 26 / DE AGOSTO`.
 
 ## Deliverables
 
-`final-{1440,375}-{fwd,rev}.mp4` — badge, book and all four sheets at normal speed.
-`opening.jpg` — twelve frames across the opening. Visual proof only; no full regression until
-the composition is accepted.
+`seq-{1440,375}-{fwd,rev}.mp4` — full pass at normal speed. `badge-push.jpg` — eight frames
+across the push. Visual proof only; no full regression until the composition is accepted.
