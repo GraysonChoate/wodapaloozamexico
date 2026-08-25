@@ -1,4 +1,4 @@
-# Beat 8 — paper as an object
+# Beat 8 — a contained portrait plate settling in sympathy with the paper
 
 Prototype 2. **Beat 8 only**, and within Beat 8 only the **first two releases**. Everything
 from `COMIENZA` onward — and the long held date above all — is byte-for-byte what it was.
@@ -17,6 +17,11 @@ So the treatment does what the paper does: a small settle that resolves to a tru
 Anything larger would be inventing physics this footage does not contain.
 
 ## What was built, and one thing that was corrected
+
+**The whole photographed frame moves.** This is not a paper cutout moving independently of its
+photograph — nothing is separated, lifted or re-timed. The contained portrait plate settles *in
+sympathy with* the sheet inside it, and the restraint is what keeps that honest: at 1.1° the
+plate agrees with the paper rather than pretending to be it.
 
 The plate arrives **contained** — slightly inset — with a small settle, then grows to its exact
 size and exactly zero rotation.
