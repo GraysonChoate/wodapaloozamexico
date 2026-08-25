@@ -2,10 +2,8 @@
 
 ## Status
 
-The four files in `Other B-Roll/` are screen recordings of streamed footage. They are visual
-reference and shot-direction material only. They must not be placed in the public build, cropped
-to hide player UI, or treated as cleared production media. Obtain the original source and web-use
-permission before implementation.
+The four files in `Other B-Roll/` are approved working material for the current refinement phase.
+They expand the available city scale and are eligible for isolated prototypes and later build use.
 
 ## What the material adds
 
@@ -16,6 +14,24 @@ It supplies the city at the scale currently missing from the film:
 - **12.35.03 AM** — sunset-to-night panorama; useful as timing and atmosphere reference, but not
   a production candidate in its current screen-recorded form.
 - **12.36.43 AM** — Zócalo pedestrian movement, flag/civic street life, Ángel and cyclists.
+
+## Exact reference shots
+
+- **Ángel pull-back — recording 1, 9.4–27.3s:** Ángel centred while Reforma recedes in a
+  symmetrical depth axis. First approved candidate for the full-bleed → contained-frame study.
+- **Mexican flag — recording 4, 2.6–5.9s:** flag on the Zócalo mast against bright sky with
+  pedestrian silhouettes below. It rhymes with the bare flagpole in client footage around
+  `45.3s` and remains a later approved candidate.
+
+## Cleared immediate alternative
+
+`WZA_MX_LOGO.mp4` already contains licensed client overhead city windows:
+
+- `39.29–40.08` — straight-down Ángel roundabout, crowd and radial geometry.
+- `41.67–43.00` — second overhead roundabout, crowd spilling into radial avenues.
+
+These are a different graphical-city scale from the Ángel pull-back and remain valuable internal
+alternatives for later framed-footage studies.
 
 ## Direction
 

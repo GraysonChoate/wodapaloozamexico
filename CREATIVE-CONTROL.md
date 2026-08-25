@@ -41,8 +41,8 @@ Current approved enhancements:
 There is no remaining required beat effect. The night-aerial Beat 1 prelude was built, reviewed,
 and rejected: it was technically clean but visually too slight to earn new scroll distance. Its
 contained-object → hard-step grammar remains useful, but must be applied only to a better source.
-The main film's unused daytime overhead windows are the first internal candidates; supplied
-screen-recorded daytime b-roll remains reference-only until original cleared media is available.
+The approved Ángel pull-back in `Other B-Roll/` is the first candidate; the main film's unused
+daytime overhead windows remain the internal alternative set.
 
 ### Client-footage coverage rule
 
@@ -152,8 +152,8 @@ the whole frame. Other material should be allowed to exist as an object:
 Every contained/multiple-frame move must explain a real relationship in the material. It may
 not become a generic carousel or a series of arbitrary thumbnails. Daytime overhead and
 foot-traffic material is a candidate for this kind of framed, spatial choreography—not an
-excuse to substitute an unrelated night aerial strip. Screen recordings remain visual
-reference only until an original, licensed source is supplied.
+excuse to substitute an unrelated night aerial strip. The supplied `Other B-Roll/` recordings
+are approved working material for this refinement phase.
 
 ## Non-negotiables
 
@@ -184,8 +184,8 @@ These streams begin **in parallel** now:
 
 1. Treat the night-aerial Beat 1 prelude as a rejected experiment, not an approved solution.
    Its contained-object → hard-step grammar may be reused only if a more appropriate source
-   earns it. Daytime b-roll screen recordings are reference only until original cleared media
-   is available.
+   earns it. The approved daytime B-roll should be used for the first contained-frame motion
+   study rather than forcing the night aerial back into service.
 2. Codex prepares a reusable campaign-print kit: source-derived references plus authored,
    generated page-owned textures and graphic components. It must be original design—not a
    reconstruction of the rulebook key art—and must obey the applied-texture boundary above.
@@ -232,8 +232,10 @@ campaign-print and action places are integrated.
 `CLIP-COVERAGE-MAP.md`. The next source pass is not about forced coverage; it identifies the
 best fragments to become contained moving frames, crop windows, or spatial plane fields.
 Daytime overhead windows at `39.29–40.08` and `41.67–43.00` in `WZA_MX_LOGO.mp4` are strong
-internal candidates. Sixteen guerrilla stills remain available for campaign-print/editorial use,
-not as excuses to add arbitrary beats.
+internal candidates. The approved Ángel pull-back in `Other B-Roll/` recording 1 (`9.4–27.3s`)
+is the first external working candidate for the full-bleed → contained-frame study; the Zócalo
+flag in recording 4 (`2.6–5.9s`) remains a later candidate. Sixteen guerrilla stills remain
+available for campaign-print/editorial use, not as excuses to add arbitrary beats.
 
 **Campaign-print world:** initial source components and original authored materials exist:
 `reference/material-components/v1/`, `reference/authored-materials/v1/`,
