@@ -33,6 +33,10 @@
 > explicit visual sentence, never as a default. Judge this in continuous normal-speed playback.
 > Beat 0's black-plate → cockpit handoff is flagged for the final whole-film review; do not
 > generalize it as permission for unexamined cuts.
+>
+> **Closing HUD decision:** `FLOOR` remains readable while Beat 13 finishes and through the
+> beginning of the genuine black hold. Release the entire HUD before the action-index hairline
+> or paper appears. The flight ends; the printed destination owns its own mark.
 
 How this build is run so an independent reviewer can audit it without taking anything on
 trust. Written for Codex; binding on Claude.

@@ -168,6 +168,13 @@ form an explicit visual sentence; it is never a default transition. Judge the tr
 continuous, normal-speed scrolling, not from isolated stills. The Beat 0 black-plate → cockpit
 handoff remains a flagged whole-film-review item, not a license to make unexamined cuts elsewhere.
 
+### Closing HUD decision
+
+The HUD belongs to the flight. Let `FLOOR` remain readable as Beat 13 finishes and the genuine
+black hold begins, then release the HUD before the action-index hairline/paper arrives. The
+printed action destination carries its own mark and must not compete with a second, floating
+film mark or an altitude instrument that has completed its job.
+
 ## Non-negotiables
 
 - English-led, Spanish where it lands hardest; words remain scarce.
