@@ -23,7 +23,7 @@ Silent throughout — audio is stripped from every derivative, per the decision.
 | 9 | `still/b09_flex.jpg` | STF00032.jpg | — | still, the figure |
 | 9 | `scrub/b09_lockout.mp4` | WZA_MX_LOGO.mp4 | 49.26–50.05 | **scrub — the second match cut** |
 | 10 | `scrub/b10_floor.mp4` | WZA_MX_LOGO.mp4 | 28.45–30.07 | scrub |
-| 11 | `scrub/b11_face.mp4` | WZA_MX_LOGO.mp4 | 0:35–0:38 | scrub |
+| 11 | `scrub/b11_face.mp4` | WZA_MX_LOGO.mp4 | 52.22–53.90 | scrub |
 | 12 | `scrub/b12_zocalo_empty.mp4` | WZA_MX_LOGO.mp4 | 0:45–0:47 | scrub |
 | 12b | `scrub/b12b_zocalo_full.mp4` | WZA_MX_LOGO.mp4 | 0:54–0:56 | **scrub — critical** |
 | 13 | `loop/b13_close.mp4` | WZA_MX_LOGO.mp4 | 0:55–0:58 | loop |
@@ -177,6 +177,10 @@ title; `31.03–31.61` is Beat 5's match cut and is spent.
 at bottom-right in **every frame**, at the same size throughout — verified by cropping the
 corner at 28.75s, 29.50s, 32.10s and 32.50s and comparing. It is in Beats 1, 2 and 4 already
 and is invisible only because those frames are dark. Do not treat it as a per-beat defect.
+
+**Beat 11 — `52.22–53.90`, not `0:35–0:38`.** The whole of 35.8–38.6 carries a burned
+`IN A CITY THAT HAS IT ALL.` title. The new window is the embrace into the confetti eruption,
+with the film's own cut at 52.59 inside it.
 
 **The general rule:** pick a scrub window for what happens *inside the letters*, not for what
 the shot looks like whole, and confirm the window against the source frame by frame.

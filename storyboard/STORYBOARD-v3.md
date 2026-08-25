@@ -493,3 +493,37 @@ shows, and containing also gives back the 10% of width cover was throwing away, 
 letter of WZA and every runner is in frame. No athlete is cropped to force consistency. The
 push-in is dropped in that branch on purpose: scaling a contained frame pushes its edges back
 outside the box and re-clips the thing this fixes.
+
+**Beat 11's numbers were factually wrong, and its window is unusable.**
+
+v3's line was `ATHLETES (2,000+) · DIVISIONS (16) · FIRST EDITION (1)`. **2,000+ is Miami's
+number, not Mexico City's.** `research/BRAND.md` is explicit: *"Parent event | Miami since
+2012 — began with 145 athletes and 500 spectators, now 2,000+ athletes and ~40,000 people
+across 55 divisions."* Mexico City is the **first** edition; it has not happened, so it has no
+attendance. Putting 2,000+ on screen beside two Mexico City figures would claim a turnout for
+an unheld event — on a page the client will see.
+
+Corrected to `DIVISIONS (16) · CITIES EVER (3) · FIRST EDITION (1)`. All three are sourced and
+all three are about this event: sixteen divisions are listed in `BRAND.md`; Miami 2012 → SoCal
+2024 → Mexico City 2026 is the third city ever; and there is exactly one first edition. It also
+funnels — 16 → 3 → 1 — which serves the "lands on 1 and stops dead" idea better than a number
+that starts in the thousands.
+
+**The window.** v3 asked for `0:36–0:37`, the celebrating athlete and the screaming face. The
+whole stretch **35.8–38.6 carries a burned `IN A CITY THAT HAS IT ALL.` title** and is
+unusable. Beat 11 is now **52.22–53.90**: two athletes holding each other, then the entire
+floor erupting in confetti, on the film's own cut. Individual, then collective — which is what
+the numbers beside it are claiming.
+
+**The framing rule the material wrote.** Beat 11 contains on landscape for the same reason
+Beat 10 does, and the pattern is now general: **dark beats cover full-bleed**, because the
+source watermark is invisible in them and nothing is lost; **bright 16:9 beats contain**,
+because cover clips the watermark and a clipped watermark reads as a mistake. Cropping it out
+of this one would have taken a woman standing on a podium with her arms up — a winner — off
+the right edge.
+
+**The stat numbers are white, not green.** Set in the brand green they measured **2.49:1** over
+the confetti. Green sits near 0.44 relative luminance and cannot clear 4.5:1 on a bright frame
+without a plate deep enough to read as a card. Colour was the wrong tool for hierarchy anyway:
+the interface here is white and black, and the green-to-blue gradient belongs to the mark and
+the altimeter instrument. Size and weight carry the emphasis instead.

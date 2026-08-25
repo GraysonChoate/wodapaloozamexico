@@ -83,7 +83,7 @@
   .alt,.mk,.b10line{ position:absolute; z-index:1 }
   .alt::before,.mk::before,
   .b1cap::before,.b2sub::before,.b3line::before,.b4copy::before,
-  .b5cap::before,.b5bcap::before,.b7strip span::before,.b10line::before{
+  .b5cap::before,.b5bcap::before,.b7strip span::before,.b10line::before,.b11stats span::before{
     content:""; position:absolute; inset:-11px -20px; z-index:-1;
     /* Size the ellipse EXPLICITLY rather than letting it default to farthest-corner. On a
        long single line the default fades out well before the last few glyphs, which is
@@ -468,6 +468,44 @@
   }
   @media (max-width:760px){ .b10line{ left:14px; bottom:22px; font-size:9px; letter-spacing:.22em } }
 
+  /* ── B11 · THE PROOF ──────────────────────────────────────────────────────
+     52.22–53.90: two athletes holding each other, then the whole floor erupting in
+     confetti. The cut between them is the film's. Individual, then collective — which is
+     what the numbers beside it are actually claiming.
+
+     v3 asked for "0:36–0:37, the celebrating athlete, then the screaming face". That whole
+     stretch, 35.8–38.6, carries a burned `IN A CITY THAT HAS IT ALL.` title across it and
+     is unusable.
+
+     Contains on landscape for the same reason Beat 10 does, and the pattern is now a rule
+     the material wrote: DARK beats cover full-bleed, because the source watermark is
+     invisible in them and nothing is lost; BRIGHT 16:9 beats contain, because cover clips
+     the watermark and a clipped watermark reads as a mistake. Cropping it out here would
+     have taken a woman standing on a podium with her arms up — a winner — off the right
+     edge. No push-in, for the reason given in Beat 10. */
+  #b11{ height:460svh }
+  #b11 .plate video,#b11 .plate img{ transform:scale(calc(1.02 + var(--p) * .05)) }
+  @media (min-aspect-ratio: 11/10) and (max-aspect-ratio: 16/9){
+    #b11 .plate video,#b11 .plate img{ object-fit:contain; transform:none }
+  }
+  .b11stats{
+    position:absolute; z-index:5; left:0; right:0; bottom:11vh;
+    display:flex; gap:clamp(18px,5vw,72px); justify-content:center; flex-wrap:wrap;
+    font:700 11px/1 "JetBrains Mono",ui-monospace,monospace;
+    letter-spacing:.26em; text-transform:uppercase;
+  }
+  .b11stats span{ position:relative; z-index:1; opacity:0; color:rgba(255,255,255,.66) }
+  /* The numbers were green and measured 2.49:1 over the confetti. Green sits near 0.44
+     relative luminance and cannot clear 4.5:1 on a bright frame without a plate deep enough
+     to read as a card. Colour was the wrong tool for hierarchy anyway: the interface here is
+     white and black, and the green-to-blue gradient belongs to the mark and the altimeter
+     instrument. Size and weight carry the emphasis instead. */
+  .b11stats b{ font-weight:700; color:#fff; font-size:15px; letter-spacing:.06em }
+  @media (max-width:760px){ .b11stats b{ font-size:12px } }
+  @media (max-width:760px){
+    .b11stats{ bottom:9vh; gap:10px; font-size:9px; letter-spacing:.16em }
+  }
+
   /* ── safety nets — everything resolves to VISIBLE ───────────────────────── */
   @media (prefers-reduced-motion:reduce){
     .beat{ height:100svh !important }
@@ -484,6 +522,7 @@
     .b7strip span{ transform:none !important }
     .b9type{ opacity:1 !important }
     .b10line{ opacity:1 !important }
+    .b11stats span{ opacity:1 !important }
     .b9wash{ opacity:.55 !important }
     #b6 .plate video,#b6 .plate img{ object-position:50% 50% !important }
   }
@@ -627,6 +666,21 @@
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
     <p class="b10line">Celebrate fitness. Community. Life.</p>
+  </div>
+</section>
+
+<!-- ─────────── BEAT 11 · THE PROOF ─────────── -->
+<section class="beat" id="b11" data-src="media/scrub/b11_face.mp4">
+  <div class="stage">
+    <div class="plate">
+      <img src="media/poster/b11_face.jpg" alt="Two athletes holding each other on the competition floor">
+      <video muted playsinline preload="auto" disablepictureinpicture></video>
+    </div>
+    <div class="b11stats">
+      <span data-count="16">Divisions (<b>16</b>)</span>
+      <span data-count="3">Cities ever (<b>3</b>)</span>
+      <span data-count="1">First edition (<b>1</b>)</span>
+    </div>
   </div>
 </section>
 
@@ -834,6 +888,22 @@
       const onScreen = r.top < H && r.bottom > 0;
       if (onScreen) fitWord(b, p);
       if (b.id === 'b5') identityLoop(b, p, r.top < H * 1.6 && r.bottom > -H * 0.6);
+
+      if (b.id === 'b11') {
+        /* The numbers count up as each one arrives, then the last lands on 1 and stops.
+           Driven from position, like everything else, so it counts back down on the way up
+           rather than being a one-shot that dies when you scroll away and return. */
+        const stats = b.querySelectorAll('.b11stats span');
+        stats.forEach((el, i) => {
+          const a = 0.20 + i * 0.13, arrive = seg(p, a, a + 0.16);
+          el.style.opacity = arrive.toFixed(3);
+          const target = +el.dataset.count;
+          const shown = Math.max(1, Math.round(target * arrive));
+          const num = el.querySelector('b');
+          const txt = target > 100 ? shown.toLocaleString('en-US') : String(shown);
+          if (num.textContent !== txt) num.textContent = txt;
+        });
+      }
 
       if (b.id === 'b9') {
         /* type in, hold, then OUT — the beat has to end on the figure alone and still
