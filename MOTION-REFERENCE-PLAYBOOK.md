@@ -38,6 +38,8 @@ The transferable grammar is:
 - full bleed → contained plate/card
 - split/crop window
 - restrained perspective tilt, rotate, then lock
+- authored entry/exit trajectories: off-axis drift, diagonal recession, shallow orbital/spiral
+  settle, or asymmetrical edge arrival—never “the box scales” as a default
 - foreground / type / ground planes moving at subtly different rates
 - typography behind a source-supported silhouette
 - scale-through transition
@@ -49,23 +51,37 @@ The transferable grammar is:
 Do not imitate the references' footage, fixed side rails, ecommerce UI, or dark studio
 styling. Use their **grammar**, not their surface.
 
-## Current phase: prove depth before decorating
+## The reusable motion scale
 
-The immediate proof is **Beat 9**, not Beat 2.
+Every transition must be selected from a deliberate scale, then adapted to the source rather
+than improvised as another centre collapse:
 
-`STF00032` contains real optical depth: city and Ángel behind, then the hood/raised fists and
-trees in the foreground. Build the Spanish line as spatial typography within that one honest
-frame:
+1. **Editorial breath** — a real black hold, release, or stillness when the narrative needs air.
+2. **Registration** — bars, crop edges, or print marks align one state into the next.
+3. **Spatial lock** — an object settles by diagonal, offset, shallow orbit, or rotation before
+   becoming perfectly flat and legible.
+4. **Aperture replacement** — one image becomes the next inside a shared physical window.
+5. **Scale-through** — a contained object expands into a new world, or a world recedes to reveal
+   the page it was printed on.
 
-- type in front of the city and Ángel
-- type behind hood, fists, and source-supported foreground trees
-- type in the open sky band where it remains readable
-- no broad rotoscoping, fake light, or fabricated scene
-- CSS/SVG/CSS 3D first; no Three.js unless CSS demonstrably cannot achieve the approved result
+Each move must explain the relationship between its two scenes. A spiral or rotation is valid
+only when it helps the object find its locked position; it is never a decorative loop.
 
-Beat 2's night aerial does **not** support a clean Ángel matte. Its late frames move to office
-towers; early monument edges cross lit façades. Do not composite the daylight Ángel into the
-night aerial. Beat 2 may later receive type/footage parallax and aperture framing only.
+## Current phase: variation before distribution
+
+The depth proofs are complete: Beat 2's aperture parallax, Beat 5's CSS-3D grid, Beat 8's
+contained paper, Beat 9's foreground occlusion, and Beat 12's framed reveal are approved base
+grammar. The whole-film audit found the remaining weakness: generic black dips at most seams.
+
+The active work is limited to the two proofs in `TRANSITION-PASS-BRIEF.md`:
+
+- Beat 0 → 1 must compare diagonal registration, recessed-plate, and windshield-lock movement;
+  a simple centred collapse does not pass by default.
+- Beat 6 → 7 must register banner claim into street placement through a motivated crop/aperture.
+
+After review, prototype only the contained civic-flag pause in
+`MIDFILM-FRAME-SELECTION.md`. The Reforma day-to-night city clock is held for a later narrative
+job, not added for visual variety.
 
 ## Enhancement map
 
@@ -73,19 +89,24 @@ Apply a new technique only where it has a specific narrative job.
 
 | Beat | Proposed enhancement | Narrative job |
 |---|---|---|
-| 1 (conditional) | unused early wide drone shot as a short contained-frame prelude that expands/folds into cockpit | exterior city → interior arrival; only after raw-footage review |
-| 2 | `SUCEDERÁ` width/aperture plus subtle type-to-footage parallax | city opens through the word; no monument cutout |
-| 5 | nine identity panels arrive as offset perspective planes, register, then collapse through centre to athlete | identity becomes competitor |
-| 8 | real newspaper sheets as physical cards: slight angles, overlap, real paper shadow/edge | qualification is a human message, not a UI card |
-| 9 | spatial Spanish typography using `STF00032` subject/Ángel/sky layers | belonging becomes embodied |
-| 12 | empty Zócalo begins as a contained architectural plate, widens, then hard-replaces with full square | city occupancy revealed, not dissolved |
-| 13 | restrained final editorial index on footage-supplied black | official action without breaking the film |
+| 0 → 1 | compare diagonal registration, recessed plate, and windshield lock | printed city becomes the descent view without a default box-collapse |
+| 2 | `SUCEDERÁ` width/aperture plus subtle type-to-footage parallax | city opens through the word |
+| 5 | nine identity panels arrive as CSS-3D planes, register, then dive through centre | identity becomes competitor |
+| 6 → 7 | temporary registration aperture | banner claim becomes mark placement |
+| 8 | real newspaper sheets treated as contained paper | qualification is a human message, not a UI card |
+| 9 | spatial Spanish typography using `STF00032` foreground | belonging becomes embodied |
+| 12 | contained architectural plate widens, then hard-replaces with full square | city occupancy revealed, not dissolved |
+| 13 → action | intentional black breath and released HUD into editorial index | official action without breaking the film |
+| Act III, next | contained civic flag plate | civic scale before the paper message |
 
-No other beat should receive a new effect until these prove their value.
+Do not distribute this grammar broadly. The transition pass, then the single civic-flag
+interruption, must prove their value before a second-wave city-clock or utility-rail treatment is
+considered.
 
 ## Source-first material rules
 
-Textures are not a separate decoration pass and do not require generated imagery or credits.
+Textures are a page-owned material system, not a blanket decoration pass. Use supplied source
+material and original generated campaign-print assets where they create a clear physical place.
 
 1. **Harvest real material first.**
    - Beat 6: limestone/stone, banner fabric, real printed halftone and ink.
@@ -138,8 +159,9 @@ content, generic typography, or operational pages before those Mexico facts exis
 
 - Source-native colour stays untouched. Applied UI remains green → blue, black, white, and neutral.
 - No artificial grading, fake lighting, or a composite scene that never occurred.
-- No unlicensed outside footage or generated imagery that impersonates documentary source
-  material. Original page-owned campaign-print graphics are allowed under the material rules.
+- The supplied `Other B-Roll/` material is approved working material for this refinement phase.
+  Original page-owned campaign-print graphics are allowed; they must not impersonate a
+  documentary source or invent event facts.
 - No invented venue, attendance, sponsors, schedule, or event facts.
 - Black holds, hard cuts, and quiet beats are intentional; do not soften every transition.
 - Scroll must remain smooth, reversible, accessible, and readable at desktop and mobile sizes.
