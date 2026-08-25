@@ -41,8 +41,10 @@ Current approved enhancements:
 There is no remaining required beat effect. The night-aerial Beat 1 prelude was built, reviewed,
 and rejected: it was technically clean but visually too slight to earn new scroll distance. Its
 contained-object → hard-step grammar remains useful, but must be applied only to a better source.
-The approved Ángel pull-back in `Other B-Roll/` is the first candidate; the main film's unused
-daytime overhead windows remain the internal alternative set.
+The approved Ángel pull-back in `Other B-Roll/` is now the live **Beat 0** opening: full bleed
+→ framed print object → black plate → cockpit handoff. The clean source window is `10.0–27.3s`;
+the earlier `9.4s` ledger in-point was inside the whip transition and was corrected. The main
+film's unused daytime overhead windows remain the internal alternative set for later work.
 
 ### Client-footage coverage rule
 
@@ -183,9 +185,8 @@ are approved working material for this refinement phase.
 These streams begin **in parallel** now:
 
 1. Treat the night-aerial Beat 1 prelude as a rejected experiment, not an approved solution.
-   Its contained-object → hard-step grammar may be reused only if a more appropriate source
-   earns it. The approved daytime B-roll should be used for the first contained-frame motion
-   study rather than forcing the night aerial back into service.
+   The approved daytime Ángel pull-back has replaced its role as Beat 0 and hands into the
+   untouched cockpit descent. Do not revive the night aerial.
 2. Codex prepares a reusable campaign-print kit: source-derived references plus authored,
    generated page-owned textures and graphic components. It must be original design—not a
    reconstruction of the rulebook key art—and must obey the applied-texture boundary above.
@@ -224,18 +225,20 @@ superseding earlier prompts where they differ. No agent may continue from a stal
 ## Current immediate status — refinement checkpoint
 
 **Base film:** all thirteen beats are built. Beat 2, 5, 8, 9, and 12 are approved motion
-treatments. The night-aerial Beat 1 prelude is a rejected experiment and has been reverted.
-The baseline full-film review is complete; the final whole-film review happens after the new
-campaign-print and action places are integrated.
+treatments. Beat 0 is now integrated at commit `06aed29`: Ángel full bleed → print-frame hold
+→ black plate → cockpit. The HUD and altimeter are absent throughout Beat 0 and begin only with
+the aircraft; the altimeter stays flat at `2,240` until that handoff. The night-aerial Beat 1
+prelude remains rejected and reverted. The baseline full-film review is complete; the final
+whole-film review happens after the final action place is integrated.
 
 **Footage:** every delivered client video source has an intentional home in
 `CLIP-COVERAGE-MAP.md`. The next source pass is not about forced coverage; it identifies the
 best fragments to become contained moving frames, crop windows, or spatial plane fields.
 Daytime overhead windows at `39.29–40.08` and `41.67–43.00` in `WZA_MX_LOGO.mp4` are strong
-internal candidates. The approved Ángel pull-back in `Other B-Roll/` recording 1 (`9.4–27.3s`)
-is the first external working candidate for the full-bleed → contained-frame study; the Zócalo
-flag in recording 4 (`2.6–5.9s`) remains a later candidate. Sixteen guerrilla stills remain
-available for campaign-print/editorial use, not as excuses to add arbitrary beats.
+internal candidates. The approved Ángel pull-back in `Other B-Roll/` recording 1 (`10.0–27.3s`)
+is now the live opening, not a candidate; the Zócalo flag in recording 4 (`2.6–5.9s`) remains a
+later candidate. Sixteen guerrilla stills remain available for campaign-print/editorial use, not
+as excuses to add arbitrary beats.
 
 **Campaign-print world:** initial source components and original authored materials exist:
 `reference/material-components/v1/`, `reference/authored-materials/v1/`,

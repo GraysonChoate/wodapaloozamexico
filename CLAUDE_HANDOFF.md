@@ -20,10 +20,11 @@
 > Fullscreen is now a choice, not the default. A source fragment may be a contained moving plate,
 > crop window, shallow plane field, physical poster/sticker/paper object, or editorial pause when
 > it has a real narrative reason. Do not build a generic carousel. The supplied `Other B-Roll/`
-> recordings are approved working material for this refinement phase. Use recording 1's Ángel
-> pull-back (`9.4–27.3s`) for the first isolated full-bleed → contained-frame study; recording
-> 4's Zócalo flag (`2.6–5.9s`) is a later candidate. The main film's unused daytime overhead
-> windows remain an additional internal candidate set.
+> recordings are approved working material for this refinement phase. Recording 1's Ángel
+> pull-back (`10.0–27.3s`) is now integrated as Beat 0: full bleed → framed print object →
+> black plate → untouched cockpit handoff. Do not retune it without review. Recording 4's Zócalo
+> flag (`2.6–5.9s`) is a later candidate. The main film's unused daytime overhead windows remain
+> an additional internal candidate set.
 
 How this build is run so an independent reviewer can audit it without taking anything on
 trust. Written for Codex; binding on Claude.

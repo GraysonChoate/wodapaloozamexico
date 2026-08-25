@@ -3,15 +3,16 @@
 This is a selection list, not a mandate to add every item. It identifies footage that becomes
 more useful when treated as a designed object instead of a mandatory full-screen beat.
 
-## First proof — build next
+## First proof — integrated as Beat 0
 
 | Source | Window | Object | Narrative role | Move |
 |---|---:|---|---|---|
-| Other B-Roll recording 1 | 9.4–27.3s | Ángel pull-back / Reforma axis | city at scale, before the event claims it | full bleed → contracts into a wide framed editorial object → hold → release |
+| Other B-Roll recording 1 | 10.0–27.3s | Ángel pull-back / Reforma axis | city at scale, before the event claims it | full bleed → contracts into a wide framed editorial object → black plate → cockpit handoff |
 
-The frame should retain the Ángel’s central axis and the avenue’s recession; type, if any, sits
-beside the centre rather than over the statue. The page-owned print field begins outside the image
-and becomes visible only as the frame contracts.
+The frame retains the Ángel’s central axis and the avenue’s recession; `El Ángel` is captioned
+below the plate, never over the statue. The page-owned print field begins outside the image and
+becomes visible only as the frame contracts. The black-plate state matches the cockpit window in
+shape and position, allowing a hard editorial handoff without retuning Beat 1.
 
 ## Second-wave candidates — do not build until the first proof is reviewed
 
