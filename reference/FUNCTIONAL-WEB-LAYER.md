@@ -38,7 +38,28 @@ not borrow its portal look, sponsor clutter, or conventional event-site layout.
   supplied.
 - Instagram and Asdeporte remain supporting utilities at the ending, not repeated floating CTAs.
 
-### 4. Mobile behavior
+### 4. Editorial information rails
+
+The film also needs moving, useful information between its large image states. These are not
+sponsor marquees or filler; each rail earns its place by carrying a verified fact, an action, or
+a change of chapter. They supply the web-like density the cinematic frames deliberately leave
+open.
+
+- **Qualifier rail:** `ONLINE QUALIFIER · AUGUST 18–26 · ENTER ↗` only where the qualifier
+  message and verified CompetitionCorner action are relevant.
+- **Event rail:** `MEXICO CITY · DECEMBER 4–6 · 2026` only at the city/date turn, never as a
+  permanent crawl.
+- **Proof rail:** verified event facts such as `16 DIVISIONS · THIRD CITY · FIRST EDITION`, used
+  once in the proof world—not repeated as stats everywhere.
+- **Credit/partner rail:** only with confirmed official assets and destinations. Until a sponsor
+  system is supplied, do not invent a sponsor strip to imitate SoCal.
+
+Rails may travel sideways, clip through a registration aperture, or lock to the edge of a framed
+plate. They must pause long enough to read, then exit with the frame relationship; they cannot
+be a permanently scrolling ticker. Use the campaign-print system sparingly—ink, rule, and
+registration logic—not a loud branded bar at every beat.
+
+### 5. Mobile behavior
 
 On mobile, retain the mark and a single `QUALIFIER ↗` control; open the index from the mark. The
 position readout may collapse to a thin progress rule. Controls must remain reachable without

@@ -224,8 +224,9 @@ Then:
    candidate only if that review identifies a real narrative job for it.
 
 The later functional layer is defined in `reference/FUNCTIONAL-WEB-LAYER.md`: a minimal
-orientation/action rail and an editorial section index, not a conventional header. It is not
-authorized to enter the live film before the transition and mid-film-frame work is reviewed.
+orientation/action rail, editorial section index, and a small set of fact/action-led moving
+information rails—not a conventional header or decorative sponsor ticker. It is not authorized
+to enter the live film before the transition and mid-film-frame work is reviewed.
 
 ## Mandatory decision check
 
