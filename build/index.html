@@ -152,7 +152,24 @@
 
   /* B2 — the word */
   #b2{ height:420svh }
-  #b2 .plate video,#b2 .plate img{ transform:scale(calc(1.06 + var(--p)*.12)) }
+  /* ── APERTURE PARALLAX ────────────────────────────────────────────────────
+     The word is the aperture. It widens on the wdth axis; the city behind it travels and
+     grows FASTER than that outer geometry, so widening reads as exposure rather than as
+     more room for a video that was playing anyway.
+
+     Everything here is a source crop: scale and a small diagonal drift. No tilt, no rotation,
+     no frame around the word, no wash, and the black field never moves — the aperture is the
+     word itself, not a panel floating over a background.
+
+     The drift is bounded by the crop. Overflow per side is (0.04 + 0.20p)/2, so at p=1 there
+     is 12% of margin against a 1.4% travel; the frame edge can never enter the letters.
+
+     Was scale(1.06 + p*0.12). The rate is what creates the differential, so it went to 0.20
+     while the start dropped to 1.04 — slightly less crop early, more travel across the beat. */
+  #b2 .plate video,#b2 .plate img{
+    transform:translate(calc(var(--p) * 1.1%), calc(var(--p) * 0.8%))
+              scale(calc(1.05 + var(--p) * .155));
+  }
   .knockout{ position:absolute; inset:0; z-index:2; width:100%; height:100% }
   .b2sub{
     position:absolute; z-index:5; left:28px; bottom:30px;

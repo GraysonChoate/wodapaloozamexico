@@ -215,3 +215,29 @@ and no concurrent edits to the build.
 **Claude: read this document and `MOTION-REFERENCE-PLAYBOOK.md` before touching Beat 5. Build
 only Beat 5’s CSS-3D grid prototype next. When done, stop and ship the specified audit package
 for independent review.**
+
+## Checkpoint — do not lose this context
+
+This section records the project state after the first enhancement reviews. It is a direction
+checkpoint, not a new request to alter approved work.
+
+**Approved and locked:**
+
+- Beat 5 — shallow CSS-3D identity planes → exact grid lock → centre scale-through to athlete.
+- Beat 8 — contained portrait plate settles in sympathy with the real paper; held date remains
+  untouched.
+- Beat 9 — foreground-subject occlusion; type is behind hood/fists/trees, not behind the Ángel.
+- Beat 12 — contained Zócalo photograph widens → held empty → hard same-box full replacement →
+  date.
+
+**Remaining source-supported work:**
+
+- Beat 2 aperture parallax only (`BEAT02-APERTURE-BRIEF.md`).
+- Beat 1 drone prelude only after raw source at 0:00–0:03.8 is inspected and earns it.
+- Final action-index correction (`FINAL-ACTION-INDEX-BRIEF.md`); do not guess the incomplete
+  Pre-Registro URL.
+- End-to-end creative/pacing review (`FINAL-FILM-AUDIT-PROTOCOL.md`) using continuous normal
+  desktop and mobile scroll recordings, not only beat-level clips or fast stress tests.
+
+The unfilled reference-language gap is a true full-bleed → contained-frame collapse. The Beat 1
+drone prelude is the only current candidate that can earn it. Do not force that move elsewhere.
