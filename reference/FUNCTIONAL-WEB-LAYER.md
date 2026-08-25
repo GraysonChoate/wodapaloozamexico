@@ -57,7 +57,9 @@ open.
 Rails may travel sideways, clip through a registration aperture, or lock to the edge of a framed
 plate. They must pause long enough to read, then exit with the frame relationship; they cannot
 be a permanently scrolling ticker. Use the campaign-print system sparingly—ink, rule, and
-registration logic—not a loud branded bar at every beat.
+registration logic—not a loud branded bar at every beat. Start with
+`reference/authored-materials/v1/editorial-rail-field-01.png` as the reading ground; it is a
+page-owned strip with a clear central band, not a stock sponsor treatment.
 
 ### 5. Mobile behavior
 

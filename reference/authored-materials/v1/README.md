@@ -42,3 +42,10 @@ Quiet wide off-white paper with edge-only registration marks, a small cyan ink b
 halftone cluster. This is the reading ground for the final action index or another factual pause:
 large official mark, four clear actions, and ample untouched space. It must remain quiet; it is
 not a transition effect or a full-page texture.
+
+## `editorial-rail-field-01.png`
+
+Original ultra-wide information-rail field: warm paper, thin black ink rules, cyan/magenta
+screenprint energy, tiny yellow registration marks, and a deliberately clear central reading
+band. It supports one short useful line—qualifier, date, or proof—when that line travels with a
+designed frame relationship. It is not a sponsor strip, continuous ticker, or generic banner.
