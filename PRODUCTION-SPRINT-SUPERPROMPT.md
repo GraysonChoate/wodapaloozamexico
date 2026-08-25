@@ -52,13 +52,13 @@ integration. If a test is flaky but no visual defect is demonstrated, record it 
 
 ## Build order — execute in this order
 
-### 1. Audit the two new joins quickly and visibly
+### 1. Audit the two new joins quickly and visibly — COMPLETE
 
 Deliver one normal-speed desktop recording that includes both joins, plus a mobile check. Judge
-the opening by the quality bar: it must not merely shrink to a centred box over empty space. If
-the approved aperture still feels too generic, choose the best source-compatible motion form:
-diagonal registration, recessed asymmetric plate, or windshield lock. Do not start a prolonged
-test-engineering cycle.
+the opening by the quality bar: it must not merely shrink to a centred box over empty space. The
+accepted result is **windshield lock**: the cockpit is held inside the city aperture, then its
+horizontal edges release. Beat 6 → 7 is accepted as banner → vertical strip → pole → open. Do not
+revisit either now; proceed directly to the flag proof.
 
 ### 2. Build the single mid-film framed interruption: civic flag
 

@@ -44,12 +44,13 @@
 > beginning of the genuine black hold. Release the entire HUD before the action-index hairline
 > or paper appears. The flight ends; the printed destination owns its own mark.
 >
-> **Current transition state:** the two targeted joins are built at `ecc539b` and await visual
-> review. The Beat 0 proof must still satisfy the quality bar: a symmetric centred collapse into
-> empty space is not accepted by default. Treat `MOTION-REFERENCE-PLAYBOOK.md` as binding:
+> **Current transition state:** the two targeted joins at `ecc539b` are visually accepted. Beat
+> 0 → 1 uses the chosen windshield lock—cockpit inside the existing city aperture, then a
+> horizontal release—not a symmetric centre collapse. Beat 6 → 7 reads banner → vertical
+> registration strip → pole → open. Treat `MOTION-REFERENCE-PLAYBOOK.md` as binding:
 > entrances and exits need authored trajectories—diagonal, asymmetric, shallow orbital/spiral,
-> rotational-lock, or aperture replacement—not generic boxes scaling in and out. After the join
-> review, follow `PRODUCTION-SPRINT-SUPERPROMPT.md`; the selected next source treatment is the
+> rotational-lock, or aperture replacement—not generic boxes scaling in and out. Follow
+> `PRODUCTION-SPRINT-SUPERPROMPT.md`; the selected next source treatment is the
 > contained civic-flag interruption, while Reforma remains second-wave.
 
 > **Speed override — active:** We have a short production window. Do not run the entire regression

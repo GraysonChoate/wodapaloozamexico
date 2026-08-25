@@ -265,11 +265,10 @@ treatments. Beat 0 is now integrated at commit `06aed29`: Ángel full bleed → 
 the aircraft; the altimeter stays flat at `2,240` until that handoff. The night-aerial Beat 1
 prelude remains rejected and reverted. The final action place and HUD release are integrated.
 The first uninterrupted whole-film audit is complete at `audit/whole-film/` (commit `3176477`):
-it found an overused generic black dip at thirteen of fourteen boundaries. The immediate
-transition pass is deliberately limited to Beat 0 → 1 and Beat 6 → 7 before any new effect is
-added. The opening cannot be approved merely because a city plate collapses into a centred box:
-the transition pass must compare source-compatible diagonal-registration, recessed-plate, and
-windshield-lock forms, then retain only the strongest normal-speed result.
+it found an overused generic black dip at thirteen of fourteen boundaries. The transition pass
+was deliberately limited to Beat 0 → 1 and Beat 6 → 7; it selected windshield lock for the
+opening after comparison against diagonal-registration and recessed-plate forms. The result is
+accepted for this sprint and must not be reopened before the civic-flag proof.
 
 **Footage:** every delivered client video source has an intentional home in
 `CLIP-COVERAGE-MAP.md`. The next source pass is not about forced coverage; it identifies the
@@ -303,9 +302,11 @@ behavior, transitions, and responsiveness.
 
 **Immediate transition pass:** The final review at `audit/whole-film/` (commit `3176477`) found
 one structural defect: thirteen boundaries shared the same generic black dip. The two
-highest-value proofs—Beat 0 → 1 and Beat 6 → 7—are built at `ecc539b` and await visual review.
-Do not let the audit turn into test-engineering; once visually accepted, continue the active
-sequence in `PRODUCTION-SPRINT-SUPERPROMPT.md`.
+highest-value proofs—Beat 0 → 1 and Beat 6 → 7—are built at `ecc539b` and visually accepted.
+Beat 0 → 1 is a windshield-lock: cockpit held in the existing city aperture, then a horizontal
+release into the full cockpit—not a default centre collapse. Beat 6 → 7 reads banner → vertical
+registration strip → pole → open. Do not spend further production time revisiting either; proceed
+to the civic-flag interruption in `PRODUCTION-SPRINT-SUPERPROMPT.md`.
 
 Live work products: `reference/FRAMED-FOOTAGE-CHOREOGRAPHY.md`,
 `reference/OTHER-BROLL-INTAKE.md`, `reference/CAMPAIGN-MATERIAL-MAP.md`,
