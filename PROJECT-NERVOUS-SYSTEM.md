@@ -101,19 +101,21 @@ current official logo files and placement must be confirmed from Mexico's offici
 before a partner treatment is built. Never import SoCal's sponsor logos or assume its roster
 transfers.
 
-`reference/prototypes/proof-constellation-motion.html` is the non-card motion study for this
-fact set: a night-city field establishes first, then collapses symmetrically before `16`, `3`,
-and `1` arrive sequentially as footage-filled structural planes. Different vectors are a
-site-wide vocabulary, not an instruction for every element to animate at once. It is a reference
-for a later proof moment, not authorization to alter a locked beat or add an unverified partner
-wall.
+`reference/prototypes/proof-constellation-motion.html` is now a non-card **date** motion study:
+a night-city field establishes first, then collapses symmetrically before the paired, aligned
+`04 / DECEMBER 4` and `06 / DECEMBER 6` date planes arrive. `DECEMBER / 2026` is the contextual
+sign-off. Date is immediately useful; `16 / 3 / 1` remains a later proof fact set rather than a
+cryptic opening-style number composition. Different vectors are a site-wide vocabulary, not an
+instruction for every element to animate at once. This study is a reference for a later date
+moment, not authorization to alter a locked beat or add an unverified partner wall.
 
 That study uses only the clean 3.0–8.4s city window in
 `reference/prototypes/media/mexico-city-timelapse-clean.mp4`: it trims the recording before its
 unrelated YouTube recommendation end-screen and physically removes the lower player area. The
-city playhead is scroll-driven, not an autonomous looping background. Its composition is one
-dominant fact at a time—city → `16 / DIVISIONS` → `3 / THIRD CITY` → `1 / FIRST EDITION`—with no
-floating collage boxes.
+city playhead is scroll-driven, not an autonomous looping background. It lives inside the date
+planes because the city clock and the event date make one intelligible statement. Select imagery
+only after considering the scene it will lead into; no unrelated image is allowed merely to fill
+a numeral.
 
 - kinetic persistent utility rail: mark/menu, quiet current-place/progress readout, and one real
   `QUALIFIER ↗` escape hatch; it changes contrast against its environment and moves in as one
