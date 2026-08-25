@@ -28,6 +28,14 @@ mustard registration hits. Its open upper-right/centre is reserved for a contain
 or a compact mobile reading surface. Use it when a vertical frame needs to enter as a physical
 campaign object; do not put it behind ordinary captions.
 
+## `civic-flag-field-01.png`
+
+Original portrait civic-print field: warm fibrous paper with a deliberately quiet centre,
+surrounded by black dry ink, cyan brush, magenta halftone/spray, small yellow registration ticks,
+and imperfect overprint. It was authored specifically for the contained Zócalo flag plate between
+Beat 7 and Beat 8. The centre must remain visually open for the ungraded flag footage; this is a
+physical page around the image, never colour treatment on the image.
+
 ## `action-paper-01.png`
 
 Quiet wide off-white paper with edge-only registration marks, a small cyan ink block and magenta

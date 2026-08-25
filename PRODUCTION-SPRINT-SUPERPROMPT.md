@@ -72,8 +72,8 @@ Build it as a tall contained moving flag plate—not another full-screen city cl
 
 1. Beat 7 releases through a registration/crop relationship; no generic dip.
 2. The flag plate arrives offset or on a shallow controlled trajectory and locks flat. The pole is
-   the vertical axis. Use `reference/authored-materials/v1/poster-edge-vertical-01.png` as the
-   initial surrounding print field.
+   the vertical axis. Use `reference/authored-materials/v1/civic-flag-field-01.png` as the
+   surrounding print field; `poster-edge-vertical-01.png` is the quieter fallback.
 3. Keep the photograph ungraded. Let the flag, open sky, silhouettes, and passing pedestrians do
    the work. No nationalist bumper, no new slogan, no invented copy.
 4. Hold long enough to be an actual place, then give way purposefully to Beat 8's real paper

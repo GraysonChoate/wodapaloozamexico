@@ -24,9 +24,9 @@ is delivered.*
 **Choreography to test after the transition pass:**
 
 1. The active street material releases into a tall/contained flag plate on black or a quiet
-   campaign-print field—never a generic hard cut. Start with
-   `reference/authored-materials/v1/poster-edge-vertical-01.png`; generate no additional
-   decorative surface unless this existing field proves too quiet for the plate.
+   campaign-print field—never a generic hard cut. Start with the dedicated
+   `reference/authored-materials/v1/civic-flag-field-01.png`; its quiet centre is made for this
+   ungraded portrait plate. `poster-edge-vertical-01.png` remains the quieter fallback.
 2. The physical pole becomes the organizing vertical; the plate may rise or lock with a light
    registration edge, but the footage is never tinted, graded, or over-decorated.
 3. Hold long enough to register sky, flag, and people crossing. No new slogan is required.
