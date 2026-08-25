@@ -81,6 +81,13 @@ which is the reviewer's call, not Claude's.
 - **Silent.** No audio anywhere.
 - **English-led**, Spanish where it lands hardest.
 - **No invented venue.** None is public.
+- **The source watermark.** `WZA_MX_LOGO.mp4` burns a `WODAPALOOZA MEXICO CITY` lockup at
+  x 81.8%–98.6% of **every frame**. It is documentary material, not an interface element.
+  Crop it when the natural framing already removes it; keep it when removing it would damage
+  the shot; **never retouch it and never cover it**; and if it competes with our own mark,
+  move or reduce *ours*. A partially clipped watermark is the one unacceptable state — it
+  reads as a mistake. Fix that by framing, not by retouching.
+
 - **No outside footage, no generated imagery.** Every pixel is the client's. The crop is the
   design. If a beat needs something the material does not contain, the beat changes — the
   material does not get fabricated to fit it.

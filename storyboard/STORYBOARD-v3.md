@@ -473,9 +473,23 @@ there because those frames are dark. Beat 10 is the first bright full-bleed beat
 — and because cover crops the sides on desktop, it shows *clipped*, which reads as an accident
 rather than as a watermark.
 
-Beats 5b and 9 crop the right 15% to remove it. Beat 10 does not, because the crop would take
-the final `A` of the WZA letters and two of the athletes running through them. The working
-principle is: **crop where it costs nothing and the mark sits beside our own in a tight frame;
-keep the composition otherwise, since it is the client's own watermark on the client's own
-film.** That is a defensible line but it is a direction call, not a technical one, and the
-inconsistency is real. Flagged rather than smoothed over.
+**Settled by review.** The rule is now:
+
+1. Crop it when the natural framing already removes it.
+2. Keep it when removing it would damage the shot.
+3. Never retouch it and never cover it.
+4. If it competes with our own mark, move or reduce **our** mark — never the footage.
+
+Review also caught what was actually wrong with Beat 10: not that the watermark was present,
+but that it was **clipped**. It read `WODAPALO…`, which looks like a mistake rather than like
+a source mark. Measured per viewport:
+
+    desktop 1440x900   cover shows x  5.0%–95.0%   clips 21% of the mark
+    mobile  375x812    cover shows x 37.0%–63.0%   the mark is out of frame entirely
+
+So Beat 10 now **contains on a landscape screen** — 1440×810 inside 900, forty-five pixels of
+letterbox — and keeps cover on a portrait one, where rule 1 already applies. The whole mark
+shows, and containing also gives back the 10% of width cover was throwing away, so every
+letter of WZA and every runner is in frame. No athlete is cropped to force consistency. The
+push-in is dropped in that branch on purpose: scaling a contained frame pushes its edges back
+outside the box and re-clips the thing this fixes.

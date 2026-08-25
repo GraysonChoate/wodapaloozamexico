@@ -439,6 +439,26 @@
      footage supplies is just the truth arriving. */
   #b10{ height:380svh }
   #b10 .plate video,#b10 .plate img{ transform:scale(calc(1.02 + var(--p) * .06)) }
+
+  /* THE SOURCE WATERMARK, AND WHY THIS BEAT CONTAINS ON A LANDSCAPE SCREEN.
+     WZA_MX_LOGO.mp4 burns a WODAPALOOZA MEXICO CITY lockup at x 81.8%–98.6% of every frame.
+     Measured against each viewport:
+
+       desktop 1440x900   cover shows x  5.0%–95.0%   clips 21% of it -> "WODAPALO..."
+       mobile  375x812    cover shows x 37.0%–63.0%   the mark is out of frame entirely
+
+     A partially cut watermark reads as a mistake; a whole one reads as the client's own
+     film. So: on a portrait screen the natural framing already removes it and cover stays.
+     On a landscape screen the frame CONTAINS — 1440x810 inside 900, forty-five pixels of
+     letterbox — which shows the mark whole and also gives back the 10% of width that cover
+     was throwing away, so every letter of WZA and every runner is in frame. Nothing is
+     retouched, nothing is covered, and no athlete is cropped to force consistency.
+
+     The push-in is dropped in this branch on purpose: scaling a contained frame pushes its
+     edges back outside the box and re-clips the very thing this fixes. */
+  @media (min-aspect-ratio: 11/10) and (max-aspect-ratio: 16/9){
+    #b10 .plate video,#b10 .plate img{ object-fit:contain; transform:none }
+  }
   .b10line{
     position:absolute; z-index:5; left:28px; bottom:30px; margin:0; width:max-content;
     max-width:calc(100% - 56px);
