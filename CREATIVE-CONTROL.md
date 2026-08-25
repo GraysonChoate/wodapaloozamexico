@@ -47,8 +47,8 @@ Codex is actively reviewing a more authored diagonal shared-aperture successor b
 artistic approval. The earlier `9.4s` ledger in-point was inside the whip transition and was corrected. The main
 film's unused daytime overhead windows remain the internal alternative set for later work.
 
-**Opening identity override:** Beat 0 now opens on oversized `WODAPALOOZA / MEXICO` kinetic
-masked typography using the supplied Mexican-flag material before the Ángel/cockpit fold and
+**Opening identity override:** Beat 0 now opens on oversized black `WODAPALOOZA / MEXICO`
+kinetic typography over the supplied Mexican-flag material before the Ángel/cockpit fold and
 breach. This is the hero identity, not small informational side copy. The active utility rail
 comes with the cockpit; date/place and the qualifier facts belong to later readable rails.
 
