@@ -20,3 +20,17 @@ Transparent, diagonal cyan dry-brush gesture with magenta overspray, limited mus
 halftone and black registration fragments. This travels *with* an editorial frame: it can precede
 an entrance, reveal a crop, or tear away as the frame expands. It is not a background and should
 never cover key footage or copy long enough to become an obstruction.
+
+## `poster-edge-vertical-01.png`
+
+Portrait print field with heavy black sign geometry, cyan brush, magenta dot field and narrow
+mustard registration hits. Its open upper-right/centre is reserved for a contained portrait plate
+or a compact mobile reading surface. Use it when a vertical frame needs to enter as a physical
+campaign object; do not put it behind ordinary captions.
+
+## `action-paper-01.png`
+
+Quiet wide off-white paper with edge-only registration marks, a small cyan ink block and magenta
+halftone cluster. This is the reading ground for the final action index or another factual pause:
+large official mark, four clear actions, and ample untouched space. It must remain quiet; it is
+not a transition effect or a full-page texture.
