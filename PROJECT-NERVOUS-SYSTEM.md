@@ -63,6 +63,8 @@ Current approved kit:
 - `reference/authored-materials/v1/action-paper-01.png`
 - `reference/authored-materials/v1/civic-flag-field-01.png`
 - `reference/authored-materials/v1/editorial-rail-field-01.png`
+- `reference/authored-materials/v2/kinetic-frame-corners-01.png`
+- `reference/authored-materials/v2/editorial-rail-field-02.png`
 
 Use texture to make a plate, rail, frame edge, pause, or action feel physical. It is not filler,
 not a full-page empty field, and not decoration on every beat. New original assets are welcome
@@ -71,6 +73,11 @@ when a named moment needs one; they must contain no invented facts, logos, or co
 ## Functional website layer
 
 This is required after the opening handoff; it is not a last-minute generic nav bar.
+
+The integration reference is `reference/prototypes/kinetic-nav-system.html`; its behavioral and
+material contract lives in `reference/KINETIC-NAV-AND-MATERIAL-KIT.md`. Build it as one adaptive
+kinetic rail, not separate floating buttons: `W / MENU`, changing current-place readout, and a
+real persistent `QUALIFIER ↗` escape hatch. It releases before the final action surface.
 
 - kinetic persistent utility rail: mark/menu, quiet current-place/progress readout, and one real
   `QUALIFIER ↗` escape hatch; it changes contrast against its environment and moves in as one

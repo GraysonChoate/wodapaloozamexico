@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Kinetic Nav System — Wodapalooza Mexico</title>
+<style>
+  :root{--paper:#f3eee4;--ink:#0a0a0a;--nav-ink:#f7f1e8;--line:rgba(255,255,255,.64);--rail:1}
+  *{box-sizing:border-box}html{background:#050505;scroll-behavior:smooth}body{margin:0;background:#050505;color:var(--paper);font-family:Arial,Helvetica,sans-serif}.stage{min-height:105svh;position:relative;isolation:isolate;overflow:clip;display:grid;place-items:center}.stage:before{content:"";position:absolute;inset:0;z-index:-2;background:var(--ground)}
+  .arrival{--ground:radial-gradient(circle at 50% 40%,#36525a 0,#0b171e 43%,#050505 78%)}.city{--ground:linear-gradient(135deg,#e7dece 0 43%,#0b0b0b 43% 58%,#164c58 58% 100%);color:#111}.proof{--ground:radial-gradient(ellipse at 50% 20%,#34313a 0,#0b0b10 48%,#050505 88%)}.action{--ground:#f3eee4;color:#111;min-height:92svh}
+  .stage-label{width:min(86vw,980px);position:relative;text-transform:uppercase;font-weight:900;line-height:.78;letter-spacing:-.075em;font-size:clamp(58px,13vw,184px);mix-blend-mode:screen}.city .stage-label,.action .stage-label{mix-blend-mode:multiply}.stage-meta{position:absolute;bottom:13vh;left:7vw;font-size:11px;font-weight:800;letter-spacing:.17em;line-height:1.7;text-transform:uppercase}.rail-art{position:absolute;inset:auto 0 7vh;width:100%;height:auto;z-index:-1;opacity:.94;pointer-events:none}.action .rail-art{top:10vh;bottom:auto;opacity:.88}
+  .kinetic-nav{position:fixed;z-index:20;top:0;left:0;width:100%;height:76px;padding:0 clamp(15px,2.5vw,38px);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;color:var(--nav-ink);mix-blend-mode:difference;transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .3s ease;pointer-events:none}.kinetic-nav.is-released{transform:translateY(-120%);opacity:0}.kinetic-nav:after{content:"";position:absolute;left:clamp(15px,2.5vw,38px);right:clamp(15px,2.5vw,38px);bottom:0;height:1px;background:currentColor;opacity:.7}.kinetic-nav button,.kinetic-nav a{pointer-events:auto;color:inherit;background:none;border:0;padding:0;font:800 10px/1 Arial,sans-serif;letter-spacing:.16em;text-decoration:none;text-transform:uppercase;cursor:pointer}.nav-menu{justify-self:start;display:flex;gap:10px;align-items:center}.nav-mark{width:29px;height:23px;display:grid;place-items:center;border:1px solid currentColor;font-size:9px;letter-spacing:0}.nav-place{font:800 9px/1 Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap}.nav-qualifier{justify-self:end;display:flex;gap:11px;align-items:center}.nav-qualifier:before{content:"";width:29px;height:1px;background:currentColor}.site-index{position:fixed;z-index:19;inset:0;background:rgba(5,5,5,.88);color:var(--paper);display:grid;place-items:center;opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s ease}.site-index.open{opacity:1;visibility:visible}.index-inner{width:min(90vw,720px);border-top:1px solid rgba(247,241,232,.6);padding-top:26px;display:grid;gap:10px}.index-kicker{font-size:10px;font-weight:800;letter-spacing:.17em;text-transform:uppercase;opacity:.65;margin-bottom:16px}.site-index a{display:flex;justify-content:space-between;align-items:baseline;color:inherit;text-decoration:none;font-size:clamp(32px,6vw,68px);font-weight:900;letter-spacing:-.06em;line-height:.9}.site-index a span{font-size:10px;letter-spacing:.15em;white-space:nowrap}.site-index a:hover{color:#00b8de}.nav-close{position:absolute;top:25px;right:clamp(15px,2.5vw,38px)}
+  @media(max-width:620px){.kinetic-nav{height:58px}.nav-place{display:none}.nav-qualifier:before{width:14px}.stage-meta{left:6vw;bottom:10vh}.rail-art{width:155%;left:-28%;max-width:none}.site-index a{font-size:clamp(33px,11vw,56px)}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.kinetic-nav,.site-index{transition:none}}
+</style>
+</head>
+<body>
+  <nav class="kinetic-nav" aria-label="Main navigation">
+    <button class="nav-menu" type="button" aria-expanded="false" aria-controls="site-index"><span class="nav-mark">W</span><span>Menu</span></button>
+    <span class="nav-place" aria-live="polite">01 / Arrival</span>
+    <a class="nav-qualifier" href="https://competitioncorner.net/events/21707/details" target="_blank" rel="noopener noreferrer">Qualifier ↗</a>
+  </nav>
+  <aside class="site-index" id="site-index" aria-label="Editorial site index" aria-hidden="true"><button class="nav-close" type="button">Close ×</button><div class="index-inner"><div class="index-kicker">Wodapalooza Mexico / navigate</div><a href="#arrival"><b>The City</b><span>01</span></a><a href="#city"><b>Qualifier</b><span>02</span></a><a href="#proof"><b>The Proof</b><span>03</span></a><a href="#action"><b>Enter</b><span>04</span></a></div></aside>
+  <main>
+    <section class="stage arrival" id="arrival" data-place="01 / Arrival"><div class="stage-label">The<br>City</div><div class="stage-meta">Mexico City<br>Dec 4–6 · 2026</div></section>
+    <section class="stage city" id="city" data-place="02 / Qualifier"><img class="rail-art" src="../authored-materials/v2/editorial-rail-field-02.png" alt="" /><div class="stage-label">Qualify<br>Here</div><div class="stage-meta">Online qualifier<br>Aug 18–26</div></section>
+    <section class="stage proof" id="proof" data-place="03 / The Proof"><div class="stage-label">One<br>City</div><div class="stage-meta">16 divisions<br>First edition</div></section>
+    <section class="stage action" id="action" data-place="04 / Enter" data-release-nav="true"><img class="rail-art" src="../authored-materials/v2/editorial-rail-field-02.png" alt="" /><div class="stage-label">Enter<br>Now</div><div class="stage-meta">A designed destination<br>Not a generic footer</div></section>
+  </main>
+<script>
+  const nav=document.querySelector('.kinetic-nav'), place=document.querySelector('.nav-place'), menu=document.querySelector('.nav-menu'), index=document.querySelector('.site-index'), close=document.querySelector('.nav-close');
+  const sections=[...document.querySelectorAll('[data-place]')];
+  function setIndex(open){index.classList.toggle('open',open);index.setAttribute('aria-hidden',String(!open));menu.setAttribute('aria-expanded',String(open));if(open)close.focus();else menu.focus()}
+  menu.addEventListener('click',()=>setIndex(!index.classList.contains('open')));close.addEventListener('click',()=>setIndex(false));index.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setIndex(false)));document.addEventListener('keydown',e=>{if(e.key==='Escape')setIndex(false)});
+  new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){place.textContent=entry.target.dataset.place;nav.classList.toggle('is-released',entry.target.dataset.releaseNav==='true')}}),{threshold:.58}).observe(sections[0]);
+  sections.slice(1).forEach(section=>new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){place.textContent=entry.target.dataset.place;nav.classList.toggle('is-released',entry.target.dataset.releaseNav==='true')}}),{threshold:.58}).observe(section));
+</script>
+</body>
+</html>
