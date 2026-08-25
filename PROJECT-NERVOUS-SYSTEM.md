@@ -4,6 +4,10 @@
 current-state brain for Codex and Claude. Detail documents remain evidence; this file records the
 live decisions, work split, and non-negotiable direction.
 
+**Before altering a named beat, also read `SEQUENCE-INTEGRATION-REGISTER.md`.** It is the
+authoritative list of approved labs, their exact source contracts, their film position, and their
+integration status. Do not silently lose, replace, or duplicate an approved study.
+
 ## The outcome
 
 Build a premium cinematic event website — not a video that happens to scroll. The reader moves

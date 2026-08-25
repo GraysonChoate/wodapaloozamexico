@@ -11,6 +11,8 @@
 > ## Current creative override — 2026-08-25
 >
 > **Read `PROJECT-NERVOUS-SYSTEM.md` first.** It governs current work split and live decisions;
+> then read `SEQUENCE-INTEGRATION-REGISTER.md` before changing any named beat. It records the
+> approved opening and date studies, their exact sources, and the conditions for live integration.
 > `CREATIVE-CONTROL.md` supplies durable refinement direction and supersedes this handoff where
 > they differ. The thirteen-beat film is the approved base. Beat 2 / 5 / 8 / 9 / 12 enhancements
 > are locked; do not retune them without review. The night-aerial Beat 1 prelude is **rejected and
