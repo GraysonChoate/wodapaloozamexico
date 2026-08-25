@@ -228,6 +228,11 @@ orientation/action rail, editorial section index, and a small set of fact/action
 information rails—not a conventional header or decorative sponsor ticker. It is not authorized
 to enter the live film before the transition and mid-film-frame work is reviewed.
 
+**Production pace:** prioritise the visible experience. Use targeted desktop/mobile, forward/
+reverse, blank-frame, and performance checks per prototype; reserve full automated regression
+for review-ready proofs and major integrations. A flaky checker is recorded, not allowed to
+consume the production window unless it identifies a real reader-facing defect.
+
 ## Mandatory decision check
 
 Before any future direction, audit, or build instruction, state which track(s) it affects:

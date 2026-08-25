@@ -55,6 +55,15 @@
 > approved, the next and only next source treatment is the contained civic-flag interruption in
 > `MIDFILM-FRAME-SELECTION.md`; the Reforma day-to-night plate is explicitly second-wave.
 
+> **Speed override — active:** We have a short production window. Do not run the entire regression
+> suite repeatedly while investigating a single visual build. Per prototype, run only the checks
+> that could invalidate that specific move (normal-speed desktop/mobile visual capture,
+> forward/reverse state, no unwanted blank/black frame, and one performance read). Run the full
+> gate suite once when the prototype is ready for review, and once again at the end of a major
+> integration milestone. If an automation result is flaky, state it, capture the visual evidence,
+> and move on unless it demonstrates an actual page defect. Do not spend the production window
+> repairing test machinery that does not change the reader's experience.
+
 How this build is run so an independent reviewer can audit it without taking anything on
 trust. Written for Codex; binding on Claude.
 
