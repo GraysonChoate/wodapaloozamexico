@@ -1,0 +1,28 @@
+{
+ "375": {
+  "heightStable": true,
+  "docH": 54891,
+  "hudAtBlackStart": 1,
+  "blackStartY": 52072,
+  "hudReachesZeroY": 52420,
+  "hairlineY": 52507,
+  "paperY": 52595,
+  "pass_floorSurvivesIntoBlack": true,
+  "pass_zeroBeforeHairline": true,
+  "pass_zeroBeforePaper": true,
+  "maxReverseDrift": 0
+ },
+ "1440": {
+  "heightStable": true,
+  "docH": 60840,
+  "hudAtBlackStart": 1,
+  "blackStartY": 57715,
+  "hudReachesZeroY": 58102,
+  "hairlineY": 58198,
+  "paperY": 58295,
+  "pass_floorSurvivesIntoBlack": true,
+  "pass_zeroBeforeHairline": true,
+  "pass_zeroBeforePaper": true,
+  "maxReverseDrift": 0
+ }
+}
