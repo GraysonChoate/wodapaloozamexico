@@ -12,7 +12,7 @@ Silent throughout — audio is stripped from every derivative, per the decision.
 | beat | derivative | source | in–out | mode |
 |---|---|---|---|---|
 | 1 | `scrub/b01_cockpit.mp4` | WZA_MX_LOGO.mp4 | 3.80–5.52 | scrub |
-| 2 | `scrub/b02_aerial.mp4` | WZA_MX_LOGO.mp4 | 11.60–13.20 | **scrub — critical** |
+| 2 | `scrub/b02_aerial.mp4` | WZA_MX_LOGO.mp4 | 11.58–12.48 | **scrub — critical** |
 | 4 | `scrub/b04_car.mp4` | WZA_MX_LOGO.mp4 | 5.70–8.20 | scrub |
 | 5 | `loop/b05_sud01…09.mp4` | SUD_01–09.mov | 0–12s (04 is 0–5.5s) | **loop ×8** |
 | 5 | `still/b05_torre.jpg` | STF00176.jpg | — | still, 9th panel |
@@ -109,7 +109,7 @@ first cut was 0:04–0:07 and spent its whole last third inside Beat 4's footage
 approach ended on a highway chase. Scene detection misses this cut at default sensitivity:
 both shots are dark night interiors and score below threshold. Found at `scene>0.08`.
 
-**Beat 2 — `11.60–13.20`.** The Ángel de la Independencia, night into first light. The shot
+**Beat 2 — `11.58–12.48`** (was `11.60–13.20`). The Ángel de la Independencia, night into first light. The shot
 runs 11.51–14.60 but **begins a cross-dissolve at ~13.7s** into a flat overhead street grid.
 That grid is the worst possible fill for masked type: it is a uniform mid-grey, so the
 letterforms lose all internal contrast exactly where the word is widest and most exposed.
@@ -154,6 +154,12 @@ It is scrubbed with a **time warp**, not a straight mapping. The placement is 0�
 the runtime, but it is the act the whole beat rests on, so `data-scrub-warp="0.34,0.21"` gives
 it 34% of the scroll and lets the seventy-four-cut montage run faster over the rest.
 Piecewise-linear, so it stays reversible.
+
+**Beat 2 was re-cut twice.** The first cut ran into a dissolve toward a flat overhead grid.
+The second looked right as stills but failed in motion: the band the letterforms sample goes
+dead from 12.98–13.70s (motion ~1.5, median 41), and the old out-point at 13.20 put the widest,
+most exposed letters right in it. The window now ends on 12.26–12.53, the richest stretch of
+the shot. **Pick a scrub window by measuring the region the design samples, across time.**
 
 **The general rule:** pick a scrub window for what happens *inside the letters*, not for what
 the shot looks like whole, and confirm the window against the source frame by frame.

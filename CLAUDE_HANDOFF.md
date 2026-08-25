@@ -53,6 +53,12 @@ which is the reviewer's call, not Claude's.
   `--lona-cyan` tokens were written and then deleted, because an unused root token is still a
   standing invitation to use it.
 
+  **Decided by review, now locked:** applied UI accents stay inside green-to-blue, always.
+  Beat 7's storyboard idea — the interface accent taking each passing surface's colour — is
+  **not** implemented and is not to be implemented. Footage keeps its source-native yellow,
+  purple, pink, cyan and concrete; holding the interface steady against that is what makes
+  the real colour feel valuable.
+
   The test is not *is there magenta on screen* but *did the page put it there*. Beat 6 shows
   magenta by pointing a camera at a magenta banner, ungraded, in its own afternoon light.
   That is source-native and it is correct. The measured values live in `research/BRAND.md`

@@ -362,3 +362,30 @@ had the interface accent momentarily take each surface's colour. That is applied
 outside the green-to-blue palette, which under the locked system is a direction decision, not
 Claude's call. The mechanism is cheap to add if the reviewer wants it. Flagged, not silently
 dropped, and not silently built.
+
+**Beat 2 was re-cut a second time, because a still frame approved it and motion did not.**
+The window was `11.60–13.20`, chosen for its arc: the Ángel at night into first light. Watched
+as stills it looked right. Measured *in motion* across the wide half of the beat — the state
+where the word is largest and most exposed — it was failing:
+
+    median luminance inside the glyphs   82 -> 35
+    highlights (p95)                    235 -> 129
+    motion inside the glyphs            58 -> 3.8
+
+The word got quieter exactly as it got bigger. The cause is in the source: the band the
+letterforms sample goes dead from **12.98s to 13.70s** — motion around 1.5, median 41 — because
+at first light the sky brightens while the buildings the letters sit over stay in shadow. The
+old window ended at 13.20, so the widest letters landed squarely in that dead stretch.
+
+Re-cut to **11.58–12.48**, chosen by measuring the sampled band rather than by looking at whole
+frames. It ends on 12.26–12.53, the richest part of the shot: p95 up to 216, bright pixels at
+15%, real frame-to-frame movement. The word now *gains* light and motion as it widens —
+median 75 → 89, p95 184 → 239, last-third motion 7.2 → 31.9.
+
+The cost is the night-into-dawn arc, which is gone. That was the right trade: the arc was a
+story about the footage, and the legibility of the word is the beat. `audit/sucedera-wide-BEFORE.gif`
+and `audit/sucedera-wide-AFTER.gif` show both.
+
+**The general lesson, and it applies to every remaining beat:** a still frame cannot approve a
+state whose whole job is to be carried by moving footage. Pick a scrub window by measuring the
+region the design actually samples, across time — not by looking at whole frames.
