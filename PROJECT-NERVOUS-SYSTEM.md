@@ -53,8 +53,11 @@ first replace it **inside the same moving aperture** before that aperture normal
 never read as a cockpit sitting behind a shrinking city picture or a pale page with orphaned
 metadata.
 
-Codex integrated the opening through Beat 2. Do not alter Beats 0–2 until a named normal-speed
-review identifies a reader-facing defect.
+Codex integrated the opening through Beat 2 and restored its live scroll-scrub motion in
+checkpoint `8dd150d`. Do not alter Beats 0–2 until a named normal-speed review identifies a
+reader-facing defect. The exact visual source is `build/angel-cockpit-diagonal-lab.html`; Claude
+must port its flag-title mask, Ángel/city breach, V-fold geometry, cockpit takeover, and three-word
+kinetic type as one sequence—not approximate it from a description.
 
 ## Material world
 
@@ -176,13 +179,22 @@ releases before the action paper arrives.
 
 | Now | Owner | Scope |
 |---|---|---|
-| Review the integrated opening through Beat 2 | Codex | live `build/index.html`; only targeted fixes from normal-speed review |
-| Preserve the approved opening | Claude | do not retune Beats 0–2 without a named review finding |
-| Functional layer / information rails | Claude after opening handoff | follow `reference/FUNCTIONAL-WEB-LAYER.md` |
+| Beats 0–6 / first-half sequence studies | Codex | ordered visual studies, source contracts, and approval review |
+| Beats 7 → action / second-half build | Claude | continue in film order; preserve approved 7→8 work and do not touch Beats 0–6 |
+| Preserve the approved opening | Claude | port only from `build/angel-cockpit-diagonal-lab.html`; no retune without a named review finding |
+| Functional layer / information rails | Claude | follow `reference/FUNCTIONAL-WEB-LAYER.md` after the relevant places are judged |
 | Material kit / independent review / precise next handoff | Codex | assets, labs, review, current direction |
 
 No one edits the same live file concurrently. A completed visual decision is handed off with a
 short sentence, visual target, exact file/asset, and acceptance check.
+
+### Approval and handoff rule
+
+When the user says an image, transition, or sequence is “exactly it,” “perfect,” or otherwise
+approves it, treat it as a lock signal: ask whether to lock it if needed, then save a checkpoint,
+record the exact source file and film position in `SEQUENCE-INTEGRATION-REGISTER.md`, and make
+that file—not memory or a summary—the implementation source. Update this Nervous System and
+`CLAUDE_HANDOFF.md` at every approved milestone.
 
 ## Speed and review policy
 

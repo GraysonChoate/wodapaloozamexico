@@ -22,13 +22,28 @@
 > cockpit breach → `ARE / YOU / READY?` → Beat 2's existing `SUCEDERÁ` aperture. It is no longer
 > Claude's implementation lane. Do not alter Beats 0–2, their sources, timing, or opening rail.
 >
-> **Claude's next live task is the functional web layer only.** Build the persistent transparent
-> kinetic rail against the completed opening: mark/menu at left, quiet place readout in the middle,
-> verified `QUALIFIER ↗` at right, and a small mark-opened index that targets only real held
-> places. Then add the three one-time fact rails *inside their relevant scenes*—qualifier, date,
-> proof—not as centred cards, permanent tickers, or an invented sponsor treatment. Work on the
-> rail in one isolated pass; do not begin the Beat 12 date-to-venue study yet. That approved study
-> belongs late in the film directly before/within Beat 12, not at Beats 9–10.
+> **Claude's next task begins with the second-half sequence, not the opening.** Continue from the
+> approved Beat 7→8 work forward in film order. The functional layer follows those named places:
+> persistent transparent rail with mark/menu at left, quiet place readout in the middle, verified
+> `QUALIFIER ↗` at right, plus a mark-opened index targeting only real held places. Add the three
+> one-time fact rails *inside their relevant scenes*—qualifier, date, proof—not as centred cards,
+> permanent tickers, or an invented sponsor treatment. Do not begin the Beat 12 date-to-venue
+> study until the work reaches that late-film point; it belongs directly before/within Beat 12,
+> not at Beats 9–10.
+>
+> ## Superseding production split — first half / second half
+>
+> Codex owns **Beats 0–6** as ordered cinematic sequence studies. Claude owns **Beat 7 through
+> the final action**, working in reader order from the approved Beat 7→8 scene forward. Preserve
+> the approved Beat 7→8 work. For any later visual revision, name the outgoing beat, incoming
+> beat, and next visitor understanding before choosing footage.
+>
+> The date treatment is specifically a **late Beat 12** integration: use `04 / DECEMBER 4` with
+> `b12_zocalo_empty`, then `06 / DECEMBER 6` with `b12b_zocalo_full`, releasing into that same
+> venue scene. Never use the Reforma clock or a random city clip inside those date numerals.
+>
+> When Codex hands off a first-half study, implement directly from its named source file and its
+> `SEQUENCE-INTEGRATION-REGISTER.md` entry. Do not recreate an approved motion result from prose.
 > `CREATIVE-CONTROL.md` supplies durable refinement direction and supersedes this handoff where
 > they differ. The thirteen-beat film is the approved base. Beat 2 / 5 / 8 / 9 / 12 enhancements
 > are locked; do not retune them without review. The night-aerial Beat 1 prelude is **rejected and

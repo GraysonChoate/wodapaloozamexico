@@ -8,11 +8,11 @@ changing a named beat. A study is never discarded merely because work has moved 
 
 | Field | Locked decision |
 |---|---|
-| Review file | `build/angel-cockpit-diagonal-lab.html` |
+| Review file | `build/angel-cockpit-diagonal-lab.html` — exact source of truth for any future live port |
 | Film order | Mexican flag inside giant `WODAPALOOZA / MEXICO CITY` → Ángel → cockpit → kinetic `ARE / YOU / READY?` → black `SUCEDERÁ` aperture carrying Beat 2's night aerial |
 | Why it works | No empty handoff; each element transforms into the next, and the opening tells the reader where they are before asking them to continue. |
 | Source contract | Flag: `mexico-flag-clean`; city: `px_angel_pullback`; cockpit: `b01_cockpit`; `SUCEDERÁ`: **`b02_aerial` only**. |
-| Status | **Integrated and checkpointed in `379ca7f`, pending normal-speed review.** Claude must not independently retune Beats 0–2; changes require a named review finding. |
+| Status | **Integrated and live scroll-scrub restored in `8dd150d`, pending normal-speed review.** Claude must not independently retune Beats 0–2; changes require a named review finding. |
 | Never reintroduce | Small opening side metadata, a generic centred-box collapse, isolated `ARE YOU READY?` cards, or Ángel footage inside `SUCEDERÁ`. |
 
 ## 02 · Event date into city-as-venue
