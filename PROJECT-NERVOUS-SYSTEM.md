@@ -101,6 +101,11 @@ current official logo files and placement must be confirmed from Mexico's offici
 before a partner treatment is built. Never import SoCal's sponsor logos or assume its roster
 transfers.
 
+`reference/prototypes/proof-constellation-motion.html` is the non-card motion study for this
+fact set: fragments enter on different vectors, numbers are footage-filled structural planes,
+and the three facts lock into one world before release. It is a reference for a later proof
+moment, not authorization to alter a locked beat or add an unverified partner wall.
+
 - kinetic persistent utility rail: mark/menu, quiet current-place/progress readout, and one real
   `QUALIFIER ↗` escape hatch; it changes contrast against its environment and moves in as one
   system, rather than reading as scattered floating controls;
