@@ -35,6 +35,9 @@ replacement, scale-through, crop/registration, and intentional black breath.
 - A hard step is valid only if the two frames already make one visual sentence.
 - Judge at normal scrolling speed, desktop and mobile — contact sheets alone cannot approve a transition.
 - Every transition should feel authored in its direction, angle, crop, and arrival; no one global template.
+- Review work proceeds in the reader's exact film order. A study for Beat *n* must include the
+  immediately preceding approved state whenever that context is necessary to judge it; do not ask
+  the user to infer a handoff from an isolated later-beat prototype.
 
 ### Immediate creative exception: opening identity → cockpit
 
