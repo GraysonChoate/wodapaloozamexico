@@ -1,69 +1,63 @@
-# Civic flag — the city has public scale
+# Civic flag — continuous-overlap rebuild
 
-Sprint step 2, built to `PROJECT-NERVOUS-SYSTEM.md` and the superprompt. **Beat 0 → 1 was not
-touched** — that join is Codex's lane while the diagonal lab runs.
+Rebuilt to `reference/CIVIC-FLAG-REBUILD-BRIEF.md` after `fa7cdce` was rejected. **Visual proof
+only — no full regression, per the brief.** Beat 0 → 1 untouched; that lane is Codex's.
 
-*A mark is placed in the city (Beat 7) → the city has public scale (here) → the message arrives
-(Beat 8).*
+## What was wrong and what replaced it
 
-## Source
+The rejected build was a small poster on a pale page, a black void, then Beat 8. It passed a seam
+metric and was a slideshow. **Every part of that mechanism is gone**: no `.bfblack`, no
+`--fblack`, no flag-alone-on-black state. Zero legacy tokens remain. Black is never used here to
+hide a handover.
 
-`Other B-Roll/Screen Recording 2026-08-25 at 12.36.43 AM.mov`, window **2.6–5.9s**.
-Cropped `1470×1960 @ 929,64` — a portrait slice with the mast as its axis. That crop removes the
-macOS window chrome and the pillarboxing; **no player chrome enters the build.** Encoded
-720×960, 15fps, all-keyframe, crf 27 → **773 KB**. Ungraded: no tint, no relight, no slogan.
+The rebuild is **one continuous crop**:
 
-## The move
+- Beat 7 closes into a vertical registration strip at `inset(0 41% 0 41%)`. This beat's window
+  **opens from exactly that geometry**, so the strip the street left behind is the flagpole axis.
+- The window is a full-height vertical band that widens **asymmetrically** — the right edge leads
+  the left by four per cent of the beat, because the flag flies right off the mast, so the city
+  opens the way the picture already points.
+- The print field is the **edge system**. Two bands sit hard against the window on both sides and
+  are squeezed outward as it opens, so the city is literally parting the printed material. Their
+  widths derive from the same two variables that drive the window, so field, window and strip are
+  one composition.
+- **Beat 8 arrives inside the window before the flag is gone** — the real Spanish paper message
+  replaces the photograph in the same plane, then Beat 8's own stage takes the frame from
+  underneath.
 
-Beat 7 now **closes back into the same vertical registration strip that opened it**, so the
-device brackets the whole street occupation — and the strip it closes to is the vertical the flag
-plate arrives out of. The pole becomes the plate's axis, so object and frame agree.
+`#bf` is **200svh**, down from 300.
 
-The plate arrives **off-axis** — low and right, rotated 2.2°, at 0.90 scale — and locks flat with
-the fifth-power settle Beat 5 was approved with, so most of the travel is spent almost home and
-the landing reads as *placed* rather than scaled up. It then holds flat and still from 0.34 to
-0.72 while people and a vendor trike cross beneath the flag. The field steps out at 0.74–0.80,
-leaving the plate alone on black — the same punctuation Beat 0 uses before the cockpit — and the
-plate recedes slightly as Beat 8's paper message rises.
+## Measured
 
-| state | `--flock` | `--fblack` | plate | video |
-|---|---:|---:|---|---:|
-| arrive | 0.537 | 0 | 293×387 | 0.36 |
-| lock | 1.000 | 0 | 300×400 | 1.01 |
-| hold | 1.000 | 0 | 300×400 | 1.50 → 2.15 |
-| black | 1.000 | 0.833 | 300×400 | 2.60 |
-| release | 1.000 | 1.000 | 288×384 | 3.09 |
+| state | window | ink | message | video |
+|---|---:|---:|---:|---:|
+| strip | **18.0vw** | 1.00 | — | 0.17 |
+| opening | 27.9vw | 1.00 | — | 0.69 |
+| held | **52.0vw** desktop / **74.0vw** mobile | 1.00 | — | 1.40 → 2.18 |
+| message | 52.0 / 74.0vw | 1.00 | **in** | 2.70 |
+| handoff | 52.0 / 74.0vw | 0.63 | in | 3.12 |
 
-## One correction made during the build
+Held sizes sit inside the brief's 45–60vw desktop and 68–78vw mobile. Seam p99: 0.5909 and
+0.5210 desktop, 0.6296 and 0.5098 mobile — but the metric is not the argument this time; the
+recordings are.
 
-The field was first shown with `object-fit:cover`. `civic-flag-field-01.png` is a **portrait
-sheet**, so covering it to a landscape viewport kept only its quiet middle band and the whole
-thing read as a blank pale page — the one thing the Nervous System says this material must never
-be. It is now **contained**: the sheet is visible as an object, its ink, halftone and
-registration crosses all in frame, and the plate is visibly placed *on* something. The plate was
-reduced to `min(21vw,300px)` so the sheet reads around it.
+## A second correction inside the rebuild
 
-## Checks — fast policy, no full regression
+The first attempt at this rebuild sized the plate to the whole stage and clipped it. A 3:4
+photograph covering a 16:10 viewport is cropped to a 47% band, and that band landed on
+**blown-out sky** — the flag and the people were both outside it. The media box is now the size
+of the *held window* and sits centred, so the crop is only ever an uncovering and the photograph
+never rescales between the strip and the held state.
 
-| | desktop | mobile |
-|---|---:|---:|
-| seam Beat 7 → flag, dimmest p99 | **0.5224** | 0.5182 |
-| seam flag → Beat 8, dimmest p99 | **0.5157** | 0.4848 |
-| median frame interval | 16.7 ms (60fps) | 16.7 ms (60fps) |
-| frames over 33 ms | **0** | 2 (0.3%) |
-| first decoded frame | 0 ms | 0 ms |
+## Deliverables
 
-Emptiness floor is 0.05, so **no blank frame at either new seam**. Forward and reverse recordings
-at both viewports are included. First view 13.8 → **14.2 MB** (the 773 KB plate and 402 KB field).
+`flag2-1440-fwd.mp4`, `flag2-1440-rev.mp4`, `flag2-375-fwd.mp4`, `flag2-375-rev.mp4` — normal
+speed across Beat 7 → flag → Beat 8. `states.jpg` — the six states.
 
-Mobile shows 2 frames over 33 ms (worst 57 ms) where desktop shows none. Recorded, not chased —
-no reader-facing defect is demonstrated and the policy says not to spend the window on it.
+## Acceptance
 
-## Changed
+Read left to right in `states.jpg`: a narrow vertical crop on the marker, the city opening
+asymmetrically around it, the flag at civic scale with the trike and pedestrians crossing, then
+the real handwritten message taking the same window. No card, no void, no newspaper cut.
 
-`build/index.html` — new `#bf` section between Beat 7 and Beat 8, its CSS block, its timeline,
-Beat 7's closing `--reg`, and `data-join-in` added to `#b8`'s section tag so the flag hands over
-without a blank gap. **Beat 8's clip, warp, treatment, copy and Spanish legibility are
-untouched.** New media: `bf_flag.mp4`, `bf_flag.jpg`, `civic-flag-field-01.jpg`.
-
-Stopping for review.
+Full regression deliberately not run. Awaiting composition approval.
