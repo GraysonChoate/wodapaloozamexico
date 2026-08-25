@@ -138,15 +138,41 @@ Spider-Verse is a north-star for confidence, tactile print energy, spatial graph
 storytelling, and surprise — **not** a license to imitate its characters, imagery, or
 all-over maximalism.
 
+## Framing hierarchy — the site must not default to fullscreen video
+
+The finished experience is not a video player with scroll control. Fullscreen footage is
+reserved for a dominant claim, a major world-expansion, a match cut, or a moment that needs
+the whole frame. Other material should be allowed to exist as an object:
+
+- a contained photograph or moving plate on black;
+- a crop window that expands or collapses;
+- a small field of related planes that registers into one image;
+- a physical poster, sticker, paper, or action object;
+- a held editorial surface where a reader can orient, read, or choose.
+
+Every contained/multiple-frame move must explain a real relationship in the material. It may
+not become a generic carousel or a series of arbitrary thumbnails. Daytime overhead and
+foot-traffic material is a candidate for this kind of framed, spatial choreography—not an
+excuse to substitute an unrelated night aerial strip. Screen recordings remain visual
+reference only until an original, licensed source is supplied.
+
 ## Non-negotiables
 
 - English-led, Spanish where it lands hardest; words remain scarce.
 - Source-native footage colour remains untouched. Applied interface accents stay
   green → blue with black, white, and neutral.
-- Applied texture is allowed only when clearly page material—not fake light or a colour
-  correction to photography.
-- No external footage, generated core imagery, fabricated scene, invented venue/facts,
-  watermark retouching, or partly clipped watermarks.
+- Applied texture is encouraged when it clearly reads as **page-owned graphic material**—not
+  fake light or a colour correction to photography. Author and generate a controlled print
+  kit: paper tooth, ink/spray marks, halftone fields, dry-brush energy, registration shifts,
+  and torn/printed-edge language.
+- Generated print assets must never impersonate client photographs, fabricate a documentary
+  city/athlete scene, carry invented event facts, or contain invented logos/text. They live
+  around, between, and behind the footage as authored page design.
+- The campaign-print layer may use its own source-inspired cyan, magenta, yellow, and black
+  inside discrete graphic objects. This does not change the rule that the persistent UI system
+  stays green → blue, black, white, and neutral, and it never authorizes colour-grading footage.
+- No unlicensed external footage, fabricated scene, invented venue/facts, watermark retouching,
+  or partly clipped watermarks.
 - A watermark must be naturally out of frame or shown whole.
 - Normalidad replaces Archivo when the Adobe kit is provided; typography is a structural
   layer, not a late afterthought.
@@ -157,12 +183,13 @@ all-over maximalism.
 
 These streams begin **in parallel** now:
 
-1. Claude inspects the raw Beat 1 drone source and defines the exact contained aerial →
-   cockpit move: crop, duration, title/watermark-safe window, and transition geometry. It
-   then ships that isolated prototype for Codex review. The question is how to use the drone
-   well, not whether to omit it.
-2. Codex locates and audits high-resolution official Mexico campaign artwork and prepares
-   a source-material map / reusable campaign-print kit. No generic generated substitute.
+1. Treat the night-aerial Beat 1 prelude as a rejected experiment, not an approved solution.
+   Its contained-object → hard-step grammar may be reused only if a more appropriate source
+   earns it. Daytime b-roll screen recordings are reference only until original cleared media
+   is available.
+2. Codex prepares a reusable campaign-print kit: source-derived references plus authored,
+   generated page-owned textures and graphic components. It must be original design—not a
+   reconstruction of the rulebook key art—and must obey the applied-texture boundary above.
 3. Codex and Claude reconcile the final action inventory with the operator’s actual URLs;
    the incomplete Pre-Registro destination remains intentionally unlinked.
 

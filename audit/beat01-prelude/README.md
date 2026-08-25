@@ -1,4 +1,17 @@
-# Beat 1 — the drone prelude
+# Beat 1 — the drone prelude · **REJECTED, KEPT AS A TEST**
+
+**This is not in the film.** Reverted at review: the night aerial turns the city into a
+thin anonymous strip of lights, too small and too empty on mobile to earn the opening, and
+it spends roughly 80vh of scroll on an image without enough compositional information.
+
+**The grammar survives the rejection.** Contained exterior object → expansion → hard step
+into the cockpit is a valid move and is proven here. It was applied to the wrong shot.
+
+The identification was mine and it was wrong: I treated "drone" as the night aerial the raw
+film happens to open on, because that is what the brief pointed at. It is not the daytime
+overhead/foot-traffic b-roll the operator means.
+
+---
 
 Prototype 5. **Beat 1 only.** Not a new beat: the prelude is added in front of the cockpit
 inside Beat 1, and the cockpit keeps the same 300svh of scroll it always had. The descent
@@ -49,3 +62,25 @@ static and the cockpit is always visible.
 
     CONTACT-desktop-1440x900.jpg  /  CONTACT-mobile-375x812.jpg
     scroll-forward.webm  /  scroll-reverse.webm  /  scroll-fast.webm
+
+
+---
+
+## Candidates found while reverting
+
+The film already contains **unused daytime overhead drone footage** with real city-world
+content — people, movement, architecture, street energy — in two title-free windows:
+
+| Window | Length | Content |
+|---|---|---|
+| **39.29–40.08** | 0.79s | straight down on the Ángel de la Independencia roundabout, the circle packed with a crowd, the gold Ángel at the centre, radial green rings |
+| **41.67–43.00** | 1.33s | straight down on a second roundabout, crowds streaming along radial avenues, tree-lined boulevards, towers |
+
+`38.58–39.29` carries a burned `IN A CITY THAT HAS IT ALL` and is unusable. The film's own
+watermark is present and **whole** in all of these frames.
+
+See `rejected-and-candidates/overhead-candidates.jpg`.
+
+**This is offered, not built.** It may or may not be the b-roll the operator has in hand, and
+the instruction is to verify the actual source first. But if the required material turns out to
+already be in the supplied film, that is worth knowing before anyone goes looking for it.

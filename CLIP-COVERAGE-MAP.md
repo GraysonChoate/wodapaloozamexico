@@ -51,6 +51,21 @@ honest homes, for the whole-film review to rule on:
 None of these should be added as a beat to use them up. They are listed so the whole-film
 review can decide, and so no strong client material is lost by default.
 
+## Unused windows inside `WZA_MX_LOGO.mp4`
+
+The clip-level coverage above is complete, but two strong **windows** inside the main film are
+unused and worth naming, because they are daytime overhead drone footage with real city-world
+content:
+
+| Window | Length | Content |
+|---|---|---|
+| 39.29–40.08 | 0.79s | overhead, Ángel roundabout packed with a crowd |
+| 41.67–43.00 | 1.33s | overhead, second roundabout, crowds along radial avenues |
+
+Candidate for the Beat 1 opening prelude, pending verification against whatever b-roll the
+operator supplies. The night aerial at 0.90–2.15 was tried for that job and **rejected** — see
+`audit/beat01-prelude/`.
+
 ## Duplicates deliberately not used
 
 `SUD_07` does not exist in the supplied set — the guerrilla clips are 01–06, 08, 09.

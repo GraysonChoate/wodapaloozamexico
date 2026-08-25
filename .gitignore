@@ -12,3 +12,6 @@ WPL MEXICO VIDEOS/
 
 # real-browser verification screenshots — regenerate with build/verify-browser.sh
 build/.verify-shots/
+
+# Raw b-roll dropped into the repo — stays local, same rule as assets/video
+Other B-Roll/
