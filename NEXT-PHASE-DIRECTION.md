@@ -1,5 +1,13 @@
 # NEXT PHASE — CINEMATIC ENHANCEMENT BRIEF
 
+> ## Status override — 2026-08-25
+>
+> This document records the completed enhancement phase. Do not resume its older “approved
+> enhancement order” or its Beat 1 drone instruction. Beat 2, 5, 8, 9 and 12 are built and
+> approved; the night-aerial Beat 1 prelude was rejected and reverted. Current work is governed
+> by `CREATIVE-CONTROL.md`: campaign-print integration, framed-footage selection, final action
+> index, then a new uninterrupted whole-film review.
+
 **Owner of implementation: Claude.**  
 **Owner of direction, source-derived secondary assets, and independent review: Codex.**
 
@@ -73,8 +81,9 @@ confirmed for Mexico.
   Source-native colour remains exactly as photographed; do not grade it toward the palette.
 - Applied **texture** is allowed when it clearly reads as page material, not fake light or
   a correction to the photograph.
-- No external footage, generated imagery, invented venue/facts, fabricated scene, fake
-  lighting, or source watermark retouching.
+- No unlicensed external footage, fabricated documentary scene, invented venue/facts, fake
+  lighting, or source watermark retouching. Original page-owned generated print material is
+  allowed when it is clearly graphic rather than photographic and carries no invented copy/logo.
 - The source watermark may be naturally framed out or kept whole; it may never be partially
   clipped, covered, or retouched.
 - Quiet beats, black holds, hard cuts, and real editorial release are intentional. Do not
@@ -135,12 +144,11 @@ step is the argument. Use only if it strengthens the already successful empty �
 `SUCEDERÁ` remains a signature width-axis moment. It may gain restrained aperture framing or
 parallax between type and footage. It may not get an Ángel matte or a fabricated depth split.
 
-### 5. Beat 1 drone prelude — conditional, later
+### 5. Historical test — Beat 1 night-aerial prelude
 
-The early broad aerial/drone material was not deleted; it simply is not in the present film.
-Only after reviewing the raw source again, it may become a **very short contained-frame
-prelude** that expands/folds into the cockpit: exterior city → interior arrival. It does not
-earn a separate new beat and must not displace the descent spine.
+This test was completed, rejected, and reverted. Its night-aerial source did not earn the added
+scroll distance. Do not rebuild it. The contained-frame grammar survives for stronger future
+source material; see `CREATIVE-CONTROL.md`.
 
 ### 6. Beat 13 and final action index — last
 
@@ -156,7 +164,9 @@ No generic final CTA card, no new dashboard, no graphic clutter.
 
 ## Source-first material work
 
-Do not ask a generator to invent texture. We already own the needed material:
+Use supplied campaign material as source evidence, then extend it with original page-owned
+authored texture where needed. Do not ask a generator to imitate a client photograph, recreate
+the rulebook poster, or invent facts/logos/text:
 
 | Source | Harvestable material | Appropriate use |
 |---|---|---|
@@ -232,12 +242,12 @@ checkpoint, not a new request to alter approved work.
 
 **Remaining source-supported work:**
 
-- Beat 2 aperture parallax only (`BEAT02-APERTURE-BRIEF.md`).
-- Beat 1 drone prelude only after raw source at 0:00–0:03.8 is inspected and earns it.
-- Final action-index correction (`FINAL-ACTION-INDEX-BRIEF.md`); do not guess the incomplete
-  Pre-Registro URL.
-- End-to-end creative/pacing review (`FINAL-FILM-AUDIT-PROTOCOL.md`) using continuous normal
-  desktop and mobile scroll recordings, not only beat-level clips or fast stress tests.
+- The next motion work is one framed-footage/campaign-print integration prototype—not a revision
+  of any locked beat. Use internal daytime overhead windows or cleared original b-roll.
+- Build the final action index; do not guess the incomplete Pre-Registro URL.
+- Then run the end-to-end creative/pacing review (`FINAL-FILM-AUDIT-PROTOCOL.md`) using continuous
+  normal desktop and mobile scroll recordings, not only beat-level clips or fast stress tests.
 
-The unfilled reference-language gap is a true full-bleed → contained-frame collapse. The Beat 1
-drone prelude is the only current candidate that can earn it. Do not force that move elsewhere.
+The unfilled reference-language gap is a recurring but disciplined contained-frame system:
+print ground → framed source fragment → pause → expansion or release. It is not tied to the
+rejected Beat 1 night aerial.

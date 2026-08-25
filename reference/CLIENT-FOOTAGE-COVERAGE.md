@@ -6,8 +6,9 @@ mean using every second as filler; it means no strong supplied source is casuall
 ## Coverage status
 
 All twelve distinct delivered video files already appear in the experience. The remaining
-gap is the raw opening aerial passage in the main film; it is required as Beat 1’s contained
-drone prelude.
+gap is no longer a required Beat 1 treatment. The night-aerial prelude was tested, rejected and
+reverted. The coverage question now concerns which existing footage fragments can become framed
+editorial objects without forcing a new full-screen beat.
 
 | Source | Intentional role | Beat / range | Status |
 |---|---|---|---|

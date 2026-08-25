@@ -94,8 +94,9 @@ Textures are not a separate decoration pass and do not require generated imagery
 2. **Use code-native structure where appropriate.**
    Hairlines, crop masks, soft card shadows, frame borders, CSS/SVG halftone, and perspective
    transforms are structural tools, not invented photographic material.
-3. **No generated imagery in the core plan.**
-   Generated image material is optional only if a genuine source gap is identified and approved.
+3. **No fabricated documentary imagery in the core plan.**
+   Original page-owned print assets are allowed when clearly graphic, not a fake client scene,
+   and contain no invented event facts, logos, or text.
 
 One dominant image, one supporting material, one graphic action. If a material does not
 establish place, increase pressure, clarify identity, or create a pause, remove it.
@@ -137,7 +138,8 @@ content, generic typography, or operational pages before those Mexico facts exis
 
 - Source-native colour stays untouched. Applied UI remains green → blue, black, white, and neutral.
 - No artificial grading, fake lighting, or a composite scene that never occurred.
-- No outside footage and no generated imagery in the core experience.
+- No unlicensed outside footage or generated imagery that impersonates documentary source
+  material. Original page-owned campaign-print graphics are allowed under the material rules.
 - No invented venue, attendance, sponsors, schedule, or event facts.
 - Black holds, hard cuts, and quiet beats are intentional; do not soften every transition.
 - Scroll must remain smooth, reversible, accessible, and readable at desktop and mobile sizes.

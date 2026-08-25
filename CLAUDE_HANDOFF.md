@@ -1,5 +1,28 @@
 # CLAUDE_HANDOFF
 
+> ## Current creative override — 2026-08-25
+>
+> `CREATIVE-CONTROL.md` governs the current refinement phase and supersedes this handoff where
+> they differ. The thirteen-beat film is the approved base. Beat 2 / 5 / 8 / 9 / 12 enhancements
+> are locked; do not retune them without review. The night-aerial Beat 1 prelude is **rejected and
+> reverted**—do not rebuild or generalize it. The current goal is not another isolated effect:
+> turn the film into a cinematic website through two equal additions:
+>
+> 1. **Campaign-print/material world:** original page-owned paper, ink/spray, halftone,
+>    misregistration, print edges and framed footage objects are allowed and encouraged. They
+>    must not fake light, grade footage, invent event facts/logos/text, or imitate documentary
+>    photography. See `reference/authored-materials/v1/` and
+>    `reference/FRAMED-FOOTAGE-CHOREOGRAPHY.md`.
+> 2. **Official action places:** final actions must be editorial, tactile and genuinely useful;
+>    Pre-Registro stays unlinked until its full URL is supplied. See
+>    `reference/EVENT-ACTION-ARCHITECTURE.md`.
+>
+> Fullscreen is now a choice, not the default. A source fragment may be a contained moving plate,
+> crop window, shallow plane field, physical poster/sticker/paper object, or editorial pause when
+> it has a real narrative reason. Do not build a generic carousel. Screen-recorded external
+> b-roll is reference-only until cleared original media is supplied. Use the main film's unused
+> daytime overhead windows as the first internal candidate set.
+
 How this build is run so an independent reviewer can audit it without taking anything on
 trust. Written for Codex; binding on Claude.
 
@@ -74,7 +97,9 @@ which is the reviewer's call, not Claude's.
   magenta by pointing a camera at a magenta banner, ungraded, in its own afternoon light.
   That is source-native and it is correct. The measured values live in `research/BRAND.md`
   for reference and are deliberately **not** CSS tokens.
-- **Black ground.** The interface is white and black. All colour comes from the footage.
+- **Black ground.** The persistent interface is white and black. Source-native colour comes
+  from footage; discrete campaign-print objects may use their authored cyan, magenta, yellow and
+  black without changing the interface system.
 - **Restrained compositing.** The footage carries the motion; the page frames it and gets out
   of the way.
 - **Rhythm:** motion → stillness → detail → tension → motion. Quiet beats are built, not left.
@@ -88,9 +113,10 @@ which is the reviewer's call, not Claude's.
   move or reduce *ours*. A partially clipped watermark is the one unacceptable state — it
   reads as a mistake. Fix that by framing, not by retouching.
 
-- **No outside footage, no generated imagery.** Every pixel is the client's. The crop is the
-  design. If a beat needs something the material does not contain, the beat changes — the
-  material does not get fabricated to fit it.
+- **No unlicensed outside footage or fabricated documentary imagery.** Client photographs and
+  footage remain source-honest. Original generated page-owned print material is allowed when it
+  reads unmistakably as graphic design, contains no invented copy/logo/fact, and does not fake
+  photographed light or a real city/athlete scene.
 
 ---
 
@@ -210,8 +236,6 @@ already contaminated the conclusion.
   derivatives the page actually loads.
 - **Archivo Variable is a stand-in for Normalidad.** It carries a real `wdth` axis so the
   width mechanic is honest, but the letterforms are not final.
-- **Beats 7–13 are not built.** Their derivatives exist in `build/media/` from the original
-  intake pass and are listed in the media map, but every one of them still needs its window
-  cut against the source frame by frame before use. Three of the six windows checked so far
-  were wrong — two ran past a hard cut into a different scene, one ran into burned-in client
-  titles. Assume the remaining ones are wrong until checked.
+- **All thirteen beats are built and source-cut.** The base film is approved. Future source
+  review identifies contained-frame and campaign-print opportunities; it does not reopen settled
+  windows without a specific reason and review.

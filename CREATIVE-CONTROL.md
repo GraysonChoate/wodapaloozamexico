@@ -38,13 +38,11 @@ Current approved enhancements:
 - **Beat 9** — type in front of city/Ángel and behind hood, fists, and foreground trees.
 - **Beat 12** — contained empty Zócalo widens → holds → hard same-box full-square step.
 
-Only unresolved motion item:
-
-- **Beat 1 drone prelude, required.** The raw opening aerial at 0:00–0:03.8 must be given a
-  purposeful role in the experience: a brief contained aerial object that hands off into the
-  cockpit/exterior-arrival sequence. It is not a separate new beat and it must not displace
-  the descent spine. Inspect the raw source to determine the correct crop, duration, and
-  transition—not whether it deserves to exist.
+There is no remaining required beat effect. The night-aerial Beat 1 prelude was built, reviewed,
+and rejected: it was technically clean but visually too slight to earn new scroll distance. Its
+contained-object → hard-step grammar remains useful, but must be applied only to a better source.
+The main film's unused daytime overhead windows are the first internal candidates; supplied
+screen-recorded daytime b-roll remains reference-only until original cleared media is available.
 
 ### Client-footage coverage rule
 
@@ -67,8 +65,8 @@ entire four-act emotional arc.
 The visual reference supplied by the operator establishes a missing layer: physical,
 graphic Mexico campaign energy. It is the **syrup and cherry**, not a blanket filter.
 
-We need a small source-derived material kit from the highest-resolution supplied Mexico
-campaign artwork and client footage/stills:
+We need a compact campaign-print material kit, informed by the highest-resolution supplied
+Mexico campaign artwork and client footage/stills, then extended with original page-owned assets:
 
 - rough paper fields and fibres;
 - true printed halftone;
@@ -96,7 +94,8 @@ Likely homes, subject to full-film review:
 
 Never use this layer to grade footage, fake photographed light, add generic CSS magenta,
 or blanket every beat in grain. Do not recreate campaign artwork from a low-resolution
-screenshot if original art exists.
+screenshot. Original generated print material is encouraged when it is clearly page-owned,
+contains no invented copy/logos/facts, and does not impersonate documentary photography.
 
 ### C. Official event and action system — shared responsibility
 
@@ -222,17 +221,35 @@ Whenever a project decision changes this document, Codex must immediately revise
 the active Claude instruction in the same turn. Claude must treat the newest handoff as
 superseding earlier prompts where they differ. No agent may continue from a stale summary.
 
-## Current immediate status
+## Current immediate status — refinement checkpoint
 
-- Beat 2 aperture parallax: approved, commit `194819e`; only an explanatory CSS comment
-  needs corrected math.
-- Beat 5 / 8 / 9 / 12: approved and locked.
-- Beat 1 drone: required raw-source review and isolated prelude prototype next.
-- All distinct client video sources: final clip-coverage map required before sign-off.
-- Campaign-print materials: begin source audit now.
-- Action system: known final action labels; full Pre-Registro URL still missing.
-- The final whole-film audit is pending the Beat 1 ruling and initial material/action maps.
+**Base film:** all thirteen beats are built. Beat 2, 5, 8, 9, and 12 are approved motion
+treatments. The night-aerial Beat 1 prelude is a rejected experiment and has been reverted.
+The baseline full-film review is complete; the final whole-film review happens after the new
+campaign-print and action places are integrated.
 
-Live work products: `reference/CAMPAIGN-MATERIAL-MAP.md`,
-`reference/CAMPAIGN-ASSET-EXTRACTION-PLAN.md`, `reference/CLIENT-FOOTAGE-COVERAGE.md`, and
-`reference/EVENT-ACTION-ARCHITECTURE.md`.
+**Footage:** every delivered client video source has an intentional home in
+`CLIP-COVERAGE-MAP.md`. The next source pass is not about forced coverage; it identifies the
+best fragments to become contained moving frames, crop windows, or spatial plane fields.
+Daytime overhead windows at `39.29–40.08` and `41.67–43.00` in `WZA_MX_LOGO.mp4` are strong
+internal candidates. Sixteen guerrilla stills remain available for campaign-print/editorial use,
+not as excuses to add arbitrary beats.
+
+**Campaign-print world:** initial source components and original authored materials exist:
+`reference/material-components/v1/`, `reference/authored-materials/v1/`,
+`reference/prototypes/campaign-print-pause.html`, and
+`reference/prototypes/moving-print-frame.html`. The next task is one real integration prototype:
+print ground → framed source fragment → readable pause → release/expansion. It must be reviewed
+inside the full film before a second instance is built.
+
+**Action system:** labels and three verified destinations are ready. The complete Pre-Registro
+URL is still missing, so that item remains visibly disabled/unlinked. The final action index must
+be designed as an editorial campaign object after the footage reaches real black.
+
+**Typography and QA:** Archivo remains temporary until the Normalidad kit is supplied. After the
+first integrated campaign-print/action prototype, run a full normal-speed desktop/mobile review
+of rhythm, scroll distance, copy arrival, interaction pauses, reverse behavior and responsiveness.
+
+Live work products: `reference/FRAMED-FOOTAGE-CHOREOGRAPHY.md`,
+`reference/OTHER-BROLL-INTAKE.md`, `reference/CAMPAIGN-MATERIAL-MAP.md`,
+`reference/EVENT-ACTION-ARCHITECTURE.md`, and `CLIP-COVERAGE-MAP.md`.

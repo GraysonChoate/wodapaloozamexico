@@ -8,8 +8,9 @@ It does not yet choose its final position in the scroll film. Integration follow
 continuous whole-film review. It may become the final action index, a chapter threshold, or
 the visual language from which both are derived.
 
-The source assets are in `../material-components/v1/`; no generated image, invented texture,
-or applied footage grade is used.
+Source components are in `../material-components/v1/`; original authored page materials are in
+`../authored-materials/v1/`. No applied footage grade, fabricated documentary scene, invented
+fact, or unofficial logo/text is used.
 # `moving-print-frame.html`
 
 Standalone choreography specimen: authored print field → angled contained source plate → lock for
