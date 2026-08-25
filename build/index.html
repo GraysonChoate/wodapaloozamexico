@@ -391,6 +391,30 @@
      everything before it. The only portrait frame in the film. */
   #b8 .plate video,#b8 .plate img{ object-fit:contain; transform:none }
 
+  /* ── B8 · PAPER AS AN OBJECT ──────────────────────────────────────────────
+     Only the first two releases are treated. Everything from COMIENZA onward, and the long
+     held date above all, is left exactly as it was.
+
+     THE ROLL IS MEASURED, NOT CHOSEN. The paper's own top edge was tracked across the clip:
+
+       RECUERDA              +0.65°  +2.58°  +1.02°  +0.36°  +1.73°  -0.30°
+       EL ONLINE QUALIFIER   -1.33°  +0.20°  -0.15°  +0.29°  +0.69°  +0.00°
+
+     A real sheet held up in the street barely tilts — 2.58° is the whole range, and card two
+     settles to 0.00° once it is held. So the entry roll is capped at what the source actually
+     does, and both cards resolve to a true flat lock because that is what the paper does.
+     Anything larger would be inventing physics this footage does not contain.
+
+     The plate is contained on entry and grows to its exact size at the lock. No shadow is
+     added: the clip already casts a real one onto the body and the street, and a second,
+     invented one would be imitating photographed light. */
+  #b8 .stage{ perspective:1900px; perspective-origin:50% 44% }
+  #b8 .plate{
+    transform:rotate(var(--roll,0deg)) rotateX(var(--pitch,0deg)) scale(var(--fit,1));
+    transform-origin:50% 42%;
+    backface-visibility:hidden;
+  }
+
   /* ── B9 · EARN IT ─────────────────────────────────────────────────────────
      The second match cut, and the pair to Beat 5. Beat 5 turned nine figures into one;
      this turns that one figure into an athlete. Same device, escalating: Beat 5 cut to a
@@ -707,6 +731,7 @@
     .b11stats span{ opacity:1 !important }
     .b12type{ opacity:1 !important }
     .b13out{ opacity:1 !important }
+    #b8 .plate{ transform:none !important }
     .b9wash{ opacity:.55 !important }
     #b9 .b9front{ display:none }
     #b6 .plate video,#b6 .plate img{ object-position:50% 50% !important }
@@ -1166,6 +1191,28 @@
       const onScreen = r.top < H && r.bottom > 0;
       if (onScreen) fitWord(b, p);
       if (b.id === 'b5') identityLoop(b, p, r.top < H * 1.6 && r.bottom > -H * 0.6);
+
+      if (b.id === 'b8') {
+        /* Two entry windows only, located from the clip and mapped back through the warp:
+           RECUERDA settles by p 0.055, EL ONLINE QUALIFIER is released at 0.10 and is fully
+           locked by 0.19. From 0.19 to the end of the beat every value below is exactly 0 —
+           the final held date gets no tilt, no scale and no parallax, which is the whole
+           point of it being the stillest thing in the film. */
+        const entry = Math.max(
+          1 - seg(p, 0.000, 0.055),          // card one, already up as the beat opens
+          seg(p, 0.100, 0.128) * (1 - seg(p, 0.128, 0.190))   // card two, released then locked
+        );
+        const e = entry <= 0.001 ? 0 : entry;
+        const dir = p < 0.09 ? 1 : -1;       // card one rolls positive, card two negative — as measured
+        /* Weighted toward CONTAINMENT, not rotation. Rolling the plate rolls the whole
+           photograph — the buildings, the street, the person — and against the black
+           letterbox edges even a couple of degrees reads as a tilted picture rather than as
+           a sheet of paper. The settle is real and measured, so it stays; it is just felt
+           rather than seen, and the sheet arriving at its exact size does the work. */
+        b.style.setProperty('--roll',  (dir * 1.1 * e).toFixed(3) + 'deg');
+        b.style.setProperty('--pitch', (1.4 * e).toFixed(3) + 'deg');
+        b.style.setProperty('--fit',   (1 - 0.075 * e).toFixed(4));
+      }
 
       if (b.id === 'b13') {
         /* The links arrive on the black the FILM fades to, not on a black the page painted
