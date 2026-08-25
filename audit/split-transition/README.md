@@ -1,59 +1,48 @@
-# Beat 7 → Beat 8 — the street splits and the message is behind it
+# Beat 7 → Beat 8 — one continuous unfold
 
-The civic-flag scene is **removed entirely** — section, CSS, timeline, media references. Zero
-tokens remain. Beat 0 → 1 untouched; that lane is Codex's.
+The civic flag is gone. Beat 0 → 1 untouched (Codex's lane).
 
-## What was wrong with the old join
+## The error this fixes
 
-Beat 7 collapsed into a thin centred strip and a textured frame arrived on top of it. That
-made the stickers look bad on the way out and produced empty space on the way in.
+The previous version parked a **frozen** first frame in the gap and let Beat 8's separate stage
+do the real motion afterwards — a static card, then a cut, then the guy actually moving. Two
+events where there should be one.
 
 ## What it does now
 
-Reference 1's split is the model: the frame divides into panels and a real object in the
-footage is the seam. Here **Beat 7's pole and Beat 8's tower are both centred verticals**, so
-the object that divides the frame exists in both shots.
+1. **The badge comes forward** — Beat 7's plate advances rather than shrinking away.
+2. **The street splits down the pole**, masked out of the middle so the gap is a real hole.
+3. **What is inside the gap is already live and already mid-action.** The message plate scrubs
+   **0.90s → 1.95s** of its own clip across the split: `RECUERDA` held, then the sheet folding
+   down and dropping away to reveal `EL ONLINE QUALIFIER` behind it. The frame opens because he
+   opens it.
+4. **Beat 8 continues the same shot** — it now starts at **1.95s** via a new `data-scrub-from`
+   in-point. Measured: transition ends at `1.95`, Beat 8 begins at `1.97`. **Nothing rewinds and
+   there is no second arrival.**
+5. **The word comes forward** — `RECUERDA` in outlined page-owned type, sized by the opening and
+   pushed toward the reader on the same scroll that peels the sheet, gone before the next sheet
+   is readable. It echoes the handwriting; it does not imitate it.
+6. **No empty black.** The printed field sits behind the split as two edge bands whose width is
+   derived exactly from Beat 8's contained paper — `(100vw − 100svh × 640/1138) / 2` — so the ink
+   meets the paper, and the composition the gap reveals is the composition Beat 8 keeps.
 
-1. **The badge comes forward** — Beat 7's plate advances from scale 1.08 to 1.17 across its
-   last 14%, so the sticker moves toward the reader instead of shrinking away.
-2. **The street splits down the pole** — a band is masked out of the middle of Beat 7's plate
-   and widens to a full 50vw half-gap. The two halves are made by masking, not by duplicating
-   the video: one decode, one element, and the gap is a real hole.
-3. **The message is already behind it** — Beat 8's first sheet, `RECUERDA`, is held in a plate
-   behind the street and is uncovered by the gap. It is presented `contain`, exactly as Beat 8
-   presents it, so what the gap reveals is the frame Beat 8 will keep rather than a blow-up.
-4. **He swaps the sheet** — Beat 8's own stage takes over and the first swap happens:
-   `RECUERDA` falls away, `EL ONLINE QUALIFIER` behind it.
+## New machinery
 
-At no point is the frame empty: street, gap-with-message, street.
+`data-scrub-from` — a clip in-point in seconds. Without it a beat can only ever start a shot at
+its first frame, so a transition that plays the opening of the next clip must rewind when that
+beat arrives. That rewind was the cut being complained about.
 
-## Two bugs found and fixed during the build
+## Measured, 1440×900 and 375×812
 
-**The decoy plate stole the beat's scrub.** I placed the message plate first in the DOM. The
-loader takes `b.querySelector('.plate video')` in document order, so the newspaper became Beat
-7's scrub target — the stickers clip never got a `src` and the newspaper played across the whole
-of Beat 7. Stacking is z-index's job, not the DOM's; the beat's own plate now comes first.
-
-**An aperture that clipped nothing.** I gave Beat 8 a `clip-path` inset of 26% to "open on the
-sheet swap". Beat 8's plate is `object-fit: contain`, so its paper is only 506px of a 1440
-viewport — a 26% inset clips black, not picture. It was a no-op that added nothing and it has
-been removed rather than tuned.
-
-## Measured, both viewports
-
-| state | gap | forward | Beat 7 stage | Beat 8 stage |
+| state | gap | message clip t | Beat 8 clip t | word |
 |---|---:|---:|---:|---:|
-| street | 0 | 0.00 | 1.00 | 0 |
-| forward | 14.8vw | 0.51 | 1.00 | 0 |
-| split | 49.2vw | 0.99 | 1.00 | 0 |
-| parted | 50vw | 1.00 | 0.81 | 0.44 |
-| open | 50vw | 1.00 | 0 | 1.00 |
-
-Identical at 1440×900 and 375×812.
+| street | 0 | 0.90 | 1.97 | 0 |
+| fold | 25.7vw | 1.50 | 1.97 | 1.00 |
+| peel | 47.1vw | 1.73 | 1.97 | 1.00 |
+| drop | 50vw | 1.92 | 1.97 | 0.16 |
+| handover | 50vw | **1.95** | **1.97** | 0 |
 
 ## Deliverables
 
-`split-1440-fwd.mp4`, `split-1440-rev.mp4`, `split-375-fwd.mp4`, `split-375-rev.mp4` — normal
-speed across the join. `states.jpg`, `states-375.jpg` — six states.
-
-Visual proof only; no full regression until the composition is accepted.
+`unfold-{1440,375}-{fwd,rev}.mp4`, `states.jpg`, `states-375.jpg`. Visual proof only; no full
+regression until the composition is accepted.

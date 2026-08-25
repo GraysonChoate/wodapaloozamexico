@@ -976,11 +976,44 @@
     transform:scale(calc(1.03 + var(--p) * .05 + var(--fwd,0) * .09));
   }
   /* the message, waiting behind the seam at its first sheet */
-  #b7 .plate.next{ z-index:0 }
-  #b7 .plate:not(.next){ z-index:1 }
+  #b7 .plate.next{ z-index:1 }
+  #b7 .plate:not(.next){ z-index:2 }
+  /* The same printed edges Beat 8 sits against, already in place behind the street. When the
+     street parts it uncovers ink and message together, so the sides are never empty and the
+     composition Beat 8 continues is the composition the gap revealed. */
+  #b7 .b8ink{ z-index:0 }
   /* contained, exactly as Beat 8 presents it, so the gap reveals the frame Beat 8 will keep
      rather than a full-bleed blow-up of the same footage */
   #b7 .plate.next video,#b7 .plate.next img{ object-fit:contain; object-position:50% 50% }
+  /* The word he is holding, pulled off the paper as page-owned type and brought forward on the
+     same scroll that peels the sheet. Outline only — it echoes the handwriting, it does not
+     imitate it, and it is gone before the next sheet is readable. */
+  .b7word{
+    position:absolute; inset:0; z-index:3; display:grid; place-items:center;
+    pointer-events:none; opacity:var(--wordo,0);
+    perspective:1200px;
+    /* clipped to the opening itself, so the word lives in the newspaper's space rather than
+       lying across the street on either side of it */
+    clip-path:inset(0 calc(50% - var(--gap,0) * 1vw) 0 calc(50% - var(--gap,0) * 1vw));
+  }
+  .b7word b{
+    /* sized by the opening itself: it grows as the pages part, so it is always whole inside
+       the gap instead of being cropped into fragments of letters */
+    font:800 calc(var(--gap,0) * 0.19vw)/1 Archivo,"Helvetica Neue",Arial,sans-serif;
+    letter-spacing:-.03em; color:transparent; white-space:nowrap;
+    -webkit-text-stroke:2px rgba(255,255,255,.92);
+    transform:translateZ(calc(var(--wordz,0) * 420px)) scale(calc(1 + var(--wordz,0) * .22));
+  }
+  /* Beat 8's own margins stop being empty black: the paper is held against printed edges. */
+  .b8ink{
+    position:absolute; top:0; bottom:0; z-index:0; overflow:hidden; opacity:.9;
+    width:calc((100vw - 100svh * 640 / 1138) / 2 + 1px);
+  }
+  .b8ink img{ position:absolute; top:0; height:100%; width:44vw; max-width:none;
+              object-fit:cover; display:block }
+  .b8ink-l{ left:0 }  .b8ink-l img{ right:0; object-position:14% 50% }
+  .b8ink-r{ right:0 } .b8ink-r img{ left:0;  object-position:86% 50% }
+  #b8 .plate{ z-index:1 }
 
 
   /* ── safety nets — everything resolves to VISIBLE ───────────────────────── */
@@ -1001,7 +1034,8 @@
     #b1 .plate{ clip-path:none !important }
     #b6 .plate,#b7 .plate{ clip-path:none !important }
     #b7 .plate{ mask-image:none !important }
-    #b7 .plate.next{ display:none !important }
+    #b7 .plate.next,.b7word{ display:none !important }
+    .b8ink{ display:none !important }
 
     .b1cap,.b3line{ opacity:1 !important }
     .glow{ opacity:.6 !important }
@@ -1152,6 +1186,8 @@
 <!-- ─────────── BEAT 7 · OCCUPATION ─────────── -->
 <section class="beat" id="b7" data-src="media/scrub/b07_stickers.mp4" data-scrub-warp="0.34,0.21" data-join-in>
   <div class="stage">
+    <div class="b8ink b8ink-l"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
+    <div class="b8ink b8ink-r"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
     <div class="plate">
       <img src="media/poster/b07_stickers.jpg" alt="The Wodapalooza badge stuck to a pole on Paseo de la Reforma">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
@@ -1165,13 +1201,16 @@
       <img src="media/poster/b08_newspaper.jpg" alt="">
       <video data-full="media/scrub/b08_newspaper.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
+    <div class="b7word" aria-hidden="true"><b>RECUERDA</b></div>
     <div class="b7strip" data-marquee><span>REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;</span></div>
   </div>
 </section>
 
 <!-- ─────────── BEAT 8 · THE MESSAGE ─────────── -->
-<section class="beat" id="b8" data-src="media/scrub/b08_newspaper.mp4" data-scrub-warp="0.60,0.71" data-join-in>
+<section class="beat" id="b8" data-src="media/scrub/b08_newspaper.mp4" data-scrub-warp="0.60,0.71" data-scrub-from="1.95" data-join-in>
   <div class="stage">
+    <div class="b8ink b8ink-l"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
+    <div class="b8ink b8ink-r"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
     <div class="plate">
       <img src="media/poster/b08_newspaper.jpg" alt="A hand-written newspaper sheet reading RECUERDA held up in the street">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
@@ -1311,7 +1350,14 @@
      presents no frame at all — so requestVideoFrameCallback never fired and the poster
      never lifted. The page looked fine and was a still image the whole way down. */
   const HEAD = 0.04, TAIL = 0.05;
-  const wantAt = (v, p) => HEAD + p * Math.max(0, (v.duration || 0) - HEAD - TAIL);
+  /* `from` is a clip IN-POINT in seconds. Without it a beat can only ever start a shot at its
+     first frame, so a transition that plays the opening of the next clip has to rewind when
+     that beat arrives — which is exactly the cut this build was rejected for. With it, the
+     transition plays a shot and the beat continues the same shot. */
+  const wantAt = (v, p, from) => {
+    const lo = Math.max(HEAD, from || 0);
+    return lo + p * Math.max(0, (v.duration || 0) - lo - TAIL);
+  };
 
   for (const b of beats) {
     const src = b.dataset.src; if (!src) continue;
@@ -1325,6 +1371,7 @@
     const plate = v.closest('.plate') || b.querySelector('.plate');
     b._v = v; b._want = HEAD; b._seeking = false;
     b._range = b.dataset.scrubRange ? b.dataset.scrubRange.split(',').map(Number) : null;
+    b._from  = b.dataset.scrubFrom ? +b.dataset.scrubFrom : 0;
     b._warp  = b.dataset.scrubWarp  ? b.dataset.scrubWarp.split(',').map(Number)  : null;
 
     let revealed = false;
@@ -1373,7 +1420,8 @@
     /* force one seek so a frame actually decodes. At the top of the page the scrub loop
        never fires on its own — the playhead already equals its target — so without this
        the video element paints nothing and the poster hides a black rectangle. */
-    const prime = () => { b._seeking = true; try { v.currentTime = HEAD; } catch(e){} };
+    const prime = () => { b._seeking = true;
+      try { v.currentTime = Math.max(HEAD, b._from || 0); } catch(e){} };
     const begin = () => { armReveal(); prime(); };
 
     v.addEventListener('loadedmetadata', begin, {once:true});
@@ -1621,6 +1669,21 @@
            behind the street shows through it. Half-gap in vw, so 50 is a fully parted frame. */
         b.style.setProperty('--fwd', ease(seg(p, 0.86, 1.00)).toFixed(4));
         b.style.setProperty('--gap', (50 * ease(seg(p, 0.88, 1.00))).toFixed(3));
+        /* The message in the gap is LIVE. It plays 0.90s to 1.95s of its own clip across the
+           split — RECUERDA held, then the sheet folding down and dropping away — and Beat 8
+           picks the same shot up at 1.95 via data-scrub-from, so nothing rewinds and there is
+           no second arrival. The frame opens because he opens it. */
+        const full = b._full;
+        if (full && full.duration && !RM) {
+          const want = 0.90 + seg(p, 0.86, 1.00) * (1.95 - 0.90);
+          if (!full._seeking && Math.abs(full.currentTime - want) > 1/48) {
+            full._seeking = true; full.currentTime = want;
+          }
+        }
+        /* The word rides the peel: in as the sheet starts to fold, forward as it drops, gone
+           before the sheet behind it is readable. */
+        b.style.setProperty('--wordo', Math.min(seg(p, 0.90, 0.94), 1 - seg(p, 0.975, 1.00)).toFixed(3));
+        b.style.setProperty('--wordz', ease(seg(p, 0.90, 1.00)).toFixed(3));
       }
 
 
@@ -1717,7 +1780,7 @@
         const wp = b._warp;
         if (wp) q = q < wp[0] ? (q / wp[0]) * wp[1]
                               : wp[1] + ((q - wp[0]) / (1 - wp[0])) * (1 - wp[1]);
-        b._want = wantAt(b._v, q);
+        b._want = wantAt(b._v, q, b._from);
       }
     }
 
