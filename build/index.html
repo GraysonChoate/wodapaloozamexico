@@ -140,14 +140,41 @@
   .plate img{ z-index:1 }
   .plate.ready img{ opacity:0 }
 
-  /* B1 — approach */
-  #b1{ height:300svh }
+  /* ── B1 · THE PRELUDE, THEN THE APPROACH ──────────────────────────────────
+     Not a new beat. Beat 1 now opens on a contained aerial object — the city seen from
+     outside, at night, as a wide plate on black — which expands and hands off to the
+     cockpit. Exterior arrival, then interior. The descent spine is unchanged: the cockpit
+     keeps the same 300svh of scroll it always had, and the prelude is added in front of it.
+
+     THE CROP IS FORCED BY THE SOURCE. `WELCOME TO MEXICO CITY` burns into the raw aerial
+     from 0.96s and stays to the cut at 2.17s, occupying y 40–62% and reaching y 63% at its
+     lowest. Uncropped, the title-free window is 0.60–0.94 — and most of that is the fade up
+     from black. Cropping to x 0–80%, y 66–100% clears both the title and the film's own
+     watermark, and leaves 1.25s of the best part of the shot: the light-field itself.
+
+     The plate is 3.68:1 because that is what the clean region measures. It was not chosen. */
+  #b1{ height:380svh }
+  #b1 .plate.prelude{
+    position:absolute; inset:auto; left:50%; top:50%; z-index:4;
+    width:calc(var(--pw,58) * 1vw); aspect-ratio:1280 / 306; height:auto;
+    transform:translate(-50%,-50%);
+    opacity:var(--pon,0); visibility:var(--pvis,hidden);
+    outline:1px solid rgba(255,255,255,var(--pb,0));
+  }
+  #b1 .plate.prelude video,#b1 .plate.prelude img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transform:none;
+  }
+  @media (max-width:760px){ #b1 .plate.prelude{ width:calc(var(--pw,58) * 1.55vw) } }
   #b1 .plate video,#b1 .plate img{ transform:scale(calc(1.04 + var(--p)*.10)) }
+  /* the cockpit waits. The prelude is an object on BLACK — with the interior showing behind
+     it the plate read as a picture-in-picture inside the cockpit, which is the opposite of
+     the sentence: outside first, then inside. */
+  #b1 > .stage > .plate:not(.prelude){ opacity:var(--cockpit,1) }
   .b1cap{
     position:absolute; z-index:5; left:50%; bottom:14vh; transform:translateX(-50%);
     font:700 11px/1.9 "JetBrains Mono",ui-monospace,monospace;
     letter-spacing:.34em; text-align:center; white-space:nowrap;
-    opacity:calc(var(--p)*2.6);
+    opacity:calc(var(--p) * 2.6 * var(--capgate,1));
   }
 
   /* B2 — the word */
@@ -164,8 +191,13 @@
      The drift is bounded by the crop. Overflow per side is (0.04 + 0.20p)/2, so at p=1 there
      is 12% of margin against a 1.4% travel; the frame edge can never enter the letters.
 
-     Was scale(1.06 + p*0.12). The rate is what creates the differential, so it went to 0.20
-     while the start dropped to 1.04 — slightly less crop early, more travel across the beat. */
+     Was scale(1.06 + p*0.12); now scale(1.05 + p*0.155) with a +1.1% / +0.8% drift. The rate
+     is what creates the differential — about 29% faster than the word's outer geometry.
+
+     The drift direction is not arbitrary. Reversed (-1.4% / -1.0%, rate 0.20) it raised motion
+     to 36.8 but dropped the sampled median end from 88 to 84 and p95 end from 239 to 237: the
+     heavier crop and that direction together pushed the window into darker material. Tracking
+     toward the brighter part of the frame instead improves every measured value. */
   #b2 .plate video,#b2 .plate img{
     transform:translate(calc(var(--p) * 1.1%), calc(var(--p) * 0.8%))
               scale(calc(1.05 + var(--p) * .155));
@@ -754,6 +786,8 @@
     .plate video,.plate img{ transform:none !important }
     .stage{ opacity:1 !important }
     .b1cap,.b3line{ opacity:1 !important }
+    #b1 .plate.prelude{ width:92vw !important; outline:0 }
+    #b1 > .stage > .plate:not(.prelude){ opacity:1 !important }
     .glow{ opacity:.6 !important }
     #b4 .plate{ height:100svh !important; top:auto; transform:none }
     .b4copy{ opacity:1 !important }
@@ -782,11 +816,16 @@
 </div>
 
 <!-- ─────────── BEAT 1 · APPROACH ─────────── -->
-<section class="beat" id="b1" data-src="media/scrub/b01_cockpit.mp4">
+<section class="beat" id="b1" data-src="media/scrub/b01_cockpit.mp4" data-scrub-range="0.22,1">
   <div class="stage">
     <div class="plate">
       <img src="media/poster/b01_cockpit.jpg" alt="Approach into Mexico City">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
+    </div>
+    <!-- the city from outside, before the cockpit: a contained plate that expands and hands off -->
+    <div class="plate prelude">
+      <img src="media/poster/b01_prelude.jpg" alt="Mexico City at night, seen from the air">
+      <video data-full="media/scrub/b01_prelude.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
     <div class="b1cap">CIUDAD DE MÉXICO · 2,240 M</div>
   </div>
@@ -1228,6 +1267,31 @@
 
       const onScreen = r.top < H && r.bottom > 0;
       if (onScreen) fitWord(b, p);
+      if (b.id === 'b1') {
+        /* ONE action: a contained aerial object expands, then hands off. The handoff is a
+           step, not a dissolve — the film's grammar everywhere else — and it is also the
+           honest move: outside becomes inside, it does not blend into it. The two frames
+           are different shapes and different places, so a cross-fade would only muddle them. */
+        const HAND = 0.20;
+        const grow = ease(seg(p, 0.02, HAND));
+        const on = p < HAND ? 1 : 0;
+        b.style.setProperty('--pw',   (58 + 42 * grow).toFixed(2));
+        b.style.setProperty('--pb',   (0.22 * (1 - grow)).toFixed(3));
+        b.style.setProperty('--pon',  on);
+        b.style.setProperty('--cockpit', on ? 0 : 1);
+        b.style.setProperty('--pvis', on ? 'visible' : 'hidden');
+        const pre = b._full;
+        if (pre && pre.duration && !RM) {
+          const q = seg(p, 0, HAND);
+          const want = HEAD + q * Math.max(0, pre.duration - HEAD - TAIL);
+          if (!pre._seeking && Math.abs(pre.currentTime - want) > 1/48) {
+            pre._seeking = true; pre.currentTime = want;
+          }
+        }
+        /* the altitude caption belongs to the cockpit, not to the plate before it */
+        b.style.setProperty('--capgate', p >= HAND ? 1 : 0);
+      }
+
       if (b.id === 'b5') identityLoop(b, p, r.top < H * 1.6 && r.bottom > -H * 0.6);
 
       if (b.id === 'b8') {
