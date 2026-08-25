@@ -63,6 +63,10 @@ read -r -d '' STOPS <<'TABLE' || true
 41-the-eruption|b11|0.48|the film's own cut; confetti over the whole floor
 42-the-numbers|b11|0.80|`DIVISIONS (16) · CITIES EVER (3) · FIRST EDITION (1)` — all sourced, all about THIS event
 43-first-edition|b11|1.00|the count lands on 1; the podium winner is preserved at the right edge
+44-zocalo-empty|b12|0.10|the Zócalo at dusk, near empty — a thin line of people and a lot of stone
+45-zocalo-still-empty|b12|0.48|the reader is held here on purpose; the memory is being made, not recalled
+46-zocalo-full|b12|0.60|**the same viewpoint, replaced not dissolved** — Cathedral centre, Palacio right, in both
+47-the-date|b12|1.00|`DECEMBER 4 · 5 · 6 · 2026 / Ciudad de México` — no attendance figure claimed
 TABLE
 
 write_index () {

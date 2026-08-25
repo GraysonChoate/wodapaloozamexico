@@ -527,3 +527,29 @@ the confetti. Green sits near 0.44 relative luminance and cannot clear 4.5:1 on 
 without a plate deep enough to read as a card. Colour was the wrong tool for hierarchy anyway:
 the interface here is white and black, and the green-to-blue gradient belongs to the mark and
 the altimeter instrument. Size and weight carry the emphasis instead.
+
+**Beat 12 works exactly as v3 imagined it, and the footage genuinely supports the device.**
+`45.05–46.13` is the Zócalo at dusk, near empty — a thin line of people and a great deal of
+stone. `53.93–54.93` is **the same elevated viewpoint at night, completely full**: Cathedral
+towers centre, Palacio Nacional right, the same buildings left, in both. The camera drifted
+about 4% vertically between takes and that is left alone. Two real recordings of one place,
+not a composite.
+
+**It is a step, not a fade.** A dissolve would show the crowd *growing*, which is a different
+and much weaker idea than the same frame being *replaced*. One scroll gesture, empty to full.
+
+**Both plates contain, and here that is structural** rather than only the watermark rule: the
+device needs the two frames to occupy exactly the same box, and containing guarantees it.
+Cover would also have clipped the source watermark on the bright dusk frame.
+
+**The one thing v3 assumed that is not true of this build:** it says *"the empty Zócalo has
+already appeared earlier in the scroll as a quiet establishing shot… the audience remembers
+the empty square."* No earlier beat contains it, so the memory is being made here rather than
+recalled. The empty half of the beat is given the larger share of the scroll for that reason
+— the reader has to be left in the empty square long enough for the full one to mean
+something. If the reviewer wants the plant, the natural home is a brief establishing use
+inside Act I or II, and it costs no new footage.
+
+**No attendance figure on screen.** v3's prose says the square "fills with 40,000 people" —
+that is Miami's number again (`BRAND.md`: *"~40,000 people across 55 divisions"* for the
+parent event). The type is `DECEMBER 4 · 5 · 6 · 2026 / Ciudad de México`, both verifiable.
