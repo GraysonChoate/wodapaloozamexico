@@ -1,7 +1,7 @@
 # WODAPALOOZA MEXICO CITY — CREATIVE CONTROL
 
-**Canonical working context for Codex and Claude. Read before proposing, building, or
-approving any new work.**
+**Read `PROJECT-NERVOUS-SYSTEM.md` first. This document supplies durable creative detail; the
+Nervous System records the current live decision state.**
 
 This document exists because the project has three equal jobs. It is not enough to
 finish a technically strong scroll film if it remains only a film in a browser.
@@ -41,9 +41,10 @@ Current approved enhancements:
 There is no remaining required beat effect. The night-aerial Beat 1 prelude was built, reviewed,
 and rejected: it was technically clean but visually too slight to earn new scroll distance. Its
 contained-object → hard-step grammar remains useful, but must be applied only to a better source.
-The approved Ángel pull-back in `Other B-Roll/` is now the live **Beat 0** opening: full bleed
-→ framed print object → black plate → cockpit handoff. The clean source window is `10.0–27.3s`;
-the earlier `9.4s` ledger in-point was inside the whip transition and was corrected. The main
+The approved Ángel pull-back in `Other B-Roll/` is now the live **Beat 0** opening. The clean
+source window is `10.0–27.3s`; the current windshield-lock handoff solves its empty seam, but
+Codex is actively reviewing a more authored diagonal shared-aperture successor before final
+artistic approval. The earlier `9.4s` ledger in-point was inside the whip transition and was corrected. The main
 film's unused daytime overhead windows remain the internal alternative set for later work.
 
 ### Client-footage coverage rule
@@ -266,9 +267,9 @@ the aircraft; the altimeter stays flat at `2,240` until that handoff. The night-
 prelude remains rejected and reverted. The final action place and HUD release are integrated.
 The first uninterrupted whole-film audit is complete at `audit/whole-film/` (commit `3176477`):
 it found an overused generic black dip at thirteen of fourteen boundaries. The transition pass
-was deliberately limited to Beat 0 → 1 and Beat 6 → 7; it selected windshield lock for the
-opening after comparison against diagonal-registration and recessed-plate forms. The result is
-accepted for this sprint and must not be reopened before the civic-flag proof.
+was deliberately limited to Beat 0 → 1 and Beat 6 → 7. Beat 6 → 7 is accepted; the live Beat
+0 → 1 windshield lock remains mechanically sound but is not final artistic approval. Codex owns
+a separate diagonal shared-aperture study; Claude must not retune Beat 0 until a precise handoff.
 
 **Footage:** every delivered client video source has an intentional home in
 `CLIP-COVERAGE-MAP.md`. The next source pass is not about forced coverage; it identifies the
@@ -302,11 +303,12 @@ behavior, transitions, and responsiveness.
 
 **Immediate transition pass:** The final review at `audit/whole-film/` (commit `3176477`) found
 one structural defect: thirteen boundaries shared the same generic black dip. The two
-highest-value proofs—Beat 0 → 1 and Beat 6 → 7—are built at `ecc539b` and visually accepted.
-Beat 0 → 1 is a windshield-lock: cockpit held in the existing city aperture, then a horizontal
-release into the full cockpit—not a default centre collapse. Beat 6 → 7 reads banner → vertical
-registration strip → pole → open. Do not spend further production time revisiting either; proceed
-to the civic-flag interruption in `PRODUCTION-SPRINT-SUPERPROMPT.md`.
+highest-value proofs—Beat 0 → 1 and Beat 6 → 7—are built at `ecc539b`. Beat 6 → 7 reads banner
+→ vertical registration strip → pole → open. The current Beat 0 → 1 windshield lock is a baseline
+only while Codex tests an asymmetric diagonal shared-aperture replacement in
+`build/angel-cockpit-diagonal-lab.html`; do not alter that live join until its selected result is
+handed off. Claude may proceed with the civic-flag interruption in
+`PRODUCTION-SPRINT-SUPERPROMPT.md`.
 
 Live work products: `reference/FRAMED-FOOTAGE-CHOREOGRAPHY.md`,
 `reference/OTHER-BROLL-INTAKE.md`, `reference/CAMPAIGN-MATERIAL-MAP.md`,

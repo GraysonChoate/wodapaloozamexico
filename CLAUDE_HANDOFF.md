@@ -2,7 +2,8 @@
 
 > ## Current creative override — 2026-08-25
 >
-> `CREATIVE-CONTROL.md` governs the current refinement phase and supersedes this handoff where
+> **Read `PROJECT-NERVOUS-SYSTEM.md` first.** It governs current work split and live decisions;
+> `CREATIVE-CONTROL.md` supplies durable refinement direction and supersedes this handoff where
 > they differ. The thirteen-beat film is the approved base. Beat 2 / 5 / 8 / 9 / 12 enhancements
 > are locked; do not retune them without review. The night-aerial Beat 1 prelude is **rejected and
 > reverted**—do not rebuild or generalize it. The current goal is not another isolated effect:
@@ -44,13 +45,13 @@
 > beginning of the genuine black hold. Release the entire HUD before the action-index hairline
 > or paper appears. The flight ends; the printed destination owns its own mark.
 >
-> **Current transition state:** the two targeted joins at `ecc539b` are visually accepted. Beat
-> 0 → 1 uses the chosen windshield lock—cockpit inside the existing city aperture, then a
-> horizontal release—not a symmetric centre collapse. Beat 6 → 7 reads banner → vertical
+> **Current transition state:** Beat 6 → 7 reads banner → vertical
 > registration strip → pole → open. Treat `MOTION-REFERENCE-PLAYBOOK.md` as binding:
 > entrances and exits need authored trajectories—diagonal, asymmetric, shallow orbital/spiral,
-> rotational-lock, or aperture replacement—not generic boxes scaling in and out. Follow
-> `PRODUCTION-SPRINT-SUPERPROMPT.md`; the selected next source treatment is the
+> rotational-lock, or aperture replacement—not generic boxes scaling in and out. The live Beat
+> 0 → 1 windshield lock only resolves its blank seam; Codex is refining a diagonal shared-aperture
+> successor in `build/angel-cockpit-diagonal-lab.html`. **Do not alter Beat 0→1 until Codex
+> explicitly hands off the selected result.** Follow `PRODUCTION-SPRINT-SUPERPROMPT.md`; the selected next source treatment is the
 > contained civic-flag interruption, while Reforma remains second-wave.
 
 > **Speed override — active:** We have a short production window. Do not run the entire regression
@@ -75,6 +76,7 @@ trust. Written for Codex; binding on Claude.
 
 In this order. Where they disagree, the higher one wins:
 
+    PROJECT-NERVOUS-SYSTEM.md          current shared decision state and work split
     PRODUCTION-SPRINT-SUPERPROMPT.md   active production sequence
     CREATIVE-CONTROL.md                current creative decisions
     SUPERPROMPT.md                     original source/build grounding

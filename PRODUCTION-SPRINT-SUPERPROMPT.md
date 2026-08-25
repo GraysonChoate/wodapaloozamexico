@@ -1,7 +1,7 @@
 # WODAPALOOZA MEXICO — PRODUCTION SPRINT SUPERPROMPT
 
-You are the live-build owner. Start from the current transition-pass build (`ecc539b`) and treat
-the base film as working. The goal for the remaining production window is not more analysis: turn
+You are the live-build owner. First read `PROJECT-NERVOUS-SYSTEM.md`, inspect the actual current
+git state, and treat the base film as working. The goal for the remaining production window is not more analysis: turn
 the strong scroll-film foundation into a premium, functional cinematic website.
 
 ## The non-negotiable creative correction
@@ -41,24 +41,24 @@ use: normal-speed desktop/mobile capture, forward/reverse state, blank-frame che
 performance read. Run the full suite once when that proof is review-ready, and once at major
 integration. If a test is flaky but no visual defect is demonstrated, record it and move on.
 
-## Current base: accept, do not reopen casually
+## Current base: protect while it is refined
 
 - Beat 0 is the daytime Ángel pull-back → print field/plate → cockpit descent.
 - Beats 2, 5, 8, 9 and 12 are approved structural enhancements.
 - Beat 13 fades through real black into the action index; HUD releases during that black.
-- The new 0→1 and 6→7 aperture joins are the active transition proof. Do not revert them to
-  generic black dips. Capture them for review and only revisit if their normal-speed motion fails
-  the quality bar.
+- Beat 6→7 is the active banner → vertical strip → pole → open proof. Do not revert it to a
+  generic black dip.
+- Beat 0→1 has a mechanically working windshield lock, but Codex is actively refining the
+  authored diagonal alternative in a separate lab. Do not touch the live Beat 0→1 join until
+  Codex sends the selected exact handoff.
 
 ## Build order — execute in this order
 
-### 1. Audit the two new joins quickly and visibly — COMPLETE
+### 1. Beat 0→1 diagonal transition decision — CODEX OWNS NOW
 
-Deliver one normal-speed desktop recording that includes both joins, plus a mobile check. Judge
-the opening by the quality bar: it must not merely shrink to a centred box over empty space. The
-accepted result is **windshield lock**: the cockpit is held inside the city aperture, then its
-horizontal edges release. Beat 6 → 7 is accepted as banner → vertical strip → pole → open. Do not
-revisit either now; proceed directly to the flag proof.
+The existing windshield lock solved a blank seam but does not yet satisfy the higher authored-motion
+bar. Codex is testing a diagonal/asymmetric shared-aperture replacement. Wait for a concise
+integration handoff; do not independently retune the opening while the lab is active.
 
 ### 2. Build the single mid-film framed interruption: civic flag
 
