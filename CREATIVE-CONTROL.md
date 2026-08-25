@@ -157,6 +157,17 @@ foot-traffic material is a candidate for this kind of framed, spatial choreograp
 excuse to substitute an unrelated night aerial strip. The supplied `Other B-Roll/` recordings
 are approved working material for this refinement phase.
 
+## Transition rule — every change of scene earns its frame
+
+No scene may simply become the next scene because the scroll reached a boundary. Before any
+different location, scale, or visual world arrives, the outgoing and incoming frames must share
+an intentional relationship that a viewer can feel: a dissolve/release, an expansion from a
+contained object, a collapse into a printed field, a spatial match, a purposeful occlusion, or
+a clearly motivated editorial step. A hard cut is permitted only when the two frames already
+form an explicit visual sentence; it is never a default transition. Judge the transition in
+continuous, normal-speed scrolling, not from isolated stills. The Beat 0 black-plate → cockpit
+handoff remains a flagged whole-film-review item, not a license to make unexamined cuts elsewhere.
+
 ## Non-negotiables
 
 - English-led, Spanish where it lands hardest; words remain scarce.

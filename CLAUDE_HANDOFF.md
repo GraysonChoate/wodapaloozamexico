@@ -25,6 +25,14 @@
 > black plate → untouched cockpit handoff. Do not retune it without review. Recording 4's Zócalo
 > flag (`2.6–5.9s`) is a later candidate. The main film's unused daytime overhead windows remain
 > an additional internal candidate set.
+>
+> **Transition override:** never let a scene simply become the next scene because scroll crossed
+> a section boundary. Every location/scale/world change needs a felt relationship: a dissolve or
+> release, contained-object expansion/collapse, spatial match, purposeful occlusion, or a
+> clearly motivated editorial step. Hard cuts are allowed only when the two frames form an
+> explicit visual sentence, never as a default. Judge this in continuous normal-speed playback.
+> Beat 0's black-plate → cockpit handoff is flagged for the final whole-film review; do not
+> generalize it as permission for unexamined cuts.
 
 How this build is run so an independent reviewer can audit it without taking anything on
 trust. Written for Codex; binding on Claude.
