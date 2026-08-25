@@ -982,23 +982,48 @@
      They are a still of the beat's last frame, not a second decode: by the time the split
      runs, Beat 7's travel is spent and its video is frozen on that exact frame, so swapping
      the live plate for two stills is invisible and costs nothing. */
+  /* FIXED, not absolute. Counter-translating against the stage's slide looked right on paper
+     and was wrong in the frame: `.stage` carries `overflow:clip`, so pushing the halves back
+     down moved them out of its box and they were cut off from the bottom — which reads as the
+     street rising into the top corners, exactly the artefact this was meant to remove. Anchor
+     them to the viewport instead and the stage can slide underneath them without touching
+     them. They are inert outside the split, so nothing is painted when they are not wanted. */
   .b7half{
-    position:absolute; top:0; bottom:0; width:50vw; overflow:hidden; z-index:3;
-    opacity:var(--halves,0);
+    position:fixed; top:0; bottom:0; width:50vw; overflow:hidden; z-index:3;
+    opacity:var(--halves,0); visibility:var(--halvesvis,hidden);
   }
   .b7half img{ position:absolute; top:0; height:100%; width:100vw; max-width:none;
                object-fit:cover; display:block }
+  /* --rise cancels the stage's own slide. A sticky stage is released while this split runs,
+     so anything inside it rides upward — which is why the street was drifting into the top
+     corners while it opened. Translating back down by exactly the distance the stage has
+     travelled leaves a purely horizontal gesture, which is the whole point of a book. */
   .b7half-l{ left:0;  transform:translateX(calc(var(--part,0) * -50vw)) }
   .b7half-l img{ left:0 }
   .b7half-r{ right:0; transform:translateX(calc(var(--part,0) *  50vw)) }
   .b7half-r img{ right:0 }
+  /* The badge itself comes off the pole and past the camera. It is the official mark, already
+     transparent, registered on top of the sticker it duplicates — so at rest it is invisible,
+     and the only thing that happens is that it leaves. Perspective does the magnifying: at
+     1200 a 1050px push is an eight-fold blow-up, so it genuinely passes the reader rather
+     than merely getting larger. */
+  .b7badge{
+    position:fixed; left:48%; top:48%; width:34vw; z-index:5;
+    opacity:var(--badge,0); visibility:var(--halvesvis,hidden); pointer-events:none;
+    /* perspective lives on the element's own transform, never on the stage: `perspective` on
+       an ancestor makes it a containing block for fixed descendants, which quietly re-anchored
+       the halves to the sliding stage and put the vertical travel straight back. */
+    transform:perspective(1200px) translate(-50%,-50%) translateZ(calc(var(--push,0) * 1050px));
+  }
+  .b7badge img{ width:100%; height:auto; display:block }
+  @media (max-width:900px){ .b7badge{ width:39vw } }
   /* the message, waiting behind the seam at its first sheet */
   #b7 .plate{ z-index:2 }
   /* EVERY sheet gets its word. Each one is outlined, comes forward, and is gone before he
      drops the paper that reveals the next. Four sheets, four words, one technique repeating —
      which is what makes it a device rather than an effect used once. Outline only: it echoes
      the handwriting, it does not imitate it. */
-  .b8words{ position:absolute; inset:0; z-index:4; pointer-events:none; perspective:1100px }
+  .b8words{ position:absolute; inset:0; z-index:4; pointer-events:none; perspective:1050px }
   .b8words b{
     position:absolute; left:50%; top:50%; opacity:0;
     max-width:84vw; text-align:center; white-space:normal;
@@ -1037,7 +1062,7 @@
     #b1 .plate{ clip-path:none !important }
     #b6 .plate,#b7 .plate{ clip-path:none !important }
     #b7 .plate{ mask-image:none !important }
-    .b7half,.b8words{ display:none !important }
+    .b7half,.b7badge,.b8words{ display:none !important }
     .b8ink{ display:none !important }
 
     .b1cap,.b3line{ opacity:1 !important }
@@ -1195,6 +1220,7 @@
     </div>
     <div class="b7half b7half-l"><img src="media/poster/b07_end.jpg" alt="" aria-hidden="true"></div>
     <div class="b7half b7half-r"><img src="media/poster/b07_end.jpg" alt="" aria-hidden="true"></div>
+    <div class="b7badge" aria-hidden="true"><img src="media/logo/mark-gradient.png" alt=""></div>
     <div class="b7strip" data-marquee><span>REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;</span></div>
   </div>
 </section>
@@ -1645,7 +1671,7 @@
         /* The frame comes forward as the sheets come off — it is bigger at the last message
            than it was at the first, so the reader is drawn in rather than held at a fixed
            distance. Capped at 1.13: beyond that the contained sheet starts losing its edges. */
-        b.style.setProperty('--grow', (1 + 0.13 * ease(p)).toFixed(4));
+        b.style.setProperty('--grow', (1 + 0.30 * ease(p)).toFixed(4));
         /* One word per sheet: outlined, forward, gone — then he drops the paper and the next
            one takes its place. Windows located in the clip and mapped back through the warp. */
         const WW = b._ww || (b._ww = [...b.querySelectorAll('.b8words b')]);
@@ -1653,10 +1679,13 @@
         for (let i = 0; i < WW.length; i++) {
           const a = WIN[i][0], z = WIN[i][1], span = z - a;
           const t = seg(p, a, z);
-          const o = Math.min(seg(p, a, a + span * 0.16), 1 - seg(p, a + span * 0.70, z));
+          /* All the way through, not a polite fade at seventy per cent. Perspective is 1050
+             and the push reaches 880, which is a seventeen-fold blow-up — the outline arrives
+             at the reader and passes them. It only leaves in the last tenth, once it is
+             already larger than the frame. */
+          const o = Math.min(seg(p, a, a + span * 0.12), 1 - seg(p, a + span * 0.90, z));
           WW[i].style.opacity = o.toFixed(3);
-          WW[i].style.transform = 'translate(-50%,-50%) translateZ(' + (t * 440).toFixed(0)
-            + 'px) scale(' + (1 + t * 0.16).toFixed(3) + ')';
+          WW[i].style.transform = 'translate(-50%,-50%) translateZ(' + (t * 880).toFixed(0) + 'px)';
         }
       }
 
@@ -1689,12 +1718,19 @@
            is fully masked away by 0.72 of it, so the stage slide that follows has nothing left
            to show and is invisible. */
         const ex = Math.min(1, Math.max(0, (-r.top - travel) / H));
-        const part = ease(Math.min(1, ex / 0.78));
+        /* The badge leaves first and the book opens behind it, overlapping so the street is
+           already parting as the mark passes the reader. */
+        const push = ease(Math.min(1, ex / 0.42));
+        const part = ease(Math.min(1, Math.max(0, (ex - 0.18) / 0.62)));
         b.style.setProperty('--fwd', part.toFixed(4));
         /* the live plate hands to the two stills the instant the exit starts — the video is
            frozen on that frame by then, so the swap cannot be seen */
         b.style.setProperty('--halves', ex > 0.001 ? 1 : 0);
+        b.style.setProperty('--halvesvis', ex > 0.001 ? 'visible' : 'hidden');
         b.style.setProperty('--part', part.toFixed(4));
+        b.style.setProperty('--push', push.toFixed(4));
+        /* registered and invisible at rest, gone once it is past the lens */
+        b.style.setProperty('--badge', (ex > 0.001 ? 1 - seg(ex, 0.34, 0.44) : 0).toFixed(3));
         /* What the opening uncovers is Beat 8 itself, already pinned behind and already
            running — nothing to hand over, nothing to rewind. */
       }
