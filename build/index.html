@@ -712,7 +712,7 @@
       <img src="media/poster/b07_stickers.jpg" alt="The Wodapalooza badge stuck to a pole on Paseo de la Reforma">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
-    <div class="b7strip"><span>REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;</span></div>
+    <div class="b7strip" data-marquee><span>REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;</span></div>
   </div>
 </section>
 
@@ -876,9 +876,8 @@
       fullEl.addEventListener('seeked', () => { fullEl._seeking = false; });
       const fbegin = () => { farm(); fullEl._seeking = true; try { fullEl.currentTime = HEAD; } catch(e){} };
       fullEl.addEventListener('loadedmetadata', fbegin, {once:true});
-      fullEl.src = fullEl.dataset.full;
-      if (fullEl.readyState >= 1) fbegin();
       b._full = fullEl;
+      b._loadFull = () => { fullEl.src = fullEl.dataset.full; if (fullEl.readyState >= 1) fbegin(); };
     }
     if (b.hasAttribute('data-ambient')) {
       const c = b.querySelector('.amb');
@@ -892,8 +891,13 @@
     const begin = () => { armReveal(); prime(); };
 
     v.addEventListener('loadedmetadata', begin, {once:true});
-    v.src = src;
-    if (v.readyState >= 1) begin();
+
+    /* DO NOT assign src here. Assigning it starts the download, and with thirteen beats that
+       meant 41.9 MB pulled before the reader had scrolled a single pixel — invisible on a
+       desktop with a local server, a wall on a phone on cellular. The src is assigned when
+       the beat comes within reach instead, from the tick below. The poster is what shows
+       until then, which is what it has always been for. */
+    b._load = () => { v.src = src; if (v.readyState >= 1) begin(); };
   }
 
   /* ── the identity loop ───────────────────────────────────────────────────
@@ -1028,6 +1032,11 @@
       b.style.setProperty('--sv', Math.min(enter, 1 - exit).toFixed(4));
 
       // how far through the WHOLE page are we — drives the altimeter
+      /* Two and a half viewports of lead. Enough for the largest clip in the film to be
+         ready before it is needed, without pulling the whole reel up front. */
+      if (b._load && r.top < H * 2.5) { b._load(); b._load = null; }
+      if (b._loadFull && r.top < H * 2.5) { b._loadFull(); b._loadFull = null; }
+
       const onScreen = r.top < H && r.bottom > 0;
       if (onScreen) fitWord(b, p);
       if (b.id === 'b5') identityLoop(b, p, r.top < H * 1.6 && r.bottom > -H * 0.6);

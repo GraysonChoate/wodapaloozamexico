@@ -44,6 +44,7 @@ const snap = () => ({
     return {
       id: b.id,
       p: +(+getComputedStyle(b).getPropertyValue("--p")).toFixed(3),
+      near: b.getBoundingClientRect().top < innerHeight * 2.5,
       live: plate ? plate.classList.contains("ready") : null,
       t: v ? +v.currentTime.toFixed(3) : null
     };
@@ -72,10 +73,11 @@ const snap = () => ({
     // ---- FIRST LOAD, NEVER SCROLLED -------------------------------------
     const rest = await p.evaluate(snap);
     await p.screenshot({path: `${SHOTS}/${tag}_00_firstload.png`});
-    const poster = rest.beats.filter(b => b.live === false);
+    // media loads on approach, so only beats within reach are expected to be decoded here
+    const poster = rest.beats.filter(b => b.near && b.live === false);
     if (poster.length) bad("first load, never scrolled: " + poster.map(b=>b.id).join(", ")
                            + " still on the poster, no frame decoded");
-    else ok("first load, never scrolled: every scrubbed beat is showing a decoded frame");
+    else ok("first load, never scrolled: every beat within reach shows a decoded frame");
     if (rest.y !== 0) bad("page did not start at the top (y=" + rest.y + ")");
 
     // ---- DOWN-SCROLL ----------------------------------------------------

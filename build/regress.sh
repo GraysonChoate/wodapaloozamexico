@@ -39,6 +39,12 @@ bash "$SKILL/scrub-audit.sh" "$URL" || fails=$((fails+1))
 hdr "3 · interface legibility over the footage"
 bash "$SKILL/contrast.sh" "$URL" || fails=$((fails+1))
 
+hdr "4 · no word cut off, 320px to 1920px"
+bash "$HERE/overflow.sh" "$URL" || fails=$((fails+1))
+
+hdr "5 · smoothness and weight"
+bash "$HERE/perf.sh" "$URL" || fails=$((fails+1))
+
 printf '\n'
 if [ "$fails" -eq 0 ]; then
   echo "  LOCKED · every gate green"
