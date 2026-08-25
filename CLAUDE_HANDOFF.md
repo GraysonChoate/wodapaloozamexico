@@ -59,6 +59,17 @@ which is the reviewer's call, not Claude's.
   purple, pink, cyan and concrete; holding the interface steady against that is what makes
   the real colour feel valuable.
 
+  **Applied colour is restricted. Applied TEXTURE is not** — and conflating the two was
+  Claude's error, corrected by review. What the rule exists to stop is artificial colour
+  grading and fake lighting: anything that pretends to be part of the photographed light, or
+  that corrects the material toward a swatch. It does **not** prohibit restrained page-level
+  graphics — halftone, paper, sticker edges, concrete grain — provided they read plainly as
+  the page rather than as something that happened in front of the camera.
+
+  The line is *pretending*. A halftone laid over a frame is a graphic and is allowed. A
+  gradient raking across a subject as though it were a light source is not, because it lies
+  about the photograph.
+
   The test is not *is there magenta on screen* but *did the page put it there*. Beat 6 shows
   magenta by pointing a camera at a magenta banner, ungraded, in its own afternoon light.
   That is source-native and it is correct. The measured values live in `research/BRAND.md`

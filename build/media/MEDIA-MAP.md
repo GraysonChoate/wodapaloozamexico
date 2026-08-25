@@ -22,7 +22,7 @@ Silent throughout — audio is stripped from every derivative, per the decision.
 | 8 | `scrub/b08_newspaper.mp4` | QUALIFIER_v3_05.mov | 0.00–11.20 | **scrub, warped** |
 | 9 | `still/b09_flex.jpg` | STF00032.jpg | — | still, the figure |
 | 9 | `scrub/b09_lockout.mp4` | WZA_MX_LOGO.mp4 | 49.26–50.05 | **scrub — the second match cut** |
-| 10 | `loop/b10_floor.mp4` | WZA_MX_LOGO.mp4 | 0:28–0:34 | loop |
+| 10 | `scrub/b10_floor.mp4` | WZA_MX_LOGO.mp4 | 28.45–30.07 | scrub |
 | 11 | `scrub/b11_face.mp4` | WZA_MX_LOGO.mp4 | 0:35–0:38 | scrub |
 | 12 | `scrub/b12_zocalo_empty.mp4` | WZA_MX_LOGO.mp4 | 0:45–0:47 | scrub |
 | 12b | `scrub/b12b_zocalo_full.mp4` | WZA_MX_LOGO.mp4 | 0:54–0:56 | **scrub — critical** |
@@ -168,6 +168,15 @@ loop clip, which is wrong for it: this is a performance with a beginning, a mess
 end, not a texture. The film's own end card fades in at ~11.3s once the figure walks away, and
 the shot cuts to black at 14.53s; ending on the held date keeps the performance and avoids
 putting the client's mark against ours. The old loop encode was deleted.
+
+**Beat 10 — `28.45–30.07`, moved from loop to scrub.** Two shots with the film's own cut
+between them: the WZA letters, then the WHOOP wall. `30.07–31.03` carries a burned `WORTH THE`
+title; `31.03–31.61` is Beat 5's match cut and is spent.
+
+**The source watermark, measured:** `WZA_MX_LOGO.mp4` burns a `WODAPALOOZA MEXICO CITY` lockup
+at bottom-right in **every frame**, at the same size throughout — verified by cropping the
+corner at 28.75s, 29.50s, 32.10s and 32.50s and comparing. It is in Beats 1, 2 and 4 already
+and is invisible only because those frames are dark. Do not treat it as a per-beat defect.
 
 **The general rule:** pick a scrub window for what happens *inside the letters*, not for what
 the shot looks like whole, and confirm the window against the source frame by frame.

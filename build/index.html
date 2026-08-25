@@ -80,10 +80,10 @@
      failures this catches are always the same failure, and they always arrive with a beat
      whose footage is brighter than the last one. Measured floors, not taste — see
      scripts/contrast.sh. */
-  .alt,.mk{ position:absolute; z-index:1 }
+  .alt,.mk,.b10line{ position:absolute; z-index:1 }
   .alt::before,.mk::before,
   .b1cap::before,.b2sub::before,.b3line::before,.b4copy::before,
-  .b5cap::before,.b5bcap::before,.b7strip span::before{
+  .b5cap::before,.b5bcap::before,.b7strip span::before,.b10line::before{
     content:""; position:absolute; inset:-11px -20px; z-index:-1;
     /* Size the ellipse EXPLICITLY rather than letting it default to farthest-corner. On a
        long single line the default fades out well before the last few glyphs, which is
@@ -423,6 +423,31 @@
   }
   #b9 .plate.cut video,#b9 .plate.cut img{ transform:scale(calc(1.02 + var(--cutp,0)*.07)) }
 
+  /* ── B10 · WHAT THIS IS ───────────────────────────────────────────────────
+     Act IV opens. After Beat 8's stillness and Beat 9's cut, this is the door opening —
+     so it is the shortest track in the film and it runs fast.
+
+     28.45–30.07 is two shots the FILM cuts between: the WZA letters on the beach with
+     athletes running through, then an athlete past a magenta WHOOP wall. The cut is theirs,
+     not mine.
+
+     THE TEMPERATURE SHIFT IS IN THE FOOTAGE. v3 called this "the one place magenta is
+     permitted" and asked the section to run Miami. Nothing is applied to make that happen:
+     this material is Miami, shot in Miami sun against Miami branding, and it is magenta
+     because it was magenta. The interface stays green-to-blue exactly as everywhere else.
+     A cool-to-hot shift that the page painted would be a lie about the picture; one the
+     footage supplies is just the truth arriving. */
+  #b10{ height:380svh }
+  #b10 .plate video,#b10 .plate img{ transform:scale(calc(1.02 + var(--p) * .06)) }
+  .b10line{
+    position:absolute; z-index:5; left:28px; bottom:30px; margin:0; width:max-content;
+    max-width:calc(100% - 56px);
+    font:700 12px/1.7 "JetBrains Mono",ui-monospace,monospace;
+    letter-spacing:.32em; text-transform:uppercase;
+    opacity:calc((var(--p) - .22) * 2.4);
+  }
+  @media (max-width:760px){ .b10line{ left:14px; bottom:22px; font-size:9px; letter-spacing:.22em } }
+
   /* ── safety nets — everything resolves to VISIBLE ───────────────────────── */
   @media (prefers-reduced-motion:reduce){
     .beat{ height:100svh !important }
@@ -438,6 +463,7 @@
     .b5cap,.b5bcap{ opacity:1 !important }
     .b7strip span{ transform:none !important }
     .b9type{ opacity:1 !important }
+    .b10line{ opacity:1 !important }
     .b9wash{ opacity:.55 !important }
     #b6 .plate video,#b6 .plate img{ object-position:50% 50% !important }
   }
@@ -570,6 +596,17 @@
       <img src="media/poster/b09_lockout.jpg" alt="An athlete locking a barbell overhead on the competition floor">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
+  </div>
+</section>
+
+<!-- ─────────── BEAT 10 · WHAT THIS IS ─────────── -->
+<section class="beat" id="b10" data-src="media/scrub/b10_floor.mp4">
+  <div class="stage">
+    <div class="plate">
+      <img src="media/poster/b10_floor.jpg" alt="Athletes running through the giant WZA letters">
+      <video muted playsinline preload="auto" disablepictureinpicture></video>
+    </div>
+    <p class="b10line">Celebrate fitness. Community. Life.</p>
   </div>
 </section>
 

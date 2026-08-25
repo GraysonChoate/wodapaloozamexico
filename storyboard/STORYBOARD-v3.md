@@ -443,3 +443,39 @@ photograph, which is the thing the source-native rule exists to prevent. What is
 a **neutral black wash** for legibility — the same wash used everywhere else, no tint — and the
 palette gradient as a 3px interface hairline at the frame edge, clearly the page rather than
 light on the subject.
+
+**The halftone is deferred, not rejected.** Review corrected the rule Claude had been applying:
+restrained page-level texture — halftone, paper, sticker edges, concrete grain — is allowed
+when it reads as the page rather than as photographed light. The distinction is *pretending*,
+not *compositing*. Beat 9's neutral wash and edge hairline stand; whether the film wants a
+halftone layer is a judgement to make once the whole thing is assembled and can be seen end to
+end, not beat by beat.
+
+**Beat 10 no longer carries the match cut — Beat 9 does.** v3 put the cut at the Beat 9 → 10
+boundary. A match cut cannot sit on a section boundary, so it now lives inside Beat 9 and Beat
+10 opens *after* the lockout, as arrival rather than as the cut itself. It is the shortest
+track in the film, because after Beat 8's stillness this is a door opening.
+
+**Cut 28.45–30.07** — two shots the FILM cuts between: the giant WZA letters with athletes
+running through, then an athlete past a magenta WHOOP wall. The cut is theirs, not mine.
+30.07–31.03 carries a burned `WORTH THE` title and 31.03–31.61 is already spent on Beat 5.
+
+**The temperature shift is in the footage.** v3 called this "the one place magenta is
+permitted" and asked the section to run Miami. Nothing is applied to make that happen: this
+material *is* Miami, shot in Miami sun against Miami branding, and it is magenta because it
+was magenta. The interface stays green-to-blue. A cool-to-hot shift the page painted would be
+a lie about the picture; one the footage supplies is the truth arriving.
+
+**OPEN, FOR REVIEW — the film's own watermark.** `WZA_MX_LOGO.mp4` carries a burned
+`WODAPALOOZA MEXICO CITY` lockup at bottom-right, **at identical size and position in every
+single frame of the source**. It has always been in Beats 1, 2 and 4; it is simply invisible
+there because those frames are dark. Beat 10 is the first bright full-bleed beat, so it shows
+— and because cover crops the sides on desktop, it shows *clipped*, which reads as an accident
+rather than as a watermark.
+
+Beats 5b and 9 crop the right 15% to remove it. Beat 10 does not, because the crop would take
+the final `A` of the WZA letters and two of the athletes running through them. The working
+principle is: **crop where it costs nothing and the mark sits beside our own in a tight frame;
+keep the composition otherwise, since it is the client's own watermark on the client's own
+film.** That is a defensible line but it is a direction call, not a technical one, and the
+inconsistency is real. Flagged rather than smoothed over.
