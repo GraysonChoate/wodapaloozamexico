@@ -15,6 +15,20 @@
 > approved opening and date studies, their exact sources, and the conditions for live integration.
 > Beats 0–2 are now integrated by Codex and awaiting review; do not alter them without a named
 > reader-facing defect and explicit assignment.
+>
+> ## Active handoff — after opening checkpoint `379ca7f`
+>
+> The opening is now saved in the live build: Mexican-flag title aperture → Ángel/city → V-fold
+> cockpit breach → `ARE / YOU / READY?` → Beat 2's existing `SUCEDERÁ` aperture. It is no longer
+> Claude's implementation lane. Do not alter Beats 0–2, their sources, timing, or opening rail.
+>
+> **Claude's next live task is the functional web layer only.** Build the persistent transparent
+> kinetic rail against the completed opening: mark/menu at left, quiet place readout in the middle,
+> verified `QUALIFIER ↗` at right, and a small mark-opened index that targets only real held
+> places. Then add the three one-time fact rails *inside their relevant scenes*—qualifier, date,
+> proof—not as centred cards, permanent tickers, or an invented sponsor treatment. Work on the
+> rail in one isolated pass; do not begin the Beat 12 date-to-venue study yet. That approved study
+> belongs late in the film directly before/within Beat 12, not at Beats 9–10.
 > `CREATIVE-CONTROL.md` supplies durable refinement direction and supersedes this handoff where
 > they differ. The thirteen-beat film is the approved base. Beat 2 / 5 / 8 / 9 / 12 enhancements
 > are locked; do not retune them without review. The night-aerial Beat 1 prelude is **rejected and

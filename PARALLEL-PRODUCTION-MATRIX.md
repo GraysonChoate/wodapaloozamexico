@@ -4,16 +4,17 @@ Use this during the sprint to avoid serial work and conflicting edits.
 
 | Lane | Owner | Scope now | Never touch |
 |---|---|---|---|
-| Live cinematic build | Claude | `build/`: current in-progress work, then utility/rail integration after the opening handoff | Beat 0→1 while Codex owns its opening-lab decision |
+| Live cinematic build | Claude | `build/`: functional utility/rail integration after opening checkpoint `379ca7f` | Beats 0–2 and the Beat 12 date study |
 | Material/art direction | Codex | authored print fields, rail/frame visual kit, source selection, visual review | `build/` while Claude is implementing |
 | Independent review | Codex | normal-speed recording review, choice between motion variants, reader-experience notes | Claude's in-progress files |
 | Production coordination | Both | sprint order, factual/copy constraints, milestone decisions | rewriting each other's work without a named handoff |
 
 ## Immediate overlap
 
-- Codex: refine/select the opening identity → cockpit → `SUCEDERÁ` sequence in
-  `build/angel-cockpit-diagonal-lab.html`; then issue a concise live-build handoff.
-- Claude: continue his independent live-build work without touching the opening until the handoff.
+- Codex: reviews the saved opening and supplies material/source direction without editing Claude's
+  functional pass.
+- Claude: builds the functional layer only; the late-film date-to-venue treatment remains a saved
+  approved study until a later named handoff.
 
 ## Handoff rhythm
 
