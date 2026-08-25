@@ -16,3 +16,9 @@ fact, or unofficial logo/text is used.
 Standalone choreography specimen: authored print field → angled contained source plate → lock for
 copy → scale-through release. It is not a live-film beat; it is the reusable visual grammar for
 turning a fragment of cleared city or athlete footage into a cinematic web object.
+
+# `final-action-index.html`
+
+Standalone functional ending study: the footage-supplied black becomes a large editorial paper
+index that enters as an object, settles, and exposes three verified live actions. Pre-Registro is
+intentionally visible but inactive until its full destination is supplied.

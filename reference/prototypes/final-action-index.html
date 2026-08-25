@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Final Action Index — Wodapalooza Mexico City</title>
+  <style>
+    *{box-sizing:border-box} html{background:#050505;scroll-behavior:smooth} body{margin:0;height:360svh;background:#050505;color:#111;font-family:Arial,Helvetica,sans-serif}.stage{position:sticky;top:0;height:100svh;overflow:hidden;background:#050505;display:grid;place-items:center}.signal{position:absolute;top:17vh;width:min(76vw,840px);height:1px;background:linear-gradient(90deg,#6cc180,#35a7df);opacity:0}.index{position:relative;width:min(94vw,1180px);min-height:min(78svh,720px);padding:clamp(26px,5vw,72px);background:#f1eee6 url('../authored-materials/v1/action-paper-01.png') center/cover;transform:translateY(125svh) rotateX(8deg) scale(.86);transform-origin:center bottom;box-shadow:0 34px 100px #000;opacity:0;display:grid;grid-template-columns:minmax(170px,.65fr) minmax(0,1.5fr);gap:clamp(28px,7vw,110px);align-content:space-between}.identity{display:flex;flex-direction:column;justify-content:space-between;gap:24px}.identity img{width:min(184px,70%);height:auto;mix-blend-mode:multiply}.identity p,.kicker,.utility{margin:0;font:600 10px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.11em;text-transform:uppercase}.index h1{margin:0 0 32px;max-width:8ch;font-size:clamp(42px,7vw,96px);letter-spacing:-.075em;line-height:.83}.actions{border-top:1px solid #171717}.action{min-height:64px;padding:15px 0;border-bottom:1px solid #171717;display:grid;grid-template-columns:44px 1fr auto;gap:16px;align-items:center;color:#111;text-decoration:none;transition:padding .25s ease,background .25s ease}.action:hover{padding-left:12px;background:#111;color:#f4f0e9}.action:focus-visible{outline:3px solid #35a7df;outline-offset:3px}.action .number{font:600 10px ui-monospace,monospace;letter-spacing:.08em}.action strong{font-size:clamp(18px,2.1vw,31px);letter-spacing:-.055em;line-height:.95}.action i{font:600 10px ui-monospace,monospace;font-style:normal;letter-spacing:.08em}.action.pending{cursor:default;opacity:.5}.action.pending:hover{padding-left:0;background:transparent;color:#111}.utility{display:flex;justify-content:space-between;gap:20px;grid-column:1/-1;border-top:1px solid #171717;padding-top:16px}.utility a{color:inherit}.return{position:absolute;right:4vw;bottom:4vh;color:#f5f5f5;text-decoration:none;font:600 10px ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;opacity:0}.return:focus-visible{outline:2px solid #35a7df;outline-offset:5px}@media(max-width:650px){.index{grid-template-columns:1fr;min-height:84svh;padding:28px 24px;gap:20px}.identity{flex-direction:row;align-items:start}.identity p{max-width:15ch}.identity img{width:132px}.index h1{margin-bottom:22px}.action{grid-template-columns:29px 1fr;gap:9px}.action i{display:none}.utility{font-size:9px;gap:10px}.utility span:last-child{display:none}}@media(prefers-reduced-motion:reduce){body{height:auto}.stage{position:relative;min-height:100svh}.index{opacity:1;transform:none}.signal,.return{opacity:1}}
+  </style>
+</head>
+<body id="top">
+  <main class="stage" aria-label="Wodapalooza Mexico City action index">
+    <div class="signal"></div>
+    <section class="index" aria-labelledby="title">
+      <aside class="identity"><img src="../../assets/logos/LOGO_WZA1.png" alt="Wodapalooza Mexico City"><p>Ciudad de México<br>04 · 05 · 06<br>Diciembre 2026</p></aside>
+      <div>
+        <p class="kicker">Choose your way in</p>
+        <h1 id="title">THE INDEX.</h1>
+        <nav class="actions" aria-label="Event actions">
+          <span class="action pending" aria-disabled="true"><span class="number">01</span><strong>Pre-Registro</strong><i>Próximamente</i></span>
+          <a class="action" href="https://competitioncorner.net/events/21707/details" target="_blank" rel="noreferrer"><span class="number">02</span><strong>Inscríbete en el Online Qualifier</strong><i>Abrir ↗</i></a>
+          <a class="action" href="https://share.hsforms.com/2HRn74_J4TeWtT7s28ZfA-g4zvdw" target="_blank" rel="noreferrer"><span class="number">03</span><strong>Dudas y preguntas, aquí te ayudamos</strong><i>Abrir ↗</i></a>
+          <a class="action" href="https://drive.google.com/file/d/1JGCQtsKqS8dYpa8M4LwoZeGekvwKnjdy/view" target="_blank" rel="noreferrer"><span class="number">04</span><strong>Rulebook WZA CDMX</strong><i>Abrir ↗</i></a>
+        </nav>
+      </div>
+      <footer class="utility"><span>Wodapalooza Mexico City</span><a href="https://www.instagram.com/wodapaloozamexico/" target="_blank" rel="noreferrer">@wodapaloozamexico ↗</a><span>Organizado por Asdeporte</span></footer>
+    </section>
+    <a class="return" href="#top">Volver al inicio ↑</a>
+  </main>
+  <script>
+    const stage=document.querySelector('.stage'), index=document.querySelector('.index'), signal=document.querySelector('.signal'), back=document.querySelector('.return');
+    const clamp=n=>Math.max(0,Math.min(1,n));
+    function update(){const p=clamp(window.scrollY/(document.documentElement.scrollHeight-innerHeight));const enter=clamp((p-.06)/.27),settle=clamp((p-.31)/.16),leave=clamp((p-.84)/.16);index.style.opacity=enter;index.style.transform=`translateY(${(1-enter)*125}svh) rotateX(${(1-enter)*8}deg) scale(${.86+enter*.14})`;signal.style.opacity=clamp((p-.02)/.12)*(1-leave);back.style.opacity=settle;requestAnimationFrame(update)}update();
+  </script>
+</body>
+</html>
