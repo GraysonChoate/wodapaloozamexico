@@ -17,42 +17,46 @@
     will-change:transform,clip-path;clip-path:polygon(var(--tlx) var(--tly),var(--trx) var(--try),var(--brx) var(--bry),var(--blx) var(--bly));
     box-shadow:0 28px 90px rgba(0,0,0,.58)}
   .plane video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-  .city{z-index:3;opacity:var(--city)}.cockpit{z-index:2;opacity:var(--cockpit)}
+  .city{z-index:4;opacity:var(--city)}.timelapse{z-index:3;opacity:var(--time)}.cockpit{z-index:2;opacity:var(--cockpit)}
   .diag{position:absolute;z-index:4;left:-18vw;top:calc(76vh - var(--slash)*104vh);width:140vw;height:1px;background:#f2eadc;
     box-shadow:0 4px 0 rgba(0,0,0,.82), 0 -4px 0 rgba(0,0,0,.82);transform:rotate(-13deg);opacity:calc(var(--slash)*.58);mix-blend-mode:screen}
   .hair{position:absolute;z-index:5;left:4vw;bottom:3vh;color:#e9e4d7;font-size:9px;letter-spacing:.2em;text-transform:uppercase;
     opacity:calc(clamp(0, .38 - var(--p), 1) * 1.6)}
   .hair span{color:#27bfe6}.credit{position:absolute;z-index:5;right:4vw;bottom:3vh;color:#e9e4d7;font-size:9px;letter-spacing:.15em;opacity:calc(clamp(0, .38 - var(--p), 1) * 1.6)}
+  .descent{position:absolute;z-index:5;left:-4vw;top:calc(var(--typeY)*1vh);color:#f2eadc;font-size:clamp(56px,18vw,260px);font-weight:900;line-height:.74;letter-spacing:-.08em;white-space:nowrap;transform:rotate(-13deg) scale(var(--typeScale));transform-origin:20% 50%;opacity:var(--type);mix-blend-mode:screen;pointer-events:none}
   .hint{position:absolute;z-index:6;right:24px;top:24px;color:#eee;font-size:10px;letter-spacing:.16em;opacity:.6}
   @media(max-width:700px){.paper{background-position:55% 50%}.hair,.credit{font-size:8px}.hint{display:none}}
   @media(prefers-reduced-motion:reduce){.journey{height:100svh}.plane{transform:none!important;clip-path:none!important}.city{display:none}.cockpit{opacity:1}.paper{opacity:0}.diag,.hair,.credit{display:none}}
 </style>
 </head>
 <body>
-<main class="journey" id="journey"><section class="stage" id="stage" style="--x:0;--y:0;--rz:0;--ry:0;--s:1;--tlx:0%;--tly:0%;--trx:100%;--try:0%;--brx:100%;--bry:100%;--blx:0%;--bly:100%;--city:1;--cockpit:0;--slash:0">
+<main class="journey" id="journey"><section class="stage" id="stage" style="--x:0;--y:0;--rz:0;--ry:0;--s:1;--tlx:0%;--tly:0%;--trx:100%;--try:0%;--brx:100%;--bry:100%;--blx:0%;--bly:100%;--city:1;--time:0;--cockpit:0;--type:0;--typeScale:1;--typeY:42;--slash:0">
   <div class="paper"></div>
   <div class="plane cockpit"><video muted playsinline preload="auto" poster="media/poster/b01_cockpit.jpg"><source src="media/scrub/b01_cockpit.mp4" type="video/mp4"></video></div>
+  <div class="plane timelapse"><video muted playsinline preload="auto" poster="media/poster/px_angel_pullback.jpg"><source src="media/scrub/px_city_timelapse.mp4" type="video/mp4"></video></div>
   <div class="plane city"><video muted playsinline preload="auto" poster="media/poster/px_angel_pullback.jpg"><source src="media/scrub/px_angel_pullback.mp4" type="video/mp4"></video></div>
-  <div class="diag"></div><p class="hair"><span>01</span> / El Ángel</p><p class="credit">Paseo de la Reforma · Ciudad de México</p><p class="hint">SCROLL / DIAGONAL LOCK STUDY</p>
+  <div class="diag"></div><div class="descent">DESCENT</div><p class="hair"><span>01</span> / El Ángel</p><p class="credit">Paseo de la Reforma · Ciudad de México</p><p class="hint">SCROLL / DIAGONAL LOCK STUDY</p>
 </section></main>
 <script>
-  const stage=document.querySelector('#stage'), city=document.querySelector('.city video'), cockpit=document.querySelector('.cockpit video');
+  const stage=document.querySelector('#stage'), city=document.querySelector('.city video'), time=document.querySelector('.timelapse video'), cockpit=document.querySelector('.cockpit video');
   const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)), seg=(p,a,b)=>clamp((p-a)/(b-a)), ease=t=>1-Math.pow(1-t,3);
   function state(){ const r=document.querySelector('#journey').getBoundingClientRect(); const p=clamp(-r.top/(r.height-innerHeight));
-    const t=ease(seg(p,.27,.59)), replace=ease(seg(p,.53,.72)), release=ease(seg(p,.70,.88));
+    const t=ease(seg(p,.24,.54)), cityOut=ease(seg(p,.46,.58)), timeIn=ease(seg(p,.46,.62)), timeOut=ease(seg(p,.62,.74)), cockpitIn=ease(seg(p,.66,.80)), release=ease(seg(p,.78,.93));
     stage.style.setProperty('--p',p); stage.style.setProperty('--slash',ease(seg(p,.31,.55)));
     const x=-12*t+12*release, y=-5*t+5*release, rz=-5.2*t+5.2*release, ry=13*t-13*release, s=1-.42*t+.42*release;
     stage.style.setProperty('--x',x);stage.style.setProperty('--y',y);stage.style.setProperty('--rz',rz);stage.style.setProperty('--ry',ry);stage.style.setProperty('--s',s);
     const tlx=0+20*t-20*release, tly=0+10*t-10*release, trx=100-8*t+8*release, tryy=0+18*t-18*release, brx=100-20*t+20*release,bry=100-13*t+13*release,blx=0+12*t-12*release,bly=100-6*t+6*release;
     for(const [k,v] of Object.entries({tlx:tlx+'%',tly:tly+'%',trx:trx+'%',try:tryy+'%',brx:brx+'%',bry:bry+'%',blx:blx+'%',bly:bly+'%'}))stage.style.setProperty('--'+k,v);
-    // The cockpit enters inside the exact same moving quadrilateral. Only after city has
-    // yielded does the shared plate flatten and open back to the viewport.
-    stage.style.setProperty('--city',1-replace);
-    stage.style.setProperty('--cockpit',replace);
-    const durA=Math.max(.01,city.duration||17),durB=Math.max(.01,cockpit.duration||3); const a=Math.min(durA-.03,.2+p*(durA-.25)); const b=Math.min(durB-.03,.04+p*(durB-.07));
-    if(Math.abs(city.currentTime-a)>.08)city.currentTime=a;if(Math.abs(cockpit.currentTime-b)>.08)cockpit.currentTime=b;
+    // Three contents, one physical aperture: Ángel gives way to a city time-compression,
+    // then the night vector becomes the cockpit before the plane releases full-screen.
+    stage.style.setProperty('--city',1-cityOut);
+    stage.style.setProperty('--time',timeIn*(1-timeOut));
+    stage.style.setProperty('--cockpit',cockpitIn);
+    const word=seg(p,.48,.68); stage.style.setProperty('--type',Math.sin(Math.PI*word)*.92);stage.style.setProperty('--typeScale',1+word*.54);stage.style.setProperty('--typeY',42-word*24);
+    const durA=Math.max(.01,city.duration||17),durT=Math.max(.01,time.duration||12.5),durB=Math.max(.01,cockpit.duration||3); const a=Math.min(durA-.03,.2+p*(durA-.25)); const tt=Math.min(durT-.03,Math.max(0,(p-.44)/.34)*durT); const b=Math.min(durB-.03,.04+p*(durB-.07));
+    if(Math.abs(city.currentTime-a)>.08)city.currentTime=a;if(Math.abs(time.currentTime-tt)>.08)time.currentTime=tt;if(Math.abs(cockpit.currentTime-b)>.08)cockpit.currentTime=b;
   }
-  [city,cockpit].forEach(v=>{v.addEventListener('loadeddata',()=>{v.pause();state()},{once:true});v.load()});
+  [city,time,cockpit].forEach(v=>{v.addEventListener('loadeddata',()=>{v.pause();state()},{once:true});v.load()});
   addEventListener('scroll',state,{passive:true});addEventListener('resize',state);requestAnimationFrame(state);
 </script>
 </body></html>
