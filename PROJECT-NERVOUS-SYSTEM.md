@@ -108,6 +108,13 @@ site-wide vocabulary, not an instruction for every element to animate at once. I
 for a later proof moment, not authorization to alter a locked beat or add an unverified partner
 wall.
 
+That study uses only the clean 3.0–8.4s city window in
+`reference/prototypes/media/mexico-city-timelapse-clean.mp4`: it trims the recording before its
+unrelated YouTube recommendation end-screen and physically removes the lower player area. The
+city playhead is scroll-driven, not an autonomous looping background. Its composition is one
+dominant fact at a time—city → `16 / DIVISIONS` → `3 / THIRD CITY` → `1 / FIRST EDITION`—with no
+floating collage boxes.
+
 - kinetic persistent utility rail: mark/menu, quiet current-place/progress readout, and one real
   `QUALIFIER ↗` escape hatch; it changes contrast against its environment and moves in as one
   system, rather than reading as scattered floating controls;
