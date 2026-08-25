@@ -54,6 +54,12 @@
 > explicitly hands off the selected result.** Follow `PRODUCTION-SPRINT-SUPERPROMPT.md`; the selected next source treatment is the
 > contained civic-flag interruption, while Reforma remains second-wave.
 
+> **Civic-flag correction:** `fa7cdce` is not accepted as a visual result. Its technical seam
+> checks do not outweigh the reader-facing failure: small plate on pale page → black void →
+> message. Read and execute `reference/CIVIC-FLAG-REBUILD-BRIEF.md` before any functional-layer
+> work. The required result is a continuously overlapping Beat 7 strip → flag/pole → Beat 8
+> paper handoff, with no black release.
+
 > **Speed override — active:** We have a short production window. Do not run the entire regression
 > suite repeatedly while investigating a single visual build. Per prototype, run only the checks
 > that could invalidate that specific move (normal-speed desktop/mobile visual capture,
