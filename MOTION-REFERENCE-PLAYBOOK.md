@@ -53,12 +53,13 @@ styling. Use their **grammar**, not their surface.
 
 The immediate proof is **Beat 9**, not Beat 2.
 
-`STF00032` contains real optical depth: sky behind, Ángel in the middle, and hood/raised fists
-in front. Build the Spanish line as spatial typography within that one honest frame:
+`STF00032` contains real optical depth: city and Ángel behind, then the hood/raised fists and
+trees in the foreground. Build the Spanish line as spatial typography within that one honest
+frame:
 
-- type behind hood and fists
-- type interrupted by the Ángel column only where it remains legible
-- type in front of the sky
+- type in front of the city and Ángel
+- type behind hood, fists, and source-supported foreground trees
+- type in the open sky band where it remains readable
 - no broad rotoscoping, fake light, or fabricated scene
 - CSS/SVG/CSS 3D first; no Three.js unless CSS demonstrably cannot achieve the approved result
 

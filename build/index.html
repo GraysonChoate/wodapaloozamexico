@@ -234,19 +234,39 @@
      so looping at slightly different rates makes the nine breathe out of sync — and eight
      simultaneous all-keyframe seeks would cost far more than eight small decodes. */
   #b5{ height:700svh }
+  /* THE PANELS ARE PLANES IN SPACE, NOT TILES ON A BOARD.
+     perspective lives on the sheet so the nine cells share one camera; each cell carries its
+     own Z, pitch and yaw, and every one resolves to EXACTLY zero when the grid locks. The 3D
+     transform is on the CELL rather than the media inside it — a plane in perspective has to
+     carry its whole frame, edges included, or it reads as a picture sliding inside a fixed
+     box rather than as an object being set down.
+
+     The depth is deliberately shallow. Deep Z makes near panels swell over their neighbours
+     and the whole thing turns into a template carousel, which is the one thing this beat
+     must not look like. */
   .sheet{
     position:absolute; inset:0; z-index:2;
     display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr);
     transform:scale(var(--sc,3)); transform-origin:50% 50%;
+    perspective:1250px; perspective-origin:50% 50%;
+    transform-style:preserve-3d;
     will-change:transform;
   }
-  .cell{ position:relative; overflow:hidden; background:var(--ground) }
+  .cell{
+    position:relative; overflow:hidden; background:var(--ground);
+    transform:translate3d(var(--ox,0px), var(--oy,0px), var(--dz,0px))
+              rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) rotate(var(--rot,0deg));
+    backface-visibility:hidden; will-change:transform;
+  }
   .cell video,.cell img{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     /* the gap is an inner scale, not a grid gap: a real gap would relayout every frame,
        and at scale 3 it would open black bars across a shot that is meant to be full bleed */
-    transform:scale(var(--cs,1)) translate(var(--ox,0px),var(--oy,0px)) rotate(var(--rot,0deg));
+    transform:scale(var(--cs,1));
   }
+  /* a phone shows the same nine at a third the size, so the same Z reads as a far bigger
+     throw. The depth is scaled to the frame rather than fixed in pixels. */
+  @media (max-width:760px){ .sheet{ perspective:760px } }
   .cell.is-still::after{
     content:"STF00176"; position:absolute; left:6px; bottom:5px;
     font:700 8px/1 "JetBrains Mono",ui-monospace,monospace; letter-spacing:.14em;
@@ -677,7 +697,8 @@
     .glow{ opacity:.6 !important }
     #b4 .plate{ height:100svh !important; top:auto; transform:none }
     .b4copy{ opacity:1 !important }
-    .sheet{ transform:none !important }
+    .sheet{ transform:none !important; perspective:none }
+    .cell{ transform:none !important }
     .cell video,.cell img{ transform:none !important }
     .b5cap,.b5bcap{ opacity:1 !important }
     .b7strip span{ transform:none !important }
@@ -988,8 +1009,23 @@
   const CENTRE = 4;                         // the dive target — see the note in the CSS
   // authored, not random: the drift has to be identical on every frame and every reload,
   // or the contact sheet jitters instead of registering
-  const DRIFT = [[-34,-22,-3.1],[26,-30,2.4],[38,18,-2.0],[-30,26,1.8],[0,0,0],
-                 [34,-16,-2.6],[-26,-30,2.2],[22,30,-1.6],[-38,14,2.8]];
+  /* dx, dy, roll, Z, pitch, yaw — authored, never random, so the sheet registers identically
+     on every frame and every reload. The centre panel is the anchor and never moves: the dive
+     goes through it, so it must sit exactly where it will end up from the very first frame. */
+  const DRIFT = [
+    [-34,-22,-3.1, -210,  4.5, -6.0],
+    [ 26,-30, 2.4,  120, -3.0,  4.5],
+    [ 38, 18,-2.0, -260,  3.5,  6.5],
+    [-30, 26, 1.8,   90,  5.0, -4.0],
+    [  0,  0, 0.0,    0,  0.0,  0.0],
+    [ 34,-16,-2.6, -180, -4.5,  5.5],
+    [-26,-30, 2.2,  140,  4.0, -5.0],
+    [ 22, 30,-1.6, -240, -5.5,  3.5],
+    [-38, 14, 2.8,  110,  3.0, -6.5],
+  ];
+  /* decelerates hard into the lock. A symmetric ease drifts into place and the grid never
+     feels like it ARRIVES; this one lands. */
+  const lock = t => 1 - Math.pow(1 - t, 5);
 
   for (const c of cells) {
     const v = c.querySelector('video[data-loop]');
@@ -1027,10 +1063,14 @@
        and only then becoming the athlete. seg() clamps, so this rests at 3.00. */
     else               sc = 1.00 + 2.00 * ease(seg(p, 0.74, 0.86));
 
-    const reg  = ease(seg(p, 0.30, 0.72));   // frames registering into the grid
+    /* Registration finishes at 0.62; the dive does not begin until 0.74. That gap is the
+       LOCK — twelve percent of the beat where the grid is exact and completely still.
+       Previously registration ran to 0.72 against a dive starting at 0.74, so the sheet was
+       still settling as it began to move and never read as one precise object. */
+    const reg  = lock(seg(p, 0.26, 0.62));
     /* The gap must be fully shut before the dive gets going, or the seams between cells are
        magnified along with everything else and cut black lines across a full-bleed shot. */
-    const gap  = seg(p, 0.30, 0.58) * (1 - seg(p, 0.68, 0.76));
+    const gap  = seg(p, 0.30, 0.56) * (1 - seg(p, 0.66, 0.74));
     sheet.style.setProperty('--sc', sc.toFixed(4));
 
     /* THE CUT. A step, not a ramp — one frame of scroll and the street is a competition
@@ -1056,11 +1096,18 @@
          broken loading rather than a contact sheet being laid down. They arrive close
          together and then register individually via the drift below. */
       else cells[i].style.opacity = seg(p, 0.21 + i * 0.008, 0.31 + i * 0.008).toFixed(3);
-      const [dx, dy, dr] = DRIFT[i] || [0,0,0];
+      const [dx, dy, dr, dz, rx, ry] = DRIFT[i] || [0,0,0,0,0,0];
       const k = 1 - reg;
-      media.style.setProperty('--ox',  (dx * k).toFixed(2) + 'px');
-      media.style.setProperty('--oy',  (dy * k).toFixed(2) + 'px');
-      media.style.setProperty('--rot', (dr * k).toFixed(2) + 'deg');
+      /* EXACTLY zero at the lock. k reaches 0 when reg reaches 1, so every panel resolves to
+         a true identity transform — no residual sub-pixel offset, no rounding drift, nothing
+         left to wobble while the grid is supposed to be holding still. */
+      const cst = cells[i].style;
+      cst.setProperty('--ox',  (dx * k).toFixed(2) + 'px');
+      cst.setProperty('--oy',  (dy * k).toFixed(2) + 'px');
+      cst.setProperty('--rot', (dr * k).toFixed(2) + 'deg');
+      cst.setProperty('--dz',  (dz * k).toFixed(1) + 'px');
+      cst.setProperty('--rx',  (rx * k).toFixed(2) + 'deg');
+      cst.setProperty('--ry',  (ry * k).toFixed(2) + 'deg');
       media.style.setProperty('--cs',  (1 - 0.038 * gap).toFixed(4));
     }
   }
