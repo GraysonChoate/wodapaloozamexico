@@ -799,6 +799,49 @@
   @media (min-aspect-ratio: 11/10) and (max-aspect-ratio: 16/9){
     #b13 .plate video,#b13 .plate img{ object-fit:contain; transform:none }
   }
+  /* ── CIVIC FLAG · the city has public scale ───────────────────────────────
+     A mark is placed in the city (Beat 7) → the city has public scale (here) → the message
+     arrives (Beat 8). A contained editorial place in the film's hottest stretch, not another
+     full-screen city clip.
+
+     Beat 7 closes back into the same vertical registration strip that opened it, and the flag
+     plate arrives out of that vertical: the strip becomes the pole. The pole is the plate's
+     axis, so the object and its frame agree.
+
+     The plate arrives off-axis — low and right, slightly rotated, slightly small — and locks
+     flat with a fifth-power settle so the landing is decisive rather than floaty. It is a
+     printed object being placed on a page, not a box scaling up.
+
+     The photograph is untouched: no grade, no tint, no slogan. The flag, the blown sky, the
+     silhouettes and the vendor trike do the work. */
+  #bf{ height:300svh }
+  /* The field is a PORTRAIT SHEET, so it is shown as one. Cover-cropping it to a landscape
+     viewport kept only its quiet middle band and the whole thing read as a blank pale page —
+     which is the one thing this material must never be. Contained, its ink, halftone and
+     registration crosses are all in frame and the plate is visibly placed ON something. */
+  .bfground{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:contain; object-position:50% 50%;
+    transform:scale(calc(1.03 - .03 * var(--flock,1)));
+  }
+  /* the field steps out at the end so the plate is alone before the paper message, the same
+     punctuation Beat 0 uses before the cockpit */
+  .bfblack{ position:absolute; inset:0; background:var(--ground); opacity:var(--fblack,0); z-index:1 }
+  .bfframe{
+    --fw:min(21vw, 300px);
+    position:absolute; left:50%; top:50%; z-index:2;
+    width:var(--fw); aspect-ratio:3 / 4;
+    opacity:var(--fin,1);
+    transform:
+      translate(-50%,-50%)
+      translate(calc((1 - var(--flock,1)) * 6vw), calc((1 - var(--flock,1)) * 8svh))
+      rotate(calc((1 - var(--flock,1)) * 2.2deg))
+      scale(calc(.90 + var(--flock,1) * .10 - var(--fout,0) * .06));
+    overflow:hidden; background:#000;
+    outline:1px solid rgba(20,17,14,calc(var(--flock,1) * .5 * (1 - var(--fblack,0))));
+  }
+  @media (max-width:900px){ .bfframe{ --fw:min(54vw, 300px) } }
+
   /* ── THE FINAL ACTION INDEX ───────────────────────────────────────────────
      Beat 13 ends the film on black that the FOOTAGE supplies. Then the page becomes
      paper, and the paper is where a reader can finally act.
@@ -977,6 +1020,9 @@
     #b0 .plate.cockpit{ display:none !important }
     #b1 .plate{ clip-path:none !important }
     #b6 .plate,#b7 .plate{ clip-path:none !important }
+    #bf{ --flock:1; --fin:1; --fblack:0; --fout:0 }
+    .bfframe{ position:relative; left:auto; top:auto; transform:none; margin:0 auto; width:min(62vw,430px) }
+    .bfground{ transform:none }
     .b1cap,.b3line{ opacity:1 !important }
     .glow{ opacity:.6 !important }
     #b4 .plate{ height:100svh !important; top:auto; transform:none }
@@ -1135,7 +1181,21 @@
 </section>
 
 <!-- ─────────── BEAT 8 · THE MESSAGE ─────────── -->
-<section class="beat" id="b8" data-src="media/scrub/b08_newspaper.mp4" data-scrub-warp="0.60,0.71">
+<!-- ─────────── CIVIC FLAG · PUBLIC SCALE ─────────── -->
+<section class="beat" id="bf" data-src="media/scrub/bf_flag.mp4" data-join-in>
+  <div class="stage">
+    <img class="bfground" src="media/print/civic-flag-field-01.jpg" alt="" aria-hidden="true">
+    <div class="bfblack"></div>
+    <div class="bfframe">
+      <div class="plate">
+        <img src="media/poster/bf_flag.jpg" alt="The Mexican flag on its mast in the Z&oacute;calo, people and a vendor trike crossing below">
+        <video muted playsinline preload="auto" disablepictureinpicture></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="beat" id="b8" data-src="media/scrub/b08_newspaper.mp4" data-scrub-warp="0.60,0.71" data-join-in>
   <div class="stage">
     <div class="plate">
       <img src="media/poster/b08_newspaper.jpg" alt="A hand-written newspaper sheet reading RECUERDA held up in the street">
@@ -1577,9 +1637,22 @@
         b.style.setProperty('--reg', ease(seg(p, 0.88, 1.00)).toFixed(4));
       }
       if (b.id === 'b7') {
-        /* Releases from the same strip. Finished well before the seventy-four-cut montage
-           starts doing its own work. */
-        b.style.setProperty('--reg', (1 - ease(seg(p, 0.00, 0.09))).toFixed(4));
+        /* Opens from the 6 → 7 strip, and now closes back into it. The same vertical device
+           brackets the whole street occupation, and the strip it closes to is the vertical the
+           flag plate arrives out of. */
+        const open7  = 1 - ease(seg(p, 0.00, 0.09));
+        const close7 = ease(seg(p, 0.90, 1.00));
+        b.style.setProperty('--reg', Math.max(open7, close7).toFixed(4));
+      }
+
+      if (b.id === 'bf') {
+        /* Arrive off-axis, then land. `lock` is the fifth-power settle Beat 5 was approved
+           with — most of the travel is spent almost home, so the plate reads as placed. */
+        b.style.setProperty('--fin',   seg(p, 0.04, 0.16).toFixed(4));
+        b.style.setProperty('--flock', lock(seg(p, 0.06, 0.34)).toFixed(4));
+        /* hold 0.34 → 0.72: flat, still, a place */
+        b.style.setProperty('--fblack', seg(p, 0.74, 0.80).toFixed(4));
+        b.style.setProperty('--fout',   ease(seg(p, 0.86, 1.00)).toFixed(4));
       }
 
       if (b.id === 'b0') {
