@@ -553,3 +553,39 @@ inside Act I or II, and it costs no new footage.
 **No attendance figure on screen.** v3's prose says the square "fills with 40,000 people" —
 that is Miami's number again (`BRAND.md`: *"~40,000 people across 55 divisions"* for the
 parent event). The type is `DECEMBER 4 · 5 · 6 · 2026 / Ciudad de México`, both verifiable.
+
+**Beat 13 uses the film's own ending, and lets it do the work.** `54.97–57.80`: the Monumento
+a la Revolución lit red, the badge descending and locking at ~55.1, then the whole frame
+fading to black by 57.8.
+
+v3 asked for the gradient to bleed out from behind the monument, flood the frame, then drain
+to black. **Neither half is built, for two separate reasons.** The film already drains to
+black itself, so the drain is real rather than applied — the links land on black the *footage*
+supplies, and nothing is dimmed to make room for them. And the monument is lit **red**: that is
+the city wearing its own light, source-native, and flooding green-to-blue over it would both
+fight the source and put applied colour on top of a photograph. The gradient appears instead
+as a hairline rule above the links, on black, where it is plainly the page.
+
+**The links wait for that black.** Brought up earlier they measured **2.88:1** against the
+still-lit monument. The fade completes at 89% of the clip, so `data-scrub-warp="0.62,0.89"`
+gives that last stretch 38% of the beat's scroll and the links arrive after it.
+
+**The link block is built from verified URLs only, and this is a gap.** SUPERPROMPT requires
+it — *"the operator has confirmed the links currently in the IG bio belong on the page"* — but
+**the research never recorded what those bio links are.** `BRAND.md` captured the bio *copy*,
+not its links. So the block uses only URLs that appear verbatim in the research: the
+CompetitionCorner qualifier page, the Instagram account, and Asdeporte. If the operator's
+actual bio list differs, this needs replacing — it is a placeholder built from verified
+material, not the confirmed set.
+
+**The monument colour cue is honoured without being manufactured.** v3 notes El Ángel lit
+brand-green at `0:12` and Revolución lit red at `0:56` — *"the city already wearing the
+palette."* Beat 2 opens the descent on the Ángel at night; Beat 13 closes on Revolución in red.
+Both are the city's own lighting. Neither is graded.
+
+---
+
+# THE FILM IS ASSEMBLED
+
+Thirteen beats, Beats 1–13, one continuous scroll. The halftone question deferred at Beat 9
+can now be judged against the whole piece rather than beat by beat.

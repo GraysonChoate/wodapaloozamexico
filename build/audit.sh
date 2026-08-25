@@ -67,6 +67,10 @@ read -r -d '' STOPS <<'TABLE' || true
 45-zocalo-still-empty|b12|0.48|the reader is held here on purpose; the memory is being made, not recalled
 46-zocalo-full|b12|0.60|**the same viewpoint, replaced not dissolved** — Cathedral centre, Palacio right, in both
 47-the-date|b12|1.00|`DECEMBER 4 · 5 · 6 · 2026 / Ciudad de México` — no attendance figure claimed
+48-revolucion-red|b13|0.10|the Monumento lit red — the city's own light, ungraded
+49-badge-locks|b13|0.34|the film's own badge landing, exactly as the film ends
+50-fade-to-black|b13|0.62|the drain to black is the FOOTAGE, not an applied wash
+51-the-links|b13|1.00|links on the black the film supplied; gradient present only as a hairline
 TABLE
 
 write_index () {

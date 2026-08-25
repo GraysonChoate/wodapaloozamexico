@@ -83,7 +83,7 @@
   .alt,.mk,.b10line{ position:absolute; z-index:1 }
   .alt::before,.mk::before,
   .b1cap::before,.b2sub::before,.b3line::before,.b4copy::before,
-  .b5cap::before,.b5bcap::before,.b7strip span::before,.b10line::before,.b11stats span::before,.b12type h2::before,.b12type p::before{
+  .b5cap::before,.b5bcap::before,.b7strip span::before,.b10line::before,.b11stats span::before,.b12type h2::before,.b12type p::before,.b13out a::before,.b13out small::before{
     content:""; position:absolute; inset:-20px -34px; z-index:-1;
     /* Size the ellipse EXPLICITLY rather than letting it default to farthest-corner. On a
        long single line the default fades out well before the last few glyphs, which is
@@ -547,6 +547,50 @@
   }
   @media (max-width:760px){ .b12type{ bottom:10vh } .b12type p{ font-size:9px; letter-spacing:.2em } }
 
+  /* ── B13 · CLOSE ──────────────────────────────────────────────────────────
+     54.97–57.80 is the film's own ending: the Monumento a la Revolución lit red, the badge
+     descending and locking at ~55.1, then the whole frame fading to black by 57.8.
+
+     v3 asked for the gradient to bleed out from behind the monument, flood the frame and
+     then drain to black. Two reasons it is not built. The film already drains to black
+     itself, so the drain is real rather than applied. And the monument is lit RED — that is
+     the city wearing its own light, sampled by nobody — so flooding green-to-blue over it
+     would both fight the source and put applied colour on top of a photograph. The gradient
+     appears instead as a hairline under the links, on black, where it is plainly the page.
+
+     The links land on the black the film supplies. Nothing is dimmed to make room. */
+  #b13{ height:560svh }
+  #b13 .plate video,#b13 .plate img{ transform:scale(calc(1.02 + var(--p) * .04)) }
+  @media (min-aspect-ratio: 11/10) and (max-aspect-ratio: 16/9){
+    #b13 .plate video,#b13 .plate img{ object-fit:contain; transform:none }
+  }
+  .b13out{
+    position:absolute; z-index:5; left:50%; bottom:14vh; transform:translateX(-50%);
+    width:min(560px, calc(100% - 48px)); text-align:center;
+    opacity:var(--outro,0);
+  }
+  .b13out .rule{
+    height:2px; margin:0 auto 26px; width:120px;
+    background:linear-gradient(90deg, var(--green), var(--blue));
+  }
+  .b13out ul{ list-style:none; margin:0; padding:0;
+    display:flex; justify-content:center; gap:clamp(16px,4vw,44px); flex-wrap:wrap }
+  .b13out a{
+    color:#fff; text-decoration:none; position:relative; z-index:1;
+    font:700 11px/1 "JetBrains Mono",ui-monospace,monospace;
+    letter-spacing:.26em; text-transform:uppercase;
+    border-bottom:1px solid rgba(255,255,255,.32); padding-bottom:5px;
+  }
+  .b13out small{
+    display:block; margin-top:26px; opacity:.5; position:relative; z-index:1;
+    font:400 10px/1.6 "JetBrains Mono",ui-monospace,monospace; letter-spacing:.2em;
+    text-transform:uppercase;
+  }
+  @media (max-width:760px){
+    .b13out{ bottom:11vh } .b13out a{ font-size:9px; letter-spacing:.16em }
+    .b13out ul{ gap:14px }
+  }
+
   /* ── safety nets — everything resolves to VISIBLE ───────────────────────── */
   @media (prefers-reduced-motion:reduce){
     .beat{ height:100svh !important }
@@ -565,6 +609,7 @@
     .b10line{ opacity:1 !important }
     .b11stats span{ opacity:1 !important }
     .b12type{ opacity:1 !important }
+    .b13out{ opacity:1 !important }
     .b9wash{ opacity:.55 !important }
     #b6 .plate video,#b6 .plate img{ object-position:50% 50% !important }
   }
@@ -740,6 +785,25 @@
     <div class="b12type">
       <h2>December 4 · 5 · 6 · 2026</h2>
       <p>Ciudad de México</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── BEAT 13 · CLOSE ─────────── -->
+<section class="beat" id="b13" data-src="media/scrub/b13_close.mp4" data-scrub-warp="0.62,0.89">
+  <div class="stage">
+    <div class="plate">
+      <img src="media/poster/b13_close.jpg" alt="The Monumento a la Revolución lit red, the Wodapalooza mark locking over it">
+      <video muted playsinline preload="auto" disablepictureinpicture></video>
+    </div>
+    <div class="b13out">
+      <div class="rule"></div>
+      <ul>
+        <li><a href="https://competitioncorner.net/events/21707/details">Qualifier · 18–26 Aug</a></li>
+        <li><a href="https://www.instagram.com/wodapaloozamexico/">@wodapaloozamexico</a></li>
+        <li><a href="https://www.asdeporte.com/">Organiza · Asdeporte</a></li>
+      </ul>
+      <small>Ciudad de México · 4–6 diciembre 2026</small>
     </div>
   </div>
 </section>
@@ -967,6 +1031,14 @@
       const onScreen = r.top < H && r.bottom > 0;
       if (onScreen) fitWord(b, p);
       if (b.id === 'b5') identityLoop(b, p, r.top < H * 1.6 && r.bottom > -H * 0.6);
+
+      if (b.id === 'b13') {
+        /* The links arrive on the black the FILM fades to, not on a black the page painted
+           — so they must wait until that fade has actually finished. It completes at 89% of
+           the clip, which is why the warp gives that last stretch 38% of the beat's scroll:
+           otherwise the links come up over the still-lit monument and measure 2.88:1. */
+        b.style.setProperty('--outro', seg(p, 0.68, 0.80).toFixed(3));
+      }
 
       if (b.id === 'b12') {
         /* The whole beat is one gesture: the square is empty, and then it is full. A step,

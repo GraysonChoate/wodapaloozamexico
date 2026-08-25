@@ -26,7 +26,7 @@ Silent throughout — audio is stripped from every derivative, per the decision.
 | 11 | `scrub/b11_face.mp4` | WZA_MX_LOGO.mp4 | 52.22–53.90 | scrub |
 | 12 | `scrub/b12_zocalo_empty.mp4` | WZA_MX_LOGO.mp4 | 45.05–46.13 | scrub |
 | 12b | `scrub/b12b_zocalo_full.mp4` | WZA_MX_LOGO.mp4 | 53.93–54.93 | **scrub — critical, same beat** |
-| 13 | `loop/b13_close.mp4` | WZA_MX_LOGO.mp4 | 0:55–0:58 | loop |
+| 13 | `scrub/b13_close.mp4` | WZA_MX_LOGO.mp4 | 54.97–57.80 | **scrub, warped** |
 
 Poster frames: `poster/<name>.jpg`, one per derivative, 640px wide.
 
