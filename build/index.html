@@ -799,64 +799,6 @@
   @media (min-aspect-ratio: 11/10) and (max-aspect-ratio: 16/9){
     #b13 .plate video,#b13 .plate img{ object-fit:contain; transform:none }
   }
-  /* ── CIVIC FLAG · the city opens around the marker ────────────────────────
-     street occupation / badge → vertical registration axis → flag and public scale →
-     the printed message takes its place.
-
-     The first build of this beat was rejected, correctly: a small poster on a pale page, a
-     black void, then Beat 8. It satisfied a seam metric and was a slideshow. This rebuild has
-     no black interstitial at all — black is never used here to hide a handover.
-
-     The mechanism is ONE continuous crop. Beat 7 closes into a vertical registration strip at
-     `inset(0 41% 0 41%)`; this beat's window opens from exactly that geometry, so the strip
-     the street left behind IS the flagpole axis. The window is a full-height vertical band
-     that widens asymmetrically — the right edge leads, following the flag off the mast — and
-     the image inside is never scaled up: it is uncovered.
-
-     The print field is the EDGE SYSTEM, not a page behind everything. Two bands sit hard
-     against the window on both sides and are squeezed outward as it opens, so the city is
-     literally parting the printed material. Their widths derive from the same two variables
-     that drive the window, so field, window and strip are one composition and no frame is
-     ever unowned.
-
-     Beat 8 arrives INSIDE this window before the flag has gone: the real paper message
-     replaces the photograph in the same plane, then the window opens out to hand to Beat 8's
-     own stage, which is already rising underneath. */
-  #bf{ height:200svh }
-  /* --wL / --wR are plain numbers in percent-of-viewport; window and edges share them.
-     --winW is the window's HELD width and also the media's fixed width, so the crop is only
-     ever an uncovering: the photograph never rescales between the strip and the held state. */
-  #bf .stage{ --wL:41; --wR:41; --winW:52vw }
-  @media (max-width:900px){ #bf .stage{ --winW:74vw } }
-  .bfink{
-    position:absolute; top:0; bottom:0; z-index:1; overflow:hidden;
-    opacity:var(--ink,1);
-  }
-  .bfink img{ position:absolute; top:0; height:100%; width:38vw; max-width:none;
-              object-fit:cover; display:block }
-  .bfink-l{ left:0;  width:calc(var(--wL) * 1%) }
-  .bfink-l img{ right:0; object-position:18% 50% }   /* the sheet's cyan and black edge */
-  .bfink-r{ right:0; width:calc(var(--wR) * 1%) }
-  .bfink-r img{ left:0;  object-position:82% 50% }   /* the magenta halftone edge */
-
-  /* the civic window — a crop, never a scale */
-  .bfwin{
-    position:absolute; inset:0; z-index:2;
-    clip-path:inset(0 calc(var(--wR) * 1%) 0 calc(var(--wL) * 1%));
-  }
-  /* The media box is the size of the HELD window and sits centred; the clip reveals more of
-     it as the window opens. Sizing the plate to the whole stage instead was the first
-     rebuild's error: a 3:4 photograph covering a 16:10 viewport is cropped to a 47% band, and
-     that band landed on blown-out sky — the flag and the people were both outside it. */
-  .bfmedia{
-    position:absolute; top:0; height:100%; left:50%; width:var(--winW);
-    transform:translateX(-50%);
-  }
-  .bfmedia .plate video,.bfmedia .plate img{ object-fit:cover; object-position:50% 50% }
-  /* Beat 8's real message, in the same plane, arriving before the flag leaves */
-  .bfmedia .plate.msg{ opacity:var(--msg,0); visibility:var(--msgvis,hidden); z-index:3 }
-  .bfmedia .plate.msg video,.bfmedia .plate.msg img{ object-fit:contain; object-position:50% 50% }
-
   /* ── THE FINAL ACTION INDEX ───────────────────────────────────────────────
      Beat 13 ends the film on black that the FOOTAGE supplies. Then the page becomes
      paper, and the paper is where a reader can finally act.
@@ -1014,9 +956,32 @@
      figure reaching to place that same badge on a pole. Both are vertical objects, so the
      aperture closes HORIZONTALLY into a vertical strip -- print registration, not a wipe.
      The strip holds the badge on the way out and the pole on the way in. */
-  #b6 .plate,#b7 .plate{
+  #b6 .plate{
     clip-path:inset(0 calc(var(--reg,0) * 41%) 0 calc(var(--reg,0) * 41%));
   }
+  /* Beat 7 opens from the 6 → 7 registration strip, then LEAVES by splitting. */
+  #b7 .plate:not(.next){
+    clip-path:inset(0 calc(var(--reg,0) * 41%) 0 calc(var(--reg,0) * 41%));
+    /* The two halves are made by masking a band out of the middle rather than by duplicating
+       the video: one decode, one element, and the gap is a real hole the next scene shows
+       through. The seam sits on Beat 7's pole — and Beat 8's tower stands on the same centre
+       line, so the object that divides the frame is a vertical that exists in both shots. */
+    -webkit-mask-image:linear-gradient(to right,
+      #000 0 calc(50% - var(--gap,0) * 1vw), transparent calc(50% - var(--gap,0) * 1vw)
+      calc(50% + var(--gap,0) * 1vw), #000 calc(50% + var(--gap,0) * 1vw) 100%);
+    mask-image:linear-gradient(to right,
+      #000 0 calc(50% - var(--gap,0) * 1vw), transparent calc(50% - var(--gap,0) * 1vw)
+      calc(50% + var(--gap,0) * 1vw), #000 calc(50% + var(--gap,0) * 1vw) 100%);
+    /* the sticker comes forward as the frame parts */
+    transform:scale(calc(1.03 + var(--p) * .05 + var(--fwd,0) * .09));
+  }
+  /* the message, waiting behind the seam at its first sheet */
+  #b7 .plate.next{ z-index:0 }
+  #b7 .plate:not(.next){ z-index:1 }
+  /* contained, exactly as Beat 8 presents it, so the gap reveals the frame Beat 8 will keep
+     rather than a full-bleed blow-up of the same footage */
+  #b7 .plate.next video,#b7 .plate.next img{ object-fit:contain; object-position:50% 50% }
+
 
   /* ── safety nets — everything resolves to VISIBLE ───────────────────────── */
   @media (prefers-reduced-motion:reduce){
@@ -1035,10 +1000,9 @@
     #b0 .plate.cockpit{ display:none !important }
     #b1 .plate{ clip-path:none !important }
     #b6 .plate,#b7 .plate{ clip-path:none !important }
-    #bf .stage{ --wL:0; --wR:0 }
-    .bfink{ display:none }
-    .bfwin{ clip-path:none !important }
-    .bfwin .plate.msg{ display:none !important }
+    #b7 .plate{ mask-image:none !important }
+    #b7 .plate.next{ display:none !important }
+
     .b1cap,.b3line{ opacity:1 !important }
     .glow{ opacity:.6 !important }
     #b4 .plate{ height:100svh !important; top:auto; transform:none }
@@ -1192,29 +1156,20 @@
       <img src="media/poster/b07_stickers.jpg" alt="The Wodapalooza badge stuck to a pole on Paseo de la Reforma">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
+    <!-- The message is already there, behind the street, held on its first sheet. It must come
+         AFTER the beat's own plate: the loader takes the first `.plate video` in DOM order, so a
+         second video placed ahead of it silently becomes the beat's scrub target — which is what
+         happened here, and the newspaper played across the whole of Beat 7. Stacking is z-index's
+         job, not the DOM's. -->
+    <div class="plate next">
+      <img src="media/poster/b08_newspaper.jpg" alt="">
+      <video data-full="media/scrub/b08_newspaper.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
+    </div>
     <div class="b7strip" data-marquee><span>REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;</span></div>
   </div>
 </section>
 
 <!-- ─────────── BEAT 8 · THE MESSAGE ─────────── -->
-<!-- ─────────── CIVIC FLAG · PUBLIC SCALE ─────────── -->
-<section class="beat" id="bf" data-src="media/scrub/bf_flag.mp4" data-join-in>
-  <div class="stage">
-    <div class="bfink bfink-l"><img src="media/print/civic-flag-field-01.jpg" alt="" aria-hidden="true"></div>
-    <div class="bfink bfink-r"><img src="media/print/civic-flag-field-01.jpg" alt="" aria-hidden="true"></div>
-    <div class="bfwin"><div class="bfmedia">
-      <div class="plate">
-        <img src="media/poster/bf_flag.jpg" alt="The Mexican flag on its mast in the Z&oacute;calo, people and a vendor trike crossing below">
-        <video muted playsinline preload="auto" disablepictureinpicture></video>
-      </div>
-      <div class="plate msg">
-        <img src="media/poster/b08_newspaper.jpg" alt="The handwritten qualifier message">
-        <video data-full="media/scrub/b08_newspaper.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
-      </div>
-    </div></div>
-  </div>
-</section>
-
 <section class="beat" id="b8" data-src="media/scrub/b08_newspaper.mp4" data-scrub-warp="0.60,0.71" data-join-in>
   <div class="stage">
     <div class="plate">
@@ -1660,39 +1615,14 @@
         /* Opens from the 6 → 7 strip, and now closes back into it. The same vertical device
            brackets the whole street occupation, and the strip it closes to is the vertical the
            flag plate arrives out of. */
-        const open7  = 1 - ease(seg(p, 0.00, 0.09));
-        const close7 = ease(seg(p, 0.90, 1.00));
-        b.style.setProperty('--reg', Math.max(open7, close7).toFixed(4));
+        b.style.setProperty('--reg', (1 - ease(seg(p, 0.00, 0.09))).toFixed(4));
+        /* Beat 7 does not collapse to a thin strip any more — it SPLITS. The badge advances
+           toward the reader while a gap opens down the pole, and the message that was always
+           behind the street shows through it. Half-gap in vw, so 50 is a fully parted frame. */
+        b.style.setProperty('--fwd', ease(seg(p, 0.86, 1.00)).toFixed(4));
+        b.style.setProperty('--gap', (50 * ease(seg(p, 0.88, 1.00))).toFixed(3));
       }
 
-      if (b.id === 'bf') {
-        /* One crop, opened asymmetrically. 41% each side is exactly the strip Beat 7 closes
-           into, so this beat starts on the geometry the street handed over rather than
-           inventing a new shape. The right edge leads by four per cent of the beat — the flag
-           flies right off the mast, so the city opens the way the picture already points. */
-        const oR  = ease(seg(p, 0.10, 0.30));
-        const oL  = ease(seg(p, 0.14, 0.36));
-        const st  = b.querySelector('.stage');
-        const held = innerWidth <= 900 ? 13 : 24;   /* a 74vw window on mobile, 52vw on desktop */
-        st.style.setProperty('--wR', (41 - (41 - held) * oR).toFixed(3));
-        st.style.setProperty('--wL', (41 - (41 - held) * oL).toFixed(3));
-        /* The window never opens past its media, so there is nothing to open into but Beat 8
-           itself — which is already rising underneath. The ink thins slightly at the very end
-           so the incoming black has somewhere to arrive, and never below half. */
-        b.style.setProperty('--ink', (1 - 0.45 * ease(seg(p, 0.86, 1.00))).toFixed(3));
-        /* The message arrives IN the window, before the flag has gone. A step, in one plane. */
-        const m = p >= 0.78 ? 1 : 0;
-        b.style.setProperty('--msg', m);
-        b.style.setProperty('--msgvis', m ? 'visible' : 'hidden');
-        const full = b._full;
-        if (full && full.duration && !RM) {
-          const q = seg(p, 0.78, 1);
-          const want = HEAD + q * Math.max(0, full.duration - HEAD - TAIL);
-          if (!full._seeking && Math.abs(full.currentTime - want) > 1/48) {
-            full._seeking = true; full.currentTime = want;
-          }
-        }
-      }
 
       if (b.id === 'b0') {
         /* Four movements, and the hold is simply the stretch where the contraction has
