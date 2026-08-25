@@ -163,6 +163,27 @@
   .b0intro{ position:absolute; inset:0; z-index:8; background:#050505; opacity:var(--title-black,1); pointer-events:none }
   .b0title{ position:absolute; inset:0; z-index:9; width:100%; height:100%; opacity:var(--title,1); transform:scale(calc(.94 + var(--title,1)*.06)); pointer-events:none }
   .b0title video{ width:100%; height:100%; object-fit:cover; filter:saturate(.95) contrast(1.05) }
+  /* Approved fold-and-breach choreography: the title is not an overlay decoration. It is the
+     black interval between flag and city, and the V folds physically release the city into the
+     cockpit aperture. */
+  .b0flagintro{ position:absolute; inset:0; z-index:10; opacity:var(--flag-intro,1); pointer-events:none }
+  .b0flagintro video{ width:100%; height:100%; object-fit:cover; filter:saturate(.88) contrast(1.05) }
+  #b0 .b0frame{ width:100vw; height:100svh; outline:0; background:#050505 }
+  #b0 .b0frame>.plate:not(.cockpit){ opacity:var(--angel,0); transition:none }
+  #b0 .plate.cockpit{ z-index:4; opacity:var(--cut,0); visibility:visible; clip-path:polygon(50% calc(50% - var(--cut-size,0%)),calc(50% + var(--cut-size,0%)) 50%,50% calc(50% + var(--cut-size,0%)),calc(50% - var(--cut-size,0%)) 50%); transform:scale(calc(.94 + var(--cut,0)*.06)) }
+  #b0 .plate.cockpit video,#b0 .plate.cockpit img{ transform:none }
+  #b0 .b0black{ opacity:0 !important }
+  .b0fold{ position:absolute; z-index:5; top:-7vh; bottom:-7vh; width:62vw; background:url('media/print/print-field-01.jpg') 50%/cover; will-change:transform; pointer-events:none }
+  .b0fold:after{ content:""; position:absolute; inset:0; background:rgba(8,8,8,.12) }
+  .b0fold-l{ left:-20vw; clip-path:polygon(0 0,73% 0,100% 100%,0 100%); transform-origin:left center; transform:translateX(calc(-58vw + var(--fold,0)*58vw - var(--release,0)*58vw)) rotateY(calc(-46deg + var(--fold,0)*46deg - var(--release,0)*46deg)) rotateZ(calc(-6deg + var(--fold,0)*6deg)) }
+  .b0fold-r{ right:-20vw; clip-path:polygon(27% 0,100% 0,100% 100%,0 100%); transform-origin:right center; transform:translateX(calc(58vw - var(--fold,0)*58vw + var(--release,0)*58vw)) rotateY(calc(46deg - var(--fold,0)*46deg + var(--release,0)*46deg)) rotateZ(calc(6deg - var(--fold,0)*6deg)) }
+  .b0fold-l:before,.b0fold-r:before{ content:""; position:absolute; top:0; bottom:0; width:2px; background:#ece4d6; opacity:.7 }.b0fold-l:before{right:25%}.b0fold-r:before{left:25%}
+  .b0intro{ z-index:6; opacity:var(--title-black,0) }
+  .b0title{ z-index:7; opacity:var(--word,0); transform:scale(calc(.92 + var(--word,0)*.08)) }
+  .b0ready{ position:absolute; z-index:8; inset:0; opacity:var(--opening-ready,0); pointer-events:none }.b0ready span{ position:absolute; display:block; color:transparent; background:url('media/poster/b01_cockpit.jpg') 50%/cover; background-clip:text; -webkit-background-clip:text; -webkit-text-stroke:1px rgba(244,239,228,.52); font:950 clamp(72px,16vw,230px)/.72 Archivo,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.11em; white-space:nowrap; text-shadow:0 0 20px rgba(0,0,0,.72); mix-blend-mode:screen }.b0ready .are{top:4vh;left:50%;transform:translate(-50%,calc((1 - var(--opening-ready,0))*-42vh))}.b0ready .you{top:35vh;left:50%;font-size:clamp(92px,22vw,320px);transform:translate(calc(-50% + (1 - var(--opening-ready,0))*58vw),0)}.b0ready .ready{bottom:6vh;left:50%;font-size:clamp(64px,15vw,220px);transform:translate(calc(-50% - (1 - var(--opening-ready,0))*52vw),calc((1 - var(--opening-ready,0))*25vh))}
+  .b0nav{ position:absolute; z-index:11; top:0; left:0; right:0; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; height:70px; padding:0 24px; opacity:var(--opening-nav,0); transform:translateY(calc((1 - var(--opening-nav,0))*-18px)); pointer-events:none; color:#f6f0e6; mix-blend-mode:difference }.b0nav:after{content:"";position:absolute;bottom:0;left:24px;right:24px;height:1px;background:currentColor;opacity:.72}.b0nav a,.b0nav button{pointer-events:auto;color:inherit;background:none;border:0;padding:0;font:inherit;text-decoration:none;text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:.14em}.b0nav .menu{justify-self:start;display:flex;align-items:center;gap:10px}.b0nav .menu b{display:grid;place-items:center;width:27px;height:22px;border:1px solid currentColor;font-size:9px;letter-spacing:0}.b0nav .place{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}.b0nav .qualifier{justify-self:end;display:flex;gap:11px;align-items:center}.b0nav .qualifier:before{content:"";display:block;width:28px;height:1px;background:currentColor}
+  #b1 .b1ready{ display:none }
+  @media(max-width:700px){.b0fold{width:78vw}.b0fold-l{left:-32vw}.b0fold-r{right:-32vw}.b0ready .are{font-size:25vw}.b0ready .you{font-size:32vw}.b0ready .ready{font-size:22vw}.b0nav{height:57px;padding:0 14px}.b0nav:after{left:14px;right:14px}.b0nav .place{display:none}.b0nav .qualifier:before{width:16px}}
   .b0ground{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     transform:scale(calc(1.05 - .05 * var(--c,0)));
@@ -1079,9 +1100,9 @@
     .stage{ position:relative }
     .plate video,.plate img{ transform:none !important }
     .stage{ opacity:1 !important }
-    #b0{ --c:1; --capt:1; --blackout:0 }
+    #b0{ --c:1; --capt:1; --blackout:0; --angel:1 }
     .b0ground{ transform:none }
-    .b0intro,.b0title,.b1ready{ display:none !important }
+    .b0flagintro,.b0fold,.b0ready,.b0nav,.b0intro,.b0title,.b1ready{ display:none !important }
     .b0frame{ position:relative; left:auto; top:auto; transform:none; margin:0 auto;
               width:min(88vw,1040px); height:auto; aspect-ratio:1280/586 }
     .b0cap{ position:relative; left:auto; top:auto; transform:none; opacity:1;
@@ -1135,6 +1156,7 @@
 <!-- ─────────── BEAT 0 · THE CITY AS AN OBJECT ─────────── -->
 <section class="beat" id="b0" data-src="media/scrub/px_angel_pullback.mp4">
   <div class="stage">
+    <div class="b0flagintro" aria-hidden="true"><video muted playsinline preload="auto" poster="media/poster/mexico-flag-title.jpg"><source src="media/scrub/mexico-flag-clean.mp4" type="video/mp4"></video></div>
     <div class="b0intro" aria-hidden="true"></div>
     <svg class="b0title" viewBox="0 0 1600 900" role="img" aria-label="Wodapalooza Mexico City"><defs><clipPath id="opening-title-mask"><text x="800" y="410" text-anchor="middle" font-family="Archivo,Arial,sans-serif" font-size="176" font-weight="900" letter-spacing="-15">WODAPALOOZA</text><text x="800" y="595" text-anchor="middle" font-family="Archivo,Arial,sans-serif" font-size="154" font-weight="900" letter-spacing="-11">MEXICO CITY</text></clipPath></defs><foreignObject width="1600" height="900" clip-path="url(#opening-title-mask)"><div xmlns="http://www.w3.org/1999/xhtml" style="width:1600px;height:900px"><video muted playsinline preload="auto" poster="media/poster/mexico-flag-title.jpg"><source src="media/scrub/mexico-flag-clean.mp4" type="video/mp4"></video></div></foreignObject></svg>
     <img class="b0ground" src="media/print/print-field-01.jpg" alt="" aria-hidden="true">
@@ -1151,6 +1173,9 @@
         <video data-full="media/scrub/b01_cockpit.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
       </div>
     </div>
+    <div class="b0fold b0fold-l" aria-hidden="true"></div><div class="b0fold b0fold-r" aria-hidden="true"></div>
+    <div class="b0ready" aria-hidden="true"><span class="are">ARE</span><span class="you">YOU</span><span class="ready">READY?</span></div>
+    <nav class="b0nav" aria-label="Site navigation"><button class="menu" type="button" aria-label="Open site index"><b>W</b><span>Menu</span></button><span class="place">01 / Arrival</span><a class="qualifier" href="https://competitioncorner.net/events/21707/details" target="_blank" rel="noopener noreferrer">Qualifier ↗</a></nav>
   </div>
 </section>
 
@@ -1390,7 +1415,8 @@
   const descent = document.getElementById('b1');
   const actIdx  = document.getElementById('action');
   const titleFlag = document.querySelector('.b0title video');
-  if (titleFlag) titleFlag.addEventListener('loadedmetadata', () => { titleFlag.pause(); }, {once:true});
+  const openingFlag = document.querySelector('.b0flagintro video');
+  for (const clip of [titleFlag,openingFlag]) if (clip) clip.addEventListener('loadedmetadata', () => { clip.pause(); }, {once:true});
 
   /* attach a video to every beat that declares one, and hold its poster until a frame
      has ACTUALLY been painted — `loadeddata` only means bytes arrived, and a video that
@@ -1777,7 +1803,13 @@
            Arrival gets 18% here against 10% in the standalone proof: the total is shorter, so
            the fraction spent at full bleed had to grow or the city would never register as a
            place before it became an object. */
-        b.style.setProperty('--c', ease(seg(p, 0.18, 0.40)).toFixed(4));
+        const fold = ease(seg(p, 0.22, 0.47)), cut = ease(seg(p, 0.48, 0.68)), release = ease(seg(p, 0.68, 0.84));
+        b.style.setProperty('--fold', fold.toFixed(4));
+        b.style.setProperty('--cut', cut.toFixed(4));
+        b.style.setProperty('--cut-size', ((cut * 74) + (release * 26)).toFixed(2) + '%');
+        b.style.setProperty('--release', release.toFixed(4));
+        b.style.setProperty('--angel', (ease(seg(p, 0.24, 0.49)) * (1 - ease(seg(p, 0.52, 0.63)))).toFixed(4));
+        b.style.setProperty('--c', 0);
         /* Strictly inside the hold, with room at both ends. Copy still settling while the
            frame is still settling reads as one more animated element rather than as print. */
         b.style.setProperty('--capt',
@@ -1788,15 +1820,16 @@
            aircraft within the same opening: the aperture is the constant and its contents
            change, which is what makes this a cut rather than two clips meeting. Beat 1 then
            opens that same box outward. */
-        const ck = p >= 0.90 ? 1 : 0;
-        b.style.setProperty('--ck', ck);
-        b.style.setProperty('--ckvis', ck ? 'visible' : 'hidden');
-        const title = 1 - ease(seg(p, 0.10, 0.29));
-        b.style.setProperty('--title', title.toFixed(4));
-        b.style.setProperty('--title-black', Math.max(0, 1 - ease(seg(p, 0.16, 0.32))).toFixed(4));
-        if (titleFlag && titleFlag.duration && !RM) {
-          const want = Math.min(titleFlag.duration - TAIL, HEAD + p * Math.max(0, titleFlag.duration - HEAD - TAIL));
-          if (Math.abs(titleFlag.currentTime - want) > 1/36) titleFlag.currentTime = want;
+        b.style.setProperty('--ck', 1); b.style.setProperty('--ckvis', 'visible');
+        b.style.setProperty('--word', Math.min(ease(seg(p, 0.09, 0.19)), 1 - ease(seg(p, 0.34, 0.55))).toFixed(4));
+        b.style.setProperty('--opening-ready', Math.min(ease(seg(p, 0.64, 0.73)), 1 - ease(seg(p, 0.82, 0.94))).toFixed(4));
+        b.style.setProperty('--opening-nav', ease(seg(p, 0.10, 0.22)).toFixed(4));
+        b.style.setProperty('--flag-intro', (1 - ease(seg(p, 0.07, 0.16))).toFixed(4));
+        b.style.setProperty('--title-black', Math.min(ease(seg(p, 0.13, 0.26)), 1 - ease(seg(p, 0.35, 0.48))).toFixed(4));
+        b.style.setProperty('--paper', clamp((p - 0.18) * 3.2, 0, 1).toFixed(4));
+        for (const clip of [titleFlag,openingFlag]) if (clip && clip.duration && !RM) {
+          const want = Math.min(clip.duration - TAIL, 0.1 + p * Math.max(0, clip.duration - 0.15));
+          if (Math.abs(clip.currentTime - want) > 1/36) clip.currentTime = want;
         }
       }
 
