@@ -16,10 +16,10 @@
       rotateZ(calc(var(--rz)*1deg)) rotateY(calc(var(--ry)*1deg)) scale(var(--s));
     will-change:transform,clip-path;clip-path:polygon(var(--tlx) var(--tly),var(--trx) var(--try),var(--brx) var(--bry),var(--blx) var(--bly));
     box-shadow:0 28px 90px rgba(0,0,0,.58)}
-  .plane video{width:100%;height:100%;object-fit:cover;display:block}
-  .city{z-index:3}.cockpit{z-index:2;opacity:var(--cockpit);clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
-  .diag{position:absolute;z-index:4;left:-18vw;top:calc(76vh - var(--slash)*104vh);width:140vw;height:2px;background:#f2eadc;
-    box-shadow:0 6px 0 rgba(0,0,0,.9), 0 -6px 0 rgba(0,0,0,.9);transform:rotate(-13deg);opacity:calc(var(--slash)*.82);mix-blend-mode:screen}
+  .plane video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .city{z-index:3;opacity:var(--city)}.cockpit{z-index:2;opacity:var(--cockpit)}
+  .diag{position:absolute;z-index:4;left:-18vw;top:calc(76vh - var(--slash)*104vh);width:140vw;height:1px;background:#f2eadc;
+    box-shadow:0 4px 0 rgba(0,0,0,.82), 0 -4px 0 rgba(0,0,0,.82);transform:rotate(-13deg);opacity:calc(var(--slash)*.58);mix-blend-mode:screen}
   .hair{position:absolute;z-index:5;left:4vw;bottom:3vh;color:#e9e4d7;font-size:9px;letter-spacing:.2em;text-transform:uppercase;
     opacity:calc(clamp(0, .38 - var(--p), 1) * 1.6)}
   .hair span{color:#27bfe6}.credit{position:absolute;z-index:5;right:4vw;bottom:3vh;color:#e9e4d7;font-size:9px;letter-spacing:.15em;opacity:calc(clamp(0, .38 - var(--p), 1) * 1.6)}
@@ -29,7 +29,7 @@
 </style>
 </head>
 <body>
-<main class="journey" id="journey"><section class="stage" id="stage" style="--x:0;--y:0;--rz:0;--ry:0;--s:1;--tlx:0%;--tly:0%;--trx:100%;--try:0%;--brx:100%;--bry:100%;--blx:0%;--bly:100%;--cockpit:0;--slash:0">
+<main class="journey" id="journey"><section class="stage" id="stage" style="--x:0;--y:0;--rz:0;--ry:0;--s:1;--tlx:0%;--tly:0%;--trx:100%;--try:0%;--brx:100%;--bry:100%;--blx:0%;--bly:100%;--city:1;--cockpit:0;--slash:0">
   <div class="paper"></div>
   <div class="plane cockpit"><video muted playsinline preload="auto" poster="media/poster/b01_cockpit.jpg"><source src="media/scrub/b01_cockpit.mp4" type="video/mp4"></video></div>
   <div class="plane city"><video muted playsinline preload="auto" poster="media/poster/px_angel_pullback.jpg"><source src="media/scrub/px_angel_pullback.mp4" type="video/mp4"></video></div>
@@ -39,13 +39,16 @@
   const stage=document.querySelector('#stage'), city=document.querySelector('.city video'), cockpit=document.querySelector('.cockpit video');
   const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)), seg=(p,a,b)=>clamp((p-a)/(b-a)), ease=t=>1-Math.pow(1-t,3);
   function state(){ const r=document.querySelector('#journey').getBoundingClientRect(); const p=clamp(-r.top/(r.height-innerHeight));
-    const t=ease(seg(p,.30,.66)), reveal=ease(seg(p,.61,.78)), release=ease(seg(p,.77,.94));
+    const t=ease(seg(p,.27,.59)), replace=ease(seg(p,.53,.72)), release=ease(seg(p,.70,.88));
     stage.style.setProperty('--p',p); stage.style.setProperty('--slash',ease(seg(p,.31,.55)));
-    const x=-10*t+10*release, y=-4*t+4*release, rz=-3.8*t+3.8*release, ry=10*t-10*release, s=1-.38*t+.38*release;
+    const x=-12*t+12*release, y=-5*t+5*release, rz=-5.2*t+5.2*release, ry=13*t-13*release, s=1-.42*t+.42*release;
     stage.style.setProperty('--x',x);stage.style.setProperty('--y',y);stage.style.setProperty('--rz',rz);stage.style.setProperty('--ry',ry);stage.style.setProperty('--s',s);
-    const tlx=0+17*t-17*release, tly=0+8*t-8*release, trx=100-9*t+9*release, tryy=0+15*t-15*release, brx=100-17*t+17*release,bry=100-11*t+11*release,blx=0+10*t-10*release,bly=100-5*t+5*release;
+    const tlx=0+20*t-20*release, tly=0+10*t-10*release, trx=100-8*t+8*release, tryy=0+18*t-18*release, brx=100-20*t+20*release,bry=100-13*t+13*release,blx=0+12*t-12*release,bly=100-6*t+6*release;
     for(const [k,v] of Object.entries({tlx:tlx+'%',tly:tly+'%',trx:trx+'%',try:tryy+'%',brx:brx+'%',bry:bry+'%',blx:blx+'%',bly:bly+'%'}))stage.style.setProperty('--'+k,v);
-    stage.style.setProperty('--cockpit',reveal);
+    // The cockpit enters inside the exact same moving quadrilateral. Only after city has
+    // yielded does the shared plate flatten and open back to the viewport.
+    stage.style.setProperty('--city',1-replace);
+    stage.style.setProperty('--cockpit',replace);
     const durA=Math.max(.01,city.duration||17),durB=Math.max(.01,cockpit.duration||3); const a=Math.min(durA-.03,.2+p*(durA-.25)); const b=Math.min(durB-.03,.04+p*(durB-.07));
     if(Math.abs(city.currentTime-a)>.08)city.currentTime=a;if(Math.abs(cockpit.currentTime-b)>.08)cockpit.currentTime=b;
   }
