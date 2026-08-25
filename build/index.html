@@ -84,14 +84,20 @@
   .alt::before,.mk::before,
   .b1cap::before,.b2sub::before,.b3line::before,.b4copy::before,
   .b5cap::before,.b5bcap::before,.b7strip span::before,.b10line::before,.b11stats span::before{
-    content:""; position:absolute; inset:-11px -20px; z-index:-1;
+    content:""; position:absolute; inset:-20px -34px; z-index:-1;
     /* Size the ellipse EXPLICITLY rather than letting it default to farthest-corner. On a
        long single line the default fades out well before the last few glyphs, which is
        exactly where a caption fails — the ends were measuring 3:1 while the middle was
        fine. Radii are relative to the box, so the opaque core spans the text and the
-       feather happens outside it. */
-    background:radial-gradient(ellipse 62% 165% at 50% 50%,
-      rgba(0,0,0,.92) 0%, rgba(0,0,0,.88) 58%, rgba(0,0,0,.56) 80%, transparent 100%);
+       feather happens outside it.
+
+       The falloff is spread across FIVE stops over a much larger box. An earlier version
+       held .56 opacity out to 80% and then dropped to nothing, which put a visible boundary
+       around every caption — they read as rounded UI lozenges rather than as a wash on the
+       photograph. Same core darkness, same measured contrast, no edge. */
+    background:radial-gradient(ellipse 58% 150% at 50% 50%,
+      rgba(0,0,0,.92) 0%, rgba(0,0,0,.86) 34%, rgba(0,0,0,.68) 54%,
+      rgba(0,0,0,.40) 72%, rgba(0,0,0,.16) 87%, transparent 100%);
   }
   /* the mark is white line art with no mass to it, so it needs a deeper, wider ground than
      a run of solid type does — it measured 2.22:1 over the contact sheet on mobile */
