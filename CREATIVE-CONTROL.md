@@ -285,9 +285,10 @@ excuses to add arbitrary beats.
 **Campaign-print world:** initial source components and original authored materials exist:
 `reference/material-components/v1/`, `reference/authored-materials/v1/`,
 `reference/prototypes/campaign-print-pause.html`, and
-`reference/prototypes/moving-print-frame.html`. The next task is one real integration prototype:
-print ground → framed source fragment → readable pause → release/expansion. It must be reviewed
-inside the full film before a second instance is built.
+`reference/prototypes/moving-print-frame.html`. Beat 0 and the action index are already live
+integrations. The next material integration is the selected civic-flag interruption after the
+current join review; then use the sprint's limited “syrup and cherry” pass to distribute only
+earned graphic objects and information pauses.
 
 **Action system:** the final action index is integrated at commit `05a2fc0`: footage reaches
 real black, then a campaign-print action object rises and locks. Three verified destinations
@@ -295,16 +296,16 @@ are live; the complete Pre-Registro URL is still missing, so that item remains v
 disabled/unlinked. The closing HUD-release direction is locked: `FLOOR` holds through the start
 of black, then the HUD disappears before the action-index hairline/paper arrives.
 
-**Typography and QA:** Archivo remains temporary until the Normalidad kit is supplied. Run the
-final normal-speed desktop/mobile review now, including Beat 0 and the action index: rhythm,
-scroll distance, copy arrival, interaction pauses, HUD release, reverse behavior, transitions,
-and responsiveness.
+**Typography and QA:** Archivo remains temporary until the Normalidad kit is supplied. The next
+whole-film review follows the civic-flag, utility, and information-rail milestones in the sprint;
+it must judge normal-speed rhythm, copy arrival, interaction pauses, HUD release, reverse
+behavior, transitions, and responsiveness.
 
-**Immediate transition pass:** The final review is complete at `audit/whole-film/` (commit
-`3176477`). It identified one structural defect: thirteen boundaries share the same generic
-black dip. Build only the two highest-value proofs in `TRANSITION-PASS-BRIEF.md`: Beat 0 → 1
-(Ángel plate becomes cockpit aperture) and Beat 6 → 7 (banner claim registers into street
-action). Do not sweep the whole film or add a new effect before those two are reviewed.
+**Immediate transition pass:** The final review at `audit/whole-film/` (commit `3176477`) found
+one structural defect: thirteen boundaries shared the same generic black dip. The two
+highest-value proofs—Beat 0 → 1 and Beat 6 → 7—are built at `ecc539b` and await visual review.
+Do not let the audit turn into test-engineering; once visually accepted, continue the active
+sequence in `PRODUCTION-SPRINT-SUPERPROMPT.md`.
 
 Live work products: `reference/FRAMED-FOOTAGE-CHOREOGRAPHY.md`,
 `reference/OTHER-BROLL-INTAKE.md`, `reference/CAMPAIGN-MATERIAL-MAP.md`,

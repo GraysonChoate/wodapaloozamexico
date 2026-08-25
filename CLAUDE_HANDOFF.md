@@ -18,9 +18,9 @@
 >    `reference/EVENT-ACTION-ARCHITECTURE.md`.
 >
 > Both additions now have one live proof: Beat 0 is the campaign-print city interruption and
-> the action index is integrated after Beat 13's real black. The immediate task after the locked
-> HUD release is the final whole-film audit—do not add another effect, print surface, ticker, or
-> navigation element before that evidence is reviewed.
+> the action index is integrated after Beat 13's real black. The first uninterrupted whole-film
+> audit is complete. Current build sequence, including the remaining material, function, and
+> transition work, is controlled by `PRODUCTION-SPRINT-SUPERPROMPT.md`.
 >
 > Fullscreen is now a choice, not the default. A source fragment may be a contained moving plate,
 > crop window, shallow plane field, physical poster/sticker/paper object, or editorial pause when
@@ -28,8 +28,9 @@
 > recordings are approved working material for this refinement phase. Recording 1's Ángel
 > pull-back (`10.0–27.3s`) is now integrated as Beat 0: full bleed → framed print object →
 > black plate → untouched cockpit handoff. Do not retune it without review. Recording 4's Zócalo
-> flag (`2.6–5.9s`) is a later candidate. The main film's unused daytime overhead windows remain
-> an additional internal candidate set.
+> flag (`2.6–5.9s`) is the selected next framed interruption once the current joins are audited;
+> the main film's unused daytime overhead windows and Reforma day-to-night plate remain
+> second-wave candidates.
 >
 > **Transition override:** never let a scene simply become the next scene because scroll crossed
 > a section boundary. Every location/scale/world change needs a felt relationship: a dissolve or
@@ -43,17 +44,13 @@
 > beginning of the genuine black hold. Release the entire HUD before the action-index hairline
 > or paper appears. The flight ends; the printed destination owns its own mark.
 >
-> **Immediate build only:** read `TRANSITION-PASS-BRIEF.md`. The whole-film audit found that
-> thirteen boundaries use the same generic black dip. Build and evidence only Beat 0 → 1 and
-> Beat 6 → 7 as specified there; stop for review. The Beat 0 proof now includes a required
-> comparison of three source-compatible motion forms; a symmetric centred collapse into empty
-> space is not accepted by default. Treat `MOTION-REFERENCE-PLAYBOOK.md` as binding on this:
+> **Current transition state:** the two targeted joins are built at `ecc539b` and await visual
+> review. The Beat 0 proof must still satisfy the quality bar: a symmetric centred collapse into
+> empty space is not accepted by default. Treat `MOTION-REFERENCE-PLAYBOOK.md` as binding:
 > entrances and exits need authored trajectories—diagonal, asymmetric, shallow orbital/spiral,
-> rotational-lock, or aperture replacement—not generic boxes scaling in and out. Do not retune
-> other boundaries or begin a
-> ticker, navigation rail, flag, timelapse, or new print surface. Once those two proofs are
-> approved, the next and only next source treatment is the contained civic-flag interruption in
-> `MIDFILM-FRAME-SELECTION.md`; the Reforma day-to-night plate is explicitly second-wave.
+> rotational-lock, or aperture replacement—not generic boxes scaling in and out. After the join
+> review, follow `PRODUCTION-SPRINT-SUPERPROMPT.md`; the selected next source treatment is the
+> contained civic-flag interruption, while Reforma remains second-wave.
 
 > **Speed override — active:** We have a short production window. Do not run the entire regression
 > suite repeatedly while investigating a single visual build. Per prototype, run only the checks
@@ -77,9 +74,11 @@ trust. Written for Codex; binding on Claude.
 
 In this order. Where they disagree, the higher one wins:
 
-    SUPERPROMPT.md
-    research/BRAND.md            palette, typeface, mark, voice
-    research/CREATIVE.md         the single idea
+    PRODUCTION-SPRINT-SUPERPROMPT.md   active production sequence
+    CREATIVE-CONTROL.md                current creative decisions
+    SUPERPROMPT.md                     original source/build grounding
+    research/BRAND.md                  palette, typeface, mark, voice
+    research/CREATIVE.md               the single idea
     research/CITY.md             early art direction — SUPERSEDED, kept for provenance
     storyboard/STORYBOARD-v3.md  13 beats, plus CORRECTIONS FROM THE BUILD at the end
     build/media/MEDIA-MAP.md     every derivative, its source, its in/out point, and why
