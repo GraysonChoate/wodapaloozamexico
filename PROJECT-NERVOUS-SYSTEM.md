@@ -88,9 +88,9 @@ may become one purposeful rail or banner with a reason to exist.
 Do **not** place date, city, qualifier copy, or a small CTA on the opening's paper wings. That
 side metadata treatment is rejected. The opening establishes identity and excitement first:
 
-1. **WODAPALOOZA / MEXICO** is the full-scale opening image — kinetic black typography, not a
-   conventional headline. The Mexican flag waves as the living field *behind* the wordform, then
-   compresses/registers toward it.
+1. **WODAPALOOZA / MEXICO CITY** is the full-scale opening image — a moving-video type mask on a
+   black field, not a conventional headline. The Mexican flag is visible *only inside* the giant
+   wordforms; it is never a full-screen flag behind black letters.
 2. The title breaks open into the Ángel/city → cockpit fold-and-breach. No empty hold or default
    dip is permitted; every revealed region carries either city, cockpit, or designed print edge.
 3. **ARE YOU READY?** is a temporary, high-energy editorial strip over the arriving cockpit. It

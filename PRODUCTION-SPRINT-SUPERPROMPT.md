@@ -54,8 +54,8 @@ integration. If a test is flaky but no visual defect is demonstrated, record it 
 
 ### Opening override — supersedes any side-copy concept
 
-The opening begins with **WODAPALOOZA / MEXICO** as oversized kinetic black typography over the
-supplied Mexican-flag material, which waves and compresses toward the title. It breaks into the Ángel/city and then cockpit through the
+The opening begins with **WODAPALOOZA / MEXICO CITY** as oversized kinetic moving-video typography:
+the supplied Mexican flag moves *inside the letters* while everything else is black. It breaks into the Ángel/city and then cockpit through the
 same moving fold-and-breach aperture. Do not reintroduce small date, city, qualifier, or CTA copy
 on paper side surfaces. `ARE YOU READY?` is a short editorial strip across the cockpit arrival,
 which must later become the registration move into the next scene. The real mark/menu, current

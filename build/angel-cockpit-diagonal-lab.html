@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ángel → cockpit — fold and breach study</title>
 <style>
-  :root{color-scheme:dark;--p:0;--fold:0;--cut:0;--release:0;--city:0;--flag:1;--flagLock:0;--paper:0;--word:0;--ready:0;--nav:0}
+  :root{color-scheme:dark;--p:0;--fold:0;--cut:0;--release:0;--city:0;--paper:0;--word:0;--ready:0;--nav:0}
   *{box-sizing:border-box} body{margin:0;background:#050505;font-family:Arial,sans-serif}.journey{height:500svh}
   .stage{position:sticky;top:0;height:100svh;overflow:hidden;background:#050505;isolation:isolate}
-  .flag-wave,.city,.cockpit{position:absolute;inset:0}.flag-wave{z-index:1;overflow:hidden;opacity:var(--flag);clip-path:inset(0 calc(var(--flagLock)*43%) 0 calc(var(--flagLock)*43%));transform:scale(calc(1 + var(--flagLock)*.14));filter:saturate(.82) brightness(.56);will-change:clip-path,transform}.flag-wave:after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.18)}.city{z-index:2;opacity:var(--city)}
+  .city,.cockpit{position:absolute;inset:0}.city{z-index:2;opacity:var(--city)}
   video{width:100%;height:100%;object-fit:cover;display:block}.paper{position:absolute;inset:0;z-index:0;background:url('media/print/print-field-01.jpg') 50%/cover;opacity:var(--paper)}
   .fold{position:absolute;z-index:3;top:-7vh;bottom:-7vh;width:62vw;background:url('media/print/print-field-01.jpg') 50%/cover;will-change:transform}
   .fold:after{content:"";position:absolute;inset:0;background:rgba(8,8,8,.12)}
@@ -17,35 +17,31 @@
   .fold-left:before,.fold-right:before{content:"";position:absolute;top:0;bottom:0;width:2px;background:#ece4d6;opacity:.7}.fold-left:before{right:25%}.fold-right:before{left:25%}
   .cockpit{z-index:2;opacity:var(--cut);clip-path:polygon(50% calc(50% - var(--cutSize)),calc(50% + var(--cutSize)) 50%,50% calc(50% + var(--cutSize)),calc(50% - var(--cutSize)) 50%);transform:scale(calc(.94 + var(--cut)*.06));will-change:clip-path,transform}
   .seam{position:absolute;z-index:4;left:50%;top:-10vh;width:1px;height:120vh;background:#f0e9dd;transform:translateX(-50%) rotate(-9deg);opacity:calc(var(--fold)*.75*(1 - var(--release)));mix-blend-mode:screen}
-  .hero-lockup{position:absolute;z-index:5;inset:0;display:grid;place-content:center;gap:clamp(2px,.7vh,9px);transform:scale(calc(.94 + var(--word)*.06));opacity:var(--word);pointer-events:none}
-  .hero-word{margin:0;width:100vw;color:#050505;font-size:clamp(66px,15.8vw,250px);font-weight:950;line-height:.74;letter-spacing:-.105em;text-align:center;white-space:nowrap;text-shadow:0 1px 0 rgba(245,240,229,.08),0 0 2px rgba(0,0,0,.98);-webkit-text-stroke:1px rgba(0,0,0,.95)}
-  .hero-word--mexico{font-size:clamp(52px,12.4vw,196px);letter-spacing:-.07em}
-  .ready-rail{position:absolute;z-index:6;left:-8vw;right:-8vw;top:51vh;display:flex;align-items:center;justify-content:center;height:clamp(50px,7vh,78px);overflow:hidden;background:#090909;color:#f4eee2;transform:translateX(calc((1 - var(--ready))*-14vw)) skewX(-7deg);opacity:var(--ready);pointer-events:none;box-shadow:0 1px 0 rgba(245,238,226,.72),0 -1px 0 rgba(245,238,226,.5)}
-  .ready-rail:before,.ready-rail:after{content:"";position:absolute;top:0;bottom:0;width:24vw;background:url('media/print/print-field-01.jpg') 50%/cover}.ready-rail:before{left:0}.ready-rail:after{right:0}.ready-copy{position:relative;z-index:1;font-size:clamp(22px,4vw,58px);font-weight:950;letter-spacing:-.055em;white-space:nowrap;transform:skewX(7deg) translateX(calc(var(--ready)*-2vw))}
+  .flag-title{position:absolute;z-index:5;inset:0;width:100%;height:100%;opacity:var(--word);transform:scale(calc(.92 + var(--word)*.08));pointer-events:none;overflow:visible}.flag-title video{width:100%;height:100%;object-fit:cover;filter:saturate(.95) contrast(1.05)}
+  .ready-kinetic{position:absolute;z-index:6;inset:0;opacity:var(--ready);pointer-events:none}.ready-kinetic span{position:absolute;display:block;color:transparent;background:url('media/poster/b01_cockpit.jpg') 50% 50%/cover;background-clip:text;-webkit-background-clip:text;-webkit-text-stroke:1px rgba(244,239,228,.52);font-weight:950;line-height:.72;letter-spacing:-.11em;white-space:nowrap;text-shadow:0 0 20px rgba(0,0,0,.72);mix-blend-mode:screen}.ready-are{top:4vh;left:50%;font-size:clamp(72px,16vw,230px);transform:translate(-50%,calc((1 - var(--ready))*-42vh))}.ready-you{top:35vh;left:50%;font-size:clamp(92px,22vw,320px);transform:translate(calc(-50% + (1 - var(--ready))*58vw),0)}.ready-word{bottom:6vh;left:50%;font-size:clamp(64px,15vw,220px);transform:translate(calc(-50% - (1 - var(--ready))*52vw),calc((1 - var(--ready))*25vh))}
   .utility{position:absolute;z-index:7;inset:0;pointer-events:none;opacity:var(--nav)}.brandtab,.qualifiertab{position:absolute;top:22px;pointer-events:auto;color:#f5f0e5;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;text-decoration:none}.brandtab{left:24px}.brandtab b{display:inline-grid;place-items:center;width:26px;height:20px;border:1px solid rgba(245,240,229,.72);margin-right:9px;font-size:9px}.qualifiertab{right:24px;border:1px solid rgba(245,240,229,.8);padding:10px 12px;background:rgba(5,5,5,.26);backdrop-filter:blur(6px)}
-  @media(max-width:700px){.fold{width:78vw}.fold-left{left:-32vw}.fold-right{right:-32vw}.hero-word{font-size:17.4vw}.hero-word--mexico{font-size:14.2vw}.ready-rail{top:53vh;height:52px}.ready-copy{font-size:31px}.brandtab{left:14px;top:14px}.qualifiertab{right:14px;top:14px;padding:9px 10px;font-size:9px}.hint{display:none}}
+  @media(max-width:700px){.fold{width:78vw}.fold-left{left:-32vw}.fold-right{right:-32vw}.ready-are{font-size:25vw}.ready-you{font-size:32vw}.ready-word{font-size:22vw}.brandtab{left:14px;top:14px}.qualifiertab{right:14px;top:14px;padding:9px 10px;font-size:9px}.hint{display:none}}
   @media(prefers-reduced-motion:reduce){.journey{height:100svh}.fold,.seam{display:none}.paper{opacity:0!important}.city{display:none}.cockpit{opacity:1!important;clip-path:none!important;transform:none!important}}
 </style>
 </head>
 <body>
 <main class="journey" id="journey"><section class="stage" id="stage" style="--fold:0;--cut:0;--cutSize:0%;--release:0;--city:1;--paper:0">
   <div class="paper"></div>
-  <div class="flag-wave"><video muted playsinline preload="auto" poster="media/poster/mexico-flag-title.jpg"><source src="media/scrub/mexico-flag-clean.mp4" type="video/mp4"></video></div>
   <div class="city"><video muted playsinline preload="auto" poster="media/poster/px_angel_pullback.jpg"><source src="media/scrub/px_angel_pullback.mp4" type="video/mp4"></video></div>
   <div class="cockpit"><video muted playsinline preload="auto" poster="media/poster/b01_cockpit.jpg"><source src="media/scrub/b01_cockpit.mp4" type="video/mp4"></video></div>
-  <div class="hero-lockup" aria-label="Wodapalooza Mexico"><h1 class="hero-word">WODAPALOOZA</h1><p class="hero-word hero-word--mexico">MEXICO</p></div><div class="fold fold-left"></div><div class="fold fold-right"></div>
-  <div class="ready-rail" aria-hidden="true"><span class="ready-copy">ARE YOU READY?</span></div>
+  <svg class="flag-title" viewBox="0 0 1600 900" role="img" aria-label="Wodapalooza Mexico City"><defs><clipPath id="flag-title-mask"><text x="800" y="410" text-anchor="middle" font-family="Arial, sans-serif" font-size="176" font-weight="900" letter-spacing="-15">WODAPALOOZA</text><text x="800" y="595" text-anchor="middle" font-family="Arial, sans-serif" font-size="154" font-weight="900" letter-spacing="-11">MEXICO CITY</text></clipPath></defs><foreignObject width="1600" height="900" clip-path="url(#flag-title-mask)"><div xmlns="http://www.w3.org/1999/xhtml" style="width:1600px;height:900px"><video class="flag-title-video" muted playsinline preload="auto" poster="media/poster/mexico-flag-title.jpg"><source src="media/scrub/mexico-flag-clean.mp4" type="video/mp4" /></video></div></foreignObject></svg><div class="fold fold-left"></div><div class="fold fold-right"></div>
+  <div class="ready-kinetic" aria-hidden="true"><span class="ready-are">ARE</span><span class="ready-you">YOU</span><span class="ready-word">READY?</span></div>
   <div class="utility"><a class="brandtab" href="#journey"><b>W</b>Mexico</a><a class="qualifiertab" href="https://competitioncorner.net/events/21707/details" target="_blank" rel="noopener noreferrer">Qualifier ↗</a></div>
   <div class="seam"></div>
 </section></main>
 <script>
-  const stage=document.querySelector('#stage'),flag=document.querySelector('.flag-wave video'),city=document.querySelector('.city video'),cockpit=document.querySelector('.cockpit video');
+  const stage=document.querySelector('#stage'),flag=document.querySelector('.flag-title-video'),city=document.querySelector('.city video'),cockpit=document.querySelector('.cockpit video');
   const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),seg=(p,a,b)=>clamp((p-a)/(b-a)),ease=t=>1-Math.pow(1-t,3);
   function state(){const r=journey.getBoundingClientRect(),p=clamp(-r.top/(r.height-innerHeight));
     const fold=ease(seg(p,.22,.47)),cut=ease(seg(p,.48,.68)),release=ease(seg(p,.68,.84));
     stage.style.setProperty('--fold',fold);stage.style.setProperty('--cut',cut);stage.style.setProperty('--cutSize',((cut*74)+(release*26))+'%');stage.style.setProperty('--release',release);
-    stage.style.setProperty('--word',Math.min(ease(seg(p,.02,.12)),1-ease(seg(p,.38,.57))));stage.style.setProperty('--ready',Math.min(ease(seg(p,.64,.73)),1-ease(seg(p,.82,.94))));stage.style.setProperty('--nav',ease(seg(p,.84,.95)));
-    stage.style.setProperty('--flag',1-ease(seg(p,.27,.46)));stage.style.setProperty('--flagLock',ease(seg(p,.18,.43)));stage.style.setProperty('--paper',clamp((p-.18)*3.2,0,1));stage.style.setProperty('--city',ease(seg(p,.24,.49))*(1-ease(seg(p,.52,.63))));
+    stage.style.setProperty('--word',Math.min(ease(seg(p,.02,.12)),1-ease(seg(p,.34,.55))));stage.style.setProperty('--ready',Math.min(ease(seg(p,.64,.73)),1-ease(seg(p,.82,.94))));stage.style.setProperty('--nav',ease(seg(p,.84,.95)));
+    stage.style.setProperty('--paper',clamp((p-.18)*3.2,0,1));stage.style.setProperty('--city',ease(seg(p,.24,.49))*(1-ease(seg(p,.52,.63))));
     const f=Math.min(Math.max(.01,flag.duration||17)-.03,.1+p*(Math.max(.01,flag.duration||17)-.15));
     const a=Math.min(Math.max(.01,city.duration||17)-.03,.2+p*(Math.max(.01,city.duration||17)-.25));const b=Math.min(Math.max(.01,cockpit.duration||3)-.03,.04+p*(Math.max(.01,cockpit.duration||3)-.07));
     if(Math.abs(flag.currentTime-f)>.08)flag.currentTime=f;if(Math.abs(city.currentTime-a)>.08)city.currentTime=a;if(Math.abs(cockpit.currentTime-b)>.08)cockpit.currentTime=b;
