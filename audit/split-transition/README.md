@@ -1,51 +1,43 @@
-# Beat 7 → Beat 8 — the street splits over a scene that is already there
+# Beat 7 → Beat 8 — the street opens like a book, then every sheet gets its word
 
-## The second transition, and why it existed
+## Three changes
 
-The previous version was continuous in its *clip* — the transition ended at 1.95s and Beat 8
-began at 1.97s — but it still showed a second transition, because the **stage** changed. Beat 7's
-sticky stage released and slid up while Beat 8's slid in from below. In the screen recording that
-is the whole composition rising off the top and a fresh one coming up from the bottom, three
-seconds in, after the cut had already happened.
+**1. The street opens instead of vanishing.** Masking a band out of the middle made it
+disappear in place. It is now **two halves that travel outward** — `.b7half-l` to the left,
+`.b7half-r` to the right, nothing moving vertically. That is the whole gesture.
 
-The film already knew this. Beat 9's own note says: *a match cut on a section boundary arrives as
-a wipe, because a sticky stage releases and slides.* Beat 9 solved it by keeping its cut inside
-the beat. This join was doing the opposite.
+They are a **still of the beat's last frame**, not a second decode. By the time the split runs,
+Beat 7's travel is spent and its video is frozen on exactly that frame, so swapping the live
+plate for two stills is invisible and costs nothing.
 
-## The fix — architectural, not cosmetic
+**2. The frame comes forward as the sheets come off.** Beat 8's plate now carries a `--grow`
+that rises across the beat — measured 1.000 at the first sheet, 1.079 by `COMIENZA`, capped at
+1.13 because beyond that the contained sheet starts losing its edges. The reader is drawn in
+rather than held at a fixed distance.
 
-**Beat 8 now starts one viewport early and pins behind Beat 7** (`margin-top:-100svh`, Beat 7's
-stage above it). Beat 8 is stationary and already running when the split begins, so there is
-nothing to hand over and nothing to arrive:
+**3. Every word, not just the first.** Four sheets, four words, one technique repeating:
+outlined, forward, gone — then he drops the paper and the next one takes its place.
 
-- **No stand-in plate.** What the gap uncovers is Beat 8 itself. The duplicate newspaper plate,
-  its second playhead and the `data-scrub-from` in-point are all deleted — they existed only to
-  fake a scene that is now genuinely there.
-- **The split runs on Beat 7's exit, not its `--p`**, because `--p` is pinned at 1 through the
-  overlap and the overlap is exactly where Beat 8 is waiting.
-- **A splitting beat no longer dissolves as well.** `data-split-exit` holds Beat 7 fully opaque
-  while the mask removes it, so the street cuts cleanly through instead of ghosting over the
-  newspaper. It is gone entirely by 0.72 of the overlap, so the stage slide that follows has
-  nothing left to show.
+| word | clip | Beat 8 `--p` |
+|---|---:|---|
+| `RECUERDA` | 0.30–1.15s | 0.020–0.084 |
+| `EL ONLINE QUALIFIER` | 2.10–4.35s | 0.157–0.328 |
+| `COMIENZA` | 4.80–7.15s | 0.362–0.541 |
+| `ES DEL 18 AL 26 DE AGOSTO` | 7.60–10.80s | 0.575–0.957 |
 
-The badge still comes forward, `RECUERDA` still comes off the paper as outlined type on the
-peel, and the printed field still meets the paper so the sides are never black.
+Windows were located in the clip and mapped back through Beat 8's `0.60,0.71` warp, so each
+word rides its own sheet rather than a guessed scroll position. Measured firing one at a time:
+`[0.58,0,0,0]` → `[1,0,0,0]` → `[0,0.49,0,0]` → `[0,0,0.04,0]`.
 
-## Measured across the overlap, 1440×900
+Repeating it is what makes it a device rather than an effect used once.
 
-| state | gap | Beat 7 stage | Beat 8 stage | Beat 8 clip |
-|---|---:|---:|---:|---:|
-| street | 0 | 1.00 | **1.00** | 0.04 |
-| fold | 0.5vw | 1.00 | 1.00 | 0.34 |
-| peel | 4.4vw | 1.00 | 1.00 | 0.67 |
-| drop | 12.6vw | 1.00 | 1.00 | 0.94 |
-| handover | 30.9vw | 1.00 | 1.00 | 1.26 |
-| continues | 50vw | 1.00 | 1.00 | 2.45 |
+## Unchanged from the previous fix
 
-Beat 8's stage is at full opacity from the first sample — it never arrives, it was already there.
-Beat 7 never fades. One clip runs, uninterrupted, from 0.04 onward.
+Beat 8 still starts a viewport early and pins **behind** Beat 7, so there is no second frame
+arriving. Beat 7 still does not dissolve while it splits. The printed field still meets the
+paper so the sides are never black.
 
 ## Deliverables
 
-`split-{1440,375}-{fwd,rev}.mp4`, `states.jpg`. Visual proof only; no full regression until the
-composition is accepted.
+`book-{1440,375}-{fwd,rev}.mp4` — the opening plus all four sheets at normal speed.
+`states.jpg`. Visual proof only; no full regression until the composition is accepted.
