@@ -36,13 +36,16 @@ replacement, scale-through, crop/registration, and intentional black breath.
 - Judge at normal scrolling speed, desktop and mobile — contact sheets alone cannot approve a transition.
 - Every transition should feel authored in its direction, angle, crop, and arrival; no one global template.
 
-### Immediate creative exception: Ángel → cockpit
+### Immediate creative exception: opening identity → cockpit
 
 The currently integrated windshield-lock join fixes the empty seam but is **not final artistic
 approval**. Codex owns a non-conflicting live study at
-`build/angel-cockpit-diagonal-lab.html`: the city must recede through an asymmetric diagonal,
-then the cockpit must first replace it **inside the same moving aperture** before that aperture
-normalizes. It must not read as a cockpit sitting behind a shrinking city picture.
+`build/angel-cockpit-diagonal-lab.html`. The opening must begin with **WODAPALOOZA / MEXICO**
+as an oversized kinetic type aperture, carrying the supplied Mexican-flag material without
+player chrome. The Ángel city scene breaks through and folds into the cockpit; the cockpit must
+first replace it **inside the same moving aperture** before that aperture normalizes. It must
+never read as a cockpit sitting behind a shrinking city picture or a pale page with orphaned
+metadata.
 
 Claude must not alter Beat 0 → 1 until Codex hands off the selected motion and exact integration
 instructions.
@@ -82,20 +85,22 @@ may become one purposeful rail or banner with a reason to exist.
 
 ### Opening functional hierarchy — approved direction
 
-The fold-and-breach opening may use its two moving side surfaces for the minimum information a
-new reader needs, with each item physically converging into the central cockpit aperture:
+Do **not** place date, city, qualifier copy, or a small CTA on the opening's paper wings. That
+side metadata treatment is rejected. The opening establishes identity and excitement first:
 
-- **identity/place:** `WODAPALOOZA / MEXICO CITY / DEC 4–6 2026`;
-- **one immediate action:** `ONLINE QUALIFIER / AUG 18–26 / ENTER ↗` using the verified
-  CompetitionCorner destination;
-- an optional short invitation such as `ARE YOU READY?` only if it is needed after layout review,
-  never as a substitute for identity or action.
+1. **WODAPALOOZA / MEXICO** is the full-scale opening image — kinetic masked typography, not a
+   conventional headline. The Mexican flag is visible inside the wordform as it crops/registers.
+2. The title breaks open into the Ángel/city → cockpit fold-and-breach. No empty hold or default
+   dip is permitted; every revealed region carries either city, cockpit, or designed print edge.
+3. **ARE YOU READY?** is a temporary, high-energy editorial strip over the arriving cockpit. It
+   moves with the mechanism and then becomes the next seam's registration/aperture; it is not a
+   CTA and it must not duplicate Beat 2's `SUCEDERÁ` word aperture.
+4. Only after the cockpit owns the screen does the persistent utility rail lock: left mark/menu,
+   quiet current-place readout, and a real `QUALIFIER ↗` escape hatch to CompetitionCorner. The
+   rail stays transparent and intentional, never becoming a generic opaque navbar.
 
-The side information rides the folding surfaces; it is pushed into the center/released with them,
-never arbitrarily overlaid. It is not a second footage-inside-type trick: Beat 2 retains that
-signature aperture language. The compact mark/home and the same `QUALIFIER ↗` escape hatch can
-continue after the cockpit as the restrained functional layer. The editorial index and remaining
-fact rails arrive later at real held places, not all in the opening.
+The editorial index and the three factual rails arrive later at actual held places. Date/place
+information belongs in those rails or the compact place readout—not as small opening side copy.
 
 ## Source, truth, and accessibility
 
