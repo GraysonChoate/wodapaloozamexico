@@ -101,21 +101,12 @@ current official logo files and placement must be confirmed from Mexico's offici
 before a partner treatment is built. Never import SoCal's sponsor logos or assume its roster
 transfers.
 
-`reference/prototypes/proof-constellation-motion.html` is now a non-card **date** motion study:
-a night-city field establishes first, then collapses symmetrically before the paired, aligned
-`04 / DECEMBER 4` and `06 / DECEMBER 6` date planes arrive. `DECEMBER / 2026` is the contextual
-sign-off. Date is immediately useful; `16 / 3 / 1` remains a later proof fact set rather than a
-cryptic opening-style number composition. Different vectors are a site-wide vocabulary, not an
-instruction for every element to animate at once. This study is a reference for a later date
-moment, not authorization to alter a locked beat or add an unverified partner wall.
-
-That study uses only the clean 3.0–8.4s city window in
-`reference/prototypes/media/mexico-city-timelapse-clean.mp4`: it trims the recording before its
-unrelated YouTube recommendation end-screen and physically removes the lower player area. The
-city playhead is scroll-driven, not an autonomous looping background. It lives inside the date
-planes because the city clock and the event date make one intelligible statement. Select imagery
-only after considering the scene it will lead into; no unrelated image is allowed merely to fill
-a numeral.
+`reference/prototypes/proof-constellation-motion.html` is a non-card **date-to-venue** study for
+the approach to Beat 12. `04 / DECEMBER 4` carries the Zócalo at dusk and `06 / DECEMBER 6`
+carries the same square alive at night; the planes then release into Beat 12's actual city-venue
+footage. `DECEMBER / 2026` is the contextual sign-off. Date is immediately useful; `16 / 3 / 1`
+remains a later proof fact set rather than a cryptic opening-style number composition. The Reforma
+city clock is approved material, but it has no approved role in this date sequence.
 
 - kinetic persistent utility rail: mark/menu, quiet current-place/progress readout, and one real
   `QUALIFIER ↗` escape hatch; it changes contrast against its environment and moves in as one
