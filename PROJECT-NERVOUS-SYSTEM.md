@@ -72,9 +72,9 @@ when a named moment needs one; they must contain no invented facts, logos, or co
 
 This is required after the mid-film flag interruption; it is not a last-minute generic nav bar.
 
-- compact persistent mark/home control;
-- one real `QUALIFIER ↗` escape hatch;
-- quiet current-place/progress readout;
+- kinetic persistent utility rail: mark/menu, quiet current-place/progress readout, and one real
+  `QUALIFIER ↗` escape hatch; it changes contrast against its environment and moves in as one
+  system, rather than reading as scattered floating controls;
 - small editorial index that links only to real held places;
 - final action index as the rich destination;
 - three one-time factual editorial rails: qualifier/date/proof.

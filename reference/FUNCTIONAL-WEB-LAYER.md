@@ -9,16 +9,17 @@ so it can respond to the real rhythm of the finished film.
 
 ## Recommended system
 
-### 1. Persistent, minimal top rail
+### 1. Persistent, kinetic top rail
 
 - Left: compact Wodapalooza Mexico City mark / home control.
 - Centre: a quiet position readout, for example `01 / 14`, that changes only at designed places
   rather than pretending every scroll pixel is a menu.
 - Right: one primary action, `QUALIFIER ↗`, linked to the verified CompetitionCorner URL.
 
-It is transparent over footage and uses the existing neutral ground only where contrast requires
-it. It should enter with the cockpit/HUD world, disappear over the action index, and never become
-a large opaque header.
+It is one full-width, hairline-led system—not three floating controls. It may invert/shift contrast
+against the material beneath it and travel into place with the current frame, but it never becomes
+a large opaque header. It should enter with the opening title/cockpit world, disappear over the
+action index, and retain a real accessible focus state.
 
 ### 2. A deliberate section index, not a permanent menu
 
