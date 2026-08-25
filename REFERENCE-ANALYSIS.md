@@ -292,6 +292,11 @@ for dominant claims; it stops being the default for everything in between.
 **The bar.** Significantly better than the SoCal site, borrowing selected elements from it. Not
 a copy of it, and not a copy of Posh either.
 
-Still open, to be talked through fresh: which elements of the WZA system we adopt (§6.3, the
-orange conflict in particular), the ending (§6.5), and whether we want something the viewer can
-touch (§6.4).
+**Colour is decided and closed. We do not take WZA SoCal's palette.** The Mexico event has its
+own distinct colours and those are the ones we use. §6.3 was a bad question and the "orange
+conflict" it describes does not exist — there was never anything to resolve. Take structure
+from SoCal if anything (nav, section order, the city switcher, the ticker); never its colours.
+Do not raise this again.
+
+Still open, to be talked through fresh: the ending (§6.5), and whether we want something the
+viewer can touch (§6.4).
