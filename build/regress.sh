@@ -42,7 +42,10 @@ bash "$SKILL/contrast.sh" "$URL" || fails=$((fails+1))
 hdr "4 · no word cut off, 320px to 1920px"
 bash "$HERE/overflow.sh" "$URL" || fails=$((fails+1))
 
-hdr "5 · smoothness and weight"
+hdr "5 · type on a printed ground, measured in real pixels"
+bash "$HERE/inkcheck.sh" "$URL" || fails=$((fails+1))
+
+hdr "6 · smoothness and weight"
 bash "$HERE/perf.sh" "$URL" || fails=$((fails+1))
 
 printf '\n'

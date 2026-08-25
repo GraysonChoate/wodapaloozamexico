@@ -86,7 +86,7 @@
   .alt,.mk,.b10line{ position:absolute; z-index:1 }
   .alt::before,.mk::before,
   .b1cap::before,.b2sub::before,.b3line::before,.b4copy::before,
-  .b5cap::before,.b5bcap::before,.b7strip span::before,.b10line::before,.b11stats span::before,.b12type h2::before,.b12type p::before,.b9type p::before,.b13out a::before,.b13out small::before{
+  .b5cap::before,.b5bcap::before,.b7strip span::before,.b10line::before,.b11stats span::before,.b12type h2::before,.b12type p::before,.b9type p::before{
     content:""; position:absolute; inset:-20px -34px; z-index:-1;
     /* Size the ellipse EXPLICITLY rather than letting it default to farthest-corner. On a
        long single line the default fades out well before the last few glyphs, which is
@@ -794,31 +794,109 @@
   @media (min-aspect-ratio: 11/10) and (max-aspect-ratio: 16/9){
     #b13 .plate video,#b13 .plate img{ object-fit:contain; transform:none }
   }
-  .b13out{
-    position:absolute; z-index:5; left:50%; bottom:14vh; transform:translateX(-50%);
-    width:min(560px, calc(100% - 48px)); text-align:center;
-    opacity:var(--outro,0);
+  /* ── THE FINAL ACTION INDEX ───────────────────────────────────────────────
+     Beat 13 ends the film on black that the FOOTAGE supplies. Then the page becomes
+     paper, and the paper is where a reader can finally act.
+
+     This replaces the small floating link cluster that used to sit on Beat 13. That was a
+     research placeholder carrying the wrong inventory — a qualifier date, an Instagram
+     handle and an organiser credit — presented as though it were the conversion hierarchy.
+     It is not a footer that follows the film; it is the destination the whole descent has
+     been travelling toward, and unlike every other surface in this page it never leaves
+     once it has arrived.
+
+     Approved visual study: reference/prototypes/final-action-index.html
+     Integration contract:  FINAL-ACTION-INDEX-INTEGRATION.md                            */
+  #action{ position:relative; height:300svh; background:var(--ground) }
+  .astage{
+    position:sticky; top:0; height:100svh; overflow:hidden;
+    background:var(--ground); display:grid; place-items:center;
   }
-  .b13out .rule{
-    height:2px; margin:0 auto 26px; width:120px;
-    background:linear-gradient(90deg, var(--green), var(--blue));
+  /* The first page-owned colour after the film. A hairline, not a rule — and it arrives
+     before the paper does, so the black is announced rather than merely ending. */
+  .asignal{
+    position:absolute; top:17vh; width:min(76vw,840px); height:1px;
+    background:linear-gradient(90deg,var(--green),var(--blue));
+    opacity:var(--asig,0);
   }
-  .b13out ul{ list-style:none; margin:0; padding:0;
-    display:flex; justify-content:center; gap:clamp(16px,4vw,44px); flex-wrap:wrap }
-  .b13out a{
-    color:#fff; text-decoration:none; position:relative; z-index:1;
-    font:700 11px/1 "JetBrains Mono",ui-monospace,monospace;
-    letter-spacing:.26em; text-transform:uppercase;
-    border-bottom:1px solid rgba(255,255,255,.32); padding-bottom:5px;
+  /* The paper is a physical object arriving from below the frame: it rises, its perspective
+     flattens, and it comes to rest. Not a card sliding up — a sheet being laid down. */
+  .aindex{
+    position:relative; width:min(94vw,1180px); min-height:min(78svh,720px);
+    padding:clamp(26px,5vw,72px);
+    background:#f1eee6 url('media/print/action-paper-01.jpg') center/cover;
+    transform-origin:center bottom;
+    transform:translateY(calc((1 - var(--aenter,1)) * 125svh))
+              rotateX(calc((1 - var(--aenter,1)) * 8deg))
+              scale(calc(.86 + var(--aenter,1) * .14));
+    opacity:var(--aenter,1);
+    box-shadow:0 34px 100px #000;
+    display:grid; grid-template-columns:minmax(170px,.65fr) minmax(0,1.5fr);
+    gap:clamp(28px,7vw,110px); align-content:space-between;
+    color:#111;
   }
-  .b13out small{
-    display:block; margin-top:26px; opacity:.5; position:relative; z-index:1;
-    font:400 10px/1.6 "JetBrains Mono",ui-monospace,monospace; letter-spacing:.2em;
-    text-transform:uppercase;
+  .aidentity{ display:flex; flex-direction:column; justify-content:space-between; gap:24px }
+  /* multiply sets the mark INTO the sheet: the badge stays black and its white lettering
+     takes the paper's own colour, so it reads as printed rather than pasted on. */
+  .aidentity img{ width:min(184px,70%); height:auto; mix-blend-mode:multiply }
+  .aidentity p,.akicker,.autility{
+    margin:0; font:700 10px/1.45 "JetBrains Mono",ui-monospace,monospace;
+    letter-spacing:.11em; text-transform:uppercase;
   }
-  @media (max-width:760px){
-    .b13out{ bottom:11vh } .b13out a{ font-size:9px; letter-spacing:.16em }
-    .b13out ul{ gap:14px }
+  .atitle{
+    margin:0 0 32px; max-width:8ch; font-weight:800;
+    font-size:clamp(42px,7vw,96px); letter-spacing:-.075em; line-height:.83;
+  }
+  .aactions{ border-top:1px solid #171717 }
+  .aaction{
+    min-height:64px; padding:15px 0; border-bottom:1px solid #171717;
+    display:grid; grid-template-columns:44px 1fr auto; gap:16px; align-items:center;
+    color:#111; text-decoration:none;
+    transition:padding .25s ease, background .25s ease, color .25s ease;
+  }
+  .aaction:hover{ padding-left:12px; background:#111; color:#f4f0e9 }
+  .aaction:focus-visible{ outline:3px solid var(--blue); outline-offset:3px }
+  .aaction .anum{ font:700 10px/1 "JetBrains Mono",ui-monospace,monospace; letter-spacing:.08em }
+  .aaction strong{ font-size:clamp(18px,2.1vw,31px); letter-spacing:-.055em; line-height:.95 }
+  .aaction i{ font:700 10px/1 "JetBrains Mono",ui-monospace,monospace; font-style:normal; letter-spacing:.08em }
+  /* Pre-Registro is SHOWN and inert. The operator supplied the Microsoft Forms URL only in
+     truncated form, and a guessed href at the film's climax would be a broken conversion
+     action. It is not an <a>, so it is not focusable and not clickable — the absence is
+     stated rather than faked. */
+  /* Muted by INK, never by opacity. `opacity:.5` on the row measured 1.85:1 for
+     "Próximamente" against the printed ground — the word that carries the whole meaning of
+     the state was the least readable thing on the sheet. Opacity flattens dark ink toward
+     the paper; a chosen grey does not. #4a4a4a holds 5.8:1 even over the magenta halftone.
+     The boxed tag is what says "state", so legibility no longer has to. */
+  .aaction.is-pending{ cursor:default; color:#4a4a4a }
+  .aaction.is-pending i{
+    border:1px solid rgba(17,17,17,.38); padding:3px 7px; letter-spacing:.1em;
+  }
+  .aaction.is-pending:hover{ padding-left:0; background:transparent; color:#4a4a4a }
+  .autility{
+    display:flex; justify-content:space-between; gap:20px; grid-column:1/-1;
+    border-top:1px solid #171717; padding-top:16px;
+  }
+  .autility a{ color:inherit }
+  /* Appears once the sheet has locked and then stays for good. It was fading out at the very
+     bottom, which is precisely where it is most needed. */
+  .areturn{
+    position:absolute; right:4vw; bottom:4vh; z-index:6;
+    color:#f5f5f5; text-decoration:none; opacity:var(--asettle,1);
+    font:700 10px/1 "JetBrains Mono",ui-monospace,monospace;
+    letter-spacing:.1em; text-transform:uppercase;
+  }
+  .areturn:focus-visible{ outline:2px solid var(--blue); outline-offset:5px }
+  @media (max-width:650px){
+    .aindex{ grid-template-columns:1fr; min-height:84svh; padding:28px 24px; gap:20px }
+    .aidentity{ flex-direction:row; align-items:flex-start }
+    .aidentity p{ max-width:15ch }
+    .aidentity img{ width:132px }
+    .atitle{ margin-bottom:22px }
+    .aaction{ grid-template-columns:29px 1fr; gap:9px }
+    .aaction i{ display:none }
+    .autility{ font-size:9px; gap:10px }
+    .autility .aorg{ display:none }
   }
 
   /* ── safety nets — everything resolves to VISIBLE ───────────────────────── */
@@ -849,13 +927,22 @@
     .b12type{ opacity:1 !important }
     #b12 .plate,#b12 .plate.full{ transform:translate(-50%,-50%) !important }
     #b12 .plate{ outline:0 !important }
-    .b13out{ opacity:1 !important }
+    #action{ height:auto }
+    .astage{ position:relative; height:auto; min-height:100svh; padding:6vh 0 }
+    .aindex{ opacity:1 !important; transform:none !important }
+    .asignal,.areturn{ opacity:1 !important }
+    .areturn{ position:relative; right:auto; bottom:auto; margin:18px auto 0; display:block;
+              width:max-content; color:#f5f5f5 }
     #b8 .plate{ transform:none !important }
     .b9wash{ opacity:.55 !important }
     #b9 .b9front{ display:none }
     #b6 .plate video,#b6 .plate img{ object-position:50% 50% !important }
   }
 </style>
+
+<!-- The return control's destination. An explicit anchor rather than a beat id, so
+     it survives any beat being renamed, inserted or removed ahead of it. -->
+<span id="top"></span>
 
 <div class="hud">
   <div class="mk"><img src="media/logo/mark-white.png" alt="Wodapalooza Mexico City"></div>
@@ -1058,15 +1145,43 @@
       <img src="media/poster/b13_close.jpg" alt="The Monumento a la Revolución lit red, the Wodapalooza mark locking over it">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
-    <div class="b13out">
-      <div class="rule"></div>
-      <ul>
-        <li><a href="https://competitioncorner.net/events/21707/details">Qualifier · 18–26 Aug</a></li>
-        <li><a href="https://www.instagram.com/wodapaloozamexico/">@wodapaloozamexico</a></li>
-        <li><a href="https://www.asdeporte.com/">Organiza · Asdeporte</a></li>
-      </ul>
-      <small>Ciudad de México · 4–6 diciembre 2026</small>
+  </div>
+</section>
+
+<!-- ─────────── THE FINAL ACTION INDEX ─────────── -->
+<section id="action" aria-labelledby="action-title">
+  <div class="astage">
+    <div class="asignal"></div>
+    <div class="aindex">
+      <aside class="aidentity">
+        <img src="media/logo/mark-gradient.png" width="450" height="328" alt="Wodapalooza Mexico City">
+        <p>Ciudad de M&eacute;xico<br>04 &middot; 05 &middot; 06<br>Diciembre 2026</p>
+      </aside>
+      <div>
+        <p class="akicker">Choose your way in</p>
+        <h2 class="atitle" id="action-title">THE INDEX.</h2>
+        <nav class="aactions" aria-label="Acciones del evento">
+          <span class="aaction is-pending" aria-disabled="true">
+            <span class="anum">01</span><strong>Pre-Registro</strong><i>Pr&oacute;ximamente</i>
+          </span>
+          <a class="aaction" href="https://competitioncorner.net/events/21707/details" target="_blank" rel="noopener noreferrer">
+            <span class="anum">02</span><strong>Inscr&iacute;bete en el Online Qualifier</strong><i>Abrir &#8599;</i>
+          </a>
+          <a class="aaction" href="https://share.hsforms.com/2HRn74_J4TeWtT7s28ZfA-g4zvdw" target="_blank" rel="noopener noreferrer">
+            <span class="anum">03</span><strong>Dudas y preguntas, aqu&iacute; te ayudamos</strong><i>Abrir &#8599;</i>
+          </a>
+          <a class="aaction" href="https://drive.google.com/file/d/1JGCQtsKqS8dYpa8M4LwoZeGekvwKnjdy/view" target="_blank" rel="noopener noreferrer">
+            <span class="anum">04</span><strong>Rulebook WZA CDMX</strong><i>Abrir &#8599;</i>
+          </a>
+        </nav>
+      </div>
+      <footer class="autility">
+        <span>Wodapalooza Mexico City</span>
+        <a href="https://www.instagram.com/wodapaloozamexico/" target="_blank" rel="noopener noreferrer">@wodapaloozamexico &#8599;</a>
+        <span class="aorg">Organizado por Asdeporte</span>
+      </footer>
     </div>
+    <a class="areturn" href="#top">Volver al inicio &#8593;</a>
   </div>
 </section>
 
@@ -1078,6 +1193,7 @@
   const ground = document.querySelector('[data-ground]');
   /* Where the DESCENT begins. Beat 0 is above the city and before the aircraft. */
   const descent = document.getElementById('b1');
+  const actIdx  = document.getElementById('action');
 
   /* attach a video to every beat that declares one, and hold its poster until a frame
      has ACTUALLY been painted — `loadeddata` only means bytes arrived, and a video that
@@ -1368,14 +1484,6 @@
         b.style.setProperty('--blackout', seg(p, 0.79, 0.82).toFixed(4));
       }
 
-      if (b.id === 'b13') {
-        /* The links arrive on the black the FILM fades to, not on a black the page painted
-           — so they must wait until that fade has actually finished. It completes at 89% of
-           the clip, which is why the warp gives that last stretch 38% of the beat's scroll:
-           otherwise the links come up over the still-lit monument and measure 2.88:1. */
-        b.style.setProperty('--outro', seg(p, 0.68, 0.80).toFixed(3));
-      }
-
       if (b.id === 'b12') {
         /* The whole beat is one gesture: the square is empty, and then it is full. A step,
            not a fade — a dissolve here would show the crowd growing, which is a different
@@ -1449,6 +1557,24 @@
                               : wp[1] + ((q - wp[0]) / (1 - wp[0])) * (1 - wp[1]);
         b._want = wantAt(b._v, q);
       }
+    }
+
+    /* The action index is a PLACE, not a beat: no clip, no scrub, nothing to keep in sync
+       with a playhead. It only needs to know how far into itself the reader has come.
+
+       The black lead-in is deliberately tiny. An earlier prototype held black for long
+       enough that it read as a void rather than as the film ending, so the paper starts
+       rising almost immediately after Beat 13's own fade has finished. */
+    if (actIdx) {
+      const ra = actIdx.getBoundingClientRect();
+      const at = Math.max(1, actIdx.offsetHeight - H);
+      const ap = Math.min(1, Math.max(0, -ra.top / at));
+      /* enter carries the sheet; settle brings the return control up once the sheet has
+         locked. Neither ever reverses: this surface is the end of the road and nothing
+         about it fades out again. */
+      actIdx.style.setProperty('--asig',    Math.min(1, Math.max(0, (ap - 0.02) / 0.12)).toFixed(4));
+      actIdx.style.setProperty('--aenter',  Math.min(1, Math.max(0, (ap - 0.06) / 0.27)).toFixed(4));
+      actIdx.style.setProperty('--asettle', Math.min(1, Math.max(0, (ap - 0.31) / 0.16)).toFixed(4));
     }
 
     /* The altimeter measures the DESCENT, not the document. Mapping it to total scroll
