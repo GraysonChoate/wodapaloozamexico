@@ -228,3 +228,28 @@ a standing invitation to use it.
 
 The same clip sampled in shade returns `#416A7C` — the lona reads muted in `LONA_0198` and
 vivid in the stills. Same object, different light. Do not correct one to the other.
+
+
+---
+
+## THE CONFIRMED LINK BLOCK
+
+From the Instagram bio, supplied by the operator. These are **the** links — the earlier
+placeholder built from research URLs is superseded.
+
+| Label (verbatim, Spanish) | URL |
+|---|---|
+| **Pre-Registro** | `forms.office.com/Pages/ResponsePage.aspx?id=rjrjeBeKA06FKDyy46jE8…` **INCOMPLETE** |
+| Inscríbete en el Online Qualifier | `https://competitioncorner.net/events/21707/details` |
+| Dudas y preguntas, aquí te ayudamos | `https://share.hsforms.com/2HRn74_J4TeWtT7s28ZfA-g4zvdw` |
+| Rulebook WZA CDMX | `https://drive.google.com/file/d/1JGCQtsKqS8dYpa8M4LwoZeGekvwKnjdy/view` |
+
+**The Pre-Registro URL is truncated in the source screenshot** and is the one link not yet
+usable. It is also the most important one: it is the actual conversion action, the thing the
+whole film is asking for. Needs the full string.
+
+The Rulebook URL as supplied carried an `fbclid` tracking parameter from a Facebook referral.
+It is stripped here and on the page — we do not forward someone else's tracking.
+
+**The labels are the operator's own Spanish and are not translated.** `Pre-Registro` is not
+`Pre-register`.

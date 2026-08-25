@@ -83,7 +83,7 @@
   .alt,.mk,.b10line{ position:absolute; z-index:1 }
   .alt::before,.mk::before,
   .b1cap::before,.b2sub::before,.b3line::before,.b4copy::before,
-  .b5cap::before,.b5bcap::before,.b7strip span::before,.b10line::before,.b11stats span::before,.b12type h2::before,.b12type p::before,.b13out a::before,.b13out small::before{
+  .b5cap::before,.b5bcap::before,.b7strip span::before,.b10line::before,.b11stats span::before,.b12type h2::before,.b12type p::before,.b9type p::before,.b13out a::before,.b13out small::before{
     content:""; position:absolute; inset:-20px -34px; z-index:-1;
     /* Size the ellipse EXPLICITLY rather than letting it default to farthest-corner. On a
        long single line the default fades out well before the last few glyphs, which is
@@ -389,42 +389,118 @@
      the one thing the source-native rule forbids. The palette gradient appears here as an
      interface hairline at the frame edge — clearly the page, not light on the subject.
      Flagged for the reviewer rather than decided. */
+  /* ── B9 · DEPTH FROM ONE REAL FRAME ───────────────────────────────────────
+     STF00032 already contains three planes because a real camera made it: soft sky, the
+     Ángel's column and gold statue, then the hood and raised fists nearer the lens, with
+     genuine optical depth-of-field separating them. The page does not invent that depth —
+     it just stops flattening it.
+
+     The same photograph is drawn twice. The back copy is the whole frame. The front copy is
+     the same file masked to the SUBJECT only, so the sky drops out of it. The type is
+     printed between them. Nothing is traced, nothing is pasted, and the two copies are the
+     same pixels, so there is no seam to mismatch.
+
+     WHAT SEPARATES IS THE FOREGROUND, NOT THE MONUMENT. On this hazy day the gold statue
+     measures 220, the sunlit column edge 230 and the distant buildings 241 against a sky of
+     226-234 — there is no threshold that lifts the Ángel out, and three were tried. The
+     hooded figure and the tree canopy DO separate decisively: dark and strongly green
+     against a uniformly bright ground. So the words pass in front of the monument and
+     BEHIND the person, which is the truer sentence anyway — the body is in front of the
+     message, and the city is behind both.
+
+     The matte is the frame's own luminance and saturation, cleaned with a morphological
+     open/close and reduced to its single largest region so no speck floats free.
+
+     Beat 2 was tested for this first and cannot do it: its Ángel is floodlit against lit
+     office towers at exactly the same brightness (monument box 33.9% vs tower box 31.3% of
+     pixels above luma 110), and the camera leaves the monument entirely by 0.85s. */
   #b9{ height:620svh }
-  #b9 .plate img.flex{
+  #b9 .plate img.flex,#b9 .b9front{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     object-position:50% 13%;
+  }
+  /* THE TWO COPIES MUST STAY IN PERFECT REGISTER. Scaling them at different rates was the
+     first attempt at a depth cue and it is wrong: they are the SAME pixels, so any offset
+     produces a double image — two monuments, two sets of trees — not parallax. Real
+     parallax between them would need the background repainted where the subject was lifted
+     out, which is fabrication.
+
+     So the photograph moves as one, and the TYPE moves against it. That is the only element
+     that can travel without ghosting, and it is enough: the words drift and grow at their
+     own rate between two locked planes, which reads as them occupying a place in the scene. */
+  /* Both planes must darken by the SAME amount. Washing only the base made the sky dark
+     and the trees bright, which drew a bright silhouette along the matte edge and gave the
+     whole thing away. Same filter on both copies, no step. */
+  #b9 .plate img.flex,#b9 .b9front{
     transform:scale(calc(1.02 + var(--p) * .05));
+    filter:brightness(calc(1 - var(--typein,0) * .54)) contrast(calc(1 + var(--typein,0) * .10));
+  }
+  #b9 .b9front{
+    z-index:4; pointer-events:none;
+    -webkit-mask-image:url("media/still/b09_subject_matte.png");
+            mask-image:url("media/still/b09_subject_matte.png");
+    /* The mask must be cropped EXACTLY as the image is. object-fit:cover crops the picture,
+       but mask-size:100% 100% STRETCHES the mask to the box instead — so the two were never
+       aligned, and opaque parts of the matte landed over open sky and bit chunks out of the
+       words. Same fit, same position, or the whole effect is noise. */
+    -webkit-mask-size:cover;         mask-size:cover;
+    -webkit-mask-position:50% 13%;   mask-position:50% 13%;
+    -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
   }
   /* neutral, never a tint: this is the same wash the rest of the film uses for legibility */
+  /* the wash is strongest behind the words and clears toward the bottom, so the figure and
+     the street keep their own light */
   .b9wash{
-    position:absolute; inset:0; z-index:2; pointer-events:none; background:#000;
-    opacity:calc(.30 + var(--typein,0) * .46);
+    position:absolute; inset:0; z-index:2; pointer-events:none;
+    background:linear-gradient(to bottom,
+      rgba(0,0,0,.20) 0%, rgba(0,0,0,.12) 44%, transparent 80%);
+    opacity:calc(.12 + var(--typein,0) * .20);
   }
   /* the gradient is INTERFACE — a hairline at the edge of the frame, not light on the figure */
   .b9edge{
-    position:absolute; left:0; top:0; bottom:0; width:3px; z-index:4; pointer-events:none;
+    position:absolute; left:0; top:0; bottom:0; width:3px; z-index:5; pointer-events:none;
     background:linear-gradient(to bottom, var(--green), var(--blue));
     opacity:calc(var(--typein,0) * .9);
   }
+  /* The words have to live where the SKY is, because everything that is not sky is in the
+     front plane — including the trees, which own the left and right thirds. Centred and
+     full-width, the line was completely buried. In the open sky band it reads, and the
+     column runs straight through it, which is the whole point of the beat. */
   .b9type{
-    position:absolute; z-index:5; left:6vw; right:6vw; top:50%; transform:translateY(-50%);
+    position:absolute; z-index:3;              /* behind .b9front, above the base frame */
+    left:17vw; right:17vw; top:11%;
+    /* The words arrive clear in the open sky and DESCEND into the figure. By the end of the
+       beat the hood and the raised fists have taken the second line — the message is
+       absorbed by the body, immediately before the body becomes the athlete. Travelling the
+       other way lifted the type clear of everything and the depth stopped being visible at
+       all. */
+    transform:translateY(calc(var(--p) * 38vh)) scale(calc(1.0 + var(--p) * .12));
+    transform-origin:50% 0;
     opacity:var(--typein,0);
   }
+  .b9type h2{ text-align:center }
+  /* the small line carries the ground; the large one clears its floor unaided */
+  .b9type p{ text-align:center; position:relative; z-index:1; width:max-content;
+             margin-left:auto; margin-right:auto }
+  @media (max-width:760px){ .b9type{ left:7vw; right:7vw; top:17% } }
   .b9type h2{
     margin:0; font-weight:800; line-height:.94; letter-spacing:-.01em;
-    font-size:clamp(30px, 7.2vw, 104px);
+    font-size:clamp(26px, 5.1vw, 76px);
     font-variation-settings:"wdth" 125, "wght" 800;
   }
-  /* clear of the descender: at this size the g of ganarte drops into the line below */
+  /* clear of the descender, and high enough that the hood never eats it */
   .b9type p{
-    margin:1.9em 0 0; font:400 13px/1.5 Archivo,"Helvetica Neue",Arial,sans-serif;
-    letter-spacing:.18em; text-transform:uppercase; opacity:.66;
+    margin:1.15em 0 0; font:400 13px/1.5 Archivo,"Helvetica Neue",Arial,sans-serif;
+    letter-spacing:.18em; text-transform:uppercase;
+    /* full strength, not faded. A 66% white line measured 3.17:1 over the sky; hierarchy
+       here comes from scale and letterspacing, which is the same correction the Beat 11
+       stat numbers needed. */
   }
   @media (max-width:760px){ .b9type{ left:14px; right:14px } .b9type p{ font-size:12px } }
 
   /* the cut — a step, exactly as Beat 5 */
   #b9 .plate.cut{
-    position:absolute; inset:0; z-index:6;
+    position:absolute; inset:0; z-index:7;
     opacity:var(--cut,0); visibility:var(--cutvis,hidden);
   }
   #b9 .plate.cut video,#b9 .plate.cut img{ transform:scale(calc(1.02 + var(--cutp,0)*.07)) }
@@ -611,6 +687,7 @@
     .b12type{ opacity:1 !important }
     .b13out{ opacity:1 !important }
     .b9wash{ opacity:.55 !important }
+    #b9 .b9front{ display:none }
     #b6 .plate video,#b6 .plate img{ object-position:50% 50% !important }
   }
 </style>
@@ -732,6 +809,8 @@
     <div class="plate">
       <img class="flex" src="media/still/b09_flex.jpg" alt="The hooded figure, back to camera, arms raised beneath the Ángel de la Independencia">
     </div>
+    <!-- the same photograph, masked to its subject, printed in front of the words -->
+    <img class="b9front" src="media/still/b09_flex.jpg" alt="" aria-hidden="true">
     <div class="b9wash"></div>
     <div class="b9edge"></div>
     <div class="b9type">
@@ -1088,7 +1167,10 @@
         /* type in, hold, then OUT — the beat has to end on the figure alone and still
            before it can cut. If the words were still on screen the cut would be a
            transition between two layouts rather than between two bodies. */
-        const tin = seg(p, 0.14, 0.30) * (1 - seg(p, 0.60, 0.76));
+        /* Hold at full strength while the words descend. The hood and the fists are what
+           take them away — fading them out early meant they vanished in open sky and the
+           occlusion never happened at all. */
+        const tin = seg(p, 0.12, 0.26) * (1 - seg(p, 0.82, 0.88));
         b.style.setProperty('--typein', tin.toFixed(3));
         const CUT9 = 0.88;
         const c9 = p >= CUT9 ? 1 : 0;
