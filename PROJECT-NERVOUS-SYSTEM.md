@@ -102,9 +102,11 @@ before a partner treatment is built. Never import SoCal's sponsor logos or assum
 transfers.
 
 `reference/prototypes/proof-constellation-motion.html` is the non-card motion study for this
-fact set: fragments enter on different vectors, numbers are footage-filled structural planes,
-and the three facts lock into one world before release. It is a reference for a later proof
-moment, not authorization to alter a locked beat or add an unverified partner wall.
+fact set: a night-city field establishes first, then collapses symmetrically before `16`, `3`,
+and `1` arrive sequentially as footage-filled structural planes. Different vectors are a
+site-wide vocabulary, not an instruction for every element to animate at once. It is a reference
+for a later proof moment, not authorization to alter a locked beat or add an unverified partner
+wall.
 
 - kinetic persistent utility rail: mark/menu, quiet current-place/progress readout, and one real
   `QUALIFIER ↗` escape hatch; it changes contrast against its environment and moves in as one
