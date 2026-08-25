@@ -1,4 +1,4 @@
-# VISUAL AUDIT — `6c1f7b6`
+# VISUAL AUDIT — `4543b51`
 
 Frames from the pushed commit, captured in **headed Chromium** — a real browser window with a
 real compositor. The UA was checked for a `Headless` marker before capture and carried none.
@@ -69,6 +69,10 @@ beat*, not through the document, so they stay meaningful as the film grows.
 | 45 | b12 · 0.48 | the reader is held here on purpose; the memory is being made, not recalled |
 | 46 | b12 · 0.60 | **the same viewpoint, replaced not dissolved** — Cathedral centre, Palacio right, in both |
 | 47 | b12 · 1.00 | `DECEMBER 4 · 5 · 6 · 2026 / Ciudad de México` — no attendance figure claimed |
+| 48 | b13 · 0.10 | the Monumento lit red — the city's own light, ungraded |
+| 49 | b13 · 0.34 | the film's own badge landing, exactly as the film ends |
+| 50 | b13 · 0.62 | the drain to black is the FOOTAGE, not an applied wash |
+| 51 | b13 · 1.00 | links on the black the film supplied; gradient present only as a hairline |
 
 ## Known limits of these stills
 
