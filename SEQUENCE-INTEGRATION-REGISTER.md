@@ -12,7 +12,7 @@ changing a named beat. A study is never discarded merely because work has moved 
 | Film order | Mexican flag inside giant `WODAPALOOZA / MEXICO CITY` → Ángel → cockpit → kinetic `ARE / YOU / READY?` → black `SUCEDERÁ` aperture carrying Beat 2's night aerial |
 | Why it works | No empty handoff; each element transforms into the next, and the opening tells the reader where they are before asking them to continue. |
 | Source contract | Flag: `mexico-flag-clean`; city: `px_angel_pullback`; cockpit: `b01_cockpit`; `SUCEDERÁ`: **`b02_aerial` only**. |
-| Status | Approved direction in a standalone lab. Claude must not alter the live Beat 0 → 1 join until a named live integration handoff is issued. |
+| Status | **Integrated into the live build, pending normal-speed review.** Claude must not independently retune Beats 0–2; changes require a named review finding. |
 | Never reintroduce | Small opening side metadata, a generic centred-box collapse, isolated `ARE YOU READY?` cards, or Ángel footage inside `SUCEDERÁ`. |
 
 ## 02 · Event date into city-as-venue

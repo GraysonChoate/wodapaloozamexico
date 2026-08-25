@@ -45,17 +45,16 @@ replacement, scale-through, crop/registration, and intentional black breath.
 
 ### Immediate creative exception: opening identity → cockpit
 
-The currently integrated windshield-lock join fixes the empty seam but is **not final artistic
-approval**. Codex owns a non-conflicting live study at
-`build/angel-cockpit-diagonal-lab.html`. The opening must begin with **WODAPALOOZA / MEXICO**
+The live opening now follows the approved sequence from
+`build/angel-cockpit-diagonal-lab.html`. It begins with **WODAPALOOZA / MEXICO**
 as an oversized kinetic type aperture, carrying the supplied Mexican-flag material without
 player chrome. The Ángel city scene breaks through and folds into the cockpit; the cockpit must
 first replace it **inside the same moving aperture** before that aperture normalizes. It must
 never read as a cockpit sitting behind a shrinking city picture or a pale page with orphaned
 metadata.
 
-Claude must not alter Beat 0 → 1 until Codex hands off the selected motion and exact integration
-instructions.
+Codex integrated the opening through Beat 2. Do not alter Beats 0–2 until a named normal-speed
+review identifies a reader-facing defect.
 
 ## Material world
 
@@ -177,8 +176,8 @@ releases before the action paper arrives.
 
 | Now | Owner | Scope |
 |---|---|---|
-| Refine and select an authored Ángel → cockpit transition | Codex | standalone diagonal lab only; no live `build/index.html` edits while Claude works |
-| Integrate the selected Beat 0 → 1 result | Claude after explicit Codex handoff | live `build/index.html` only |
+| Review the integrated opening through Beat 2 | Codex | live `build/index.html`; only targeted fixes from normal-speed review |
+| Preserve the approved opening | Claude | do not retune Beats 0–2 without a named review finding |
 | Functional layer / information rails | Claude after opening handoff | follow `reference/FUNCTIONAL-WEB-LAYER.md` |
 | Material kit / independent review / precise next handoff | Codex | assets, labs, review, current direction |
 

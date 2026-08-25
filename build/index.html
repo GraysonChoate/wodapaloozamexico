@@ -159,6 +159,10 @@
      back. The picture does not only get smaller, it gets more complete — Reforma is at its
      widest exactly when the image is at its smallest. */
   #b0{ height:340svh }
+  /* The flag moves only inside the title; the black field opens directly onto Ángel. */
+  .b0intro{ position:absolute; inset:0; z-index:8; background:#050505; opacity:var(--title-black,1); pointer-events:none }
+  .b0title{ position:absolute; inset:0; z-index:9; width:100%; height:100%; opacity:var(--title,1); transform:scale(calc(.94 + var(--title,1)*.06)); pointer-events:none }
+  .b0title video{ width:100%; height:100%; object-fit:cover; filter:saturate(.95) contrast(1.05) }
   .b0ground{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     transform:scale(calc(1.05 - .05 * var(--c,0)));
@@ -223,6 +227,12 @@
     letter-spacing:.34em; text-align:center; white-space:nowrap;
     opacity:calc(var(--p)*2.6);
   }
+  .b1ready{ position:absolute; z-index:6; inset:0; pointer-events:none; opacity:calc(var(--ready,0) * (1 - var(--ready-close,0))) }
+  .b1ready span{ position:absolute; display:block; color:transparent; background:url('media/poster/b01_cockpit.jpg') 50%/cover; background-clip:text; -webkit-background-clip:text; -webkit-text-stroke:1px rgba(244,239,228,.52); font:950 clamp(72px,16vw,230px)/.72 Archivo,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.11em; white-space:nowrap; text-shadow:0 0 20px rgba(0,0,0,.72); mix-blend-mode:screen }
+  .b1ready .are{ top:4vh; left:50%; transform:translate(-50%,calc((1 - var(--ready,0))*-42vh + var(--ready-close,0)*39vh)) scale(calc(1 - var(--ready-close,0)*.58)) }
+  .b1ready .you{ top:35vh; left:50%; font-size:clamp(92px,22vw,320px); transform:translate(calc(-50% + (1 - var(--ready,0))*58vw),calc(var(--ready-close,0)*12vh)) scale(calc(1 - var(--ready-close,0)*.56)) }
+  .b1ready .ready{ bottom:6vh; left:50%; font-size:clamp(64px,15vw,220px); transform:translate(calc(-50% - (1 - var(--ready,0))*52vw),calc((1 - var(--ready,0))*25vh - var(--ready-close,0)*35vh)) scale(calc(1 - var(--ready-close,0)*.54)) }
+  @media(max-width:700px){ .b1ready .are{font-size:25vw}.b1ready .you{font-size:32vw}.b1ready .ready{font-size:22vw} }
 
   /* B2 — the word */
   #b2{ height:420svh }
@@ -1071,6 +1081,7 @@
     .stage{ opacity:1 !important }
     #b0{ --c:1; --capt:1; --blackout:0 }
     .b0ground{ transform:none }
+    .b0intro,.b0title,.b1ready{ display:none !important }
     .b0frame{ position:relative; left:auto; top:auto; transform:none; margin:0 auto;
               width:min(88vw,1040px); height:auto; aspect-ratio:1280/586 }
     .b0cap{ position:relative; left:auto; top:auto; transform:none; opacity:1;
@@ -1124,6 +1135,8 @@
 <!-- ─────────── BEAT 0 · THE CITY AS AN OBJECT ─────────── -->
 <section class="beat" id="b0" data-src="media/scrub/px_angel_pullback.mp4">
   <div class="stage">
+    <div class="b0intro" aria-hidden="true"></div>
+    <svg class="b0title" viewBox="0 0 1600 900" role="img" aria-label="Wodapalooza Mexico City"><defs><clipPath id="opening-title-mask"><text x="800" y="410" text-anchor="middle" font-family="Archivo,Arial,sans-serif" font-size="176" font-weight="900" letter-spacing="-15">WODAPALOOZA</text><text x="800" y="595" text-anchor="middle" font-family="Archivo,Arial,sans-serif" font-size="154" font-weight="900" letter-spacing="-11">MEXICO CITY</text></clipPath></defs><foreignObject width="1600" height="900" clip-path="url(#opening-title-mask)"><div xmlns="http://www.w3.org/1999/xhtml" style="width:1600px;height:900px"><video muted playsinline preload="auto" poster="media/poster/mexico-flag-title.jpg"><source src="media/scrub/mexico-flag-clean.mp4" type="video/mp4"></video></div></foreignObject></svg>
     <img class="b0ground" src="media/print/print-field-01.jpg" alt="" aria-hidden="true">
     <div class="b0black"></div>
     <div class="b0frame">
@@ -1138,10 +1151,6 @@
         <video data-full="media/scrub/b01_cockpit.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
       </div>
     </div>
-    <div class="b0cap">
-      <p class="b0name">El &Aacute;ngel</p>
-      <p class="b0meta">Paseo de la Reforma &middot; Ciudad de M&eacute;xico</p>
-    </div>
   </div>
 </section>
 
@@ -1152,6 +1161,7 @@
       <img src="media/poster/b01_cockpit.jpg" alt="Approach into Mexico City">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
+    <div class="b1ready" aria-hidden="true"><span class="are">ARE</span><span class="you">YOU</span><span class="ready">READY?</span></div>
     <div class="b1cap">CIUDAD DE MÉXICO · 2,240 M</div>
   </div>
 </section>
@@ -1171,7 +1181,6 @@
       </mask></defs>
       <rect class="krect" x="0" y="0" fill="#000" mask="url(#cut)"/>
     </svg>
-    <div class="b2sub">IT WILL HAPPEN</div>
   </div>
 </section>
 
@@ -1380,6 +1389,8 @@
   /* Where the DESCENT begins. Beat 0 is above the city and before the aircraft. */
   const descent = document.getElementById('b1');
   const actIdx  = document.getElementById('action');
+  const titleFlag = document.querySelector('.b0title video');
+  if (titleFlag) titleFlag.addEventListener('loadedmetadata', () => { titleFlag.pause(); }, {once:true});
 
   /* attach a video to every beat that declares one, and hold its poster until a frame
      has ACTUALLY been painted — `loadeddata` only means bytes arrived, and a video that
@@ -1718,6 +1729,8 @@
            a stepped rectangle. */
         b.style.setProperty('--oH', ease(seg(p, 0.00, 0.05)).toFixed(4));
         b.style.setProperty('--oV', ease(seg(p, 0.04, 0.14)).toFixed(4));
+        b.style.setProperty('--ready', ease(seg(p, 0.18, 0.34)).toFixed(4));
+        b.style.setProperty('--ready-close', ease(seg(p, 0.62, 0.82)).toFixed(4));
       }
       if (b.id === 'b6') {
         /* Closes into the vertical strip over the last twelve per cent, while the badge is
@@ -1778,6 +1791,13 @@
         const ck = p >= 0.90 ? 1 : 0;
         b.style.setProperty('--ck', ck);
         b.style.setProperty('--ckvis', ck ? 'visible' : 'hidden');
+        const title = 1 - ease(seg(p, 0.10, 0.29));
+        b.style.setProperty('--title', title.toFixed(4));
+        b.style.setProperty('--title-black', Math.max(0, 1 - ease(seg(p, 0.16, 0.32))).toFixed(4));
+        if (titleFlag && titleFlag.duration && !RM) {
+          const want = Math.min(titleFlag.duration - TAIL, HEAD + p * Math.max(0, titleFlag.duration - HEAD - TAIL));
+          if (Math.abs(titleFlag.currentTime - want) > 1/36) titleFlag.currentTime = want;
+        }
       }
 
       if (b.id === 'b12') {
