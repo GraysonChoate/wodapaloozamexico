@@ -10,11 +10,13 @@ checklist. The question is not “do the scenes work?” It is:
 
 Capture from a headed browser, not an embedded preview or headless browser:
 
-1. One continuous normal-speed down-scroll, desktop 1440×900.
-2. One continuous normal-speed down-scroll, mobile 375×812.
-3. A reverse scroll through every enhanced moment.
+1. One continuous normal-speed down-scroll, desktop 1440×900, from Beat 0 through the locked
+   action index.
+2. One continuous normal-speed down-scroll, mobile 375×812, across that same range.
+3. A reverse scroll through every enhanced moment, including the action-index arrival.
 4. A fast fling through every enhanced moment.
-5. Named pause states at the start, middle, and release of every beat.
+5. Named pause states at the start, middle, and release of every beat, plus the action-index
+   black handoff, hairline, rise, lock, and final interactive state.
 6. The existing no-JS and reduced-motion checks.
 
 The continuous recordings are non-negotiable. Contact sheets tell us composition; only a
@@ -24,7 +26,7 @@ single uninterrupted pass can reveal whether rhythm, transition, and pressure ac
 
 | Act | Beats | Required feeling |
 |---|---|---|
-| Altitude | 1–3 | suspension, approach, identity entering the city |
+| City / altitude | 0–3 | city at scale becomes descent; suspension, approach, identity entering the city |
 | Descent | 4–6 | enclosure, arrival, street-level claim |
 | Occupation | 7–9 | physical intervention, message, body becoming athlete |
 | Proof / invitation | 10–13 | scale, legitimacy, city as venue, clear final action |
@@ -39,6 +41,7 @@ reference frame/timecode.
 
 | Boundary | The intended editorial relationship |
 |---|---|
+| 0 → 1 | framed Ángel print plate becomes the cockpit window; the city enters the descent |
 | 1 → 2 | approach gives way to the city inside `SUCEDERÁ` |
 | 2 → 3 | aperture releases into an official mark hold |
 | 3 → 4 | mark clears; shutter opens into ground transport |
@@ -52,6 +55,7 @@ reference frame/timecode.
 | 10 → 11 | scale resolves into sourced proof and facts |
 | 11 → 12 | event proof gives way to city-as-venue |
 | 12 → 13 | full city settles into the final monument and footage-supplied black |
+| 13 → action | footage completes its own black; HUD releases; hairline then paper makes a functional destination |
 
 ## Enhanced-moment checks
 
@@ -87,6 +91,11 @@ and operator-provided links. Required verified actions:
 - Rulebook WZA CDMX — supplied Drive PDF.
 
 Do not add generic SoCal language or unconfirmed operational information to fill final space.
+
+The action index is not a footer. It must be judged as the final editorial place: no duplicate
+film mark or active flight instrument over the locked print surface; all destinations legible,
+obvious, and reachable; and return-to-top remains present at the final pixel. The English-led
+heading / Spanish-action relationship is a whole-sequence copy decision, not a local styling fix.
 
 ## Decision rule
 

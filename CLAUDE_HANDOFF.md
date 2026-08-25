@@ -17,6 +17,11 @@
 >    Pre-Registro stays unlinked until its full URL is supplied. See
 >    `reference/EVENT-ACTION-ARCHITECTURE.md`.
 >
+> Both additions now have one live proof: Beat 0 is the campaign-print city interruption and
+> the action index is integrated after Beat 13's real black. The immediate task after the locked
+> HUD release is the final whole-film audit—do not add another effect, print surface, ticker, or
+> navigation element before that evidence is reviewed.
+>
 > Fullscreen is now a choice, not the default. A source fragment may be a contained moving plate,
 > crop window, shallow plane field, physical poster/sticker/paper object, or editorial pause when
 > it has a real narrative reason. Do not build a generic carousel. The supplied `Other B-Roll/`

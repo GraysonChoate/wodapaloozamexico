@@ -200,25 +200,25 @@ film mark or an altitude instrument that has completed its job.
 
 ## Correct work order from this checkpoint
 
-These streams begin **in parallel** now:
+The completed foundation is now frozen pending the final whole-film review:
 
 1. Treat the night-aerial Beat 1 prelude as a rejected experiment, not an approved solution.
    The approved daytime Ángel pull-back has replaced its role as Beat 0 and hands into the
    untouched cockpit descent. Do not revive the night aerial.
-2. Codex prepares a reusable campaign-print kit: source-derived references plus authored,
-   generated page-owned textures and graphic components. It must be original design—not a
-   reconstruction of the rulebook key art—and must obey the applied-texture boundary above.
-3. Codex and Claude reconcile the final action inventory with the operator’s actual URLs;
-   the incomplete Pre-Registro destination remains intentionally unlinked.
+2. The campaign-print kit is active in the live Beat 0 print frame and final action index;
+   additional surfaces wait for evidence from the whole-film review.
+3. The final action inventory is integrated. The incomplete Pre-Registro destination remains
+   visibly disabled and intentionally unlinked until its complete URL is supplied.
 
 Then:
 
 4. Perform the uninterrupted whole-film review and mark the exact places where a reader
-   needs a graphic pause, a factual orientation, or an action destination.
-5. Prototype **one** campaign-print/editorial landing place and **one** final action-index
-   treatment. Review them in the full sequence before applying the language elsewhere.
-6. Integrate only the proven treatments, then complete final pacing, copy, typography, and
-   responsive polish.
+   needs a graphic pause, a factual orientation, or an action destination. It must include
+   Beat 0 and the action index, not the obsolete 13-beat-only audit.
+5. Select only the next source-supported framed-footage / campaign-print intervention from
+   that review. Day-to-night Reforma and the civic flag remain candidates, not commitments.
+6. Integrate only the proven next treatment, then complete final pacing, copy, typography,
+   and responsive polish.
 
 ## Mandatory decision check
 
@@ -265,13 +265,16 @@ as excuses to add arbitrary beats.
 print ground → framed source fragment → readable pause → release/expansion. It must be reviewed
 inside the full film before a second instance is built.
 
-**Action system:** labels and three verified destinations are ready. The complete Pre-Registro
-URL is still missing, so that item remains visibly disabled/unlinked. The final action index must
-be designed as an editorial campaign object after the footage reaches real black.
+**Action system:** the final action index is integrated at commit `05a2fc0`: footage reaches
+real black, then a campaign-print action object rises and locks. Three verified destinations
+are live; the complete Pre-Registro URL is still missing, so that item remains visibly
+disabled/unlinked. The closing HUD-release direction is locked: `FLOOR` holds through the start
+of black, then the HUD disappears before the action-index hairline/paper arrives.
 
-**Typography and QA:** Archivo remains temporary until the Normalidad kit is supplied. After the
-first integrated campaign-print/action prototype, run a full normal-speed desktop/mobile review
-of rhythm, scroll distance, copy arrival, interaction pauses, reverse behavior and responsiveness.
+**Typography and QA:** Archivo remains temporary until the Normalidad kit is supplied. Run the
+final normal-speed desktop/mobile review now, including Beat 0 and the action index: rhythm,
+scroll distance, copy arrival, interaction pauses, HUD release, reverse behavior, transitions,
+and responsiveness.
 
 Live work products: `reference/FRAMED-FOOTAGE-CHOREOGRAPHY.md`,
 `reference/OTHER-BROLL-INTAKE.md`, `reference/CAMPAIGN-MATERIAL-MAP.md`,
