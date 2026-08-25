@@ -233,6 +233,10 @@ reverse, blank-frame, and performance checks per prototype; reserve full automat
 for review-ready proofs and major integrations. A flaky checker is recorded, not allowed to
 consume the production window unless it identifies a real reader-facing defect.
 
+The active production sequence is consolidated in `PRODUCTION-SPRINT-SUPERPROMPT.md`. It
+supersedes scattered refinement prompts for the remaining sprint while preserving the source,
+copy, and accessibility constraints above.
+
 ## Mandatory decision check
 
 Before any future direction, audit, or build instruction, state which track(s) it affects:

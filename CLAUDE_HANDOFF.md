@@ -64,6 +64,10 @@
 > and move on unless it demonstrates an actual page defect. Do not spend the production window
 > repairing test machinery that does not change the reader's experience.
 
+> **Sprint authority:** when supplied, `PRODUCTION-SPRINT-SUPERPROMPT.md` is the single build
+> sequence for the remaining production window. It replaces scattered next-step prompts but not
+> the source, fact, accessibility, or source-native-colour constraints in this handoff.
+
 How this build is run so an independent reviewer can audit it without taking anything on
 trust. Written for Codex; binding on Claude.
 
