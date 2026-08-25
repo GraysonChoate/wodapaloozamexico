@@ -179,6 +179,11 @@
        edge is a cut, not a bevel. Same restraint Beat 12 was approved with. */
     outline:1px solid rgba(20,17,14,calc(var(--c,0) * .55));
   }
+  /* The incoming view, held at Beat 1's own opening geometry — scale 1.04 is exactly what
+     `#b1 .plate` renders at --p:0 — so when Beat 1 takes the frame there is nothing to
+     reconcile and the aperture simply continues. */
+  #b0 .plate.cockpit{ z-index:3; opacity:var(--ck,0); visibility:var(--ckvis,hidden) }
+  #b0 .plate.cockpit video,#b0 .plate.cockpit img{ transform:scale(1.04) }
   /* CAPTION, not margin notes. print-field-01 is quiet in its CENTRE, and the centre is
      exactly what the plate occupies — copy in the side margins lands on cyan brush and black
      ink and measures as decoration rather than as words. A plate on a page is captioned
@@ -899,6 +904,54 @@
     .autility .aorg{ display:none }
   }
 
+  /* ── THE APERTURE JOIN ────────────────────────────────────────────────────
+     One primitive, used at exactly two boundaries.
+
+     The whole-film audit found thirteen of fourteen scene changes producing the same
+     0.12-0.16s black dip. That dip is structural, not a styling choice: two sticky stages
+     tile the viewport, the outgoing one fades while nothing sits behind it, and the area it
+     vacates is black until the incoming stage arrives a full viewport later. No opacity
+     trick removes it.
+
+     What removes it is giving the boundary an APERTURE. If the outgoing beat closes down to
+     a small opening and the incoming beat opens from that same opening, then the frame is
+     already mostly black by design when the handover happens -- and the black belongs to the
+     aperture rather than to a gap between two clips. The reader sees one opening whose
+     contents change, which is what a cut is.
+
+     Both boundaries use `clip-path: inset(...)`, so the plate is genuinely cropped rather
+     than covered by bars. No new element, no overlay, nothing to mis-stack, and the stage's
+     own black is what shows through the crop.
+
+     Everything defaults to fully open, so no-JS and reduced-motion resolve to the plain
+     film. */
+
+  /* 0 -> 1 · the city, considered as a printed object, becomes the view through which the
+     descent begins. Beat 0 already ends holding its contracted plate; Beat 1 opens from
+     exactly that plate's box, so the cockpit arrives INSIDE the aperture the Angel just
+     left, and only then does the aperture release into the full beat. Beat 0's timeline is
+     not touched -- the join is made entirely on Beat 1's side. */
+  #b1 .plate{
+    --aw:min(60vw, 1040px);                 /* identical to Beat 0's held plate */
+    --ah:calc(var(--aw) / 2.1843);
+    clip-path:inset(
+      calc((100svh - var(--ah)) / 2 * (1 - var(--open,1)))
+      calc((100vw  - var(--aw)) / 2 * (1 - var(--open,1)))
+      calc((100svh - var(--ah)) / 2 * (1 - var(--open,1)))
+      calc((100vw  - var(--aw)) / 2 * (1 - var(--open,1)))
+    );
+  }
+  @media (max-width:900px){ #b1 .plate{ --aw:min(88vw, 560px) } }
+
+  /* 6 -> 7 · the public claim is registered into the physical act. The banner's WODAPALOOZA
+     badge is still readable at Beat 6's last frame, and Beat 7 opens on the same hooded
+     figure reaching to place that same badge on a pole. Both are vertical objects, so the
+     aperture closes HORIZONTALLY into a vertical strip -- print registration, not a wipe.
+     The strip holds the badge on the way out and the pole on the way in. */
+  #b6 .plate,#b7 .plate{
+    clip-path:inset(0 calc(var(--reg,0) * 41%) 0 calc(var(--reg,0) * 41%));
+  }
+
   /* ── safety nets — everything resolves to VISIBLE ───────────────────────── */
   @media (prefers-reduced-motion:reduce){
     .beat{ height:100svh !important }
@@ -912,6 +965,10 @@
     .b0cap{ position:relative; left:auto; top:auto; transform:none; opacity:1;
             margin:20px auto 0; text-align:center }
     .b0cap::before{ display:none }
+    /* the static page shows the printed city, not the aircraft that follows it */
+    #b0 .plate.cockpit{ display:none !important }
+    #b1 .plate{ clip-path:none !important }
+    #b6 .plate,#b7 .plate{ clip-path:none !important }
     .b1cap,.b3line{ opacity:1 !important }
     .glow{ opacity:.6 !important }
     #b4 .plate{ height:100svh !important; top:auto; transform:none }
@@ -959,6 +1016,12 @@
         <img src="media/poster/px_angel_pullback.jpg" alt="El Angel de la Independencia from above, Paseo de la Reforma receding behind it">
         <video muted playsinline preload="auto" disablepictureinpicture></video>
       </div>
+      <!-- The cockpit arrives INSIDE the aperture the Angel is holding, not after it. Same
+           box, hard replacement — the device Beat 12 was approved with. -->
+      <div class="plate cockpit">
+        <img src="media/poster/b01_cockpit.jpg" alt="Approach into Mexico City">
+        <video data-full="media/scrub/b01_cockpit.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
+      </div>
     </div>
     <div class="b0cap">
       <p class="b0name">El &Aacute;ngel</p>
@@ -968,7 +1031,7 @@
 </section>
 
 <!-- ─────────── BEAT 1 · APPROACH ─────────── -->
-<section class="beat" id="b1" data-src="media/scrub/b01_cockpit.mp4">
+<section class="beat" id="b1" data-src="media/scrub/b01_cockpit.mp4" data-join-in>
   <div class="stage">
     <div class="plate">
       <img src="media/poster/b01_cockpit.jpg" alt="Approach into Mexico City">
@@ -1053,7 +1116,7 @@
 </section>
 
 <!-- ─────────── BEAT 7 · OCCUPATION ─────────── -->
-<section class="beat" id="b7" data-src="media/scrub/b07_stickers.mp4" data-scrub-warp="0.34,0.21">
+<section class="beat" id="b7" data-src="media/scrub/b07_stickers.mp4" data-scrub-warp="0.34,0.21" data-join-in>
   <div class="stage">
     <div class="plate">
       <img src="media/poster/b07_stickers.jpg" alt="The Wodapalooza badge stuck to a pole on Paseo de la Reforma">
@@ -1433,7 +1496,27 @@
          at the midpoint, and between two bright shots that reads as a hard horizontal split
          rather than a dissolve. Gone by halfway, the seam never has a chance to show. */
       const exit  = Math.min(1, Math.max(0, (-r.top - travel) / (H * 0.5)));
-      const enter = Math.min(1, Math.max(0, 1 - r.top / (H * 0.5)));
+      /* An OVERLAPPING enter, opt-in, for the two aperture joins only.
+         The default fade is deliberate everywhere else: the outgoing stage clears over half a
+         viewport and the incoming one begins exactly where it finishes, so the two never share
+         the frame and the reader gets picture, black, picture. That is a real editorial device
+         and thirteen boundaries use it.
+         It is also why an aperture alone could not remove the dip at these two: closing the
+         crop does not matter when BOTH stages are at zero opacity for an instant. Measured,
+         that instant was 99.8% of the frame black.
+         Here the incoming stage instead rises across the same half viewport the outgoing one
+         falls through, so the two apertures cross-dissolve and their sum never leaves 1. With
+         the frame already mostly black by design, what dissolves is the contents of one
+         opening -- which is a cut, not a gap. */
+      /* The incoming ramp is square-rooted, which is not decoration. Two layers crossfading
+         over black do not sum: at the midpoint a 0.5 outgoing over a 0.5 incoming composites
+         to about 0.75 of the light, and on mobile — where Beat 0's aperture is only a sixth
+         of the frame — that was still enough to measure as a generic black frame. Raising the
+         incoming ramp to sqrt lifts the midpoint to roughly 0.85 and the dip disappears
+         without either aperture changing shape or timing. */
+      const enter = b.hasAttribute('data-join-in')
+        ? Math.sqrt(Math.min(1, Math.max(0, (H - r.top) / (H * 0.5))))
+        : Math.min(1, Math.max(0, 1 - r.top / (H * 0.5)));
       b.style.setProperty('--exit', exit.toFixed(4));
       b.style.setProperty('--sv', Math.min(enter, 1 - exit).toFixed(4));
 
@@ -1469,6 +1552,25 @@
         b.style.setProperty('--fit',   (1 - 0.075 * e).toFixed(4));
       }
 
+      /* The two aperture joins. Both are read off the beat's own --p, so they reverse
+         exactly like everything else and cost nothing when the beat is off screen. */
+      if (b.id === 'b1') {
+        /* Opens from Beat 0's held plate to the full frame. Ten per cent of a 300svh beat is
+           about a third of a viewport of scroll -- long enough to read as an aperture
+           releasing, short enough that the descent is not kept waiting behind it. */
+        b.style.setProperty('--open', ease(seg(p, 0.00, 0.10)).toFixed(4));
+      }
+      if (b.id === 'b6') {
+        /* Closes into the vertical strip over the last twelve per cent, while the badge is
+           still in frame. Beat 6's pan and scale are untouched. */
+        b.style.setProperty('--reg', ease(seg(p, 0.88, 1.00)).toFixed(4));
+      }
+      if (b.id === 'b7') {
+        /* Releases from the same strip. Finished well before the seventy-four-cut montage
+           starts doing its own work. */
+        b.style.setProperty('--reg', (1 - ease(seg(p, 0.00, 0.09))).toFixed(4));
+      }
+
       if (b.id === 'b0') {
         /* Four movements, and the hold is simply the stretch where the contraction has
            finished and the blackout has not begun — it cannot drift out of sync with itself.
@@ -1482,6 +1584,13 @@
           Math.min(seg(p, 0.46, 0.54), 1 - seg(p, 0.72, 0.78)).toFixed(4));
         /* The step. Not eased — three per cent of the beat, which at reading pace is a cut. */
         b.style.setProperty('--blackout', seg(p, 0.79, 0.82).toFixed(4));
+        /* A step, not a dissolve. The printed city is REPLACED by the view from inside the
+           aircraft within the same opening: the aperture is the constant and its contents
+           change, which is what makes this a cut rather than two clips meeting. Beat 1 then
+           opens that same box outward. */
+        const ck = p >= 0.90 ? 1 : 0;
+        b.style.setProperty('--ck', ck);
+        b.style.setProperty('--ckvis', ck ? 'visible' : 'hidden');
       }
 
       if (b.id === 'b12') {
