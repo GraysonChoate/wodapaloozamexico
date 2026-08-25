@@ -30,6 +30,9 @@ over documentary footage.
 - Do not invent event facts, venues, sponsors, or destinations.
 - Use supplied `Other B-Roll/` material in this refinement phase. Exclude visible player
   chrome/end-screen frames as a build-quality issue.
+- Before assigning any source, name the outgoing scene, immediate incoming scene, and the next
+  visitor understanding it must serve. Do not use a beautiful city clip as generic filler; retain
+  the fitness-event narrative—identity, qualifying, human effort, city as venue, action.
 - Preserve accessibility and reverse scroll. Do not sacrifice readable copy for an effect.
 - The current official action index stays the destination. Pre-Registro remains visibly inactive
   until its complete URL is supplied.

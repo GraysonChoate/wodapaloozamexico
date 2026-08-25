@@ -6,6 +6,14 @@ Nervous System records the current live decision state.**
 This document exists because the project has three equal jobs. It is not enough to
 finish a technically strong scroll film if it remains only a film in a browser.
 
+## Source-selection law — August 25
+
+Before selecting any image or clip, state the outgoing scene, incoming scene, and the next
+thing the reader needs to understand. Beautiful footage is not enough. The date study belongs at
+Beat 12 and therefore uses the same Zócalo dusk-to-night material that immediately follows it;
+the Reforma city clock is not a substitute. Keep the whole journey legible as a fitness event:
+identity, qualifying/competition, human effort, city as venue, then action.
+
 ## The actual outcome
 
 Build a silent, cinematic, source-honest scroll experience that moves like a short

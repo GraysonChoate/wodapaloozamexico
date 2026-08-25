@@ -149,6 +149,19 @@ side metadata treatment is rejected. The opening establishes identity and excite
 The editorial index and the three factual rails arrive later at actual held places. Date/place
 information belongs in those rails or the compact place readout—not as small opening side copy.
 
+## Date-to-venue source decision — August 25
+
+The date treatment belongs at the approach to Beat 12, where the next live scene is the Zócalo
+empty at dusk becoming the same Zócalo alive at night. Its `04 / 06` planes must therefore carry
+those actual adjacent sources and release into the city-venue scene. The Reforma city clock is
+approved material but has no approved role in this sequence: a beautiful clip never earns a place
+merely by filling a numeral.
+
+**Source-selection law:** before a clip is proposed, name the outgoing scene, the immediate
+incoming scene, and the viewer's next needed understanding—identity, competition, city, date, or
+action. Fitness-event meaning must remain legible across the whole journey, not get displaced by
+atmospheric city footage.
+
 ## Source, truth, and accessibility
 
 - Footage keeps source-native colour. UI remains neutral/green-to-blue; discrete print objects may use campaign colours.

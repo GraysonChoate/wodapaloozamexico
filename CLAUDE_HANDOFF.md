@@ -1,5 +1,13 @@
 # CLAUDE_HANDOFF
 
+> ## Current non-live source decision — August 25
+>
+> The standalone `04 / 06` date study now leads into Beat 12. If it is later integrated, use
+> the actual adjacent Zócalo sources (`b12_zocalo_empty` and `b12b_zocalo_full`) inside the date
+> planes, then release into the city-venue scene. Do not substitute the Reforma city-clock
+> footage here. This records an approved relationship only; it does **not** authorize a Beat 12
+> edit during the current live work.
+
 > ## Current creative override — 2026-08-25
 >
 > **Read `PROJECT-NERVOUS-SYSTEM.md` first.** It governs current work split and live decisions;
