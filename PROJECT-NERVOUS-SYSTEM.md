@@ -84,6 +84,23 @@ film. One-time fact/action moments must be choreographed *within the active scen
 edge, side annotation, moving type plane, registration line, or material that is already part of
 the current visual field. The persistent top rail is the sole continuous utility system.
 
+### Spatial typography and proof — active rule
+
+Big type is a moving structural plane, not a caption on a card. It may arrive laterally,
+vertically, through split windows, as a footage-filled aperture, behind/around source-supported
+silhouettes, or as staggered image fragments that lock into one composition. Type, image crop,
+and material edge must enter and leave as one action. A quote, fact, or action must never be
+centred in a box simply because it needs to be readable.
+
+The first useful SoCal observations are: its volunteer page makes its statement by surrounding
+huge type with staggered portrait fragments; its event pages use large factual hierarchy; its
+sponsor world is a dedicated proof place. For Mexico: use verified source stills/fragments and
+the facts `16 DIVISIONS / THIRD CITY / FIRST EDITION` for a later proof composition. The research
+records Mexico-linked names `Openbank / Powerade / Centrum / Sports World / Asdeporte`, but their
+current official logo files and placement must be confirmed from Mexico's official kit/channel
+before a partner treatment is built. Never import SoCal's sponsor logos or assume its roster
+transfers.
+
 - kinetic persistent utility rail: mark/menu, quiet current-place/progress readout, and one real
   `QUALIFIER ↗` escape hatch; it changes contrast against its environment and moves in as one
   system, rather than reading as scattered floating controls;

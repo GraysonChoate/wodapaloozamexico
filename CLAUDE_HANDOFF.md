@@ -65,6 +65,11 @@
 > material plane. Motion must carry the information and scene together; do not let a card fly in,
 > pause at centre, and fly away.
 
+> **Spatial-type correction:** use large typography as a moving plane: lateral/vertical entry,
+> split aperture, footage-filled wordform, or fragment field that locks with the image. It is not
+> a caption. For the later proof world, `16 DIVISIONS / THIRD CITY / FIRST EDITION` is the
+> verified fact set; a Mexico partner treatment awaits confirmation of current official logos.
+
 > **Speed override — active:** We have a short production window. Do not run the entire regression
 > suite repeatedly while investigating a single visual build. Per prototype, run only the checks
 > that could invalidate that specific move (normal-speed desktop/mobile visual capture,
