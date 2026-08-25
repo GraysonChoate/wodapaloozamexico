@@ -232,8 +232,11 @@ Then:
 
 The later functional layer is defined in `reference/FUNCTIONAL-WEB-LAYER.md`: a minimal
 orientation/action rail, editorial section index, and a small set of fact/action-led moving
-information rails—not a conventional header or decorative sponsor ticker. It is authorized after
-the opening identity → cockpit → `SUCEDERÁ` handoff is reviewed.
+information moments—not a conventional header, decorative sponsor ticker, or standalone centred
+promo card. The only continuous utility is the adaptive kinetic top rail. A one-time fact/action
+must emerge from the active scene's own crop, type, registration, or material plane and depart by
+advancing that scene; it may never arrive as a generic paper strip over unrelated footage. It is
+authorized after the opening identity → cockpit → `SUCEDERÁ` handoff is reviewed.
 
 **Production pace:** prioritise the visible experience. Use targeted desktop/mobile, forward/
 reverse, blank-frame, and performance checks per prototype; reserve full automated regression

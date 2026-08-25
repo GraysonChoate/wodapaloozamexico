@@ -95,6 +95,11 @@ Each rail appears once, pauses long enough to read, and travels with a meaningfu
 registration action. They can use restrained ink/rule/edge language, but never become a
 permanent scrolling ticker or invented sponsor strip.
 
+**Form correction:** do not solve this by placing a contained promo card or horizontal paper
+strip at the centre of unrelated footage. A fact must enter as part of the active cinematic
+composition—its crop edge, typographic plane, registration line, or material already in play—so
+the information and scene transform together.
+
 ### 5. Then make a targeted “syrup and cherry” pass
 
 Do not decorate every beat. Add only the materials that turn open space into intentional website

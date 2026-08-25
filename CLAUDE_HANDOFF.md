@@ -54,11 +54,16 @@
 > explicitly hands off the selected result.** Follow `PRODUCTION-SPRINT-SUPERPROMPT.md`; the selected next source treatment is the
 > contained civic-flag interruption, while Reforma remains second-wave.
 
-> **Civic-flag correction:** `fa7cdce` is not accepted as a visual result. Its technical seam
-> checks do not outweigh the reader-facing failure: small plate on pale page → black void →
-> message. Read and execute `reference/CIVIC-FLAG-REBUILD-BRIEF.md` before any functional-layer
-> work. The required result is a continuously overlapping Beat 7 strip → flag/pole → Beat 8
-> paper handoff, with no black release.
+> **Civic-flag retirement:** do not build or rebuild a mid-film civic-flag interruption. The
+> Mexican-flag moving type aperture in the opening now owns the immediate location/arrival job;
+> preserve Beat 7 → 8 for its existing human message.
+
+> **Functional-layer correction:** a useful web element must not arrive as a centred promo card,
+> pale strip, or independent banner over the movie. The persistent adaptive top rail is the only
+> continuous utility system. Any one-time fact/action moment must be choreographed inside the
+> active scene—as a crop edge, moving type plane, registration line, side annotation, or existing
+> material plane. Motion must carry the information and scene together; do not let a card fly in,
+> pause at centre, and fly away.
 
 > **Speed override — active:** We have a short production window. Do not run the entire regression
 > suite repeatedly while investigating a single visual build. Per prototype, run only the checks
