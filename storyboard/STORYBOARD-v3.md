@@ -416,3 +416,30 @@ top and no `object-position` could fit three lines into a band smaller than they
 letterboxed on a phone, on the same black the rest of the film stands on. It also happens to
 be exactly what this beat was asked to be: the opposite of everything before it, and the only
 portrait frame in the film.
+
+**Beat 9's match cut needed its own footage — v3 gave the same one to two beats.** Both Beat 5
+and Beat 9 were written to cut to "film 0:29, an athlete entering the same raised-arm pose".
+There is no athlete at 0:29 (Miami beach and an aerial stadium under burned-in date titles),
+and Beat 5 had already spent the one lockout that does exist, at 31.07–31.61.
+
+Beat 9 now cuts to **49.26–50.05**: a different lifter, outdoors, rising to a full overhead
+lockout at 50.0 against sky with a crowd behind. Same shape, bigger stage — which is the
+escalation v3 asked for. Beat 5 cut to a single adaptive athlete under a white tent; this cuts
+to a competition floor. Right 15% cropped to drop the film's own burned-in mark, as Beat 5b does.
+
+The still is **STF00032**: widest arm span of the five unspent flex frames (98.4%), figure
+centred, and the Ángel's column rising directly above the head — which is the shape the
+barbell then takes. `STF00176` was not reused; it is already the ninth panel of Beat 5.
+
+**The cut lives inside Beat 9**, for the reason Beat 5 established: a match cut on a section
+boundary arrives as a wipe. The type comes in, holds, and is gone before the cut — the beat has
+to end on the figure alone and still, or the cut becomes a transition between two layouts
+rather than between two bodies.
+
+**Two of v3's treatments for this beat were not built, and that is a decision for review.**
+It asked for the figure to be "lit only by gradient raking in from the left edge" and for a
+halftone lifted off the guerrilla banner. Both put applied colour and applied texture ONTO a
+photograph, which is the thing the source-native rule exists to prevent. What is built instead:
+a **neutral black wash** for legibility — the same wash used everywhere else, no tint — and the
+palette gradient as a 3px interface hairline at the frame edge, clearly the page rather than
+light on the subject.

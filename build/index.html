@@ -365,6 +365,64 @@
      everything before it. The only portrait frame in the film. */
   #b8 .plate video,#b8 .plate img{ object-fit:contain; transform:none }
 
+  /* ── B9 · EARN IT ─────────────────────────────────────────────────────────
+     The second match cut, and the pair to Beat 5. Beat 5 turned nine figures into one;
+     this turns that one figure into an athlete. Same device, escalating: Beat 5 cut to a
+     single lifter under a white tent, this cuts to an outdoor floor with a crowd and sky.
+
+     Like Beat 5, the cut lives INSIDE the beat. A match cut on a section boundary arrives
+     as a wipe, because a sticky stage releases and slides.
+
+     The still is STF00032 — widest arm span of the flex frames, figure centred, and the
+     Ángel rising directly above the head, which is the shape the barbell then takes.
+
+     TREATMENT, and the line I did not cross: the photograph is darkened by a NEUTRAL black
+     wash so the type can be read over it, and nothing else. v3 asked for it to be "lit only
+     by gradient raking in from the left edge" and for a halftone lifted off the guerrilla
+     banner. Both would put applied colour and applied texture ONTO a photograph, which is
+     the one thing the source-native rule forbids. The palette gradient appears here as an
+     interface hairline at the frame edge — clearly the page, not light on the subject.
+     Flagged for the reviewer rather than decided. */
+  #b9{ height:620svh }
+  #b9 .plate img.flex{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    object-position:50% 13%;
+    transform:scale(calc(1.02 + var(--p) * .05));
+  }
+  /* neutral, never a tint: this is the same wash the rest of the film uses for legibility */
+  .b9wash{
+    position:absolute; inset:0; z-index:2; pointer-events:none; background:#000;
+    opacity:calc(.30 + var(--typein,0) * .46);
+  }
+  /* the gradient is INTERFACE — a hairline at the edge of the frame, not light on the figure */
+  .b9edge{
+    position:absolute; left:0; top:0; bottom:0; width:3px; z-index:4; pointer-events:none;
+    background:linear-gradient(to bottom, var(--green), var(--blue));
+    opacity:calc(var(--typein,0) * .9);
+  }
+  .b9type{
+    position:absolute; z-index:5; left:6vw; right:6vw; top:50%; transform:translateY(-50%);
+    opacity:var(--typein,0);
+  }
+  .b9type h2{
+    margin:0; font-weight:800; line-height:.94; letter-spacing:-.01em;
+    font-size:clamp(30px, 7.2vw, 104px);
+    font-variation-settings:"wdth" 125, "wght" 800;
+  }
+  /* clear of the descender: at this size the g of ganarte drops into the line below */
+  .b9type p{
+    margin:1.9em 0 0; font:400 13px/1.5 Archivo,"Helvetica Neue",Arial,sans-serif;
+    letter-spacing:.18em; text-transform:uppercase; opacity:.66;
+  }
+  @media (max-width:760px){ .b9type{ left:14px; right:14px } .b9type p{ font-size:12px } }
+
+  /* the cut — a step, exactly as Beat 5 */
+  #b9 .plate.cut{
+    position:absolute; inset:0; z-index:6;
+    opacity:var(--cut,0); visibility:var(--cutvis,hidden);
+  }
+  #b9 .plate.cut video,#b9 .plate.cut img{ transform:scale(calc(1.02 + var(--cutp,0)*.07)) }
+
   /* ── safety nets — everything resolves to VISIBLE ───────────────────────── */
   @media (prefers-reduced-motion:reduce){
     .beat{ height:100svh !important }
@@ -379,6 +437,8 @@
     .cell video,.cell img{ transform:none !important }
     .b5cap,.b5bcap{ opacity:1 !important }
     .b7strip span{ transform:none !important }
+    .b9type{ opacity:1 !important }
+    .b9wash{ opacity:.55 !important }
     #b6 .plate video,#b6 .plate img{ object-position:50% 50% !important }
   }
 </style>
@@ -494,6 +554,25 @@
   </div>
 </section>
 
+<!-- ─────────── BEAT 9 · EARN IT ─────────── -->
+<section class="beat" id="b9" data-src="media/scrub/b09_lockout.mp4" data-scrub-range="0.88,1">
+  <div class="stage">
+    <div class="plate">
+      <img class="flex" src="media/still/b09_flex.jpg" alt="The hooded figure, back to camera, arms raised beneath the Ángel de la Independencia">
+    </div>
+    <div class="b9wash"></div>
+    <div class="b9edge"></div>
+    <div class="b9type">
+      <h2>Es momento de<br>ganarte tu lugar.</h2>
+      <p>It&rsquo;s time to earn your place.</p>
+    </div>
+    <div class="plate cut">
+      <img src="media/poster/b09_lockout.jpg" alt="An athlete locking a barbell overhead on the competition floor">
+      <video muted playsinline preload="auto" disablepictureinpicture></video>
+    </div>
+  </div>
+</section>
+
 <script>
 (() => {
   const RM   = matchMedia('(prefers-reduced-motion:reduce)').matches;
@@ -515,9 +594,14 @@
 
   for (const b of beats) {
     const src = b.dataset.src; if (!src) continue;
-    const plate = b.querySelector('.plate');
-    // a beat may hold looping panels as well as a scrubbed plate — never grab a panel
-    const v = plate ? plate.querySelector('video') : b.querySelector('video');
+    /* Find the VIDEO first, then its plate. A beat can hold more than one .plate — Beat 9
+       has a still plate and a cut plate — and taking the first one found a plate with no
+       video in it. That threw during setup, which killed the whole script: every beat on
+       the page stopped advancing, not just this one. Guard it too, so a malformed beat can
+       never take the film down with it. */
+    const v = b.querySelector('.plate video') || b.querySelector('video');
+    if (!v) { console.warn('beat ' + b.id + ' declares data-src but has no video'); continue; }
+    const plate = v.closest('.plate') || b.querySelector('.plate');
     b._v = v; b._want = HEAD; b._seeking = false;
     b._range = b.dataset.scrubRange ? b.dataset.scrubRange.split(',').map(Number) : null;
     b._warp  = b.dataset.scrubWarp  ? b.dataset.scrubWarp.split(',').map(Number)  : null;
@@ -693,6 +777,19 @@
       const onScreen = r.top < H && r.bottom > 0;
       if (onScreen) fitWord(b, p);
       if (b.id === 'b5') identityLoop(b, p, r.top < H * 1.6 && r.bottom > -H * 0.6);
+
+      if (b.id === 'b9') {
+        /* type in, hold, then OUT — the beat has to end on the figure alone and still
+           before it can cut. If the words were still on screen the cut would be a
+           transition between two layouts rather than between two bodies. */
+        const tin = seg(p, 0.14, 0.30) * (1 - seg(p, 0.60, 0.76));
+        b.style.setProperty('--typein', tin.toFixed(3));
+        const CUT9 = 0.88;
+        const c9 = p >= CUT9 ? 1 : 0;
+        b.style.setProperty('--cut', c9);
+        b.style.setProperty('--cutvis', c9 ? 'visible' : 'hidden');
+        b.style.setProperty('--cutp', seg(p, CUT9, 1).toFixed(3));
+      }
       if (b._v && !RM) {
         /* data-scrub-range lets a clip occupy part of a beat instead of all of it, which is
            what makes a hard cut possible inside a single beat. */

@@ -20,6 +20,8 @@ Silent throughout — audio is stripped from every derivative, per the decision.
 | 6 | `scrub/b06_banner.mp4` | LONA_0198.mov | full (7.13s) | **scrub — critical** |
 | 7 | `scrub/b07_stickers.mp4` | STICKERS_03_V1.mov | full (15.73s) | scrub, warped |
 | 8 | `scrub/b08_newspaper.mp4` | QUALIFIER_v3_05.mov | 0.00–11.20 | **scrub, warped** |
+| 9 | `still/b09_flex.jpg` | STF00032.jpg | — | still, the figure |
+| 9 | `scrub/b09_lockout.mp4` | WZA_MX_LOGO.mp4 | 49.26–50.05 | **scrub — the second match cut** |
 | 10 | `loop/b10_floor.mp4` | WZA_MX_LOGO.mp4 | 0:28–0:34 | loop |
 | 11 | `scrub/b11_face.mp4` | WZA_MX_LOGO.mp4 | 0:35–0:38 | scrub |
 | 12 | `scrub/b12_zocalo_empty.mp4` | WZA_MX_LOGO.mp4 | 0:45–0:47 | scrub |

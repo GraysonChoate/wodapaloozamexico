@@ -34,8 +34,13 @@ const snap = () => ({
   y: Math.round(scrollY),
   alt: (document.getElementById("metres") || {}).textContent,
   beats: [...document.querySelectorAll(".beat")].map(b => {
-    const plate = b.querySelector(".plate");
-    const v = b.hasAttribute("data-src") && plate ? plate.querySelector("video") : null;
+    /* Find the VIDEO, then its plate. A beat can hold several plates — Beat 9 has a still
+       plate and a cut plate, still one first — so reading the first reported a decoded beat
+       as stuck on its poster. This file had its own copy of this read and its own copy of
+       the bug; that duplication is the real defect and is noted in CLAUDE_HANDOFF.md. */
+    const v = b.hasAttribute("data-src")
+      ? (b.querySelector(".plate video") || b.querySelector("video")) : null;
+    const plate = v ? v.closest(".plate") : b.querySelector(".plate");
     return {
       id: b.id,
       p: +(+getComputedStyle(b).getPropertyValue("--p")).toFixed(3),

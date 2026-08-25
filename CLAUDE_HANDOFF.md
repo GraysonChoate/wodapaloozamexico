@@ -136,6 +136,11 @@ no `Headless` marker before it reports anything.
 Checks live in the `motion-site` skill at `~/.claude/skills/motion-site/scripts/`. They are
 outside this repo; treat their output as evidence, not as proof, and re-run them yourself.
 
+**Two files carry their own copy of the same page-reading logic** — `scrub-audit.sh` and
+`verify-browser.sh` both decide which video belongs to a beat. When that read was wrong it was
+wrong in both, and fixing one left the other failing. That duplication is a real defect and
+should be collapsed into one shared reader.
+
 **Tools have been wrong.** Four times so far a check reported a working page as broken or a
 broken page as fine — `visibility:hidden` in the contrast tool also hid the `::before` that
 carries the ground plate, so it measured the page with its own protection removed. Every such
