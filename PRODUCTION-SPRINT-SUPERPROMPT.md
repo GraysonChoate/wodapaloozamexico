@@ -140,6 +140,12 @@ No global transition template. No “every seam gets an effect.”
 - Codex owns independent visual review, texture/material direction, copy/function direction, and
   audit of review-ready recordings. Do not wait for Codex to write boilerplate or test machinery.
 - Batch work into reviewable milestones; do not narrate every micro-debug.
+
+## If production pauses
+
+When instructed to pause, read and follow `PAUSE-RESUME-HANDOFF-PROMPT.md`. It overrides the
+build order temporarily, records the exact restart state, and prohibits speculative changes until
+the user resumes the sprint.
 - At each milestone, provide: what changed visually, one or two recordings/contact sheets, any
   real open decision, and the commit. Keep the build moving.
 
