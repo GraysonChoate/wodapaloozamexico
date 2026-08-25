@@ -42,6 +42,11 @@
 > **Closing HUD decision:** `FLOOR` remains readable while Beat 13 finishes and through the
 > beginning of the genuine black hold. Release the entire HUD before the action-index hairline
 > or paper appears. The flight ends; the printed destination owns its own mark.
+>
+> **Immediate build only:** read `TRANSITION-PASS-BRIEF.md`. The whole-film audit found that
+> thirteen boundaries use the same generic black dip. Build and evidence only Beat 0 → 1 and
+> Beat 6 → 7 as specified there; stop for review. Do not retune other boundaries or begin a
+> ticker, navigation rail, flag, timelapse, or new print surface.
 
 How this build is run so an independent reviewer can audit it without taking anything on
 trust. Written for Codex; binding on Claude.

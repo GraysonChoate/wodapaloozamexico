@@ -276,6 +276,12 @@ final normal-speed desktop/mobile review now, including Beat 0 and the action in
 scroll distance, copy arrival, interaction pauses, HUD release, reverse behavior, transitions,
 and responsiveness.
 
+**Immediate transition pass:** The final review is complete at `audit/whole-film/` (commit
+`3176477`). It identified one structural defect: thirteen boundaries share the same generic
+black dip. Build only the two highest-value proofs in `TRANSITION-PASS-BRIEF.md`: Beat 0 → 1
+(Ángel plate becomes cockpit aperture) and Beat 6 → 7 (banner claim registers into street
+action). Do not sweep the whole film or add a new effect before those two are reviewed.
+
 Live work products: `reference/FRAMED-FOOTAGE-CHOREOGRAPHY.md`,
 `reference/OTHER-BROLL-INTAKE.md`, `reference/CAMPAIGN-MATERIAL-MAP.md`,
 `reference/EVENT-ACTION-ARCHITECTURE.md`, and `CLIP-COVERAGE-MAP.md`.
