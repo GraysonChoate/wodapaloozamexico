@@ -15,6 +15,23 @@ landscape geometry, but a generic black dip separates them. The intended match n
 **Sentence:** *The city, considered as a printed object, becomes the view through which the
 descent begins.*
 
+**Opening quality bar — new, binding:** A symmetric image shrinking into a centered box over an
+empty field is only a structural proof, never an automatic final transition. The plate must feel
+*moved by a form* that belongs to the print/cockpit relationship. Before declaring this boundary
+approved, capture three brief motion variants using the same material and timing:
+
+- **Diagonal registration:** offset crop edges or print-registration bars travel diagonally,
+  narrowing the city and revealing the cockpit inside their moving aperture.
+- **Recessed plate:** the city retreats into the print field with a slight authored perspective
+  and an asymmetric anchor; its released rectangle becomes the windshield aperture.
+- **Windshield lock:** the city plate resolves directly into the cockpit's windshield geometry,
+  with one edge arriving before the others rather than a uniform centre collapse.
+
+Choose only the version that remains clear at normal scroll speed, preserves the city/cockpit
+sentence, and creates purposeful negative space. Do not add ornament merely to make the move
+busy. The current centered-collapse treatment may remain only if it wins this comparison in
+continuous playback.
+
 **Build:**
 
 1. The final Beat 0 moving plate must hold its last geometry; do not let the page fade globally
@@ -28,7 +45,9 @@ descent begins.*
    night-aerial prelude.
 
 **Proof of success:** The boundary has zero generic black frames. Paused at the swap, both states
-occupy the same aperture. Forward and reverse read as one relationship, not a jump.
+occupy the same aperture. Forward and reverse read as one relationship, not a jump. The chosen
+motion must also pass the opening quality bar above; do not call a plain centered contraction a
+cinematic solution by default.
 
 ## 2. Beat 6 → Beat 7 — banner claim registers into street action
 

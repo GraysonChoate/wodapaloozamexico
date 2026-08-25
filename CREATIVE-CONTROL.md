@@ -258,7 +258,9 @@ prelude remains rejected and reverted. The final action place and HUD release ar
 The first uninterrupted whole-film audit is complete at `audit/whole-film/` (commit `3176477`):
 it found an overused generic black dip at thirteen of fourteen boundaries. The immediate
 transition pass is deliberately limited to Beat 0 → 1 and Beat 6 → 7 before any new effect is
-added.
+added. The opening cannot be approved merely because a city plate collapses into a centred box:
+the transition pass must compare source-compatible diagonal-registration, recessed-plate, and
+windshield-lock forms, then retain only the strongest normal-speed result.
 
 **Footage:** every delivered client video source has an intentional home in
 `CLIP-COVERAGE-MAP.md`. The next source pass is not about forced coverage; it identifies the
