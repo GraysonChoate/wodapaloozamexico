@@ -223,6 +223,10 @@ Then:
    typography, and responsive polish. The Reforma day-to-night city clock remains a second-wave
    candidate only if that review identifies a real narrative job for it.
 
+The later functional layer is defined in `reference/FUNCTIONAL-WEB-LAYER.md`: a minimal
+orientation/action rail and an editorial section index, not a conventional header. It is not
+authorized to enter the live film before the transition and mid-film-frame work is reviewed.
+
 ## Mandatory decision check
 
 Before any future direction, audit, or build instruction, state which track(s) it affects:
