@@ -49,7 +49,8 @@ film's unused daytime overhead windows remain the internal alternative set for l
 
 **Opening identity override:** Beat 0 now opens on oversized `WODAPALOOZA / MEXICO CITY`
 kinetic moving-video typography: the supplied Mexican flag moves inside the wordforms while all
-other opening ground is black, before the Ángel/cockpit fold and
+other opening ground is black, before the Ángel/cockpit fold and the `ARE / YOU / READY?` →
+`SUCEDERÁ` kinetic-type handoff.
 breach. This is the hero identity, not small informational side copy. The active utility rail
 comes with the cockpit; date/place and the qualifier facts belong to later readable rails.
 

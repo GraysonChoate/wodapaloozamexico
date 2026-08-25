@@ -57,8 +57,8 @@ integration. If a test is flaky but no visual defect is demonstrated, record it 
 The opening begins with **WODAPALOOZA / MEXICO CITY** as oversized kinetic moving-video typography:
 the supplied Mexican flag moves *inside the letters* while everything else is black. It breaks into the Ángel/city and then cockpit through the
 same moving fold-and-breach aperture. Do not reintroduce small date, city, qualifier, or CTA copy
-on paper side surfaces. `ARE YOU READY?` is a short editorial strip across the cockpit arrival,
-which must later become the registration move into the next scene. The real mark/menu, current
+on paper side surfaces. `ARE / YOU / READY?` are three oversized kinetic wordforms across the
+cockpit arrival; they converge into the `SUCEDERÁ` moving-image aperture of the next scene. The real mark/menu, current
 place, and `QUALIFIER ↗` rail arrives only after the cockpit owns the frame.
 
 ## Build order — execute in this order

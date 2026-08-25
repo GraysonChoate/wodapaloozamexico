@@ -93,9 +93,10 @@ side metadata treatment is rejected. The opening establishes identity and excite
    wordforms; it is never a full-screen flag behind black letters.
 2. The title breaks open into the Ángel/city → cockpit fold-and-breach. No empty hold or default
    dip is permitted; every revealed region carries either city, cockpit, or designed print edge.
-3. **ARE YOU READY?** is a temporary, high-energy editorial strip over the arriving cockpit. It
-   moves with the mechanism and then becomes the next seam's registration/aperture; it is not a
-   CTA and it must not duplicate Beat 2's `SUCEDERÁ` word aperture.
+3. **ARE / YOU / READY?** are three independent, oversized kinetic wordforms over the arriving
+   cockpit—not a banner and not a CTA. They converge into one central registration zone while
+   `SUCEDERÁ` is already arriving beneath them as the next moving-image wordform. The live
+   handoff must use Beat 2's actual footage inside `SUCEDERÁ`, not the lab's temporary source.
 4. Only after the cockpit owns the screen does the persistent utility rail lock: left mark/menu,
    quiet current-place readout, and a real `QUALIFIER ↗` escape hatch to CompetitionCorner. The
    rail stays transparent and intentional, never becoming a generic opaque navbar.
