@@ -38,10 +38,14 @@ const [CH, PAGE] = process.argv.slice(1);
     const loadMs = Date.now() - t0;
 
     // when does the first beat actually show a decoded frame, not just a poster?
+    /* Ask the DOM which beat is first rather than naming one. This was hardcoded to #b1, and
+       the day a beat was inserted ahead of it the metric silently began measuring an
+       offscreen beat and reported NEVER on a page whose opening frame was in fact decoding
+       in a few hundred milliseconds. A gate that names a beat stops being a gate. */
     const liveMs = await p.evaluate(() => new Promise(res => {
       const start = performance.now();
       const tick = () => {
-        const pl = document.querySelector("#b1 .plate");
+        const pl = document.querySelector(".beat .plate");
         if (pl && pl.classList.contains("ready")) return res(Math.round(performance.now() - start));
         if (performance.now() - start > 15000) return res(-1);
         requestAnimationFrame(tick);
