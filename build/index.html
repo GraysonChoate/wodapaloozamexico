@@ -443,6 +443,11 @@
      count is 74, stable at 73-75 across detection thresholds. Saying so is stronger than
      the line that was planned. */
   .b7strip{
+    /* Gone the instant the split starts. It is absolutely positioned inside a stage that is
+       releasing, so it rode upward AND kept running sideways — the black bar of type drifting
+       up and to the left through the whole opening. It belongs to the street beat; it has no
+       business in the handover. */
+    opacity:calc(1 - var(--halves,0));
     position:absolute; z-index:5; left:0; right:0; bottom:30px; overflow:hidden;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
             mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
@@ -1008,7 +1013,13 @@
      1200 a 1050px push is an eight-fold blow-up, so it genuinely passes the reader rather
      than merely getting larger. */
   .b7badge{
-    position:fixed; left:48%; top:48%; width:34vw; z-index:5;
+    /* It starts registered on the sticker, which sits at 48%/48%, and travels to dead centre
+       as it pushes. Without that it magnifies about its own off-centre point, and at an
+       eight-fold blow-up a two per cent offset throws it right off the side of the screen —
+       which is exactly what it was doing. */
+    position:fixed; z-index:5; width:34vw;
+    left:calc(48% + var(--push,0) * 2%);
+    top:calc(48% + var(--push,0) * 2%);
     opacity:var(--badge,0); visibility:var(--halvesvis,hidden); pointer-events:none;
     /* perspective lives on the element's own transform, never on the stage: `perspective` on
        an ancestor makes it a containing block for fixed descendants, which quietly re-anchored
@@ -1026,7 +1037,11 @@
   .b8words{ position:absolute; inset:0; z-index:4; pointer-events:none; perspective:1050px }
   .b8words b{
     position:absolute; left:50%; top:50%; opacity:0;
-    max-width:84vw; text-align:center; white-space:normal;
+    /* Broken exactly where he broke it on the sheet — EL ONLINE / QUALIFIER, and ES DEL /
+       18 AL 26 / DE AGOSTO stacked three deep. The outline is a tracing of what he is
+       holding, so it has to be laid out the way he laid it out; run as one long line it stops
+       being his handwriting and becomes a caption. */
+    max-width:none; text-align:center; white-space:nowrap;
     font:800 clamp(22px,4.4vw,84px)/0.98 Archivo,"Helvetica Neue",Arial,sans-serif;
     letter-spacing:-.035em; color:transparent;
     -webkit-text-stroke:2px rgba(255,255,255,.94);
@@ -1231,7 +1246,7 @@
     <div class="b8ink b8ink-l"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
     <div class="b8ink b8ink-r"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
     <div class="b8words" aria-hidden="true">
-      <b>RECUERDA</b><b>EL ONLINE QUALIFIER</b><b>COMIENZA</b><b>ES DEL 18 AL 26 DE AGOSTO</b>
+      <b>RECUERDA</b><b>EL ONLINE<br>QUALIFIER</b><b>COMIENZA</b><b>ES DEL<br>18 AL 26<br>DE AGOSTO</b>
     </div>
     <div class="plate">
       <img src="media/poster/b08_newspaper.jpg" alt="A hand-written newspaper sheet reading RECUERDA held up in the street">

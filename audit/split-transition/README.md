@@ -1,43 +1,38 @@
-# Beat 7 → Beat 8 — the badge comes through, the street opens, every word arrives
+# Beat 7 → Beat 8 — badge through the lens, street opens flat, words set as written
 
-## Four notes, four changes
+## Three corrections
 
-**1. No vertical travel.** Two bugs, both mine, both about the same thing.
+**1. The badge comes straight at the reader.** It was drifting off to the left. It sits
+registered on the sticker at 48%/48%, and `perspective()` magnifies about the element's own
+centre — so at an eight-fold blow-up a two per cent offset throws it clean off the side. It now
+travels to dead centre as it pushes: `left: calc(48% + var(--push) * 2%)`, same for top. It
+starts on the sticker and arrives at the middle of the frame.
 
-The halves were `position:absolute` inside a sticky stage that is *releasing* while the split
-runs, so they rode upward with it. I counter-translated them downward — which looked right on
-paper and was wrong in the frame, because `.stage` carries `overflow:clip`: pushing them back
-down moved them out of its box and they were cut off from the bottom, which reads as the street
-climbing into the top corners.
+**2. The black bar of type is gone.** That was `.b7strip`, Beat 7's own marquee — absolutely
+positioned inside a stage that is *releasing*, so it rode upward while still running sideways.
+It belongs to the street beat and has no business in the handover; it clears the instant the
+split begins.
 
-They are now `position:fixed`, anchored to the viewport, so the stage slides underneath without
-touching them. That still didn't work at first, because I had put `perspective` on `#b7 .stage`
-for the badge — and **perspective makes an element a containing block for fixed descendants**,
-which quietly re-anchored the halves to the sliding stage. The perspective now lives on the
-badge's own transform. The gesture is purely horizontal.
+**3. The words are set the way he wrote them.**
 
-**2. The badge comes off the pole and past the camera.** It is the official mark asset, already
-transparent, registered exactly on top of the sticker it duplicates — so at rest it is invisible
-and the only thing that happens is that it leaves. `perspective(1200px)` with a 1050px push is an
-eight-fold blow-up, so it genuinely passes the reader. It clears before the book has finished
-opening, so the two overlap rather than queue.
+```
+RECUERDA          EL ONLINE          COMIENZA          ES DEL
+                  QUALIFIER                            18 AL 26
+                                                       DE AGOSTO
+```
 
-**3. The frame keeps growing.** Beat 8's `--grow` was 1 → 1.13; it is now 1 → **1.30**, rising
-the whole way. Measured 1.000 at the first sheet, 1.033 at `COMIENZA`, 1.182 by the fourth.
-
-**4. The words come all the way through.** They were fading at 70% of their window and scaling
-only 1.16 — a polite drift, not a push. Perspective is 1050 and the push now reaches **880**,
-which is a six-fold magnification: the outline arrives at the reader and passes them. Opacity
-holds until the last tenth, by which point the word is already larger than the frame.
+Broken exactly where the sheets break. The outline is a tracing of what he is holding, so it has
+to be laid out the way he laid it out — run as one long line it stops being his handwriting and
+becomes a caption.
 
 ## Unchanged
 
-Beat 8 still pins behind Beat 7 so no second frame arrives. Beat 7 still does not dissolve while
-it splits. Four sheets, four words, windows mapped through Beat 8's warp. The printed field still
-meets the paper.
+No vertical travel: the halves are viewport-anchored and the perspective lives on the badge's own
+transform, not on the stage. Beat 8 still pins behind Beat 7 so no second frame arrives. The
+frame still grows 1 → 1.30 across the sheets. The words still push six-fold and pass the reader.
 
 ## Deliverables
 
-`push-{1440,375}-{fwd,rev}.mp4` — badge, book and all four sheets at normal speed.
-`opening-states.jpg` — twelve frames across the opening. Visual proof only; no full regression
-until the composition is accepted.
+`final-{1440,375}-{fwd,rev}.mp4` — badge, book and all four sheets at normal speed.
+`opening.jpg` — twelve frames across the opening. Visual proof only; no full regression until
+the composition is accepted.
