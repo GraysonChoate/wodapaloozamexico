@@ -223,17 +223,16 @@ Then:
    Beat 0 → 1 and Beat 6 → 7, using the relationships specified in
    `TRANSITION-PASS-BRIEF.md`. Review those proofs in continuous playback before extending
    the vocabulary.
-5. Then prototype one source-supported mid-film framed interruption: the contained civic-flag
-   pause specified in `MIDFILM-FRAME-SELECTION.md`. It is a brief editorial place between
-   Beat 7 and Beat 8, not a new full-screen city beat.
+5. Do not add the previously proposed civic-flag interruption. The Mexico-flag opening now carries
+   the immediate location/arrival job; preserve the mid-film space for its existing human message.
 6. Re-audit the whole work, then complete final pacing, copy, functional navigation/CTA,
    typography, and responsive polish. The Reforma day-to-night city clock remains a second-wave
    candidate only if that review identifies a real narrative job for it.
 
 The later functional layer is defined in `reference/FUNCTIONAL-WEB-LAYER.md`: a minimal
 orientation/action rail, editorial section index, and a small set of fact/action-led moving
-information rails—not a conventional header or decorative sponsor ticker. It is not authorized
-to enter the live film before the transition and mid-film-frame work is reviewed.
+information rails—not a conventional header or decorative sponsor ticker. It is authorized after
+the opening identity → cockpit → `SUCEDERÁ` handoff is reviewed.
 
 **Production pace:** prioritise the visible experience. Use targeted desktop/mobile, forward/
 reverse, blank-frame, and performance checks per prototype; reserve full automated regression
@@ -292,9 +291,9 @@ excuses to add arbitrary beats.
 `reference/material-components/v1/`, `reference/authored-materials/v1/`,
 `reference/prototypes/campaign-print-pause.html`, and
 `reference/prototypes/moving-print-frame.html`. Beat 0 and the action index are already live
-integrations. The next material integration is the selected civic-flag interruption after the
-current join review; then use the sprint's limited “syrup and cherry” pass to distribute only
-earned graphic objects and information pauses.
+integrations. The next material integration is the opening identity → cockpit → `SUCEDERÁ`
+handoff; then use the sprint's limited “syrup and cherry” pass to distribute only earned graphic
+objects and information pauses.
 
 **Action system:** the final action index is integrated at commit `05a2fc0`: footage reaches
 real black, then a campaign-print action object rises and locks. Three verified destinations
@@ -303,7 +302,7 @@ disabled/unlinked. The closing HUD-release direction is locked: `FLOOR` holds th
 of black, then the HUD disappears before the action-index hairline/paper arrives.
 
 **Typography and QA:** Archivo remains temporary until the Normalidad kit is supplied. The next
-whole-film review follows the civic-flag, utility, and information-rail milestones in the sprint;
+whole-film review follows the opening, utility, and information-rail milestones in the sprint;
 it must judge normal-speed rhythm, copy arrival, interaction pauses, HUD release, reverse
 behavior, transitions, and responsiveness.
 
@@ -313,8 +312,8 @@ highest-value proofs—Beat 0 → 1 and Beat 6 → 7—are built at `ecc539b`. B
 → vertical registration strip → pole → open. The current Beat 0 → 1 windshield lock is a baseline
 only while Codex tests an asymmetric diagonal shared-aperture replacement in
 `build/angel-cockpit-diagonal-lab.html`; do not alter that live join until its selected result is
-handed off. Claude may proceed with the civic-flag interruption in
-`PRODUCTION-SPRINT-SUPERPROMPT.md`.
+handed off. The civic-flag interruption is retired; Claude continues his independent live-build
+work without retuning the opening.
 
 Live work products: `reference/FRAMED-FOOTAGE-CHOREOGRAPHY.md`,
 `reference/OTHER-BROLL-INTAKE.md`, `reference/CAMPAIGN-MATERIAL-MAP.md`,

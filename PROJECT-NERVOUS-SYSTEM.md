@@ -70,7 +70,7 @@ when a named moment needs one; they must contain no invented facts, logos, or co
 
 ## Functional website layer
 
-This is required after the mid-film flag interruption; it is not a last-minute generic nav bar.
+This is required after the opening handoff; it is not a last-minute generic nav bar.
 
 - kinetic persistent utility rail: mark/menu, quiet current-place/progress readout, and one real
   `QUALIFIER ↗` escape hatch; it changes contrast against its environment and moves in as one
@@ -121,9 +121,8 @@ releases before the action paper arrives.
 | Now | Owner | Scope |
 |---|---|---|
 | Refine and select an authored Ángel → cockpit transition | Codex | standalone diagonal lab only; no live `build/index.html` edits while Claude works |
-| Civic-flag interruption between Beats 7 and 8 | Claude | **rebuild required**: continuous overlap from Beat 7 strip → public-scale flag → Beat 8 paper; no black void or poster-on-empty-page composition. See `reference/CIVIC-FLAG-REBUILD-BRIEF.md`. |
 | Integrate the selected Beat 0 → 1 result | Claude after explicit Codex handoff | live `build/index.html` only |
-| Functional layer / information rails | Claude after flag | follow `reference/FUNCTIONAL-WEB-LAYER.md` |
+| Functional layer / information rails | Claude after opening handoff | follow `reference/FUNCTIONAL-WEB-LAYER.md` |
 | Material kit / independent review / precise next handoff | Codex | assets, labs, review, current direction |
 
 No one edits the same live file concurrently. A completed visual decision is handed off with a

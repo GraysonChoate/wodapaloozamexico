@@ -4,8 +4,8 @@
 
 The site must remain a cinematic scroll experience, but it also has to let a visitor orient,
 act, and leave with useful information. This is a *utility layer*, not a conventional marketing
-navigation bar. It is intentionally scheduled after the transition pass and the civic-flag proof,
-so it can respond to the real rhythm of the finished film.
+navigation bar. It is intentionally scheduled after the opening handoff so it can respond to the
+real rhythm of the finished film.
 
 ## Recommended system
 
@@ -78,7 +78,6 @@ obscuring the Spanish paper/message beats.
 
 ## Build order
 
-1. Approve the transition pass.
-2. Prototype and audit the civic-flag interruption.
-3. Perform the next whole-film review.
-4. Build this utility layer against the resulting locked scroll map.
+1. Approve the opening identity → cockpit → `SUCEDERÁ` handoff.
+2. Perform the next whole-film review.
+3. Build this utility layer against the resulting locked scroll map.

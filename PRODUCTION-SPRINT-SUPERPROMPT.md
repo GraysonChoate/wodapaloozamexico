@@ -69,30 +69,9 @@ The existing windshield lock solved a blank seam but does not yet satisfy the hi
 bar. Codex is testing a diagonal/asymmetric shared-aperture replacement. Wait for a concise
 integration handoff; do not independently retune the opening while the lab is active.
 
-### 2. Build the single mid-film framed interruption: civic flag
+### 2. Make the site feel functional, not like a passive film
 
-Use `Other B-Roll/Screen Recording 2026-08-25 at 12.36.43 AM.mov`, window `2.6–5.9s`.
-
-Home: between Beat 7 street occupation and Beat 8's real handwritten qualifier message.
-
-Sentence: **a mark is placed in the city → the city has public scale → the message arrives.**
-
-Build it as a tall contained moving flag plate—not another full-screen city clip:
-
-1. Beat 7 releases through a registration/crop relationship; no generic dip.
-2. The flag plate arrives offset or on a shallow controlled trajectory and locks flat. The pole is
-   the vertical axis. Use `reference/authored-materials/v1/civic-flag-field-01.png` as the
-   surrounding print field; `poster-edge-vertical-01.png` is the quieter fallback.
-3. Keep the photograph ungraded. Let the flag, open sky, silhouettes, and passing pedestrians do
-   the work. No nationalist bumper, no new slogan, no invented copy.
-4. Hold long enough to be an actual place, then give way purposefully to Beat 8's real paper
-   message. Preserve Beat 8's quietness and full Spanish legibility.
-
-Deliver one desktop/mobile forward/reverse recording and a short contact sheet. Stop for review.
-
-### 3. Make the site feel functional, not like a passive film
-
-After the flag proof is accepted, build the functional layer in
+After the opening handoff is accepted, build the functional layer in
 `reference/FUNCTIONAL-WEB-LAYER.md`:
 
 - a minimal persistent compact mark/home control;
@@ -104,7 +83,7 @@ After the flag proof is accepted, build the functional layer in
 It must be transparent/lightweight over footage, avoid faces and important type, work on mobile,
 and release before the final action-paper locks. Do not build a generic opaque navbar.
 
-### 4. Add useful editorial information rails—not filler
+### 3. Add useful editorial information rails—not filler
 
 Implement only three fact/action-led rails from `reference/FUNCTIONAL-WEB-LAYER.md`:
 
