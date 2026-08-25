@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ángel → cockpit — diagonal lock study</title>
+<style>
+  :root{ color-scheme:dark; --p:0; --ink:#090909 }
+  *{box-sizing:border-box} body{margin:0;background:var(--ink);font-family:Arial,sans-serif}
+  .journey{height:520svh}.stage{position:sticky;top:0;height:100svh;overflow:hidden;background:#050505}
+  .paper{position:absolute;inset:0;background:url('media/print/print-field-01.jpg') 50% 50%/cover;
+    opacity:calc(clamp(0, (var(--p) - .26) * 4, 1));transform:scale(calc(1.04 - var(--p)*.04))}
+  .paper:after{content:"";position:absolute;inset:0;background:rgba(5,5,5,.12)}
+  .plane{position:absolute;inset:0;transform-origin:45% 53%;
+    transform:perspective(1700px) translate3d(calc(var(--x)*1vw),calc(var(--y)*1vh),0)
+      rotateZ(calc(var(--rz)*1deg)) rotateY(calc(var(--ry)*1deg)) scale(var(--s));
+    will-change:transform,clip-path;clip-path:polygon(var(--tlx) var(--tly),var(--trx) var(--try),var(--brx) var(--bry),var(--blx) var(--bly));
+    box-shadow:0 28px 90px rgba(0,0,0,.58)}
+  .plane video{width:100%;height:100%;object-fit:cover;display:block}
+  .city{z-index:3}.cockpit{z-index:2;opacity:var(--cockpit);clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
+  .diag{position:absolute;z-index:4;left:-18vw;top:calc(76vh - var(--slash)*104vh);width:140vw;height:2px;background:#f2eadc;
+    box-shadow:0 6px 0 rgba(0,0,0,.9), 0 -6px 0 rgba(0,0,0,.9);transform:rotate(-13deg);opacity:calc(var(--slash)*.82);mix-blend-mode:screen}
+  .hair{position:absolute;z-index:5;left:4vw;bottom:3vh;color:#e9e4d7;font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+    opacity:calc(clamp(0, .38 - var(--p), 1) * 1.6)}
+  .hair span{color:#27bfe6}.credit{position:absolute;z-index:5;right:4vw;bottom:3vh;color:#e9e4d7;font-size:9px;letter-spacing:.15em;opacity:calc(clamp(0, .38 - var(--p), 1) * 1.6)}
+  .hint{position:absolute;z-index:6;right:24px;top:24px;color:#eee;font-size:10px;letter-spacing:.16em;opacity:.6}
+  @media(max-width:700px){.paper{background-position:55% 50%}.hair,.credit{font-size:8px}.hint{display:none}}
+  @media(prefers-reduced-motion:reduce){.journey{height:100svh}.plane{transform:none!important;clip-path:none!important}.city{display:none}.cockpit{opacity:1}.paper{opacity:0}.diag,.hair,.credit{display:none}}
+</style>
+</head>
+<body>
+<main class="journey" id="journey"><section class="stage" id="stage" style="--x:0;--y:0;--rz:0;--ry:0;--s:1;--tlx:0%;--tly:0%;--trx:100%;--try:0%;--brx:100%;--bry:100%;--blx:0%;--bly:100%;--cockpit:0;--slash:0">
+  <div class="paper"></div>
+  <div class="plane cockpit"><video muted playsinline preload="auto" poster="media/poster/b01_cockpit.jpg"><source src="media/scrub/b01_cockpit.mp4" type="video/mp4"></video></div>
+  <div class="plane city"><video muted playsinline preload="auto" poster="media/poster/px_angel_pullback.jpg"><source src="media/scrub/px_angel_pullback.mp4" type="video/mp4"></video></div>
+  <div class="diag"></div><p class="hair"><span>01</span> / El Ángel</p><p class="credit">Paseo de la Reforma · Ciudad de México</p><p class="hint">SCROLL / DIAGONAL LOCK STUDY</p>
+</section></main>
+<script>
+  const stage=document.querySelector('#stage'), city=document.querySelector('.city video'), cockpit=document.querySelector('.cockpit video');
+  const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)), seg=(p,a,b)=>clamp((p-a)/(b-a)), ease=t=>1-Math.pow(1-t,3);
+  function state(){ const r=document.querySelector('#journey').getBoundingClientRect(); const p=clamp(-r.top/(r.height-innerHeight));
+    const t=ease(seg(p,.30,.66)), reveal=ease(seg(p,.61,.78)), release=ease(seg(p,.77,.94));
+    stage.style.setProperty('--p',p); stage.style.setProperty('--slash',ease(seg(p,.31,.55)));
+    const x=-10*t+10*release, y=-4*t+4*release, rz=-3.8*t+3.8*release, ry=10*t-10*release, s=1-.38*t+.38*release;
+    stage.style.setProperty('--x',x);stage.style.setProperty('--y',y);stage.style.setProperty('--rz',rz);stage.style.setProperty('--ry',ry);stage.style.setProperty('--s',s);
+    const tlx=0+17*t-17*release, tly=0+8*t-8*release, trx=100-9*t+9*release, tryy=0+15*t-15*release, brx=100-17*t+17*release,bry=100-11*t+11*release,blx=0+10*t-10*release,bly=100-5*t+5*release;
+    for(const [k,v] of Object.entries({tlx:tlx+'%',tly:tly+'%',trx:trx+'%',try:tryy+'%',brx:brx+'%',bry:bry+'%',blx:blx+'%',bly:bly+'%'}))stage.style.setProperty('--'+k,v);
+    stage.style.setProperty('--cockpit',reveal);
+    const durA=Math.max(.01,city.duration||17),durB=Math.max(.01,cockpit.duration||3); const a=Math.min(durA-.03,.2+p*(durA-.25)); const b=Math.min(durB-.03,.04+p*(durB-.07));
+    if(Math.abs(city.currentTime-a)>.08)city.currentTime=a;if(Math.abs(cockpit.currentTime-b)>.08)cockpit.currentTime=b;
+  }
+  [city,cockpit].forEach(v=>{v.addEventListener('loadeddata',()=>{v.pause();state()},{once:true});v.load()});
+  addEventListener('scroll',state,{passive:true});addEventListener('resize',state);requestAnimationFrame(state);
+</script>
+</body></html>
