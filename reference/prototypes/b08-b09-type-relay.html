@@ -12,93 +12,103 @@
   /* ═══════════════════════════════════════════════════════════════════════════
      BEAT 8 → BEAT 9 · the held date becomes a personal demand
 
-     outgoing : a person in the street holding the final hand-lettered sheet,
-                ES DEL / 18 AL 26 / DE AGOSTO, held still — the stillest thing in the film
-     incoming : the hooded figure beneath the Ángel, arms raised, and the Spanish line
+     outgoing : the man in the street, still dropping sheets, landing on the last one —
+                ES DEL / 18 AL 26 / DE AGOSTO — and holding it
+     incoming : the hooded figure beneath the Ángel, and the line
                 Es momento de ganarte tu lugar.
      the idea : Beat 8 told the reader WHEN. Beat 9 makes it their problem.
 
-     THE MECHANISM, and why it is not any of the banned ones. No vertical slide, no fade, no
-     card, no gap: the date's own letterforms become the APERTURE the next scene arrives
-     through. The figure is painted inside the glyphs — `background-clip:text` — so as the
-     date pushes toward the reader it stops being ink on newsprint and starts being a window
-     onto a person. The letters keep growing until their counters exceed the frame, and at
-     that moment the plain photograph is already at the identical scale behind them, so the
-     handover has nothing left to reveal.
+     THREE RULES THIS OBEYS
 
-     The date is the last thing Beat 8 says and the first thing Beat 9 shows. One typographic
-     event that changes what it means halfway through.
+     1. It begins INSIDE the previous scene. The study opens on live Beat 8 footage with a
+        sheet already falling, because Beat 7→8 ended on him dropping them — so this picks
+        the film up mid-action instead of introducing itself. There is no lead-in rail and
+        nothing enters from the bottom of the frame at any point.
 
-     Beat 8's stillness is preserved — nothing happens for the first fifth. Beat 9's approved
-     type-behind-hood-and-fists treatment is untouched; only the Spanish line's ARRIVAL is
-     designed here.
+     2. The seam is the date's own letterforms. The figure is painted inside the glyphs
+        (`background-clip:text`), so as the date pushes toward the reader it stops being ink
+        on newsprint and becomes a window onto a person. The letters grow until their
+        counters exceed the frame, and the plain photograph is already at the identical
+        scale behind them, so the handover has nothing left to reveal.
+
+     3. THE STILL IS NOT ALLOWED TO BE STILL. Beat 9 is a photograph, and a photograph that
+        simply sits there is the thing that makes a scroll film feel like a slideshow. It is
+        split into two planes using the subject matte the film already owns — city behind,
+        hood and fists in front — and they travel at different rates. The depth is real
+        because the separation is real; nothing is invented and nothing is graded.
+
+     The demand lands on Beat 9's exact values: left/right 17vw, top 11%, translateY 0,
+     scale 1 — the frame this study hands to.
      ═══════════════════════════════════════════════════════════════════════════ */
-  :root{ --ground:#000; --p:0 }
+  :root{ --ground:#000 }
   *{ box-sizing:border-box }
   html{ background:#000 }
   body{ margin:0; background:var(--ground); color:#fff;
         font-family:Archivo,"Helvetica Neue",Arial,sans-serif; -webkit-font-smoothing:antialiased }
-  img{ display:block }
+  img,video{ display:block }
 
-  .rail{ height:60svh; display:grid; place-items:center; padding:0 24px; text-align:center }
-  .rail p{ margin:0; max-width:52ch; color:rgba(255,255,255,.42);
-           font:700 11px/1.9 "JetBrains Mono",ui-monospace,monospace;
-           letter-spacing:.24em; text-transform:uppercase }
-
-  .beat{ position:relative; height:420svh }
+  .beat{ position:relative; height:460svh }
   .stage{ position:sticky; top:0; height:100svh; overflow:hidden; background:var(--ground) }
 
-  /* ── the outgoing sheet ──────────────────────────────────────────────────
-     presented exactly as Beat 8 presents it: contained portrait paper standing on the
-     printed field, so the study starts on the frame the film actually hands over. */
-  .paper{ position:absolute; inset:0; opacity:var(--paper,1) }
-  .paper img{ width:100%; height:100%; object-fit:contain }
-  .ink{ position:absolute; top:0; bottom:0; z-index:0; overflow:hidden; opacity:var(--paper,1);
+  /* ── outgoing · Beat 8, live ─────────────────────────────────────────────
+     presented exactly as the film presents it: contained portrait paper standing on the
+     printed field, so the study starts on the frame Beat 8 actually holds. */
+  .paper{ position:absolute; inset:0; z-index:2; opacity:var(--paper,1) }
+  .paper video,.paper img{ width:100%; height:100%; object-fit:contain }
+  .paper img{ position:absolute; inset:0; z-index:1; transition:opacity .3s }
+  .paper.ready img{ opacity:0 }
+  .ink{ position:absolute; top:0; bottom:0; z-index:1; overflow:hidden; opacity:var(--paper,1);
         width:calc((100vw - 100svh * 640 / 1138) / 2 + 1px) }
   .ink img{ position:absolute; top:0; height:100%; width:44vw; max-width:none; object-fit:cover }
   .ink-l{ left:0 }  .ink-l img{ right:0; object-position:14% 50% }
   .ink-r{ right:0 } .ink-r img{ left:0;  object-position:86% 50% }
 
-  /* ── the incoming photograph, at rest behind everything ──────────────────
-     already at its final scale, so when the letters clear there is nothing to reconcile. */
-  .figure{ position:absolute; inset:0; z-index:1; opacity:var(--fig,0) }
-  .figure img{ width:100%; height:100%; object-fit:cover; object-position:50% 13%;
-               transform:scale(1.02) }
+  /* ── incoming · two planes cut from one photograph ───────────────────────
+     Same fit and same position on both, and on the mask: `object-fit:cover` crops the
+     picture but `mask-size:100% 100%` would stretch the mask to the box instead, and the
+     two would never line up. */
+  .fig{ position:absolute; inset:0; z-index:0; opacity:var(--fig,0) }
+  .fig img{ width:100%; height:100%; object-fit:cover; object-position:50% 13% }
+  .fig-bg img{ transform:scale(calc(1.02 + var(--depth,0) * .05))
+                         translateY(calc(var(--depth,0) * -1.1vh)) }
+  .fig-fg{ z-index:3; pointer-events:none }
+  .fig-fg img{
+    transform:scale(calc(1.02 + var(--depth,0) * .13))
+              translateY(calc(var(--depth,0) * 2.4vh));
+    -webkit-mask-image:url("../../build/media/still/b09_subject_matte.png");
+            mask-image:url("../../build/media/still/b09_subject_matte.png");
+    -webkit-mask-size:cover;       mask-size:cover;
+    -webkit-mask-position:50% 13%; mask-position:50% 13%;
+    -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+  }
 
   /* ── the relay ───────────────────────────────────────────────────────────
-     The same three lines he is holding, set as he wrote them, filled with the photograph
-     that is arriving. Painted, not outlined: an outline would be decoration over the sheet,
-     whereas a filled glyph is a hole cut in it. */
+     The same three lines he is holding, broken where he broke them. Filled, not outlined:
+     an outline would be decoration laid over the sheet; a filled glyph is a hole cut in it. */
   .relay{
-    position:absolute; left:50%; top:50%; z-index:3;
+    position:absolute; left:50%; top:50%; z-index:4;
     transform:translate(-50%,-50%) scale(var(--rs,1));
     transform-origin:50% 50%;
     text-align:center; white-space:nowrap; opacity:var(--ro,0);
-    font-weight:800; font-size:clamp(30px,7.2vw,128px); line-height:.92;
-    letter-spacing:-.035em;
+    font-weight:800; font-size:clamp(30px,7.2vw,128px); line-height:.92; letter-spacing:-.035em;
     background-image:url("../../build/media/still/b09_flex.jpg");
-    background-size:cover; background-position:50% 13%;
-    background-attachment:fixed;      /* the picture stays put while the glyphs grow over it */
-    -webkit-background-clip:text; background-clip:text;
-    color:transparent;
-    -webkit-text-stroke:calc(var(--stroke,1) * 1px) rgba(255,255,255,.55);
+    background-size:cover; background-position:50% 13%; background-attachment:fixed;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    -webkit-text-stroke:calc(var(--stroke,1) * 1px) rgba(255,255,255,.5);
   }
 
-  /* ── the demand ──────────────────────────────────────────────────────────
-     Beat 9's line, in Beat 9's place and at Beat 9's size. Only its arrival is designed:
-     it inherits the relay's weight and settles, so the reader reads one continuous piece of
-     type that has changed what it says. */
+  /* ── the demand · lands on Beat 9's own numbers ──────────────────────────── */
   .demand{
-    position:absolute; z-index:4; left:17vw; right:17vw; top:11%;
+    position:absolute; z-index:5; left:17vw; right:17vw; top:11%;
     opacity:var(--do,0);
-    transform:translateY(calc(var(--dset,0) * -2.2vh)) scale(calc(1.06 - var(--dset,0) * .06));
+    transform:translateY(calc((1 - var(--dset,0)) * 3.4vh))
+              scale(calc(1 + (1 - var(--dset,0)) * .10));
     transform-origin:50% 0;
   }
   .demand h2{
     margin:0; font-weight:800; line-height:.94; letter-spacing:-.01em;
-    font-size:clamp(26px,5.1vw,76px);
-    font-variation-settings:"wdth" 125,"wght" 800;
-    text-shadow:0 2px 30px rgba(0,0,0,.55);
+    font-size:clamp(26px,5.1vw,76px); font-variation-settings:"wdth" 125,"wght" 800;
+    text-shadow:0 2px 34px rgba(0,0,0,.5);
   }
   .demand p{
     margin:10px 0 0; color:rgba(255,255,255,.72);
@@ -109,21 +119,23 @@
 
   @media (prefers-reduced-motion:reduce){
     .beat{ height:auto } .stage{ position:relative; height:auto; min-height:100svh }
-    .relay{ display:none } .figure{ opacity:1 } .paper,.ink{ display:none }
-    .demand{ opacity:1; transform:none }
+    .relay,.paper,.ink{ display:none } .fig{ opacity:1 }
+    .fig img{ transform:none } .demand{ opacity:1; transform:none }
   }
 </style>
 </head>
 <body>
 
-<section class="rail"><p>Beat 8 → Beat 9 · type relay<br>the held date becomes a personal demand</p></section>
-
 <section class="beat" id="seam">
   <div class="stage">
+    <div class="fig fig-bg"><img src="../../build/media/still/b09_flex.jpg" alt="The hooded figure, arms raised beneath the Ángel de la Independencia"></div>
     <div class="ink ink-l"><img src="../../build/media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
     <div class="ink ink-r"><img src="../../build/media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
-    <div class="paper"><img src="media/b08_held_date.jpg" alt="The final hand-written sheet: ES DEL 18 AL 26 DE AGOSTO"></div>
-    <div class="figure"><img src="../../build/media/still/b09_flex.jpg" alt="The hooded figure, arms raised beneath the Ángel de la Independencia"></div>
+    <div class="paper">
+      <img src="media/b08_held_date.jpg" alt="The final hand-written sheet: ES DEL 18 AL 26 DE AGOSTO">
+      <video muted playsinline preload="auto" disablepictureinpicture></video>
+    </div>
+    <div class="fig fig-fg"><img src="../../build/media/still/b09_flex.jpg" alt="" aria-hidden="true"></div>
     <div class="relay" aria-hidden="true">ES DEL<br>18 AL 26<br>DE AGOSTO</div>
     <div class="demand">
       <h2>Es momento de<br>ganarte tu lugar.</h2>
@@ -132,50 +144,59 @@
   </div>
 </section>
 
-<section class="rail"><p>Beat 9 continues · type descends into hood and fists, then the lockout</p></section>
-
 <script>
 (() => {
-  const b = document.getElementById('seam');
+  const b  = document.getElementById('seam');
   const st = b.querySelector('.stage');
+  const pl = b.querySelector('.paper');
+  const v  = pl.querySelector('video');
   const clamp = t => t < 0 ? 0 : t > 1 ? 1 : t;
   const seg = (x,a,z) => clamp((x - a) / (z - a));
   const ease = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
 
+  /* Beat 8's clip, entered at 7.0s — a sheet is already falling — and run to the held date
+     at 10.4s. Entering mid-drop is what stitches this to Beat 7→8, which ended on exactly
+     that action. */
+  const IN = 7.00, OUT = 10.40;
+  let want = IN, seeking = false, shown = false;
+  const reveal = () => { if (!shown) { shown = true; pl.classList.add('ready'); } };
+  v.addEventListener('seeked', () => { seeking = false; reveal(); });
+  v.addEventListener('loadedmetadata', () => {
+    if ('requestVideoFrameCallback' in v) v.requestVideoFrameCallback(reveal);
+    seeking = true; try { v.currentTime = IN; } catch(e){}
+  }, {once:true});
+  v.src = '../../build/media/scrub/b08_newspaper.mp4';
+
   function frame(){
     const H = innerHeight, r = b.getBoundingClientRect();
-    const travel = Math.max(1, r.height - H);
-    const p = clamp(-r.top / travel);
-    b.style.setProperty('--p', p.toFixed(4));
+    const p = clamp(-r.top / Math.max(1, r.height - H));
 
-    /* 0.00–0.20  the sheet is held. Beat 8's stillness is the thing this beat inherits, so
-                  nothing at all happens here. */
-    /* 0.20–0.34  the date lifts off the newsprint as type. */
-    const ro = Math.min(seg(p,0.20,0.32), 1 - seg(p,0.68,0.78));
-    /* 0.26–0.72  it grows until its counters are larger than the frame. Perspective is not
-                  used: a flat relay scaled about the screen centre cannot drift, and drift
-                  is what makes a push read as a slide. */
-    const rs = 1 + ease(seg(p,0.26,0.76)) * 13;
-    /* the outline thins away as the picture inside the glyphs takes over from the idea of
-       ink on paper */
-    st.style.setProperty('--stroke', (1 - seg(p,0.26,0.46)).toFixed(3));
-    st.style.setProperty('--ro', ro.toFixed(3));
-    st.style.setProperty('--rs', rs.toFixed(3));
-
-    /* the sheet leaves only once the glyphs are carrying the picture, so the frame is never
-       between two things */
-    st.style.setProperty('--paper', (1 - seg(p,0.34,0.52)).toFixed(3));
-    /* the plain photograph is already at the relay's own scale by the time the letters clear */
-    st.style.setProperty('--fig', seg(p,0.46,0.66).toFixed(3));
-
-    /* 0.70–0.88  the demand inherits the relay's mass and settles into Beat 9's position */
-    st.style.setProperty('--do',   seg(p,0.70,0.82).toFixed(3));
-    st.style.setProperty('--dset', ease(seg(p,0.70,0.92)).toFixed(3));
+    /* 0.00–0.24  live: the last sheet falls and the date arrives */
+    want = IN + seg(p, 0.00, 0.24) * (OUT - IN);
+    /* 0.24–0.34  held. Beat 8's stillness is the thing this seam inherits. */
+    /* 0.34–0.46  the date lifts off the newsprint as type */
+    st.style.setProperty('--ro', Math.min(seg(p,0.34,0.44), 1 - seg(p,0.70,0.80)).toFixed(3));
+    /* it grows about the screen centre — a flat relay scaled about centre cannot drift, and
+       drift is what makes a push read as a slide */
+    st.style.setProperty('--rs', (1 + ease(seg(p,0.38,0.78)) * 13).toFixed(3));
+    st.style.setProperty('--stroke', (1 - seg(p,0.38,0.54)).toFixed(3));
+    /* the sheet leaves only once the glyphs are carrying the picture */
+    st.style.setProperty('--paper', (1 - seg(p,0.46,0.62)).toFixed(3));
+    st.style.setProperty('--fig',   seg(p,0.52,0.68).toFixed(3));
+    /* the two planes keep moving for the whole of the second half, so the photograph is
+       never a frozen card */
+    st.style.setProperty('--depth', seg(p,0.52,1.00).toFixed(3));
+    /* the demand inherits the relay's mass and settles onto Beat 9's own numbers */
+    st.style.setProperty('--do',   seg(p,0.72,0.84).toFixed(3));
+    st.style.setProperty('--dset', ease(seg(p,0.72,0.96)).toFixed(3));
   }
 
   let last = -1;
   (function tick(){
     if (scrollY !== last){ last = scrollY; frame(); }
+    if (v.duration && !seeking && Math.abs(v.currentTime - want) > 1/48){
+      seeking = true; v.currentTime = want;
+    }
     document.hidden ? setTimeout(tick,120) : requestAnimationFrame(tick);
   })();
   frame();
