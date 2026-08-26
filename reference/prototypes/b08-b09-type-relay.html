@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Beat 8 → Beat 9 — type relay</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+  /* ═══════════════════════════════════════════════════════════════════════════
+     BEAT 8 → BEAT 9 · the held date becomes a personal demand
+
+     outgoing : a person in the street holding the final hand-lettered sheet,
+                ES DEL / 18 AL 26 / DE AGOSTO, held still — the stillest thing in the film
+     incoming : the hooded figure beneath the Ángel, arms raised, and the Spanish line
+                Es momento de ganarte tu lugar.
+     the idea : Beat 8 told the reader WHEN. Beat 9 makes it their problem.
+
+     THE MECHANISM, and why it is not any of the banned ones. No vertical slide, no fade, no
+     card, no gap: the date's own letterforms become the APERTURE the next scene arrives
+     through. The figure is painted inside the glyphs — `background-clip:text` — so as the
+     date pushes toward the reader it stops being ink on newsprint and starts being a window
+     onto a person. The letters keep growing until their counters exceed the frame, and at
+     that moment the plain photograph is already at the identical scale behind them, so the
+     handover has nothing left to reveal.
+
+     The date is the last thing Beat 8 says and the first thing Beat 9 shows. One typographic
+     event that changes what it means halfway through.
+
+     Beat 8's stillness is preserved — nothing happens for the first fifth. Beat 9's approved
+     type-behind-hood-and-fists treatment is untouched; only the Spanish line's ARRIVAL is
+     designed here.
+     ═══════════════════════════════════════════════════════════════════════════ */
+  :root{ --ground:#000; --p:0 }
+  *{ box-sizing:border-box }
+  html{ background:#000 }
+  body{ margin:0; background:var(--ground); color:#fff;
+        font-family:Archivo,"Helvetica Neue",Arial,sans-serif; -webkit-font-smoothing:antialiased }
+  img{ display:block }
+
+  .rail{ height:60svh; display:grid; place-items:center; padding:0 24px; text-align:center }
+  .rail p{ margin:0; max-width:52ch; color:rgba(255,255,255,.42);
+           font:700 11px/1.9 "JetBrains Mono",ui-monospace,monospace;
+           letter-spacing:.24em; text-transform:uppercase }
+
+  .beat{ position:relative; height:420svh }
+  .stage{ position:sticky; top:0; height:100svh; overflow:hidden; background:var(--ground) }
+
+  /* ── the outgoing sheet ──────────────────────────────────────────────────
+     presented exactly as Beat 8 presents it: contained portrait paper standing on the
+     printed field, so the study starts on the frame the film actually hands over. */
+  .paper{ position:absolute; inset:0; opacity:var(--paper,1) }
+  .paper img{ width:100%; height:100%; object-fit:contain }
+  .ink{ position:absolute; top:0; bottom:0; z-index:0; overflow:hidden; opacity:var(--paper,1);
+        width:calc((100vw - 100svh * 640 / 1138) / 2 + 1px) }
+  .ink img{ position:absolute; top:0; height:100%; width:44vw; max-width:none; object-fit:cover }
+  .ink-l{ left:0 }  .ink-l img{ right:0; object-position:14% 50% }
+  .ink-r{ right:0 } .ink-r img{ left:0;  object-position:86% 50% }
+
+  /* ── the incoming photograph, at rest behind everything ──────────────────
+     already at its final scale, so when the letters clear there is nothing to reconcile. */
+  .figure{ position:absolute; inset:0; z-index:1; opacity:var(--fig,0) }
+  .figure img{ width:100%; height:100%; object-fit:cover; object-position:50% 13%;
+               transform:scale(1.02) }
+
+  /* ── the relay ───────────────────────────────────────────────────────────
+     The same three lines he is holding, set as he wrote them, filled with the photograph
+     that is arriving. Painted, not outlined: an outline would be decoration over the sheet,
+     whereas a filled glyph is a hole cut in it. */
+  .relay{
+    position:absolute; left:50%; top:50%; z-index:3;
+    transform:translate(-50%,-50%) scale(var(--rs,1));
+    transform-origin:50% 50%;
+    text-align:center; white-space:nowrap; opacity:var(--ro,0);
+    font-weight:800; font-size:clamp(30px,7.2vw,128px); line-height:.92;
+    letter-spacing:-.035em;
+    background-image:url("../../build/media/still/b09_flex.jpg");
+    background-size:cover; background-position:50% 13%;
+    background-attachment:fixed;      /* the picture stays put while the glyphs grow over it */
+    -webkit-background-clip:text; background-clip:text;
+    color:transparent;
+    -webkit-text-stroke:calc(var(--stroke,1) * 1px) rgba(255,255,255,.55);
+  }
+
+  /* ── the demand ──────────────────────────────────────────────────────────
+     Beat 9's line, in Beat 9's place and at Beat 9's size. Only its arrival is designed:
+     it inherits the relay's weight and settles, so the reader reads one continuous piece of
+     type that has changed what it says. */
+  .demand{
+    position:absolute; z-index:4; left:17vw; right:17vw; top:11%;
+    opacity:var(--do,0);
+    transform:translateY(calc(var(--dset,0) * -2.2vh)) scale(calc(1.06 - var(--dset,0) * .06));
+    transform-origin:50% 0;
+  }
+  .demand h2{
+    margin:0; font-weight:800; line-height:.94; letter-spacing:-.01em;
+    font-size:clamp(26px,5.1vw,76px);
+    font-variation-settings:"wdth" 125,"wght" 800;
+    text-shadow:0 2px 30px rgba(0,0,0,.55);
+  }
+  .demand p{
+    margin:10px 0 0; color:rgba(255,255,255,.72);
+    font:700 11px/1.6 "JetBrains Mono",ui-monospace,monospace;
+    letter-spacing:.22em; text-transform:uppercase;
+  }
+  @media (max-width:760px){ .demand{ left:7vw; right:7vw; top:17% } }
+
+  @media (prefers-reduced-motion:reduce){
+    .beat{ height:auto } .stage{ position:relative; height:auto; min-height:100svh }
+    .relay{ display:none } .figure{ opacity:1 } .paper,.ink{ display:none }
+    .demand{ opacity:1; transform:none }
+  }
+</style>
+</head>
+<body>
+
+<section class="rail"><p>Beat 8 → Beat 9 · type relay<br>the held date becomes a personal demand</p></section>
+
+<section class="beat" id="seam">
+  <div class="stage">
+    <div class="ink ink-l"><img src="../../build/media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
+    <div class="ink ink-r"><img src="../../build/media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
+    <div class="paper"><img src="media/b08_held_date.jpg" alt="The final hand-written sheet: ES DEL 18 AL 26 DE AGOSTO"></div>
+    <div class="figure"><img src="../../build/media/still/b09_flex.jpg" alt="The hooded figure, arms raised beneath the Ángel de la Independencia"></div>
+    <div class="relay" aria-hidden="true">ES DEL<br>18 AL 26<br>DE AGOSTO</div>
+    <div class="demand">
+      <h2>Es momento de<br>ganarte tu lugar.</h2>
+      <p>It&rsquo;s time to earn your place.</p>
+    </div>
+  </div>
+</section>
+
+<section class="rail"><p>Beat 9 continues · type descends into hood and fists, then the lockout</p></section>
+
+<script>
+(() => {
+  const b = document.getElementById('seam');
+  const st = b.querySelector('.stage');
+  const clamp = t => t < 0 ? 0 : t > 1 ? 1 : t;
+  const seg = (x,a,z) => clamp((x - a) / (z - a));
+  const ease = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2;
+
+  function frame(){
+    const H = innerHeight, r = b.getBoundingClientRect();
+    const travel = Math.max(1, r.height - H);
+    const p = clamp(-r.top / travel);
+    b.style.setProperty('--p', p.toFixed(4));
+
+    /* 0.00–0.20  the sheet is held. Beat 8's stillness is the thing this beat inherits, so
+                  nothing at all happens here. */
+    /* 0.20–0.34  the date lifts off the newsprint as type. */
+    const ro = Math.min(seg(p,0.20,0.32), 1 - seg(p,0.68,0.78));
+    /* 0.26–0.72  it grows until its counters are larger than the frame. Perspective is not
+                  used: a flat relay scaled about the screen centre cannot drift, and drift
+                  is what makes a push read as a slide. */
+    const rs = 1 + ease(seg(p,0.26,0.76)) * 13;
+    /* the outline thins away as the picture inside the glyphs takes over from the idea of
+       ink on paper */
+    st.style.setProperty('--stroke', (1 - seg(p,0.26,0.46)).toFixed(3));
+    st.style.setProperty('--ro', ro.toFixed(3));
+    st.style.setProperty('--rs', rs.toFixed(3));
+
+    /* the sheet leaves only once the glyphs are carrying the picture, so the frame is never
+       between two things */
+    st.style.setProperty('--paper', (1 - seg(p,0.34,0.52)).toFixed(3));
+    /* the plain photograph is already at the relay's own scale by the time the letters clear */
+    st.style.setProperty('--fig', seg(p,0.46,0.66).toFixed(3));
+
+    /* 0.70–0.88  the demand inherits the relay's mass and settles into Beat 9's position */
+    st.style.setProperty('--do',   seg(p,0.70,0.82).toFixed(3));
+    st.style.setProperty('--dset', ease(seg(p,0.70,0.92)).toFixed(3));
+  }
+
+  let last = -1;
+  (function tick(){
+    if (scrollY !== last){ last = scrollY; frame(); }
+    document.hidden ? setTimeout(tick,120) : requestAnimationFrame(tick);
+  })();
+  frame();
+})();
+</script>
+</body>
+</html>
