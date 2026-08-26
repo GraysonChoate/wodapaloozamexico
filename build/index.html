@@ -173,7 +173,8 @@
      widest exactly when the image is at its smallest. */
   #b0{ height:340svh; position:relative; z-index:2 }
   /* Beat 1 must wait below the Beat 0 wing handoff instead of appearing around it. */
-  #b1{ position:relative; z-index:1 }
+  /* Beat 2 waits beneath the city/question until the black sphere has completed. */
+  #b1{ position:relative; z-index:10 }
   #b0 .stage{ z-index:4 }
   /* The flag moves only inside the title; the black field opens directly onto Ángel. */
   .b0intro{ position:absolute; inset:0; z-index:8; background:#050505; opacity:var(--title-black,1); pointer-events:none }
@@ -186,7 +187,7 @@
   #b0 .b0frame{ width:100vw; height:100svh; outline:0; background:#050505; opacity:var(--angel-frame,1); transition:none }
   #b0 .b0frame>.plate:not(.cockpit){ opacity:var(--angel,0); transition:none }
   #b0 .b0black{ opacity:0 !important }
-  .b0city-full{ position:absolute; inset:0; z-index:3; width:100%; height:100%; object-fit:cover; opacity:var(--city-full,0); pointer-events:none; transition:none }
+  .b0city-full{ position:absolute; inset:0; z-index:3; width:100%; height:100%; object-fit:cover; object-position:center 46%; opacity:var(--city-full,0); pointer-events:none; transition:none }
   .b0fold{ position:absolute; z-index:5; top:-7vh; bottom:-7vh; width:62vw; background:url('media/print/print-field-01.jpg') 50%/cover; opacity:var(--fold-visible,1); will-change:transform; pointer-events:none; overflow:hidden }
   .b0fold:after{ content:""; position:absolute; z-index:2; inset:0; background:rgba(8,8,8,.10); pointer-events:none }
   /* The night city occupies exactly the existing wing silhouettes.  It does not appear behind
@@ -257,12 +258,14 @@
   /* Beat 1 begins only after Beat 0's shutter has completed. It is the continuing city frame
      for the question, never a second translucent city pass sliding over the first. */
   #b1{ height:300svh; margin-top:0 }
-  #b1 .stage{ z-index:3; background:transparent; isolation:isolate }
+  #b1 .stage{ z-index:3; background:transparent; isolation:isolate; opacity:var(--b1-city,0); transition:none }
   #b1 .plate{ clip-path:none; opacity:1 }
   /* This source was captured with player controls on its outer lower edge. The city itself
      has enough overscan to remove that capture artifact by crop, rather than ever letting
      borrowed interface chrome enter the film. */
-  #b1 .plate video,#b1 .plate img{ transform:scale(calc(1.16 + var(--p)*.04)); transform-origin:50% 46% }
+  /* The city's crop locks at the exact shutter handoff. It plays; it does not travel or scale
+     under the question, which was the source of the apparent second city sliding upward. */
+  #b1 .plate video,#b1 .plate img{ transform:scale(1.16); transform-origin:50% 46% }
   .b1cap{
     position:absolute; z-index:5; left:50%; bottom:14vh; transform:translateX(-50%);
     font:700 11px/1.9 "JetBrains Mono",ui-monospace,monospace;
@@ -290,9 +293,11 @@
   .b1ready span::after{ content:attr(data-word); position:absolute; inset:0; color:#000; -webkit-text-fill-color:#000; -webkit-text-stroke:0 transparent; opacity:var(--ready-invert,0); mix-blend-mode:normal; text-shadow:none }
   /* Once black, the three wordforms physically register into the same centre before the
      disc grows. They make the circle; the circle is not an unrelated layer behind them. */
-  .b1ready .are{ top:17vh; left:50%; transform:translate(-50%,calc(-50% + (1 - var(--ready,0))*-20vh + var(--ready-merge,0)*33vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
-  .b1ready .you{ top:43vh; left:50%; transform:translate(calc(-50% + (1 - var(--ready,0))*38vw),calc(-50% + var(--ready-merge,0)*7vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
-  .b1ready .ready{ top:69vh; bottom:auto; left:50%; transform:translate(calc(-50% - (1 - var(--ready,0))*38vw),calc(-50% + (1 - var(--ready,0))*14vh - var(--ready-merge,0)*19vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
+  /* The reading stack clears the persistent navigation with a real safety margin at every
+     desktop size. Important type is never permitted to enter the navigation's space. */
+  .b1ready .are{ top:29vh; left:50%; transform:translate(-50%,calc(-50% + (1 - var(--ready,0))*-20vh + var(--ready-merge,0)*21vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
+  .b1ready .you{ top:51vh; left:50%; transform:translate(calc(-50% + (1 - var(--ready,0))*38vw),calc(-50% + var(--ready-merge,0)*3vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
+  .b1ready .ready{ top:73vh; bottom:auto; left:50%; transform:translate(calc(-50% - (1 - var(--ready,0))*38vw),calc(-50% + (1 - var(--ready,0))*12vh - var(--ready-merge,0)*17vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
   @media(max-width:700px){ .b1ready .are{font-size:25vw}.b1ready .you{font-size:32vw}.b1ready .ready{font-size:22vw} }
 
   /* The black wordforms stay fully opaque as they register into the central seed; the growing
@@ -303,9 +308,11 @@
      there is no next card rising from below. */
   /* Pull the next sticky stage into the same black punctuation zone. This is an overlap
      between two registered planes, never the next scene travelling upward from below. */
-  #b2{ height:420svh; margin-top:-140svh }
+  /* Beat 2 is already fixed behind the last part of Beat 1. The completed black sphere
+     reveals it in place, so no black panel can travel upward into frame. */
+  #b2{ height:420svh; margin-top:-300svh }
   /* This stage takes the black field from the finished sphere immediately. It never fades in. */
-  #b2 .stage{ z-index:8; background:#000; opacity:1 }
+  #b2 .stage{ z-index:2; background:#000; opacity:1 }
   /* ── APERTURE PARALLAX ────────────────────────────────────────────────────
      The word is the aperture. It widens on the wdth axis; the city behind it travels and
      grows FASTER than that outer geometry, so widening reads as exposure rather than as
@@ -805,7 +812,18 @@
      crowd on its feet, not people on a beach, and he is right: the shot the letterbox opens
      onto should answer the lift, not change the subject. b10_floor.mp4 is untouched and still
      in the media set for wherever he places it. */
-  #b10{ height:400svh; margin-top:-190svh }
+  /* -154, and the number is doing real work. Beat 10 is pinned early so it can PLAY inside
+     Beat 9's letterbox rather than wait behind it, but pinned too early it spends its best
+     material where nobody can see it: at -190 the whole lateral move ran hidden under Beat 9.
+     Its clip is the crowd and then the track-past, and 154svh of 300 is exactly 0.514 — the
+     frame where the crowd ends. So Beat 9's bars are filled by the crowd, and the instant Beat
+     9 is gone the camera starts moving. Nothing is spent unseen. */
+  #b10{ height:400svh; margin-top:-154svh }
+  /* the crowd walks in front of the words */
+  .b10fg{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    z-index:3; pointer-events:none; opacity:var(--fgv,0);
+  }
   #b10 .stage{ z-index:40 }
   #b10 .plate video,#b10 .plate img{ transform:scale(calc(1.02 + var(--p) * .06)) }
 
@@ -828,14 +846,21 @@
   @media (min-aspect-ratio: 11/10) and (max-aspect-ratio: 16/9){
     #b10 .plate video,#b10 .plate img{ object-fit:contain; transform:none }
   }
+  /* The line has to be BIG and it has to sit in the band the silhouetted heads travel across,
+     or there is nothing for them to pass over. Z-index 2 puts it under the keyed foreground and
+     over the shot. It arrives with the lateral move and is clear of the frame by the time the
+     camera has found him, so the last thing in this beat is his face and nothing else. */
   .b10line{
-    position:absolute; z-index:5; left:28px; bottom:30px; margin:0; width:max-content;
-    max-width:calc(100% - 56px);
-    font:700 12px/1.7 "JetBrains Mono",ui-monospace,monospace;
-    letter-spacing:.32em; text-transform:uppercase;
-    opacity:calc((var(--p) - .22) * 2.4);
+    position:absolute; z-index:2; left:6vw; right:6vw; top:46%; margin:0;
+    transform:translateY(-50%) scale(calc(1 + var(--b10p,0) * .06));
+    transform-origin:0 50%;
+    font:800 clamp(30px,6.4vw,96px)/0.98 Archivo,"Helvetica Neue",Arial,sans-serif;
+    letter-spacing:-.035em; text-transform:none;
+    font-variation-settings:"wdth" 118,"wght" 800;
+    text-shadow:0 2px 40px rgba(0,0,0,.45);
+    opacity:var(--b10t,0);
   }
-  @media (max-width:760px){ .b10line{ left:14px; bottom:22px; font-size:9px; letter-spacing:.22em } }
+  @media (max-width:760px){ .b10line{ left:5vw; right:5vw } }
 
   /* ── B11 · THE PROOF ──────────────────────────────────────────────────────
      52.22–53.90: two athletes holding each other, then the whole floor erupting in
@@ -1370,18 +1395,18 @@
         <video muted playsinline preload="auto" disablepictureinpicture></video>
       </div>
     </div>
-    <video class="b0city-full" aria-hidden="true" muted playsinline preload="auto" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video>
-    <div class="b0fold b0fold-l" aria-hidden="true"><video class="b0city-inset" muted playsinline preload="auto" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video></div><div class="b0fold b0fold-r" aria-hidden="true"><video class="b0city-inset" muted playsinline preload="auto" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video></div>
+    <video class="b0city-full" aria-hidden="true" muted playsinline loop autoplay preload="auto" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video>
+    <div class="b0fold b0fold-l" aria-hidden="true"><video class="b0city-inset" muted playsinline loop autoplay preload="auto" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video></div><div class="b0fold b0fold-r" aria-hidden="true"><video class="b0city-inset" muted playsinline loop autoplay preload="auto" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video></div>
     <nav class="b0nav" aria-label="Site navigation"><button class="menu" type="button" aria-label="Open site index"><b>W</b><span>Menu</span></button><span class="place">01 / Arrival</span><a class="qualifier" href="https://competitioncorner.net/events/21707/details" target="_blank" rel="noopener noreferrer">Qualifier ↗</a></nav>
   </div>
 </section>
 
 <!-- ─────────── BEAT 1 · CITY TIME ─────────── -->
-<section class="beat" id="b1" data-src="media/scrub/px_city_timelapse.mp4?cut=20260825-final" data-join-in>
+<section class="beat" id="b1" data-join-in>
   <div class="stage">
     <div class="plate">
-      <img src="media/poster/px_angel_pullback.jpg" alt="Mexico City moving from day into night">
-      <video muted playsinline preload="auto" disablepictureinpicture></video>
+      <img src="media/poster/px_city_timelapse.jpg" alt="Mexico City moving from day into night">
+      <video src="media/scrub/px_city_timelapse.mp4?cut=20260825-final" muted playsinline loop autoplay preload="auto" disablepictureinpicture></video>
     </div>
     <div class="b1cinema" aria-hidden="true"></div>
     <div class="b1ready" aria-hidden="true"><span class="are" data-word="ARE">ARE</span><span class="you" data-word="YOU">YOU</span><span class="ready" data-word="READY?">READY?</span></div>
@@ -1533,13 +1558,21 @@
 </section>
 
 <!-- ─────────── BEAT 10 · WHAT THIS IS ─────────── -->
-<section class="beat" id="b10" data-src="media/scrub/b10_crowd.mp4">
+<section class="beat" id="b10" data-src="media/scrub/b10_crowd_focus.mp4">
   <div class="stage">
     <div class="plate">
-      <img src="media/poster/b10_crowd.jpg" alt="The crowd on their feet, arms up, under the lights">
+      <img src="media/poster/b10_crowd_focus.jpg" alt="The crowd on their feet; the camera tracks past them and finds an athlete alone in his head">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
     <p class="b10line">Celebrate fitness. Community. Life.</p>
+    <!-- The same footage again, keyed off its own luminance so only the near-black silhouettes
+         survive, laid OVER the line. Nothing is rotoscoped and nothing is generated: every pixel
+         this layer keeps is identical to the pixel beneath it, so the key does not have to be
+         accurate — it can only be seen where the words are, which is the one place it matters.
+         It exists only for the 63 frames the silhouettes do; past the cut there is no dark
+         foreground left to occlude anything. -->
+    <video class="b10fg" src="media/scrub/b10_focus_fg.webm" muted playsinline preload="auto"
+           disablepictureinpicture aria-hidden="true"></video>
   </div>
 </section>
 
@@ -1958,7 +1991,11 @@
     for (const b of beats){
       const r = b.getBoundingClientRect();
       const travel = Math.max(1, r.height - H);
-      const p = Math.min(1, Math.max(0, -r.top / travel));
+      let p = Math.min(1, Math.max(0, -r.top / travel));
+      /* Beat 2 is physically parked behind Beat 1 so the sphere can reveal it without a
+         rising frame. Its editorial timing starts only once that hidden overlap reaches the
+         sphere handoff, preserving the full word → aperture → car progression. */
+      if (b.id === 'b2') p = Math.min(1, Math.max(0, (p - 0.50) / 0.50));
       b.style.setProperty('--p', p.toFixed(4));
 
       /* Neither of these can come from --p. It is pinned at 0 before the beat arrives and
@@ -2019,7 +2056,9 @@
         /* The thin horizontal trace is the far edge of the turned question-plane. It opens
            into SUCEDERÁ with the car already moving inside the letters, then scales through
            the aperture. There is no y-axis entrance for either scene. */
-        const arrive = ease(seg(p, 0.00, 0.055));
+        /* The black sphere has already completed before this word is exposed. Land the word
+           immediately and at usable scale; a thin, delayed trace reads as another black hold. */
+        const arrive = ease(seg(p, 0.00, 0.022));
         b.style.setProperty('--b2-arrive', arrive.toFixed(4));
         /* The live car appears inside the held word, then the word becomes the window: one
            fast geometric scale-through, followed only when it has swallowed the frame. */
@@ -2030,8 +2069,8 @@
         const word = b.querySelector('.word');
         if (word) {
           const W = innerWidth, H2 = innerHeight;
-          const sx = (0.40 + arrive * 0.60) * (1 + release * 8.0);
-          const sy = (0.035 + arrive * 0.965) * (1 + release * 8.0);
+          const sx = (0.72 + arrive * 0.28) * (1 + release * 8.0);
+          const sy = (0.44 + arrive * 0.56) * (1 + release * 8.0);
           word.setAttribute('transform', `translate(${W/2} ${H2/2}) scale(${sx.toFixed(4)} ${sy.toFixed(4)}) translate(${-W/2} ${-H2/2})`);
         }
       }
@@ -2228,12 +2267,17 @@
         /* The city materializes only inside the two wing silhouettes. The full source replaces
            them only at their occluded meeting point, so it cannot read as a background fade. */
         b.style.setProperty('--city-fold', (ease(seg(p, 0.58, 0.76)) * (1 - shutterTakeover)).toFixed(4));
-        b.style.setProperty('--city-full', shutterTakeover.toFixed(4));
+        /* The full live city is revealed only after the two panels have met. It is a handoff,
+           not a fade layered beneath a moving second city. */
+        b.style.setProperty('--city-full', p >= 0.875 ? '1' : '0');
         b.style.setProperty('--fold-visible', (1 - shutterTakeover).toFixed(4));
+        /* The Ángel remains present through the entire printed-frame hold; city material begins
+           only after that hold and replaces it inside the same two physical panels. */
         b.style.setProperty('--angel', ease(seg(p, 0.24, 0.49)).toFixed(4));
-        /* Once the city is entering the two wings, remove the old full-frame Ángel plate so
-           no city/Ángel image can remain visible outside the physical shutter surfaces. */
-        b.style.setProperty('--angel-frame', (1 - ease(seg(p, 0.575, 0.595))).toFixed(4));
+        /* The Ángel remains behind the two physical frames until they have fully met. It is
+           the source scene that the shutter closes over; removing it during the city reveal
+           leaves a false city background around the panels. */
+        b.style.setProperty('--angel-frame', p < 0.875 ? '1' : '0');
         b.style.setProperty('--c', 0);
         /* Strictly inside the hold, with room at both ends. Copy still settling while the
            frame is still settling reads as one more animated element rather than as print. */
@@ -2250,15 +2294,42 @@
           const want = Math.min(clip.duration - TAIL, 0.1 + p * Math.max(0, clip.duration - 0.15));
           if (Math.abs(clip.currentTime - want) > 1/36) clip.currentTime = want;
         }
+        /* These three surfaces are live versions of one source. They are never scroll-seeked,
+           so neither the mapped panels nor the shutter handoff can become a frozen frame. */
         const foldCities = b._foldCities || (b._foldCities = [...b.querySelectorAll('.b0city-inset,.b0city-full')]);
-        const cityProgress = ease(seg(p, 0.58, 0.875));
-        for (const clip of foldCities) if (clip.duration && !RM) {
-          const want = Math.min(clip.duration - TAIL, 0.12 + cityProgress * Math.max(0, clip.duration - 0.24));
-          if (Math.abs(clip.currentTime - want) > 1/30) clip.currentTime = want;
+        /* Lock the three render surfaces to one live playhead as soon as the city first
+           appears. From this point on none of them is scroll-seeked or replaced by a still. */
+        if (!RM && p >= 0.58 && !b._cityLive) {
+          const master = foldCities[0];
+          const t = master && master.readyState > 1 ? master.currentTime : 0;
+          for (const clip of foldCities) {
+            if (clip !== master && clip.readyState > 1) clip.currentTime = t;
+            clip.play().catch(() => {});
+          }
+          b._cityLive = true;
         }
       }
 
       if (b.id === 'b1') {
+        /* Beat 1 inherits the city at the shutter's current frame and then simply lets it run.
+           This removes the duplicate city pass that previously rose beneath the question. */
+        const opening = document.getElementById('b0');
+        const openingTravel = opening ? Math.max(1, opening.offsetHeight - H) : 1;
+        const openingProgress = opening ? Math.min(1, Math.max(0, -opening.getBoundingClientRect().top / openingTravel)) : 1;
+        /* The question scene must not sit underneath the angel frames. It becomes visible only
+           once their physical shutter has completely closed, so the opening holds on Ángel
+           rather than exposing an unrelated city background around the panels. */
+        /* The city remains visible through the reading beat, then is removed only after the
+           black sphere has reached the frame edge. Beat 2 has already been stationed behind
+           it, so there is no vertical black-card entrance. */
+        const cityOut = ease(seg(p, 0.80, 0.825));
+        b.style.setProperty('--b1-city', openingProgress >= 0.875 ? (1 - cityOut).toFixed(4) : '0');
+        const sourceCity = document.querySelector('.b0city-full');
+        const city = b.querySelector('.plate video');
+        if (!RM && sourceCity && city && p < 0.018 && sourceCity.readyState > 1 && Math.abs(city.currentTime - sourceCity.currentTime) > 0.08) {
+          city.currentTime = sourceCity.currentTime;
+          city.play().catch(() => {});
+        }
         /* The words get a full held reading moment, then invert in place. The only geometric
            move is one perfect circular black aperture growing from their shared centre. */
         b.style.setProperty('--ready', Math.min(ease(seg(p, 0.14, 0.26)), 1 - ease(seg(p, 0.84, 0.94))).toFixed(4));
@@ -2316,6 +2387,28 @@
         });
       }
 
+      if (b.id === 'b10') {
+        /* The words arrive with the lateral move, are crossed by the crowd, and are gone before
+           the camera settles on him — the beat ends on a face, not on type. */
+        b.style.setProperty('--b10p', p.toFixed(3));
+        b.style.setProperty('--b10t', (seg(p, 0.53, 0.60) * (1 - seg(p, 0.74, 0.80))).toFixed(3));
+        /* The keyed foreground is its own clip and it covers only the 63 frames of silhouettes,
+           which are 0.514 to 0.704 of this beat — the track-past. Outside that stretch there is
+           no dark foreground left to occlude anything, so it is hidden. */
+        const FG = b._fg || (b._fg = b.querySelector('.b10fg'));
+        if (FG) {
+          const q = (p - 0.514) / 0.190;
+          const inFG = q > -0.02 && q < 1.02;
+          b.style.setProperty('--fgv', inFG ? 1 : 0);
+          if (inFG && FG.duration) {
+            const want = Math.min(FG.duration - 0.02, Math.max(0, q) * FG.duration);
+            if (!FG._sk && Math.abs(FG.currentTime - want) > 1 / 48) {
+              FG._sk = 1; FG.currentTime = want;
+              FG.addEventListener('seeked', () => { FG._sk = 0; }, {once:true});
+            }
+          }
+        }
+      }
       if (b.id === 'b9') {
         /* type in, hold, then OUT — the beat has to end on the figure alone and still
            before it can cut. If the words were still on screen the cut would be a
@@ -2382,9 +2475,10 @@
            what makes a hard cut possible inside a single beat. */
         const rg = b._range;
         let q = rg ? Math.min(1, Math.max(0, (p - rg[0]) / (rg[1] - rg[0]))) : p;
-        /* Hold Beat 1 on the same final night-city frame that Beat 0's shutter reveals.
-           The question gets one uninterrupted image rather than re-scrubbing a duplicate. */
-        if (b.id === 'b1') q = 1;
+        /* Beat 0 holds the Ángel source while the city panels materialize and close. The
+           city itself is handled by the three dedicated live videos above, never by this
+           scroll-scrub path. */
+        if (b.id === 'b0' && p >= 0.50) q = 0.50;
         /* data-scrub-warp bends scroll against runtime. Beat 7 spends 21% of its clip on the
            placement and 79% on the montage, but the act deserves a third of the scroll and
            the montage reads better fast. Piecewise-linear, so it stays reversible. */
