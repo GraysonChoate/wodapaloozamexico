@@ -720,6 +720,22 @@
      film's range but at its slow end — Beat 7 runs at 205 and Beat 0 at 97. 320svh puts it at
      210, alongside Beat 7. The pin keeps its half: -110 of a 220 travel. */
   #b9{ height:320svh; margin-top:-110svh }
+  /* WHAT THE WINDOW LOOKS AT BEFORE BEAT 9 EXISTS.
+     Beat 9's stage is a crossfade that does not reach full strength until Beat 8 is at 0.90 —
+     but the date window opens at 0.55 and does most of its expanding before then. A hole cut in
+     Beat 8 with nothing behind it shows the page ground, so the date read as solid black through
+     three quarters of its life. It was never the scene being dark; the scene was not drawn.
+
+     Pinning Beat 9 earlier is the obvious fix and it is the wrong one: it would eat three
+     quarters of that beat's own clip behind Beat 8, and the pacing is settled. So the window
+     gets a backing instead — Beat 9's own first frame, held between Beat 10's stage and Beat 9's,
+     so it is BEHIND Beat 8 and visible only through the letterforms. It is the same frame Beat 9
+     opens on and Beat 9's clip is parked on that frame throughout, so when the real stage fades
+     up over it there is nothing to see change. Nothing about the transition's timing moves. */
+  .b9pre{
+    position:fixed; inset:0; z-index:45; pointer-events:none; opacity:var(--pre,0);
+    background:url("media/still/b09_floorwork_f0.jpg") center/cover;
+  }
   #b9 .stage{ z-index:50 }
   #b9 .plate video,#b9 .plate img{ transform:scale(calc(1.04 + var(--p) * .12)) }
 
@@ -1695,6 +1711,9 @@
 
 <!-- ─────────── BEAT 9 · EARN IT ─────────── -->
 <section class="beat" id="b9" data-src="media/scrub/b09_floorwork.mp4" data-scrub-warp="0.80,0.891" data-split-exit>
+  <!-- Sibling of the stage, never inside it: the stage's own opacity is exactly the thing that
+       is zero while the window is open, and its clip-path would crop this too. -->
+  <div class="b9pre" aria-hidden="true"></div>
   <div class="stage">
     <div class="plate">
       <img src="media/still/b09_floorwork_f0.jpg" alt="Athletes competing on a lit platform at night, the city behind them">
@@ -2380,6 +2399,9 @@
           b.style.setProperty('--turn', ease(Math.min(1, seg(p, 0.94, 1) * 0.3 + exit * 0.7)).toFixed(4));
           b._b9 = b._b9 || document.getElementById('b9');
           b._b9.style.setProperty('--temp', (0.86 * T).toFixed(3));
+          /* on with the window, off the moment Beat 9's own stage can carry it */
+          const sv9 = +getComputedStyle(b._b9.querySelector('.stage')).opacity || 0;
+          b._b9.style.setProperty('--pre', (p >= 0.54 ? Math.max(0, 1 - sv9) : 0).toFixed(3));
 
           /* and the opening resolves into a plain window, on the same parameter, because past a
              certain size a letterform is only whatever stroke you happen to be inside */
