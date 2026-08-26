@@ -593,6 +593,12 @@
      from moving them against each other. It comes from moving the frame against the type,
      which descends while the picture climbs. */
   #b9 .plate img.flex,#b9 .b9front{
+    /* Both copies must scale about the SAME point. `.plate img` carries a 50% 46% origin from
+       the film's base rule and `.b9front` is not inside a plate, so it was using 50% 50% - the
+       identical transform about origins 36px apart, which at the end of the beat is a seven
+       pixel offset between two copies of one photograph. That is the double image the note
+       above warns about, arriving through the back door. Stated explicitly on both. */
+    transform-origin:50% 50%;
     transform:scale(calc(1.03 + var(--p) * .17)) translateY(calc(var(--p) * -2.2vh));
   }
   /* A seventeen per cent push is a slow move on a landscape frame and a shove on a portrait
@@ -685,10 +691,10 @@
   .b9sweep{
     position:absolute; inset:-12% -34%; z-index:6; pointer-events:none;
     mix-blend-mode:screen;
-    opacity:calc(var(--sweep2,0) * (1 - var(--sweep2,0)) * 1.5);
-    background:linear-gradient(101deg,
-      transparent 34%, var(--green) 44%, var(--blue) 55%, transparent 66%);
-    transform:translateX(calc((var(--sweep2,0) * 128 - 30) * 1%));
+    opacity:calc(var(--sweep2,0) * (1 - var(--sweep2,0)) * 0.56);
+    background:linear-gradient(104deg,
+      transparent 20%, var(--green) 38%, var(--blue) 58%, transparent 76%);
+    transform:translateX(calc((var(--sweep2,0) * 138 - 40) * 1%));
   }
 
   /* THE BAR OPENS THE FRAME. The lockout used to appear as a hard step — one frame the
@@ -1143,19 +1149,39 @@
     font-size:calc(6.6svh * var(--fit,1) * var(--grow,1));
     line-height:1.64;
     filter:brightness(calc(1 - var(--rlk,0) * .34)) contrast(calc(1 + var(--rlk,0) * .16));
-    /* Two layers, both viewport-fixed and both clipped to the glyphs: a raking band of the
-       film's own green and blue, screened over Beat 9's frame. Fixed on BOTH, or the band
-       would scale with the letters instead of passing across them — and the first attempt put
-       this on Beat 9's own stage, which at this moment is still completely hidden behind Beat
-       8, so it lit nothing. The light has to be inside the window to be seen through it. */
-    background-image:
-      linear-gradient(101deg, transparent 34%, var(--green) 44%, var(--blue) 55%, transparent 66%),
-      url("media/still/b09_flex.jpg");
-    background-size:230% 100%, cover;
-    background-position:calc((1 - var(--sweep,0)) * 118% - 9%) 50%, 50% 13%;
-    background-attachment:fixed, fixed;
-    background-blend-mode:screen, normal;
+    /* ONE layer, and its geometry is computed rather than described. `cover` at `50% 13%`
+       is what Beat 9 uses, but Beat 9 also scales its photograph by 1.03 before you ever see
+       it — so a plain `cover` window was three per cent off, and three per cent is fourteen
+       pixels at this width. The seam only works if it is exact: when the newsprint dissolves,
+       the pixels inside the letters must already BE the pixels behind them, so that nothing
+       about the image changes and all that happens is the paper leaving.
+
+       So `background-size` and `background-position` are written in px each frame from the
+       same arithmetic Beat 9 uses on the same file. Nothing here is a tint, a blend or a
+       filter: light belongs on the tapestry above, where it falls on the whole frame at once
+       and therefore cannot pull the window out of register. */
+    background-image:url("media/still/b09_flex.jpg");
+    background-attachment:fixed;
     -webkit-background-clip:text; background-clip:text;
+  }
+
+  /* AMB-06 · colour temperature drift, from the effects library. The library's version maps
+     white balance to whole-page scroll depth; here the same idea is compressed into the seam
+     and given a direction, so it crosses the frame like a tapestry being drawn across while
+     the date comes at the reader.
+
+     Two departures from the library entry, both deliberate. Its poles are ember and blueprint,
+     and ember is the orange this film does not use — so the poles are the film's own green and
+     blue, which is the same warm-to-cool move inside our colour world. Its ceiling is not a
+     departure: 0.14 is the number, and above it the frame reads as tinted rather than lit.
+     It sits above everything in the beat, so it falls on the paper and on the window equally
+     and cannot pull the window out of register. */
+  .b8temp{
+    position:absolute; inset:0 -30%; z-index:6; pointer-events:none;
+    opacity:calc(var(--temp,0) * (1 - var(--temp,0)) * 0.56);
+    background:linear-gradient(104deg,
+      transparent 20%, var(--green) 38%, var(--blue) 58%, transparent 76%);
+    transform:translateX(calc((var(--temp,0) * 138 - 40) * 1%));
   }
 
   /* Beat 8's own margins stop being empty black: the paper is held against printed edges. */
@@ -1248,7 +1274,7 @@
 </section>
 
 <!-- ─────────── BEAT 1 · CITY TIME ─────────── -->
-<section class="beat" id="b1" data-src="media/scrub/px_city_timelapse_02_09_cropped.mp4" data-join-in>
+<section class="beat" id="b1" data-src="media/scrub/px_city_timelapse.mp4?cut=20260825-final" data-join-in>
   <div class="stage">
     <div class="plate">
       <img src="media/poster/px_angel_pullback.jpg" alt="Mexico City moving from day into night">
@@ -1342,6 +1368,7 @@
   <div class="stage">
     <div class="b8ink b8ink-l"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
     <div class="b8ink b8ink-r"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
+    <div class="b8temp" aria-hidden="true"></div>
     <div class="b8words" aria-hidden="true">
       <b>RECUERDA</b><b>EL ONLINE<br>QUALIFIER</b><b>COMIENZA</b><b class="relay">ES DEL<br>18 AL 26<br>DE AGOSTO</b>
     </div>
@@ -1619,6 +1646,7 @@
   const clamp = (x, lo=0, hi=1) => Math.min(hi, Math.max(lo, x));
   const seg  = (x,a,b) => clamp((x-a)/(b-a));
   const ease = t => t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
+  let P9 = 0;   /* Beat 9's progress, published for Beat 8's window arithmetic */
 
   function identityLoop(b, p, onScreen) {
     if (!sheet) return;
@@ -1712,6 +1740,9 @@
     const H = innerHeight;
     let deepest = 0;
 
+    /* Beat 8 needs Beat 9's progress to build its window, and Beat 8 is processed first, so it
+       reads the previous frame's value. One frame of lag on a number that barely moves during
+       the seam; the alternative is a second getComputedStyle every frame for nothing. */
     for (const b of beats){
       const r = b.getBoundingClientRect();
       const travel = Math.max(1, r.height - H);
@@ -1847,14 +1878,33 @@
              the frame at the moment it is held. Measured, then divided back out by the sheet's
              scale so the offset tracks the paper instead of sliding across it. */
           const S = (1 - 0.075 * e) * (1 + 0.30 * ease(p)), vh = innerHeight / 100;
+          /* THE WINDOW'S FILL, COMPUTED FROM BEAT 9'S OWN ARITHMETIC.
+             Beat 9 paints b09_flex.jpg with object-fit:cover at 50% 13% and then scales it by
+             1.03 + p*0.17 about the centre of its box. Reproduced here exactly, in px, against
+             the viewport — which is the positioning area, because the layer is fixed. Get this
+             wrong by one per cent and the letters stop being holes and become stickers. */
+          const NW = 1400, NH = 1959, bw = innerWidth, bh = innerHeight;
+          const c = Math.max(bw / NW, bh / NH);
+          const iw = NW * c, ih = NH * c;
+          const s9 = 1.03 + P9 * 0.17, ty9 = P9 * -2.2 * vh;
+          const fw = iw * s9, fh = ih * s9;
+          const fx = bw / 2 + ((bw - iw) * 0.50 - bw / 2) * s9;
+          const fy = bh / 2 + ((bh - ih) * 0.13 - bh / 2) * s9 + ty9 * s9;
+          RL.style.backgroundSize = fw.toFixed(1) + 'px ' + fh.toFixed(1) + 'px';
+          RL.style.backgroundPosition = fx.toFixed(1) + 'px ' + fy.toFixed(1) + 'px';
           RL.style.transform = 'translate(-50%,-50%) translate(' +
             (0.649 * S * vh).toFixed(2) + 'px,' + (-1.514 * S * vh).toFixed(2) + 'px) translateZ(' +
-            (940 * push * push + 65 * exit).toFixed(0) + 'px)';
+            (940 * push * push + 96 * exit).toFixed(0) + 'px)';
           /* The sweep is handed forward to Beat 9, because it belongs to the scene arriving
              through the letters, not to the sheet they are cut into. */
           if (b._b9 || (b._b9 = document.getElementById('b9')))
             b._b9.style.setProperty('--sweep', push.toFixed(3));
-          RL.style.setProperty('--rlk', (1 - exit).toFixed(3));
+          /* The window is darkened only while there is newsprint to cut into, and it is back
+             to Beat 9's true brightness BEFORE the paper starts to go — tying it to `exit` meant
+             the fill was still changing during the handover, which is the one thing that cannot
+             happen if the reveal is to be invisible. */
+          RL.style.setProperty('--rlk', (1 - push).toFixed(3));
+          b._b9.style.setProperty('--temp', (0.86 * push).toFixed(3));
         }
       }
 
@@ -1991,7 +2041,9 @@
            occlusion never happened at all. */
         /* The band leaves the letters and keeps going over the open frame, same angle and
            same direction, so it reads as one light crossing the shot rather than two effects. */
-        b.style.setProperty('--sweep2', seg(p, 0.00, 0.17).toFixed(3));
+        /* Beat 9 finishes the same crossing, in the same direction, at the same ceiling. */
+        b.style.setProperty('--sweep2', (0.86 + 0.14 * seg(p, 0.00, 0.13)).toFixed(3));
+        P9 = p;
         /* The words are away BEFORE the bar opens, not after. The original note on this beat
            was right — it has to end on the figure alone before it can cut — but the cut used
            to be at 0.88 and the aperture now starts at 0.62, so the old fade left the headline
