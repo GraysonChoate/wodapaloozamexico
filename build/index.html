@@ -861,7 +861,16 @@
      shot, and a frame or two of that was landing in the film. 138 crowd frames of 298 is 0.4631,
      so the pin is 74 of a 160svh travel: Beat 9's letterbox is still filled by the crowd right
      up to the frame the camera starts to move. */
-  #b10{ height:260svh; margin-top:-74svh }
+  /* -174, and the arithmetic has to be redone whenever Beat 9's height changes — which is how
+     this regressed. margin-top is measured from Beat 9's BOTTOM, but Beat 9's stage releases at
+     its bottom MINUS a viewport, so there is a 100svh offset between the two. -74 was computed
+     as 0.4631 of Beat 10's own travel and forgot that offset entirely: Beat 10 was not pinned
+     until AFTER Beat 9 had finished, so during the letterbox its stage was still below the fold
+     and only the bottom bar had anything in it. The top bar was black the whole time.
+       pin      = 100 + 0.4631 * 160 = 174
+       pinned at Beat 9 p=0.664, well before the bars clear at 0.85
+       Beat 10's clip sits at 0.463 when Beat 9 ends — the frame the camera starts moving */
+  #b10{ height:260svh; margin-top:-174svh }
   /* THE CUT-OUT HAS TO CARRY THE SHOT'S OWN TRANSFORM.
      Beat 10's plate pushes in from 1.02 to 1.08 across the beat, and this layer had no
      transform at all — so the cut-out people drifted out of register with the footage they were
@@ -1001,9 +1010,17 @@
      has to complete before Beat 10's stage releases at 160svh: (260 - M) + convergence <= 160.
      An 18svh convergence puts M at 118 minimum; 120 pins Beat 11 at 0.875 and finishes at 158,
      two ahead of the release. A shutter can be quick — it is the one move that gains from it. */
-  #b11{ height:460svh; margin-top:-120svh }
+  /* 130, not 120. The cover must complete before Beat 10's stage releases at 160svh:
+     (260 - M) + 21 <= 160 puts the minimum at 121, and 120 was a viewport-percent the wrong side
+     of it. 130 leaves nine to spare. */
+  #b11{ height:460svh; margin-top:-130svh }
   #b11 .stage{ z-index:45; background:transparent }
   .b11f{ z-index:2 }
+  /* Field B is a CANVAS of field A's own frame, not a second video. Two videos seeking
+     independently were a frame apart — measured, consistently — and the two fields meet along a
+     hard diagonal, which is the worst possible place to put two different moments of the same
+     shot. Painted from field A in its own frame callback, they cannot differ. */
+  canvas.b11f-b{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none }
   /* Each field is a triangle growing from its own corner. At --conv 1 the two exactly tile the
      frame, meeting along the anti-diagonal with no seam and no gap. */
   .b11f-a{ clip-path:polygon(0 0, calc(var(--conv,0) * 200%) 0, 0 calc(var(--conv,0) * 200%)) }
@@ -1726,10 +1743,7 @@
       <img src="media/poster/b11_face.jpg" alt="Two athletes holding each other on the competition floor">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
-    <div class="plate b11f b11f-b" aria-hidden="true">
-      <img src="media/poster/b11_face.jpg" alt="">
-      <video class="b11mirror" src="media/scrub/b11_face.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
-    </div>
+    <canvas class="b11f b11f-b" aria-hidden="true"></canvas>
     <div class="b11stats">
       <span data-count="16">Divisions (<b>16</b>)</span>
       <span data-count="3">Cities ever (<b>3</b>)</span>
@@ -2555,20 +2569,30 @@
         b.style.setProperty('--convvis', conv > 0.995 ? 'hidden' : 'visible');
         /* The second field carries its own copy of the same clip; keep it on the same frame as
            the one the loader scrubs, or the seam between them shows as a time offset. */
-        /* Field B's plate is not the one the loader manages, so it never had `.ready` put on
-           it — which left its POSTER opaque on top of its video. Half of the incoming scene was
-           a still, arriving frozen while the other half played. It is marked ready as soon as it
-           has a frame of its own. */
-        const MR = b._mr || (b._mr = b.querySelector('.b11mirror'));
-        if (MR && !MR._rdy && MR.readyState >= 2) {
-          MR._rdy = 1; MR.closest('.plate').classList.add('ready');
-        }
-        const LEAD = b._v;
-        if (MR && LEAD && LEAD.duration && MR.duration) {
-          if (!MR._sk && Math.abs(MR.currentTime - LEAD.currentTime) > 1 / 48) {
-            MR._sk = 1; MR.currentTime = LEAD.currentTime;
-            MR.addEventListener('seeked', () => { MR._sk = 0; }, {once:true});
-          }
+        /* Field B is painted from field A's own frame, in field A's own frame callback, so the
+           two halves of the diagonal are always the same moment. */
+        const FB = b._fb || (b._fb = b.querySelector('canvas.b11f-b'));
+        if (FB && b._v && !b._v._b11 && 'requestVideoFrameCallback' in b._v) {
+          b._v._b11 = 1;
+          const v = b._v;
+          const paint = () => {
+            const st = b.querySelector('.stage');
+            const W = st.clientWidth, H = st.clientHeight, dpr = Math.min(2, devicePixelRatio || 1);
+            if (FB.width !== Math.round(W * dpr)) {
+              FB.width = Math.round(W * dpr); FB.height = Math.round(H * dpr);
+            }
+            const cw = FB.width, ch = FB.height;
+            const cs = getComputedStyle(v);
+            const vw = v.videoWidth || 1280, vh = v.videoHeight || 720;
+            const f = cs.objectFit === 'contain' ? Math.min(cw / vw, ch / vh)
+                                                 : Math.max(cw / vw, ch / vh);
+            const dw = vw * f, dh = vh * f;
+            const cx = FB._c || (FB._c = FB.getContext('2d', {alpha:false}));
+            cx.clearRect(0, 0, cw, ch);
+            try { cx.drawImage(v, (cw - dw) / 2, (ch - dh) / 2, dw, dh); } catch (e) {}
+            v.requestVideoFrameCallback(paint);
+          };
+          v.requestVideoFrameCallback(paint);
         }
       }
       if (b.id === 'b10') {
