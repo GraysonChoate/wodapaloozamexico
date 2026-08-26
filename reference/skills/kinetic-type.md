@@ -89,6 +89,23 @@ works in special cases.
 
 ### 2a · Proper segmentation — the one that always works
 
+**PUT BOTH LAYERS THROUGH THE SAME RENDERER.** This is the one that produces "hollow man" —
+faint transparent second copies of every person, present the whole time. An editor duplicates a
+clip, masks the copy and puts the type between them, and the two copies are identical because
+they go through one pipeline. Draw the base as a `<video>` and the copy as a `<canvas>` and they
+are NOT identical: a browser colour-manages the two differently, so footage laid over itself
+composites at a slightly different tone. The duplication is fine; the mismatched pipeline is not.
+
+Make the video a decode source (`opacity:0`) and draw BOTH visible layers into canvases from the
+same frame in the same `requestVideoFrameCallback` — base, then type, then the same frame erased
+to the people. Read the plate's `object-fit` and transform matrix off its computed style rather
+than assuming them; an aspect-ratio media query silently switching `contain`/`cover` puts the
+copy on different geometry from the shot and is invisible until someone resizes.
+
+**The test:** hide the type, screenshot with the cut-out layer shown and with it `display:none`,
+and diff. **An identical copy changes 0% of pixels.** Anything above zero is the ghost, and it
+scales with how wrong the pipeline is — mixed video/canvas measured 12-24% of the whole frame.
+
 **Do not use a second video element for the cut-out.** Two videos seeking independently can
 never be on the same frame every frame, and one frame of lag is invisible on a static shot and
 glaring on a fast pan, where a silhouette moves ten or twenty pixels per frame — the cut-out

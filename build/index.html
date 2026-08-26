@@ -261,7 +261,7 @@
      for the question, never a second translucent city pass sliding over the first. */
   /* Overlap the final city shutter so this beat never has a lower edge that can slide
      upward into view. Its city image is only enabled at the exact end of Beat 0. */
-  #b1{ height:300svh; margin-top:-272svh }
+  #b1{ height:300svh; margin-top:-242svh }
   #b1 .stage{ z-index:3; background:transparent; isolation:isolate; opacity:1; transition:none }
   /* The city behind the question is Beat 0's same scroll-owned video. Beat 1 owns only the
      typography and sphere; it must never introduce another city image. */
@@ -419,7 +419,9 @@
      The panels PLAY rather than scrub. The figure is motionless while the city streams past,
      so looping at slightly different rates makes the nine breathe out of sync — and eight
      simultaneous all-keyframe seeks would cost far more than eight small decodes. */
-  #b5{ height:700svh }
+  /* Begin exactly when the full hoodie stage would otherwise unpin. The grid takes its place
+     in the same fixed viewport, so the figure fractures into panels rather than sliding away. */
+  #b5{ height:700svh; margin-top:-100svh; position:relative; z-index:12 }
   /* THE PANELS ARE PLANES IN SPACE, NOT TILES ON A BOARD.
      perspective lives on the sheet so the nine cells share one camera; each cell carries its
      own Z, pitch and yaw, and every one resolves to EXACTLY zero when the grid locks. The 3D
@@ -867,19 +869,24 @@
      and the "it moves when the athlete arrives". The origin matters as much as the scale: the
      film's plate rule sets 50%/46% and this element is not inside a plate, so it defaulted to
      50%/50% and would have kept a residual offset even with the scale matched. Both stated. */
-  .b10fg{
-    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-    z-index:3; pointer-events:none; opacity:var(--fgv,0);
-    transform-origin:50% 46%;
-    transform:scale(calc(1.02 + var(--p) * .06));
-    /* NO CSS MASK. `mask-size:1200%` asks the browser to rasterise the WHOLE sprite sheet at
-       twelve times the element on every frame the position changes — 13200 x 8400, a hundred and
-       eleven megapixels, sixty times a second. That is what made it worse rather than better.
-       The masking happens inside the canvas instead, reading only the one cell it needs:
-       0.09 megapixels. Same result, a thousandth of the work. */
-  }
+  /* BOTH LAYERS THROUGH THE SAME RENDERER — which is what an editor does and what I was not.
+     In CapCut you duplicate the clip, mask the copy to the foreground, and put the type between
+     them; the two copies are identical because they go through one pipeline. My version drew the
+     base as a <video> and the copy as a <canvas>, and a browser colour-manages those two
+     differently — so footage laid over itself composited at a slightly different tone and every
+     person got a faint second outline. The duplication was never the problem. The MISMATCHED
+     PIPELINE was.
+
+     So the video is now a decode source only, and BOTH visible layers are canvases fed from the
+     same frame in the same callback: identical pixels, identical colour path, identical
+     geometry, and no clock between them to drift. */
+  #b10 .plate{ opacity:0 }
+  .b10base,.b10fg{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none }
+  .b10base{ z-index:1 }
+  .b10fg{ z-index:3; opacity:var(--fgv,0) }
   #b10 .stage{ z-index:40 }
   #b10 .plate video,#b10 .plate img{ transform:scale(calc(1.02 + var(--p) * .06)) }
+  .b10line{ z-index:2 }
 
   /* THE SOURCE WATERMARK, AND WHY THIS BEAT CONTAINS ON A LANDSCAPE SCREEN.
      WZA_MX_LOGO.mp4 burns a WODAPALOOZA MEXICO CITY lockup at x 81.8%–98.6% of every frame.
@@ -898,6 +905,16 @@
      The push-in is dropped in this branch on purpose: scaling a contained frame pushes its
      edges back outside the box and re-clips the very thing this fixes. */
   @media (min-aspect-ratio: 11/10) and (max-aspect-ratio: 16/9){
+    /* THE CUT-OUT MUST FOLLOW THE PLATE INTO EVERY BRANCH.
+       This rule swaps Beat 10's plate to `contain` with no push-in at these aspect ratios — which
+       is most real browser windows, 1100x700 included. The cut-out canvas was not in it, so it
+       stayed on `cover` at scale 1.02 while the shot underneath was `contain` at 1.0: two
+       different geometries, so the cut-out people sat offset and mis-scaled over the real ones.
+       That is the "Hollow Man" — a warped, transparent second copy of everybody, present the
+       whole time and worst wherever a person was. Measured: 31 to 45% of all pixels changed by
+       the layer with the type hidden, where an identical copy changes none.
+
+       Anything drawn as a duplicate of a plate has to be listed everywhere that plate is. */
     #b10 .plate video,#b10 .plate img{ object-fit:contain; transform:none }
   }
   /* MEASURED OFF THE REFERENCE, NOT APPROXIMATED FROM IT.
@@ -1562,7 +1579,7 @@
       <img src="media/poster/b05_sud06.jpg" alt="A hooded Wodapalooza figure among a Mexico City crowd">
       <video muted playsinline preload="metadata" disablepictureinpicture></video>
     </div>
-    <div class="b4stats" aria-hidden="true"><span><b data-count="16">1</b>divisions</span><span><b data-count="3">1</b>cities ever</span><span><b data-count="1">1</b>first edition</span></div>
+    <div class="b4stats" aria-hidden="true"><span><b data-count="15" data-format="plus">1</b>brands<small>In the festival expo</small></span><span><b data-count="10" data-format="k">0.0K+</b>athletes<small>From 40 countries</small></span><span><b data-count="1" data-format="plus">1</b>brands<small>In the festival expo</small></span></div>
     <p class="b4copy">The standard of Miami.<br><b>Now in México.</b></p>
   </div>
 </section>
@@ -1684,7 +1701,9 @@
       <img src="media/poster/b10_crowd_focus.jpg" alt="The crowd on their feet; the camera tracks past them and finds an athlete alone in his head">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
+    <canvas class="b10base" aria-hidden="true"></canvas>
     <p class="b10line">Celebrate <em>fitness.</em><b>Community. <em>Life.</em></b></p>
+    <canvas class="b10fg" aria-hidden="true"></canvas>
     <!-- THE SAME SCENE OVER ITSELF WITH THE BACKGROUND REMOVED — which is exactly what the
          reference edit is doing, and what a luminance key can only imitate when the subject
          happens to be dark. Here the people are cut out properly: macOS's own Vision framework
@@ -1692,7 +1711,6 @@
          matte is of found footage, frame by frame, and the layer above the words is the shot
          itself with everything but the people erased.
          100 frames, covering the whole stretch the words are on screen. -->
-    <canvas class="b10fg" width="1280" height="720" aria-hidden="true"></canvas>
   </div>
 </section>
 
@@ -2000,12 +2018,10 @@
   const ease = t => t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
   let P9 = 0;   /* Beat 9's progress, published for Beat 8's window arithmetic */
 
-  /* The cut-out's matte sheet, decoded up front. Left to load lazily it decodes on the first
-     frame that needs it, which is a 95ms stall at the exact moment the beat begins — measured,
-     and the only frame in the whole beat over two vsyncs. */
   const B10MATTE = new Image();
   B10MATTE.src = 'media/still/b10_people_matte.png';
   if (B10MATTE.decode) B10MATTE.decode().catch(() => {});
+
 
   /* ── CALIBRATING THE WINDOW AGAINST HIS HANDWRITING ────────────────────────
      One bug produced both of the things he kept catching, and it is worth naming because it
@@ -2036,7 +2052,8 @@
     let sc;
     /* Do not replay a full-screen hoodie clip after the crowd scene. Beat 4 owns that
        moment; beat 5 enters as an honest contact sheet and stays one. */
-    if (p < 0.56)      sc = 1.00;
+    if (p < 0.24)      sc = 3.15 - 0.15 * seg(p, 0, 0.24);
+    else if (p < 0.56) sc = 3.00 - 2.00 * ease(seg(p, 0.24, 0.56));
     else if (p < 0.74) sc = 1.00;                               // the sheet holds
     /* The dive must FINISH before the cut, and then hold. Cutting mid-zoom cuts away from a
        grid that is still visibly a grid, and the storyboard beat is nine becoming ONE frame
@@ -2106,7 +2123,7 @@
     const word = svg.querySelector('.word');
     /* SUCEDERÁ is a held sign first. Its width must not breathe throughout the beat; it
        widens only during the final release that turns the word into the road scene. */
-    const expand = beat.id === 'b2' ? ease(seg(p, 0.18, 0.34)) : p;
+    const expand = beat.id === 'b2' ? ease(seg(p, 0.32, 0.42)) : p;
     word.style.fontVariationSettings = `"wdth" ${(beat.id === 'b2' ? 90 + expand*30 : 62 + p*58).toFixed(1)}, "wght" 800`;
     let size = Math.min(H*0.34, W*0.30), guard = 0;
     word.setAttribute('x', W/2);
@@ -2175,8 +2192,8 @@
          nothing left for a fade to do. */
       /* Beat 2 owns its arrival through the turning type plane below. Generic section
          opacity would make it look as though a new frame were scrolling in from the bottom. */
-      const stageVisibility = (b.id === 'b2' || b.id === 'b4') ? 1 : (b.hasAttribute('data-split-exit')
-        ? enter : Math.min(enter, 1 - exit));
+      const stageVisibility = b.id === 'b4' ? (exit > 0 ? 0 : 1) : (b.id === 'b2' ? 1 : (b.hasAttribute('data-split-exit')
+        ? enter : Math.min(enter, 1 - exit)));
       b.style.setProperty('--sv', stageVisibility.toFixed(4));
 
       // how far through the WHOLE page are we — drives the altimeter
@@ -2201,18 +2218,18 @@
            a second independent playback clock beneath the hoodie shutter. */
         /* The live car appears inside the held word, then the word becomes the window: one
            fast geometric scale-through, followed only when it has swallowed the frame. */
-        const release = ease(seg(p, 0.12, 0.18));
+        const release = ease(seg(p, 0.32, 0.42));
         b.style.setProperty('--drive-release', release.toFixed(4));
         b.style.setProperty('--drive-expand', release.toFixed(4));
-        b.style.setProperty('--drive-cut', p >= 0.18 ? '1' : '0');
+        b.style.setProperty('--drive-cut', p >= 0.42 ? '1' : '0');
         const word = b.querySelector('.word');
         if (word) {
           const W = innerWidth, H2 = innerHeight;
           /* On a narrow screen the whole word must register before it expands; clipping its
              initial S made the aperture read as an arbitrary crop instead of SUCEDERÁ. */
           const mobileFit = W < 760 ? 0.86 : 1;
-          const sx = mobileFit * (0.72 + arrive * 0.28) * (1 + release * 8.0);
-          const sy = mobileFit * (0.44 + arrive * 0.56) * (1 + release * 8.0);
+          const sx = mobileFit * (0.84 + arrive * 0.16) * (1 + release * 8.0);
+          const sy = mobileFit * (0.74 + arrive * 0.26) * (1 + release * 8.0);
           word.setAttribute('transform', `translate(${W/2} ${H2/2}) scale(${sx.toFixed(4)} ${sy.toFixed(4)}) translate(${-W/2} ${-H2/2})`);
         }
       }
@@ -2232,8 +2249,8 @@
           /* Give each metric its own slower landing during the held-strip interval. */
           const land = ease(seg(p, 0.14 + i * 0.07, 0.52 + i * 0.06));
           const target = +el.dataset.count;
-          const shown = Math.max(1, Math.round(target * land));
-          el.textContent = String(shown);
+          const shown = Math.max(el.dataset.format === 'k' ? 0 : 1, Math.round(target * land));
+          el.textContent = el.dataset.format === 'k' ? `${shown.toFixed(1)}K+` : `${shown}+`;
         });
       }
 
@@ -2470,7 +2487,7 @@
            Beat 0's single scroll-scrubbed city source. */
         /* The words get a full held reading moment, then invert in place. The only geometric
            move is one perfect circular black aperture growing from their shared centre. */
-        b.style.setProperty('--ready', Math.min(ease(seg(p, 0.14, 0.26)), 1 - ease(seg(p, 0.76, 0.84))).toFixed(4));
+        b.style.setProperty('--ready', Math.min(ease(seg(p, 0.07, 0.18)), 1 - ease(seg(p, 0.80, 0.90))).toFixed(4));
         /* Ink is a decisive change: the wordforms never pass through a translucent grey state. */
         b.style.setProperty('--ready-invert', p >= 0.57 ? '1' : '0');
         /* The wordforms register before the sphere is allowed to appear; by the time the
@@ -2555,6 +2572,58 @@
         }
       }
       if (b.id === 'b10') {
+        /* BOTH CANVASES, ONE FRAME, ONE CALLBACK.
+           The plate is a decode source with opacity 0; everything visible in this beat is drawn
+           here. The base canvas gets the frame, the cut-out canvas gets the SAME frame erased to
+           the people, and the type sits between them. Because both come from one drawImage of one
+           video frame through one renderer, they cannot differ in tone, in geometry or in time —
+           which is what an editor gets for free by duplicating a clip, and what I was failing to
+           reproduce by mixing a <video> with a <canvas>.
+
+           The fit is read off the plate rather than assumed: an aspect-ratio branch in the CSS
+           switches this beat between `contain` and `cover`, and hard-coding either put the copy
+           on different geometry from the shot. */
+        const BA = b._ba || (b._ba = b.querySelector('.b10base'));
+        const FG = b._fg || (b._fg = b.querySelector('.b10fg'));
+        if (BA && FG && b._v && !b._v._rvfc && 'requestVideoFrameCallback' in b._v) {
+          b._v._rvfc = 1;
+          const v = b._v;
+          const paint = (now, meta) => {
+            const st = b.querySelector('.stage');
+            const W = st.clientWidth, H = st.clientHeight;
+            const dpr = Math.min(2, devicePixelRatio || 1);
+            if (BA.width !== Math.round(W * dpr)) {
+              BA.width = FG.width = Math.round(W * dpr);
+              BA.height = FG.height = Math.round(H * dpr);
+            }
+            const cw = BA.width, ch = BA.height;
+            const cs = getComputedStyle(v);
+            const contain = cs.objectFit === 'contain';
+            let f = contain ? Math.min(cw / 1280, ch / 720) : Math.max(cw / 1280, ch / 720);
+            /* the plate's own push-in, read from its matrix so the copy never assumes it */
+            const m = cs.transform && cs.transform !== 'none' ? cs.transform.match(/matrix\(([-\d.]+)/) : null;
+            if (m) f *= parseFloat(m[1]);
+            const dw = 1280 * f, dh = 720 * f;
+            const dx = (cw - dw) / 2, dy = (ch - dh) / 2 - (ch * 0.04 * (f - 1));
+            const bc = BA._c || (BA._c = BA.getContext('2d', {alpha:false}));
+            bc.clearRect(0, 0, cw, ch);
+            try { bc.drawImage(v, dx, dy, dw, dh); } catch (e) {}
+            const k = Math.floor(meta.mediaTime * 60 + 1e-4) - 137;
+            const fc = FG._c || (FG._c = FG.getContext('2d', {alpha:true}));
+            fc.clearRect(0, 0, cw, ch);
+            if (k >= 0 && k <= 140 && B10MATTE.complete && B10MATTE.naturalWidth) {
+              try { fc.drawImage(v, dx, dy, dw, dh); } catch (e) {}
+              fc.globalCompositeOperation = 'destination-in';
+              fc.drawImage(B10MATTE, (k % 12) * 400, Math.floor(k / 12) * 226, 400, 226, dx, dy, dw, dh);
+              fc.globalCompositeOperation = 'source-over';
+              b.style.setProperty('--fgv', 1);
+            } else {
+              b.style.setProperty('--fgv', 0);
+            }
+            v.requestVideoFrameCallback(paint);
+          };
+          v.requestVideoFrameCallback(paint);
+        }
         /* The words arrive with the lateral move, are crossed by the crowd, and are gone before
            the camera settles on him — the beat ends on a face, not on type. */
         b.style.setProperty('--b10p', p.toFixed(3));
@@ -2582,108 +2651,6 @@
         /* EXACTLY frame 137 of the clip, because the layer was cut by frame index rather than
            by timecode. A timecode cut lands wherever the decoder rounds it, and a cut-out half a
            frame out from the footage it came from reads as the whole thing glitching. */
-        /* NO SECOND VIDEO, SO NOTHING CAN BE OUT OF STEP.
-           The mattes were cut from base frames 137 to 277 by frame INDEX, so the sprite cell is
-           the video's own frame number minus 137 — not a time to be matched, an integer to be
-           looked up. The canvas is redrawn from the beat's own video every frame, so it holds
-           exactly what the reader is looking at rather than something synchronised to it. */
-        const FG = b._fg || (b._fg = b.querySelector('.b10fg'));
-        if (FG && b._v && b._v.readyState >= 2) {
-          /* WARM THE CANVAS BEFORE IT IS NEEDED. Measured at 93, 95 and 150ms on three runs, and
-             always at the same place: the very first frame the cut-out draws. It is not the
-             sprite decoding — that is preloaded — it is the canvas backing store being allocated
-             and the first video frame uploaded to the GPU. Done once while the beat is still on
-             the crowd and the layer is invisible, it costs nothing anyone can see. */
-          if (!FG._warm && p > 0.15) {
-            FG._warm = 1;
-            const w = FG.getContext('2d', {alpha:true});
-            try { w.drawImage(b._v, 0, 0, 1280, 720); } catch (e) {}
-            if (B10MATTE.complete) {
-              w.globalCompositeOperation = 'destination-in';
-              w.drawImage(B10MATTE, 0, 0, 400, 226, 0, 0, 1280, 720);
-              w.globalCompositeOperation = 'source-over';
-            }
-            w.clearRect(0, 0, 1280, 720);
-          }
-          /* FLOOR, NOT ROUND. A decoder shows the frame CONTAINING currentTime, so the frame on
-             screen is floor(t * 60). Rounding picks the next one for every time that lands in the
-             upper half of a frame's interval — that is a one-frame mask mismatch on half of all
-             frames, which on a fast pan is a cut-out of the person a frame ahead of where they
-             are. The mask has to be indexed the way the decoder indexes, not the way arithmetic
-             would prefer. */
-          const i = Math.floor(b._v.currentTime * 60 + 1e-4) - 137;
-          /* Drawn only when the frame callback has actually produced a cell, and only while that
-             cell still belongs to the frame on screen. Before the first callback there is nothing
-             in the canvas, and at either end of the matte's range the cell and the frame part
-             company by one — showing the layer in either case is a stale cut-out over a live
-             shot, which is the ghost. Cheaper to not draw it. */
-          const cell = FG._last;
-          /* THE CANVAS HOLDS WHATEVER IT DREW LAST, AND THAT IS THE GHOST.
-             requestVideoFrameCallback only fires when a NEW frame is presented. Scroll back from
-             the athlete into the track-past and no new frame may be presented for a moment — so
-             the canvas is still holding the athlete, cut out, and I was still drawing it over a
-             completely different shot. That is the outline of him "already existing in the
-             frame", and it is the thing that has been in every recording he has sent.
-
-             The layer is shown ONLY when the cell in the canvas is the frame on screen. Anything
-             else is a cut-out of one moment laid over another, which is never worth showing. And
-             the canvas is wiped the instant they part company, so there is nothing stale left in
-             it to appear later. */
-          /* VISIBILITY IS THE CALLBACK'S DECISION, NOT THIS ONE.
-             Asking here whether the canvas matches the frame is asking at the wrong instant: the
-             callback runs between scroll handlers, so the two are almost never equal when sampled
-             from here, and requiring equality turned the layer off on all but three steps in four
-             hundred and eighty — the occlusion simply vanished while scrolling, which is the only
-             time it matters. The callback knows: it draws the frame that is being presented, so
-             the moment it has drawn, the canvas IS current. It turns the layer on. All this has
-             to do is turn it off when the beat leaves the matte's range, and wipe the canvas so
-             nothing can be stranded in it. */
-          const on = i >= 0 && i <= 140;
-          if (!on) {
-            b.style.setProperty('--fgv', 0);
-            if (FG._cx && cell !== undefined) { FG._cx.clearRect(0, 0, 1280, 720); FG._last = undefined; }
-          }
-          /* THE DRAW BELONGS TO THE VIDEO'S OWN FRAME CALLBACK, NOT TO THE SCROLL HANDLER.
-             Drawing here looked right and measured wrong: 29 frames in 390 had the matte one
-             cell behind what was on screen. The scroll handler runs, I read currentTime and
-             draw — and then the video finishes seeking and repaints with a NEWER frame in the
-             same compositing pass. The cut-out is a frame stale against the shot it is cut
-             from, which is the ghosting, in a new place.
-
-             requestVideoFrameCallback fires when a frame is actually PRESENTED and hands over
-             that frame's own mediaTime. Draw there and the canvas, the matte cell and the
-             picture underneath are the same frame by construction. */
-          /* Registered unconditionally. Gating this on `on` was a deadlock: `on` requires a cell
-             to have been drawn, and only this callback draws one. */
-          if (!b._v._rvfc && 'requestVideoFrameCallback' in b._v) {
-            b._v._rvfc = 1;
-            const draw = (now, meta) => {
-              const k = Math.floor(meta.mediaTime * 60 + 1e-4) - 137;
-              if (!(k >= 0 && k <= 140)) {
-                /* out of the matte's range: nothing valid to draw, so leave nothing behind */
-                if (FG._last !== undefined) {
-                  const cz = FG._cx || (FG._cx = FG.getContext('2d', {alpha:true}));
-                  cz.clearRect(0, 0, 1280, 720); FG._last = undefined;
-                  b.style.setProperty('--fgv', 0);
-                }
-              } else if (B10MATTE.complete && B10MATTE.naturalWidth) {
-                const cx = FG._cx || (FG._cx = FG.getContext('2d', {alpha:true}));
-                cx.globalCompositeOperation = 'source-over';
-                cx.clearRect(0, 0, 1280, 720);
-                try { cx.drawImage(b._v, 0, 0, 1280, 720); } catch (e) {}
-                cx.globalCompositeOperation = 'destination-in';
-                cx.drawImage(B10MATTE, (k % 12) * 400, Math.floor(k / 12) * 226, 400, 226,
-                                       0, 0, 1280, 720);
-                cx.globalCompositeOperation = 'source-over';
-                FG._last = k;
-                /* drawn from the frame being presented, so it is current by definition */
-                b.style.setProperty('--fgv', 1);
-              }
-              b._v.requestVideoFrameCallback(draw);
-            };
-            b._v.requestVideoFrameCallback(draw);
-          }
-        }
       }
       if (b.id === 'b9') {
         /* type in, hold, then OUT — the beat has to end on the figure alone and still
