@@ -55,3 +55,11 @@ reads as decisive or abrupt.
 `/kinetic-type` — the skill carries the whole technique and, more usefully, the fourteen ways it
 was got wrong first. A copy travels with the film at `reference/skills/kinetic-type.md`, with the
 Swift matte tool beside it.
+
+## Known, deliberately parked (26 Aug)
+
+**The window's backing is a still.** Behind the expanding date sits Beat 9's first frame held
+static, because Beat 9's own stage is not drawn until Beat 8 is at 0.90. He spotted it as "a
+frozen scene behind the words" and chose to move on — the transition itself lands. The proper
+fix is a short scrubbing copy of Beat 9's opening rather than a still, which is the same
+canvas-from-one-video pattern Beat 10 uses. Revisit before final polish.
