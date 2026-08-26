@@ -850,7 +850,11 @@
      move. */
   /* Same again: 305 down to 203. Pin holds its 0.514 — 82 of a 160 travel — so the crowd still
      ends exactly as the camera starts to move. */
-  #b10{ height:260svh; margin-top:-82svh }
+  /* The clip lost half a second off the crowd — its tail ran into the cut to a daytime beach
+     shot, and a frame or two of that was landing in the film. 138 crowd frames of 298 is 0.4631,
+     so the pin is 74 of a 160svh travel: Beat 9's letterbox is still filled by the crowd right
+     up to the frame the camera starts to move. */
+  #b10{ height:260svh; margin-top:-74svh }
   /* THE CUT-OUT HAS TO CARRY THE SHOT'S OWN TRANSFORM.
      Beat 10's plate pushes in from 1.02 to 1.08 across the beat, and this layer had no
      transform at all — so the cut-out people drifted out of register with the footage they were
@@ -949,7 +953,16 @@
      of the frame the fields had not yet covered. That is the athlete "sliding up" underneath a
      diagonal that had not arrived yet. Closed by 0.14 of 360svh, which is 50, the cover is
      complete twenty viewport-percent before anything moves. */
-  #b11{ height:460svh; margin-top:-70svh }
+  /* -135, and this is arithmetic rather than feel. Beat 10's stage releases the instant its own
+     travel ends, at 160svh into a 260svh section. Beat 11 pinned at -70 put its top at
+     260-70 = 190svh — THIRTY viewport-percent AFTER Beat 10 had already started sliding, so the
+     athlete slid away in the open with no diagonal over him yet. That is what he saw.
+
+     For the cover to be complete before anything moves: (260 - M) + convergence <= 160. With the
+     convergence at 0.09 of a 360svh travel, that is 32svh, so M >= 132. At 135 Beat 11 pins at
+     125svh — Beat 10 is at 0.78 of its clip, the athlete has been on screen for a while — and
+     the fields finish at 157, three ahead of the release. Nothing slides in the open. */
+  #b11{ height:460svh; margin-top:-135svh }
   #b11 .stage{ z-index:45; background:transparent }
   .b11f{ z-index:2 }
   /* Each field is a triangle growing from its own corner. At --conv 1 the two exactly tile the
@@ -2510,7 +2523,7 @@
 
       if (b.id === 'b11') {
         /* The fields close over the first fifth of the beat and then it is simply Beat 11. */
-        const conv = ease(seg(p, 0.00, 0.14));
+        const conv = ease(seg(p, 0.00, 0.09));
         b.style.setProperty('--conv', conv.toFixed(4));
         b.style.setProperty('--convvis', conv > 0.995 ? 'hidden' : 'visible');
         /* The second field carries its own copy of the same clip; keep it on the same frame as
@@ -2535,7 +2548,8 @@
         /* The words arrive with the lateral move, are crossed by the crowd, and are gone before
            the camera settles on him — the beat ends on a face, not on type. */
         b.style.setProperty('--b10p', p.toFixed(3));
-        b.style.setProperty('--b10t', (seg(p, 0.53, 0.60) * (1 - seg(p, 0.74, 0.80))).toFixed(3));
+        /* the lateral move runs 0.4631 to 0.6745 of this beat and the athlete from there */
+        b.style.setProperty('--b10t', (seg(p, 0.48, 0.55) * (1 - seg(p, 0.86, 0.92))).toFixed(3));
         /* THE CUT-OUT FOLLOWS THE SHOT, NOT THE SCROLL — and that distinction was the
            clunkiness. Driving it from `p` looked equivalent and is not: the film trims HEAD off
            the front of every clip and TAIL off the back, so the base video's time is
@@ -2543,7 +2557,10 @@
            frames out by the end of the window, and a cut-out sliding against the footage it was
            cut FROM is the one error there is no hiding. Taken from the lead's own currentTime
            minus the frame it was extracted at, it cannot drift: it is the same clock. */
-        const FGSTART = 2.862;
+        /* EXACTLY frame 137 of the clip, because the layer was cut by frame index rather than
+           by timecode. A timecode cut lands wherever the decoder rounds it, and a cut-out half a
+           frame out from the footage it came from reads as the whole thing glitching. */
+        const FGSTART = 137 / 60;
         const FG = b._fg || (b._fg = b.querySelector('.b10fg'));
         if (FG && b._v) {
           /* The lead's TARGET, not the lead's position. Read while the lead is still seeking,
@@ -2552,7 +2569,7 @@
              signature of a one-iteration lag rather than a timing error. Both are now handed the
              same number from the same function, so they arrive together. */
           const t = wantAt(b._v, p, b._from) - FGSTART;
-          const inFG = t > -0.05 && t < 1.71;
+          const inFG = t > -0.02 && t < 141 / 60;
           b.style.setProperty('--fgv', inFG ? 1 : 0);
           if (inFG && FG.duration) {
             const want = Math.min(FG.duration - 0.02, Math.max(0, t));
