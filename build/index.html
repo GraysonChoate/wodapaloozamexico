@@ -272,9 +272,11 @@
   /* A distinct ink layer—not a filter—makes the actual wordforms turn jet black before
      the circle consumes them. */
   .b1ready span::after{ content:attr(data-word); position:absolute; inset:0; color:#000; -webkit-text-fill-color:#000; -webkit-text-stroke:0 transparent; opacity:var(--ready-invert,0); mix-blend-mode:normal; text-shadow:none }
-  .b1ready .are{ top:14vh; left:50%; transform:translate(-50%,calc((1 - var(--ready,0))*-28vh)) }
-  .b1ready .you{ top:38vh; left:50%; font-size:clamp(92px,22vw,320px); transform:translate(calc(-50% + (1 - var(--ready,0))*50vw),0) }
-  .b1ready .ready{ top:73vh; bottom:auto; left:50%; font-size:clamp(64px,15vw,220px); transform:translate(calc(-50% - (1 - var(--ready,0))*48vw),calc((1 - var(--ready,0))*18vh)) }
+  /* Once black, the three wordforms physically register into the same centre before the
+     disc grows. They make the circle; the circle is not an unrelated layer behind them. */
+  .b1ready .are{ top:14vh; left:50%; transform:translate(-50%,calc((1 - var(--ready,0))*-28vh + var(--ready-merge,0)*28vh)) scale(calc(1 - var(--ready-merge,0)*.42)) }
+  .b1ready .you{ top:38vh; left:50%; font-size:clamp(92px,22vw,320px); transform:translate(calc(-50% + (1 - var(--ready,0))*50vw),calc(var(--ready-merge,0)*4vh)) scale(calc(1 - var(--ready-merge,0)*.42)) }
+  .b1ready .ready{ top:73vh; bottom:auto; left:50%; font-size:clamp(64px,15vw,220px); transform:translate(calc(-50% - (1 - var(--ready,0))*48vw),calc((1 - var(--ready,0))*18vh - var(--ready-merge,0)*31vh)) scale(calc(1 - var(--ready-merge,0)*.42)) }
   @media(max-width:700px){ .b1ready .are{font-size:25vw}.b1ready .you{font-size:32vw}.b1ready .ready{font-size:22vw} }
 
   /* B2 — the word becomes the driving scene. The black field recedes through the word;
@@ -315,8 +317,16 @@
   }
   @media (max-width:760px){ .b2sub{left:14px;bottom:22px;font-size:10px} }
 
-  /* B4 continues the drive full-bleed; no letterbox or vertical shutter is allowed here. */
-  #b4{ height:340svh }
+  /* B2 ends on the one complete drive pass. B4 is the first actual hoodie frame, revealed
+     through a horizontal aperture while the final car frame remains around it. This is a
+     shared exposure (headlights → figure), not a second car pass and never a section sliding
+     in from below. Pulling B4 back one viewport makes its sticky surface exist beneath the
+     car before the aperture begins to open. */
+  #b4{ height:340svh; margin-top:-100svh }
+  #b4 .stage{
+    z-index:6; background:#000; opacity:1;
+    clip-path:inset(calc((1 - var(--hood-open,0)) * 50%) 0 calc((1 - var(--hood-open,0)) * 50%) 0);
+  }
   #b4 .plate{
     inset:0; height:100svh; overflow:hidden; z-index:2;
   }
@@ -330,10 +340,12 @@
     filter:blur(60px) saturate(1.6) brightness(1.1);
     opacity:calc(.30 + var(--p)*.50);
   }
+  /* The earlier Miami line belonged to the duplicated drive version of this beat. The hoodie
+     needs a clean arrival before the identity montage; no unsupported slogan rides over it. */
   .b4copy{
     position:absolute; z-index:5; left:28px; bottom:30px; margin:0; max-width:22ch;
     font:400 15px/1.5 Archivo,"Helvetica Neue",Arial,sans-serif;
-    letter-spacing:.01em; opacity:calc((var(--p)-.18)*2.2);
+    letter-spacing:.01em; opacity:0;
   }
   .b4copy b{ font-weight:600 }
   @media (max-width:760px){
@@ -510,7 +522,15 @@
      black — dead space at the exact moment the frame should be filling up. Cleared on the same
      curve, they open onto Beat 9 instead, which is already pinned underneath: the margins, the
      letterforms and the shot they all resolve into become the same picture. */
-  #b8 .stage{ background:rgb(0 0 0 / calc(1 - var(--jaw,0))); z-index:60 }
+  /* And then the whole thing turns a quarter. The reference reel stands its type on end and
+     it is the one move in that grammar we had not used; here it is the beat itself that turns,
+     carrying the paper, the shutters and the date-shaped hole together, while the date keeps
+     growing through it. Scaled to 1.6 as it goes, because a 1440x900 box turned ninety degrees
+     no longer covers the viewport and the corners would open onto nothing. */
+  #b8 .stage{
+    background:var(--ground); z-index:60;
+    transform:rotate(calc(var(--turn,0) * 90deg)) scale(calc(1 + var(--turn,0) * .6));
+  }
   /* transparent, so the gap masked out of the street reveals Beat 8 rather than Beat 7's own
      black ground */
   /* A descending chain with gaps in it. Every beat from here sits UNDER the one before,
@@ -697,9 +717,14 @@
      back to the same line it opened from, and Beat 10 — already pinned underneath at full
      strength — is what is behind it. The lockout is still scrubbing while this happens, which
      is what removes the freeze: the shot never reaches its last frame in the open. */
+  /* Beat 9 leaves by being CRUSHED. A black bar comes down from the top and up from the
+     bottom until the scene is a horizontal line, and Beat 10 is behind it. Symmetric, so the
+     squeeze reads as pressure on the shot rather than as a lid closing over it. */
   #b9 .stage{
-    clip-path:inset(calc(var(--close,0) * 26%) 0 calc(var(--close,0) * 74%) 0);
+    clip-path:inset(calc(var(--close,0) * 50%) 0 calc(var(--close,0) * 50%) 0);
   }
+  /* The same bar language, briefly, at each of the three scenes' own joins. */
+  #b9 .plate{ clip-path:inset(calc(var(--sq,0) * 19%) 0 calc(var(--sq,0) * 19%) 0) }
 
   /* ── B10 · WHAT THIS IS ───────────────────────────────────────────────────
      Act IV opens. After Beat 8's stillness and Beat 9's cut, this is the door opening —
@@ -1174,9 +1199,14 @@
      window takes the screen — rather than sitting there framing a shot that has already stopped
      being a page. Outward, not inward: collapsing them toward the middle would close over the
      picture at the moment the picture is the whole point. */
-  .b8ink{ transform:translateX(calc(var(--jaw,0) * var(--jawdir,0) * 118%)) }
-  .b8ink-l{ left:0; --jawdir:-1 }  .b8ink-l img{ right:0; object-position:14% 50% }
-  .b8ink-r{ right:0; --jawdir:1 } .b8ink-r img{ left:0;  object-position:86% 50% }
+  /* The printed edges close IN, like shutters, until they have covered the sheet entirely.
+     Opening them outward was the wrong instinct: it emptied the frame at the moment the frame
+     should be tightening. Closed, the only thing left to see through is the date itself, which
+     is the point — everything else goes away and the window is all that remains. 54% of their
+     own width is exactly the gap between them, so they meet without overlapping. */
+  .b8ink{ transform:translateX(calc(var(--jaw,0) * var(--jawdir,0) * 54%)) }
+  .b8ink-l{ left:0; --jawdir:1 }  .b8ink-l img{ right:0; object-position:14% 50% }
+  .b8ink-r{ right:0; --jawdir:-1 } .b8ink-r img{ left:0;  object-position:86% 50% }
   #b8 .plate{ z-index:1 }
 
 
@@ -1296,12 +1326,14 @@
   </div>
 </section>
 
-<!-- ─────────── BEAT 4 · GROUND TRANSPORT ─────────── -->
-<section class="beat" id="b4" data-src="media/scrub/b04_car.mp4" data-scrub-from="1.9" data-join-in data-ambient data-ground>
+<!-- ─────────── BEAT 4 · STREET ARRIVAL ─────────── -->
+<!-- Car completes once in Beat 2. The next actual shot is the hooded figure in the city,
+     not a second pass through the same drive. -->
+<section class="beat" id="b4" data-src="media/loop/b05_sud08.mp4" data-join-in data-ambient data-ground>
   <div class="stage">
     <canvas class="amb" width="48" height="27" aria-hidden="true"></canvas>
     <div class="plate">
-      <img src="media/poster/b04_car.jpg" alt="Driving into Mexico City at night">
+      <img src="media/poster/b05_sud08.jpg" alt="A hooded Wodapalooza figure crossing a Mexico City street">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
     <p class="b4copy">The standard of Miami.<br><b>Now in México.</b></p>
@@ -1389,10 +1421,10 @@
 </section>
 
 <!-- ─────────── BEAT 9 · EARN IT ─────────── -->
-<section class="beat" id="b9" data-src="media/scrub/b09_night.mp4" data-split-exit>
+<section class="beat" id="b9" data-src="media/scrub/b09_floorwork.mp4" data-split-exit>
   <div class="stage">
     <div class="plate">
-      <img src="media/still/b09_night_f0.jpg" alt="Athletes competing on a lit platform at night, the city behind them">
+      <img src="media/still/b09_floorwork_f0.jpg" alt="Athletes competing on a lit platform at night, the city behind them">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
     <div class="b9wash"></div>
@@ -1794,7 +1826,7 @@
          nothing left for a fade to do. */
       /* Beat 2 owns its arrival through the turning type plane below. Generic section
          opacity would make it look as though a new frame were scrolling in from the bottom. */
-      const stageVisibility = b.id === 'b2' ? 1 : (b.hasAttribute('data-split-exit')
+      const stageVisibility = (b.id === 'b2' || b.id === 'b4') ? 1 : (b.hasAttribute('data-split-exit')
         ? enter : Math.min(enter, 1 - exit));
       b.style.setProperty('--sv', stageVisibility.toFixed(4));
 
@@ -1823,6 +1855,14 @@
           const sy = (0.035 + arrive * 0.965) * (1 + release * 0.72);
           word.setAttribute('transform', `translate(${W/2} ${H2/2}) scale(${sx.toFixed(4)} ${sy.toFixed(4)}) translate(${-W/2} ${-H2/2})`);
         }
+      }
+
+      if (b.id === 'b4') {
+        /* The hooded figure does not arrive as a new panel from below. The final driving
+           frame remains visible around a central horizontal aperture; the day street expands
+           outward from that common centre and then holds as one full frame. */
+        const hoodOpen = ease(seg(p, 0.00, 0.16));
+        b.style.setProperty('--hood-open', hoodOpen.toFixed(4));
       }
 
       if (b.id === 'b8') {
@@ -1900,13 +1940,26 @@
             const push = Math.pow(seg(p, 0.76, 0.995), 0.85);
             const z   = 940 * push * push + 96 * exit;
             const mag = 1050 / (1050 - Math.min(1045, z));
+            /* IT GROWS ABOUT ITSELF. Magnifying about the VIEWPORT centre was the leftward
+               drift he keeps catching: the date does not sit at the middle of the screen — it
+               sits where his handwriting is, seven pixels right and seventeen above — and
+               scaling an off-centre thing about some other point translates it by the offset
+               times the magnification. Seventeen pixels became more than a thousand at 75x,
+               so the letters slid off while they grew. About its own centre there is no offset
+               to multiply, and the thing comes straight at the reader. */
             WG.setAttribute('transform',
-              'translate(' + (bw / 2).toFixed(1) + ',' + (bh / 2).toFixed(1) + ') ' +
+              'translate(' + cx.toFixed(1) + ',' + cy.toFixed(1) + ') ' +
               'scale(' + mag.toFixed(4) + ') ' +
-              'translate(' + (-bw / 2).toFixed(1) + ',' + (-bh / 2).toFixed(1) + ') ' +
+              'translate(' + (-cx).toFixed(1) + ',' + (-cy).toFixed(1) + ') ' +
               'translate(' + tx.toFixed(1) + ',' + ty.toFixed(1) + ') ' +
               'scale(' + k.toFixed(5) + ')');
-            b.style.setProperty('--jaw', ease(exit).toFixed(4));
+            /* The shutters can close on --p again now. They were tied to the slide only
+               because Beat 9 used to pin late; pinned at -260svh it is present and playing from
+               62% of this beat, so there is nothing left to wait for. */
+            b.style.setProperty('--jaw',  ease(seg(p, 0.78, 0.97)).toFixed(4));
+            /* The turn starts once the shutters are nearly shut and finishes into the slide, so
+               the quarter and the last of the push happen together rather than in sequence. */
+            b.style.setProperty('--turn', ease(Math.min(1, seg(p, 0.88, 1) * 0.6 + exit * 0.4)).toFixed(4));
             b._b9 = b._b9 || document.getElementById('b9');
             b._b9.style.setProperty('--temp', (0.86 * push).toFixed(3));
           }
@@ -1989,8 +2042,9 @@
            move is one perfect circular black aperture growing from their shared centre. */
         b.style.setProperty('--ready', Math.min(ease(seg(p, 0.14, 0.26)), 1 - ease(seg(p, 0.84, 0.94))).toFixed(4));
         b.style.setProperty('--ready-invert', ease(seg(p, 0.57, 0.68)).toFixed(4));
-        b.style.setProperty('--ready-disc', ease(seg(p, 0.66, 0.84)).toFixed(4));
-        b.style.setProperty('--ready-turn-fade', ease(seg(p, 0.78, 0.90)).toFixed(4));
+        b.style.setProperty('--ready-merge', ease(seg(p, 0.66, 0.78)).toFixed(4));
+        b.style.setProperty('--ready-disc', ease(seg(p, 0.74, 0.88)).toFixed(4));
+        b.style.setProperty('--ready-turn-fade', ease(seg(p, 0.80, 0.91)).toFixed(4));
       }
 
       if (b.id === 'b12') {
@@ -2062,6 +2116,13 @@
         /* The shot runs the whole beat now, so the only thing left to schedule is the close:
            the frame collapses to the bar's own line and Beat 10 is behind it. */
         b.style.setProperty('--close', ease(seg(p, 0.90, 1.00)).toFixed(4));
+        /* Three scenes live in this one clip — the night platform, the overhead press he asked
+           to keep, and the rope — cut end to end so the scrub stays continuous and every frame
+           is a real frame. The joins are at 0.403 and 0.569 of the file; each gets a short
+           squeeze of the same bar language the beat ends on, so an internal cut is felt as
+           pressure rather than seen as a jump. */
+        const spike = (x, c) => Math.max(0, 1 - Math.abs(x - c) / 0.028);
+        b.style.setProperty('--sq', Math.max(spike(p, 0.403), spike(p, 0.569)).toFixed(3));
       }
       if (b._v && !RM) {
         /* data-scrub-range lets a clip occupy part of a beat instead of all of it, which is
