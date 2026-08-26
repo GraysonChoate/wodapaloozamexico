@@ -89,6 +89,30 @@ works in special cases.
 
 ### 2a · Proper segmentation — the one that always works
 
+**Do not use a second video element for the cut-out.** Two videos seeking independently can
+never be on the same frame every frame, and one frame of lag is invisible on a static shot and
+glaring on a fast pan, where a silhouette moves ten or twenty pixels per frame — the cut-out
+doubles its own edge, which is the ghosting. No tolerance is small enough; the architecture is
+wrong. Instead:
+
+- **A `<canvas>` redrawn from the beat's own video every frame.** It holds exactly what the
+  reader is looking at rather than something synchronised to it. No clock of its own, so no drift.
+- **A sprite sheet of the mattes as a CSS mask**, one image, one cell per frame, stepped with
+  `mask-position`. No decoding and no seeking, so the matte cannot lag either. 141 mattes at
+  400px wide came to **723KB** — a fifth of the equivalent alpha WebM.
+
+        .fg{ mask-image:url(sprite.png); mask-size:1200% 1200%;
+             mask-position:var(--mx) var(--my) }
+        const i = Math.floor(v.currentTime * 60 + 1e-4) - FIRSTFRAME;
+
+  **FLOOR, not round.** A decoder shows the frame CONTAINING currentTime, so what is on screen is
+  `floor(t*fps)`. Rounding picks the next frame for every time landing in the upper half of an
+  interval — a one-frame mask mismatch on half of all frames.
+
+Both halves become incapable of being out of step rather than merely tested for it.
+
+
+
 macOS does person segmentation locally, no model download, no network, nothing generated. It is
 a matte of found footage, frame by frame. `person-matte.swift` in this skill folder is the tool;
 build it with `swiftc -O -o seg person-matte.swift`.
