@@ -4,7 +4,7 @@
 <title>WODAPALOOZA MEXICO CITY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;700&display=swap">
 
 <style>
   /* palette — page 2 of the client's own usage guide */
@@ -82,10 +82,10 @@
      failures this catches are always the same failure, and they always arrive with a beat
      whose footage is brighter than the last one. Measured floors, not taste — see
      scripts/contrast.sh. */
-  .alt,.b10line{ position:absolute; z-index:1 }
+  .alt{ position:absolute; z-index:1 }
   .alt::before,
   .b1cap::before,.b2sub::before,.b3line::before,.b4copy::before,
-  .b5cap::before,.b5bcap::before,.b7strip span::before,.b10line::before,.b11stats span::before,.b12type h2::before,.b12type p::before,.b9type p::before{
+  .b5cap::before,.b5bcap::before,.b7strip span::before,.b11stats span::before,.b12type h2::before,.b12type p::before,.b9type p::before{
     content:""; position:absolute; inset:-20px -34px; z-index:-1;
     /* Size the ellipse EXPLICITLY rather than letting it default to farthest-corner. On a
        long single line the default fades out well before the last few glyphs, which is
@@ -351,10 +351,15 @@
 
   /* B2's moving drive remains visible as the top and bottom field while the next living shot
      begins in one centred horizontal slit. The slit opens vertically; neither scene slides. */
-  #b4{ height:340svh; margin-top:-190svh }
+  /* Keep the car/hoodie shutter above the following montage until its own full-frame
+     expansion is complete; the next scene must not leak into the top or bottom field. */
+  #b4{ height:340svh; margin-top:-190svh; z-index:11 }
   #b4 .stage{
     z-index:9; background:transparent;
   }
+  /* The outgoing drive is a live bed, not a frozen carryover from Beat 2. It remains visible
+     above and below the hoodie aperture for the entire held-strip and expansion interval. */
+  .b4drive{ position:absolute; z-index:1; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none }
   #b4 .amb{ display:none }
   #b4 .plate{
     inset:0; height:100svh; overflow:hidden; z-index:2;
@@ -366,7 +371,10 @@
   /* The hooded street image opens as a horizontally centred vertical shutter. The counters are
      contained inside that same live window; no frame, line, or scene travels upward. */
   .b4stats{ position:absolute; z-index:5; inset:0; display:grid; grid-template-columns:repeat(3,1fr); gap:3vw; align-content:center; padding:0 12vw; color:#f7f5ef; opacity:var(--hood-metrics,0); pointer-events:none; text-align:center; mix-blend-mode:screen; clip-path:inset(calc(50% - var(--hood-open,0) * 50%) 0 calc(50% - var(--hood-open,0) * 50%) 0) }
-  .b4stats span{ display:grid; gap:7px; font:800 10px/1 Archivo,Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase }
+  .b4stats span{ display:grid; gap:7px; font:800 10px/1 Archivo,Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase; transition:transform .3s ease }
+  .b4stats span:nth-child(1){ transform:translate(calc((1 - var(--hood-metrics,0)) * -18px),calc((1 - var(--hood-metrics,0)) * 8px)) }
+  .b4stats span:nth-child(2){ transform:translateY(calc((1 - var(--hood-metrics,0)) * -12px)) }
+  .b4stats span:nth-child(3){ transform:translate(calc((1 - var(--hood-metrics,0)) * 18px),calc((1 - var(--hood-metrics,0)) * 8px)) }
   .b4stats b{ font:950 clamp(44px,7vw,112px)/.82 Archivo,Arial,sans-serif; letter-spacing:-.08em }
   .b4stats small{ font:500 13px/1.3 Arial,sans-serif; letter-spacing:0; text-transform:none }
   @media(max-width:700px){.b4stats{padding:0 6vw;gap:2vw}.b4stats b{font-size:15vw}.b4stats span{font-size:8px}}
@@ -846,21 +854,33 @@
   @media (min-aspect-ratio: 11/10) and (max-aspect-ratio: 16/9){
     #b10 .plate video,#b10 .plate img{ object-fit:contain; transform:none }
   }
-  /* The line has to be BIG and it has to sit in the band the silhouetted heads travel across,
-     or there is nothing for them to pass over. Z-index 2 puts it under the keyed foreground and
-     over the shot. It arrives with the lateral move and is clear of the frame by the time the
-     camera has found him, so the last thing in this beat is his face and nothing else. */
+  /* MEASURED OFF THE REFERENCE, NOT APPROXIMATED FROM IT.
+     In that edit the word "no" is 21% of the frame's HEIGHT for a single lowercase letter —
+     a font-size near 30% of frame height. Mine was 6.4vw, which is roughly a fifth of that,
+     and it also carried the film's small-caption ground, so it read as a subtitle in a box.
+     Both gone: no plate, and a size that behaves the way his does.
+
+     The other two things he is doing: two voices in one line — a bold grotesque against a
+     flowing italic — and a slight defocus so the type sits in the shot's depth of field rather
+     than on top of it. Both are here. */
   .b10line{
-    position:absolute; z-index:2; left:6vw; right:6vw; top:46%; margin:0;
-    transform:translateY(-50%) scale(calc(1 + var(--b10p,0) * .06));
-    transform-origin:0 50%;
-    font:800 clamp(30px,6.4vw,96px)/0.98 Archivo,"Helvetica Neue",Arial,sans-serif;
-    letter-spacing:-.035em; text-transform:none;
-    font-variation-settings:"wdth" 118,"wght" 800;
-    text-shadow:0 2px 40px rgba(0,0,0,.45);
+    position:absolute; z-index:2; left:5vw; right:5vw; top:44%; margin:0;
+    transform:translateY(-50%);
+    font:800 clamp(64px,17vw,300px)/0.86 Archivo,"Helvetica Neue",Arial,sans-serif;
+    letter-spacing:-.045em; text-transform:none; color:#fff;
+    font-variation-settings:"wdth" 112,"wght" 800;
+    filter:blur(calc((1 - var(--b10t,0)) * 6px));
     opacity:var(--b10t,0);
   }
-  @media (max-width:760px){ .b10line{ left:5vw; right:5vw } }
+  .b10line em{
+    font:400 1.06em/0.86 "Instrument Serif","Times New Roman",serif;
+    font-style:italic; letter-spacing:-.01em;
+  }
+  .b10line b{
+    display:block; font-weight:800; font-size:.52em; letter-spacing:-.035em;
+    font-variation-settings:"wdth" 118,"wght" 800;
+  }
+  @media (max-width:760px){ .b10line{ left:5vw; right:5vw; font-size:clamp(40px,15vw,120px) } }
 
   /* ── B11 · THE PROOF ──────────────────────────────────────────────────────
      52.22–53.90: two athletes holding each other, then the whole floor erupting in
@@ -1439,6 +1459,7 @@
 <section class="beat" id="b4" data-src="media/loop/b05_sud08.mp4" data-join-in data-ambient data-ground>
   <div class="stage">
     <canvas class="amb" width="48" height="27" aria-hidden="true"></canvas>
+    <video class="b4drive" aria-hidden="true" muted playsinline loop autoplay preload="auto" src="media/scrub/b04_car.mp4"></video>
     <div class="plate">
       <img src="media/poster/b05_sud08.jpg" alt="A hooded Wodapalooza figure crossing a Mexico City street">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
@@ -1564,7 +1585,7 @@
       <img src="media/poster/b10_crowd_focus.jpg" alt="The crowd on their feet; the camera tracks past them and finds an athlete alone in his head">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
-    <p class="b10line">Celebrate fitness. Community. Life.</p>
+    <p class="b10line">Celebrate <em>fitness.</em><b>Community. Life.</b></p>
     <!-- The same footage again, keyed off its own luminance so only the near-black silhouettes
          survive, laid OVER the line. Nothing is rotoscoped and nothing is generated: every pixel
          this layer keeps is identical to the pixel beneath it, so the key does not have to be
@@ -2078,12 +2099,26 @@
       if (b.id === 'b4') {
         /* The driving scene stays above and below while the hoodie scene opens from the exact
            horizontal centre. It is a vertical shutter, never a circle or a y-axis slide. */
-        const open = ease(seg(p, 0.04, 0.40));
-        const metrics = ease(seg(p, 0.17, 0.27)) * (1 - ease(seg(p, 0.31, 0.40)));
+        /* Reveal a narrow, live centre strip early; hold it while the car keeps running
+           above and below; then use the same strip as the vertical shutter into the hoodie. */
+        const strip = 0.22 * ease(seg(p, 0.025, 0.10));
+        const expand = ease(seg(p, 0.48, 0.70));
+        const open = strip + (1 - strip) * expand;
+        const metrics = ease(seg(p, 0.12, 0.20)) * (1 - ease(seg(p, 0.56, 0.66)));
         b.style.setProperty('--hood-open', open.toFixed(4));
         b.style.setProperty('--hood-metrics', metrics.toFixed(4));
+        /* Begin the live drive bed from the car's current handoff frame, then let it keep
+           playing while the centre strip holds and opens. */
+        const driveBed = b.querySelector('.b4drive');
+        const driveSource = document.querySelector('#b2 .plate video');
+        if (!RM && p < 0.03 && driveBed && driveSource && driveBed.readyState > 1 && driveSource.readyState > 1 && !b._driveBedSynced) {
+          driveBed.currentTime = driveSource.currentTime;
+          driveBed.play().catch(() => {});
+          b._driveBedSynced = true;
+        }
         b.querySelectorAll('.b4stats b').forEach((el, i) => {
-          const land = ease(seg(p, 0.12 + i * 0.035, 0.25 + i * 0.035));
+          /* Give each metric its own slower landing during the held-strip interval. */
+          const land = ease(seg(p, 0.15 + i * 0.055, 0.38 + i * 0.065));
           const target = +el.dataset.count;
           const shown = Math.max(1, Math.round(target * land));
           el.textContent = target >= 1000 ? `${(shown / 1000).toFixed(1)}K+` : `${shown}+`;
