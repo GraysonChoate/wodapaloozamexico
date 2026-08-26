@@ -975,7 +975,11 @@
      convergence at 0.09 of a 360svh travel, that is 32svh, so M >= 132. At 135 Beat 11 pins at
      125svh — Beat 10 is at 0.78 of its clip, the athlete has been on screen for a while — and
      the fields finish at 157, three ahead of the release. Nothing slides in the open. */
-  #b11{ height:460svh; margin-top:-135svh }
+  /* -120 with a faster close. The words need to live until 0.87 of Beat 10, and the cover still
+     has to complete before Beat 10's stage releases at 160svh: (260 - M) + convergence <= 160.
+     An 18svh convergence puts M at 118 minimum; 120 pins Beat 11 at 0.875 and finishes at 158,
+     two ahead of the release. A shutter can be quick — it is the one move that gains from it. */
+  #b11{ height:460svh; margin-top:-120svh }
   #b11 .stage{ z-index:45; background:transparent }
   .b11f{ z-index:2 }
   /* Each field is a triangle growing from its own corner. At --conv 1 the two exactly tile the
@@ -1566,7 +1570,7 @@
       <div class="cell"><video data-loop="media/loop/b05_sud02.mp4" poster="media/poster/b05_sud02.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Ángel de la Independencia"></video></div>
       <div class="cell"><video data-loop="media/loop/b05_sud03.mp4" poster="media/poster/b05_sud03.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Ángel de la Independencia"></video></div>
       <div class="cell"><video data-loop="media/loop/b05_sud05.mp4" poster="media/poster/b05_sud05.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Monumento a la Revolución"></video></div>
-      <div class="cell"><video data-loop="media/loop/b05_sud06.mp4" poster="media/poster/b05_sud06.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Eje Central"></video></div>
+      <div class="cell"><video data-loop="media/loop/b05_sud08.mp4" poster="media/poster/b05_sud08.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Mexico City crosswalk"></video></div>
       <div class="cell"><video data-loop="media/loop/b05_sud09.mp4" poster="media/poster/b05_sud09.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Eje Central"></video></div>
       <div class="cell"><video data-loop="media/loop/b05_sud04.mp4" poster="media/poster/b05_sud04.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Ángel de la Independencia"></video></div>
       <div class="cell is-still"><img src="media/still/b05_torre.jpg" alt="Torre Latinoamericana"></div>
@@ -2514,7 +2518,7 @@
 
       if (b.id === 'b11') {
         /* The fields close over the first fifth of the beat and then it is simply Beat 11. */
-        const conv = ease(seg(p, 0.00, 0.09));
+        const conv = ease(seg(p, 0.00, 0.05));
         b.style.setProperty('--conv', conv.toFixed(4));
         b.style.setProperty('--convvis', conv > 0.995 ? 'hidden' : 'visible');
         /* The second field carries its own copy of the same clip; keep it on the same frame as
@@ -2540,10 +2544,14 @@
            the camera settles on him — the beat ends on a face, not on type. */
         b.style.setProperty('--b10p', p.toFixed(3));
         /* the lateral move runs 0.4631 to 0.6745 of this beat and the athlete from there */
-        /* Gone before the diagonal arrives. Beat 11 pins at 0.781 of this beat, and the words
-           holding on into the convergence made the frame busy — two things happening where one
-           should be finishing. */
-        b.style.setProperty('--b10t', (seg(p, 0.48, 0.55) * (1 - seg(p, 0.70, 0.775))).toFixed(3));
+        /* THE WORDS BELONG TO THE ATHLETE, NOT TO THE TRACK-PAST.
+           Measured frame by frame, the matte's coverage of the band the type sits in swings from
+           9% to 51% across the lateral move — enormous out-of-focus bodies flying past the lens,
+           a different one every few frames. Type under that does not read as depth; it reads as
+           flicker, which is the shadowing and trailing he has been describing. Over the athlete
+           the same measurement is flat at 19-22%: him, and the rows behind him, steadily. So the
+           line arrives once the camera has found him and holds there. */
+        b.style.setProperty('--b10t', (seg(p, 0.70, 0.755) * (1 - seg(p, 0.845, 0.872))).toFixed(3));
         /* THE CUT-OUT FOLLOWS THE SHOT, NOT THE SCROLL — and that distinction was the
            clunkiness. Driving it from `p` looked equivalent and is not: the film trims HEAD off
            the front of every clip and TAIL off the back, so the base video's time is

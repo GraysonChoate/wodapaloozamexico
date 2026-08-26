@@ -117,6 +117,18 @@ Test by scrolling across the range at one step per rAF with no settling, and cou
 while out of sync. Shrinking the alpha layer (960 wide, higher CRF) makes the seeks cheap enough
 that it rarely trips.
 
+**MEASURE THE MATTE'S COVERAGE PER FRAME AND PUT THE TYPE WHERE IT IS STEADY.** This is the
+check that finds what eyeballing cannot. For each frame, compute what fraction of the BAND THE
+TYPE OCCUPIES the matte covers, and plot it across the shot. On one measured beat:
+
+    lateral camera move   9% -> 51%, swinging every few frames
+    settled on a subject  flat 19-22%
+
+Type over the first stretch does not read as depth, it reads as flicker — words half-eaten by a
+different enormous out-of-focus body every few frames. That is what "weird shadowing and trails"
+usually is, and no amount of matte refinement fixes it, because the matte is correct. Move the
+type to the steady stretch.
+
 **Put the type where the matte is cleanest.** Low in frame is usually the worst place — the
 nearest figures are largest, softest and most out of focus there, which is the hardest region to
 matte. Raising the line into the mid-band both reads better and removes most of the problem
