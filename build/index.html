@@ -709,7 +709,10 @@
      The pin scales with it. -260 of a 520 travel was half this beat running behind Beat 8 —
      seen through the window, so not wasted, but the ratio has to be preserved or the same
      structure means something different. -175 of 350 is the same half. */
-  #b9{ height:450svh; margin-top:-175svh }
+  /* 320. The first cut to 450 put this at 334 px per second of footage, which is inside the
+     film's range but at its slow end — Beat 7 runs at 205 and Beat 0 at 97. 320svh puts it at
+     210, alongside Beat 7. The pin keeps its half: -110 of a 220 travel. */
+  #b9{ height:320svh; margin-top:-110svh }
   #b9 .stage{ z-index:50 }
   #b9 .plate video,#b9 .plate img{ transform:scale(calc(1.04 + var(--p) * .12)) }
 
@@ -845,11 +848,21 @@
   /* Same correction, same reason: 381 down to 304. And the pin keeps its ratio — 123 of a 240
      travel is 0.514, still exactly the frame where the crowd ends and the camera starts to
      move. */
-  #b10{ height:340svh; margin-top:-123svh }
-  /* the crowd walks in front of the words */
+  /* Same again: 305 down to 203. Pin holds its 0.514 — 82 of a 160 travel — so the crowd still
+     ends exactly as the camera starts to move. */
+  #b10{ height:260svh; margin-top:-82svh }
+  /* THE CUT-OUT HAS TO CARRY THE SHOT'S OWN TRANSFORM.
+     Beat 10's plate pushes in from 1.02 to 1.08 across the beat, and this layer had no
+     transform at all — so the cut-out people drifted out of register with the footage they were
+     cut FROM, by up to six per cent, growing as the beat ran. That is both the imperfect overlay
+     and the "it moves when the athlete arrives". The origin matters as much as the scale: the
+     film's plate rule sets 50%/46% and this element is not inside a plate, so it defaulted to
+     50%/50% and would have kept a residual offset even with the scale matched. Both stated. */
   .b10fg{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     z-index:3; pointer-events:none; opacity:var(--fgv,0);
+    transform-origin:50% 46%;
+    transform:scale(calc(1.02 + var(--p) * .06));
   }
   #b10 .stage{ z-index:40 }
   #b10 .plate video,#b10 .plate img{ transform:scale(calc(1.02 + var(--p) * .06)) }
@@ -930,7 +943,13 @@
   /* Beat 11 covers Beat 10 rather than being uncovered by it, so it sits ABOVE in the stack —
      the descending chain is for scenes that get revealed, and this one arrives. Pulled up a
      viewport so it is pinned and PLAYING while the fields are still closing. */
-  #b11{ height:460svh; margin-top:-100svh }
+  /* Pinned earlier so the fields have finished closing BEFORE Beat 10's track ends. Beat 10's
+     stage releases and scrolls away when its own track finishes — unavoidable for a sticky
+     element — and with the convergence still running, that release was visible through the part
+     of the frame the fields had not yet covered. That is the athlete "sliding up" underneath a
+     diagonal that had not arrived yet. Closed by 0.14 of 360svh, which is 50, the cover is
+     complete twenty viewport-percent before anything moves. */
+  #b11{ height:460svh; margin-top:-70svh }
   #b11 .stage{ z-index:45; background:transparent }
   .b11f{ z-index:2 }
   /* Each field is a triangle growing from its own corner. At --conv 1 the two exactly tile the
@@ -2146,8 +2165,11 @@
         const word = b.querySelector('.word');
         if (word) {
           const W = innerWidth, H2 = innerHeight;
-          const sx = (0.72 + arrive * 0.28) * (1 + release * 8.0);
-          const sy = (0.44 + arrive * 0.56) * (1 + release * 8.0);
+          /* On a narrow screen the whole word must register before it expands; clipping its
+             initial S made the aperture read as an arbitrary crop instead of SUCEDERÁ. */
+          const mobileFit = W < 760 ? 0.86 : 1;
+          const sx = mobileFit * (0.72 + arrive * 0.28) * (1 + release * 8.0);
+          const sy = mobileFit * (0.44 + arrive * 0.56) * (1 + release * 8.0);
           word.setAttribute('transform', `translate(${W/2} ${H2/2}) scale(${sx.toFixed(4)} ${sy.toFixed(4)}) translate(${-W/2} ${-H2/2})`);
         }
       }
@@ -2488,7 +2510,7 @@
 
       if (b.id === 'b11') {
         /* The fields close over the first fifth of the beat and then it is simply Beat 11. */
-        const conv = ease(seg(p, 0.00, 0.20));
+        const conv = ease(seg(p, 0.00, 0.14));
         b.style.setProperty('--conv', conv.toFixed(4));
         b.style.setProperty('--convvis', conv > 0.995 ? 'hidden' : 'visible');
         /* The second field carries its own copy of the same clip; keep it on the same frame as
@@ -2705,7 +2727,7 @@
 
     // seek on its own cadence — never queue a seek while one is in flight
     for (const b of beats){
-      const v = b._v; if (!v || RM || b._seeking) continue;
+      const v = b._v; if (!v || RM || b._seeking || b.id === 'b2') continue;
       if (v.duration && Math.abs(v.currentTime - b._want) > 1/48){
         b._seeking = true; v.currentTime = b._want;
       }
