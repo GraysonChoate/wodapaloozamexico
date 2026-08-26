@@ -303,8 +303,9 @@
      there is no next card rising from below. */
   /* Pull the next sticky stage into the same black punctuation zone. This is an overlap
      between two registered planes, never the next scene travelling upward from below. */
-  #b2{ height:420svh; margin-top:-100svh }
-  #b2 .stage{ z-index:5; background:#000; opacity:var(--b2-arrive,0) }
+  #b2{ height:420svh; margin-top:-140svh }
+  /* This stage takes the black field from the finished sphere immediately. It never fades in. */
+  #b2 .stage{ z-index:8; background:#000; opacity:1 }
   /* ── APERTURE PARALLAX ────────────────────────────────────────────────────
      The word is the aperture. It widens on the wdth axis; the city behind it travels and
      grows FASTER than that outer geometry, so widening reads as exposure rather than as
@@ -332,7 +333,8 @@
               scale(calc(1.05 + var(--drive-expand,0) * .155));
   }
   .knockout{ position:absolute; inset:0; z-index:2; width:100%; height:100% }
-  #b2 .krect{ opacity:calc(1 - var(--drive-release,0)) }
+  /* The black field is removed on the aperture's completed frame—not dissolved away. */
+  #b2 .krect{ opacity:calc(1 - var(--drive-cut,0)) }
   .b2sub{
     position:absolute; z-index:5; left:28px; bottom:30px;
     font:700 11px/1 "JetBrains Mono",ui-monospace,monospace;
@@ -340,24 +342,23 @@
   }
   @media (max-width:760px){ .b2sub{left:14px;bottom:22px;font-size:10px} }
 
-  /* B2 owns the complete drive: driver seat → wide road → close hood. B4 begins only after
-     that source has completed, on the actual hooded figure. Keep this seam clean while the
-     next authored transition is selected; there is no frozen-car layer or second car pass. */
-  #b4{ height:340svh; margin-top:0 }
+  /* B2's moving drive remains visible as the top and bottom field while the next living shot
+     begins in one centred horizontal slit. The slit opens vertically; neither scene slides. */
+  #b4{ height:340svh; margin-top:-190svh }
   #b4 .stage{
-    z-index:6; background:#000;
+    z-index:9; background:transparent;
   }
   #b4 .amb{ display:none }
   #b4 .plate{
     inset:0; height:100svh; overflow:hidden; z-index:2;
-    clip-path:circle(calc(var(--hood-open,0) * 155vmax) at 52% 53%);
+    clip-path:inset(calc(50% - var(--hood-open,0) * 50%) 0 calc(50% - var(--hood-open,0) * 50%) 0);
   }
   #b4 .plate video,#b4 .plate img{
     inset:0; width:100%; height:100%; object-fit:cover; transform:none;
   }
-  /* The hooded street image grows out of a central aperture.  Its proof counters belong to
-     that aperture and disappear before the shot owns the page—no line drawing or rising panel. */
-  .b4stats{ position:absolute; z-index:5; inset:0; display:grid; grid-template-columns:repeat(3,1fr); gap:3vw; align-content:center; padding:0 12vw; color:#f7f5ef; opacity:var(--hood-metrics,0); pointer-events:none; text-align:center; mix-blend-mode:screen }
+  /* The hooded street image opens as a horizontally centred vertical shutter. The counters are
+     contained inside that same live window; no frame, line, or scene travels upward. */
+  .b4stats{ position:absolute; z-index:5; inset:0; display:grid; grid-template-columns:repeat(3,1fr); gap:3vw; align-content:center; padding:0 12vw; color:#f7f5ef; opacity:var(--hood-metrics,0); pointer-events:none; text-align:center; mix-blend-mode:screen; clip-path:inset(calc(50% - var(--hood-open,0) * 50%) 0 calc(50% - var(--hood-open,0) * 50%) 0) }
   .b4stats span{ display:grid; gap:7px; font:800 10px/1 Archivo,Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase }
   .b4stats b{ font:950 clamp(44px,7vw,112px)/.82 Archivo,Arial,sans-serif; letter-spacing:-.08em }
   .b4stats small{ font:500 13px/1.3 Arial,sans-serif; letter-spacing:0; text-transform:none }
@@ -1233,6 +1234,8 @@
      at a nominal size, then mapped onto the box his handwriting occupies. Font metrics are not
      guessed anywhere. */
   #b8 .stage{ mask:url(#b8win); -webkit-mask-box-image:none }
+  .b8wt{ fill:#000; font-family:Archivo,'Helvetica Neue',Arial,sans-serif;
+         font-weight:800; letter-spacing:-3.5 }
   .b8mask{ position:absolute; width:0; height:0; overflow:hidden }
 
   /* AMB-06 · colour temperature drift, from the effects library. The library's version maps
@@ -1487,20 +1490,21 @@
                opening stops being a letter and becomes an opening -->
           <rect id="b8winR" x="0" y="0" width="0" height="0" fill="#000"/>
           <g id="b8winG" display="none">
-            <!-- NO xml:space="preserve", AND NO WHITESPACE BETWEEN THESE TSPANS.
-                 This one attribute is what he had been pointing at for the entire session. With
-                 it set, every newline and every space of indentation in this markup became a
-                 real glyph with a real advance width: 23 letters of date measured as 81
-                 characters, the first of them a line break 15 units wide and the last a space
-                 out at x=377. The measured box came out 1.37x wider than the letters and its
-                 centre sat an eighth of that width to their right — so the hole was placed left
-                 of his handwriting, and the magnification then carried that error across the
-                 screen. Not the font, not the window: invisible characters I put there myself
-                 by indenting the file. Keep this element on one line. -->
-            <text id="b8winT" text-anchor="middle" fill="#000"
-                  font-family="Archivo, 'Helvetica Neue', Arial, sans-serif"
-                  font-weight="800" font-size="100" letter-spacing="-3.5"><tspan x="0" dy="0">ES DEL</tspan><tspan x="0" dy="164">18 AL 26</tspan><tspan x="0" dy="164">DE AGOSTO</tspan></text>
-          </g>
+            <!-- THREE SEPARATE LINES, EACH PLACED ON HIS OWN.
+                 He wrote this freehand and his lines do not share a centre: measured on the
+                 source frame at 720x1280, ES DEL centres at x 331, 18 AL 26 at 348 and DE
+                 AGOSTO at 365, and they are 427, 410 and 506 wide. A single centred block can
+                 sit on ONE of them and must miss the other two, which is what every version
+                 before this did. Each line is its own text element now, scaled to its own width
+                 and placed on its own centre and baseline; the group magnifies all three about
+                 the block's common centre so they still open as one.
+
+                 NO xml:space="preserve" and no whitespace inside these elements — with it set,
+                 every newline of indentation becomes a glyph with a real advance and the
+                 measurements come back meaningless. -->
+            <g id="b8winL1"><text class="b8wt" font-size="100">ES DEL</text></g>
+            <g id="b8winL2"><text class="b8wt" font-size="100">18 AL 26</text></g>
+            <g id="b8winL3"><text class="b8wt" font-size="100">DE AGOSTO</text></g>
         </mask>
       </defs>
     </svg>
@@ -1622,6 +1626,65 @@
 <script>
 (() => {
   const RM   = matchMedia('(prefers-reduced-motion:reduce)').matches;
+  let MCAL = null;
+
+  /* HIS LINES, MEASURED ON THE SOURCE FRAME. 720x1280, the moment he holds the last sheet:
+       ES DEL      x 118-545   cap 372 to baseline 500
+       18 AL 26    x 143-553       510            640
+       DE AGOSTO   x 112-618       655            800
+     Expressed as fractions of the frame so they hold at any window size, and per LINE because
+     he did not write them on a common centre. */
+  const HIS = [
+    { cx: 0.4604, w: 0.5931, cy: 0.3406 },   /* ES DEL     */
+    { cx: 0.4833, w: 0.5694, cy: 0.4492 },   /* 18 AL 26   */
+    { cx: 0.5069, w: 0.7028, cy: 0.5684 }    /* DE AGOSTO  */
+  ];
+  /* His lines drift rightward down the page — 0.4604, 0.4833, 0.5069 — and mapping them
+     faithfully inherits that drift, which the magnification then amplifies into exactly the
+     lean he has been objecting to. So they start on his ink, where the registration is the
+     whole point because you can still read it as his handwriting, and converge onto a common
+     axis as the window opens, where you cannot. Registered, then symmetric. */
+  const BLOCK = { cx: 0.4835, cy: 0.4578 };  /* the mean of his three, and what it expands about */
+
+  /* getExtentOfChar reports where a glyph actually lands; getBBox does not agree with it for
+     anchored multi-line text, and that disagreement cost this seam most of a session. */
+  const inkBox = (T) => {
+    let n = 0;
+    try { n = T.getNumberOfChars(); } catch (e) { return null; }
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity, seen = 0;
+    for (let i = 0; i < n; i++) {
+      let r; try { r = T.getExtentOfChar(i); } catch (e) { continue; }
+      if (!r || !r.width || !isFinite(r.x)) continue;
+      if (r.x < x0) x0 = r.x;  if (r.y < y0) y0 = r.y;
+      if (r.x + r.width  > x1) x1 = r.x + r.width;
+      if (r.y + r.height > y1) y1 = r.y + r.height;
+      seen++;
+    }
+    return seen ? { x: x0, y: y0, w: x1 - x0, h: y1 - y0 } : null;
+  };
+  function calibrateWindow(){
+    const out = [];
+    for (let i = 1; i <= 3; i++) {
+      const g = document.getElementById('b8winL' + i);
+      if (!g) return;
+      const t = g.querySelector('text');
+      const bb = inkBox(t);
+      if (!bb || !bb.w) return;
+      out.push({ g, bb });
+    }
+    MCAL = out;
+    const G = document.getElementById('b8winG');
+    if (G) G.removeAttribute('display');
+  }
+  if (document.fonts && document.fonts.load) {
+    document.fonts.load('800 100px Archivo')
+      .then(() => document.fonts.ready)
+      .then(calibrateWindow)
+      .catch(calibrateWindow);
+  } else {
+    addEventListener('load', calibrateWindow);
+  }
+
   const beats = [...document.querySelectorAll('.beat')];
   const metres = document.getElementById('metres');
   const ground = document.querySelector('[data-ground]');
@@ -1793,60 +1856,6 @@
      The fit is width-first, and the line spacing is then solved so the ink height lands on the
      handwriting's too. That target ratio works out independent of the sheet's scale, so it is
      computed once and never again. */
-  let MCAL = null;
-  /* getBBox() DOES NOT REPORT THE INK, and that was the last of it.
-
-     Measured against the rendered pixels at two window sizes and three scroll positions, the
-     box it returns for this text is 1.37x wider than the glyphs actually are and sits 12.5% of
-     its own width to their right — identically every time, so it is a property of how the box
-     is reported for multi-line anchored text, not of the window. Placing the hole from that box
-     put it left of his handwriting by an eighth of its width, and the magnification then walked
-     that error across the screen. Everything he has been pointing at since the beginning is
-     this number.
-
-     So the ink is measured character by character instead. getExtentOfChar reports where a glyph
-     actually lands, which is the thing the reader sees; the union of them is the real box and
-     there is no convention left to be wrong about. */
-  const inkBox = (T) => {
-    let n = 0;
-    try { n = T.getNumberOfChars(); } catch (e) { return null; }
-    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity, seen = 0;
-    for (let i = 0; i < n; i++) {
-      let r; try { r = T.getExtentOfChar(i); } catch (e) { continue; }
-      if (!r || !r.width || !isFinite(r.x)) continue;
-      if (r.x < x0) x0 = r.x;  if (r.y < y0) y0 = r.y;
-      if (r.x + r.width  > x1) x1 = r.x + r.width;
-      if (r.y + r.height > y1) y1 = r.y + r.height;
-      seen++;
-    }
-    return seen ? { x: x0, y: y0, width: x1 - x0, height: y1 - y0 } : null;
-  };
-  function calibrateWindow(){
-    const T = document.getElementById('b8winT');
-    if (!T) return;
-    const sp = T.querySelectorAll('tspan');
-    let bb = inkBox(T);
-    if (!bb || !bb.width) return;
-    /* His writing is 0.7189 as tall as it is wide. That is a property of the sheet, not of any
-       particular window, so the leading is solved from it once. */
-    const cap = bb.height - 2 * 164;
-    const dy  = Math.max(1, (0.7189 * bb.width - cap) / 2);
-    sp[1].setAttribute('dy', dy.toFixed(2));
-    sp[2].setAttribute('dy', dy.toFixed(2));
-    bb = inkBox(T);
-    if (!bb || !bb.width) return;
-    MCAL = { x: bb.x, y: bb.y, w: bb.width, h: bb.height };
-    const G = document.getElementById('b8winG');
-    if (G) G.removeAttribute('display');
-  }
-  if (document.fonts && document.fonts.load) {
-    document.fonts.load('800 100px Archivo')
-      .then(() => document.fonts.ready)
-      .then(calibrateWindow)
-      .catch(calibrateWindow);
-  } else {
-    addEventListener('load', calibrateWindow);
-  }
 
   function identityLoop(b, p, onScreen) {
     if (!sheet) return;
@@ -1925,7 +1934,7 @@
     const word = svg.querySelector('.word');
     /* SUCEDERÁ is a held sign first. Its width must not breathe throughout the beat; it
        widens only during the final release that turns the word into the road scene. */
-    const expand = beat.id === 'b2' ? ease(seg(p, 0.72, 0.96)) : p;
+    const expand = beat.id === 'b2' ? ease(seg(p, 0.18, 0.34)) : p;
     word.style.fontVariationSettings = `"wdth" ${(beat.id === 'b2' ? 90 + expand*30 : 62 + p*58).toFixed(1)}, "wght" 800`;
     let size = Math.min(H*0.34, W*0.30), guard = 0;
     word.setAttribute('x', W/2);
@@ -2010,26 +2019,28 @@
         /* The thin horizontal trace is the far edge of the turned question-plane. It opens
            into SUCEDERÁ with the car already moving inside the letters, then scales through
            the aperture. There is no y-axis entrance for either scene. */
-        const arrive = ease(seg(p, 0.00, 0.16));
+        const arrive = ease(seg(p, 0.00, 0.055));
         b.style.setProperty('--b2-arrive', arrive.toFixed(4));
-        /* Read first; then the word slowly releases into the complete driving shot. */
-        const release = ease(seg(p, 0.42, 0.68));
+        /* The live car appears inside the held word, then the word becomes the window: one
+           fast geometric scale-through, followed only when it has swallowed the frame. */
+        const release = ease(seg(p, 0.18, 0.34));
         b.style.setProperty('--drive-release', release.toFixed(4));
         b.style.setProperty('--drive-expand', release.toFixed(4));
+        b.style.setProperty('--drive-cut', p >= 0.34 ? '1' : '0');
         const word = b.querySelector('.word');
         if (word) {
           const W = innerWidth, H2 = innerHeight;
-          const sx = (0.40 + arrive * 0.60) * (1 + release * 0.72);
-          const sy = (0.035 + arrive * 0.965) * (1 + release * 0.72);
+          const sx = (0.40 + arrive * 0.60) * (1 + release * 8.0);
+          const sy = (0.035 + arrive * 0.965) * (1 + release * 8.0);
           word.setAttribute('transform', `translate(${W/2} ${H2/2}) scale(${sx.toFixed(4)} ${sy.toFixed(4)}) translate(${-W/2} ${-H2/2})`);
         }
       }
 
       if (b.id === 'b4') {
-        /* The street shot is one centred aperture: verified proof counts settle inside it
-           before the aperture expands. Nothing rises, slides, or repeats the hooded frame. */
-        const open = ease(seg(p, 0.10, 0.48));
-        const metrics = ease(seg(p, 0.12, 0.24)) * (1 - ease(seg(p, 0.30, 0.42)));
+        /* The driving scene stays above and below while the hoodie scene opens from the exact
+           horizontal centre. It is a vertical shutter, never a circle or a y-axis slide. */
+        const open = ease(seg(p, 0.04, 0.40));
+        const metrics = ease(seg(p, 0.17, 0.27)) * (1 - ease(seg(p, 0.31, 0.40)));
         b.style.setProperty('--hood-open', open.toFixed(4));
         b.style.setProperty('--hood-metrics', metrics.toFixed(4));
         b.querySelectorAll('.b4stats b').forEach((el, i) => {
@@ -2098,114 +2109,58 @@
            under perspective they are the same operation: a push to z against a perspective of
            P magnifies by P/(P-z) and nothing else. Expressed directly, it survives being put
            inside an SVG, which has no third dimension to push into. */
-        const WT = b._wt || (b._wt = document.getElementById('b8winT'));
+        /* THE WINDOW: three holes, each cut where he actually wrote that line, opening
+           together as one. Every constant is a fraction of the newspaper clip's own frame, so
+           the whole thing is tied to the sheet rather than to any particular window. */
         const WG = b._wg || (b._wg = document.getElementById('b8winG'));
-        if (WT && WG) {
-          const bb = MCAL;
-          if (bb) {
-            /* THE WINDOW IS TIED TO THE SHEET, NOT TO MY MONITOR.
+        if (WG && MCAL) {
+          const bw = innerWidth, bh = innerHeight;
+          const S = (1 - 0.075 * e) * (1 + 0.30 * ease(p));
+          const VW = 720, VH = 1280;
+          const fit = Math.min(bw / VW, bh / VH);
+          let fw = VW * fit, fh = VH * fit;
+          let fx = (bw - fw) / 2, fy = (bh - fh) / 2;
+          const ox = bw * 0.5, oy = bh * 0.42;      /* the plate's own transform origin */
+          fx = ox + (fx - ox) * S;  fy = oy + (fy - oy) * S;
+          fw *= S;  fh *= S;
 
-               This is what he kept seeing and what my own instrumentation kept missing. Every
-               number here used to be a pixel measurement taken at 1440x900 and scaled by
-               viewport height — so it was right at exactly one window size and wrong at every
-               other, and I only ever tested the one I calibrated at. In a narrower window the
-               sheet lands somewhere else, the hole lands off his writing, and then the
-               magnification multiplies that error until the letters visibly slide away.
+          /* ONE CONTINUOUS EXPANSION, exponential so the relative rate never changes: every
+             scroll opens the window by the same proportion, so it never starts and never
+             arrives. It expands about the block's own centre, which is why it does not travel. */
+          const T   = seg(p, 0.60, 1.00) * 0.74 + exit * 0.26;
+          const mag = Math.exp(Math.log(34) * T);
+          const gx  = fx + BLOCK.cx * fw, gy = fy + BLOCK.cy * fh;
 
-               So nothing is measured in pixels any more. The clip is 720x1280 inside a
-               `contain` box and is then scaled by the sheet's own --fit and --grow about
-               50%/42%, all of which can be computed exactly at any size. His handwriting is
-               stored as fractions OF THAT FRAME — it starts 16.9% across it and is 68.5% of its
-               width — because that is a fact about the sheet and stays true no matter how big
-               the window is. */
-            const bw = innerWidth, bh = innerHeight;
-            const S = (1 - 0.075 * e) * (1 + 0.30 * ease(p));
-            const VW = 720, VH = 1280;
-            const fit = Math.min(bw / VW, bh / VH);
-            let fw = VW * fit, fh = VH * fit;
-            let fx = (bw - fw) / 2, fy = (bh - fh) / 2;
-            const ox = bw * 0.5, oy = bh * 0.42;      /* the plate's own transform origin */
-            fx = ox + (fx - ox) * S;  fy = oy + (fy - oy) * S;
-            fw *= S;  fh *= S;
-            /* BACK ONTO HIS INK, AND THAT IS NOT A STEP BACKWARDS.
-               I moved this to the frame centre to stop the sliding, but being off-centre was
-               never what caused it: the block was placed at one point and magnified about a
-               DIFFERENT one, and only the mismatch matters. A fixed point that happens to sit
-               five pixels right of the middle is not drift, it is just where his writing is.
-               Now that the ink is measured correctly the hole can sit exactly on his date and
-               expand about that same point — registered and dead steady at once. */
-            const cx = fx + 0.5115 * fw, cy = fy + 0.4475 * fh;
-            const k  = (0.685 * fw) / bb.w;
-            const tx = cx - (bb.x + bb.w / 2) * k;
-            const ty = cy - (bb.y + bb.h / 2) * k;
-            /* ONE CONTINUOUS EXPANSION.
-               This was three motions stitched together — a push, then the stage slide, then a
-               separate aperture — each with its own easing in and out. Even joined perfectly the
-               eye reads the easing as hesitation, and he is right that it should never stop.
-
-               So there is a single parameter that runs monotonically from the moment the date
-               settles on the sheet to the end of the slide, and the opening is exponential in
-               it. Exponential because constant RELATIVE growth is what continuous expansion
-               looks like: every scroll of the wheel opens the window by the same proportion,
-               which never accelerates and never arrives. A linear scale would crawl at the start
-               and tear at the end. */
-            const T = seg(p, 0.60, 1.00) * 0.74 + exit * 0.26;
-            /* 34, not 96. Past about thirty times the frame is deep inside a single stroke,
-               which is where the glyph's own lopsidedness lives and where there is nothing left
-               to read as a letter anyway. Stopping the letters there and letting the window
-               carry the rest removes the swing without shortening the move. */
-            const mag = Math.exp(Math.log(34) * T);
-            /* IT GROWS ABOUT ITSELF. Magnifying about the VIEWPORT centre was the leftward
-               drift he keeps catching: the date does not sit at the middle of the screen — it
-               sits where his handwriting is, seven pixels right and seventeen above — and
-               scaling an off-centre thing about some other point translates it by the offset
-               times the magnification. Seventeen pixels became more than a thousand at 75x,
-               so the letters slid off while they grew. About its own centre there is no offset
-               to multiply, and the thing comes straight at the reader. */
-            WG.setAttribute('transform',
-              'translate(' + cx.toFixed(1) + ',' + cy.toFixed(1) + ') ' +
+          const conv = Math.min(1, T / 0.32);
+          for (let i = 0; i < 3; i++) {
+            const bb = MCAL[i].bb, h = HIS[i];
+            const k  = (h.w * fw) / bb.w;
+            const cxi = h.cx + (BLOCK.cx - h.cx) * conv;
+            const tx = (fx + cxi * fw) - (bb.x + bb.w / 2) * k;
+            const ty = (fy + h.cy * fh) - (bb.y + bb.h / 2) * k;
+            MCAL[i].g.setAttribute('transform',
+              'translate(' + gx.toFixed(1) + ',' + gy.toFixed(1) + ') ' +
               'scale(' + mag.toFixed(4) + ') ' +
-              'translate(' + (-cx).toFixed(1) + ',' + (-cy).toFixed(1) + ') ' +
+              'translate(' + (-gx).toFixed(1) + ',' + (-gy).toFixed(1) + ') ' +
               'translate(' + tx.toFixed(1) + ',' + ty.toFixed(1) + ') ' +
               'scale(' + k.toFixed(5) + ')');
-            /* The shutters can close on --p again now. They were tied to the slide only
-               because Beat 9 used to pin late; pinned at -260svh it is present and playing from
-               62% of this beat, so there is nothing left to wait for. */
-            b.style.setProperty('--jaw',  ease(seg(p, 0.72, 0.92)).toFixed(4));
-            /* The turn starts once the shutters are nearly shut and finishes into the slide, so
-               the quarter and the last of the push happen together rather than in sequence. */
-            /* The turn waits until the shutters have fully closed over him — that was his
-               sequence and the order matters: collapse, then spin, while the date comes on
-               regardless. It finishes into the slide, by which point the fitness scene has
-               come all the way through the letters. */
-            b.style.setProperty('--turn', ease(Math.min(1, seg(p, 0.94, 1) * 0.3 + exit * 0.7)).toFixed(4));
-            /* IT IS A WINDOW OPENING, NOT JUST TYPE GETTING BIGGER. Past a certain size a
-               letterform stops reading as a letter and starts reading as whatever stroke you
-               happen to be inside, which is arbitrary. So the last of the move is an aperture
-               that opens from the centre and completes what the letters started: the same hole,
-               finishing as a clean opening onto the next scene rather than as a glyph. Beat 8
-               is carried away by it rather than dissolved out from under it. */
-            /* THE OPENING RESOLVES INTO A WINDOW.
+          }
 
-               A magnified letterform is not symmetric — inside "18 AL 26" the 1 is narrow and
-               the 26 is wide — so past a certain size the ink mass sits left of the centre it is
-               expanding about, and that reads as movement even though the geometry is a pure
-               scale about a fixed point. Which is his own reframe, and its own answer: this is
-               not type getting bigger, it is a window opening. So from just over half way the
-               opening becomes increasingly a plain rectangle, centred on the FRAME, growing on
-               the same single parameter as everything else. The letters open it, the window
-               finishes it, and the asymmetry of the glyphs washes out as it goes. */
-            const R = b._wr || (b._wr = document.getElementById('b8winR'));
-            if (R) {
-              const a = Math.min(1, Math.max(0, (T - 0.42) / 0.58));
-              const rw = bw * 1.35 * a * a, rh = bh * 1.35 * a * a;
-              R.setAttribute('x', (bw / 2 - rw / 2).toFixed(1));
-              R.setAttribute('y', (bh / 2 - rh / 2).toFixed(1));
-              R.setAttribute('width',  rw.toFixed(1));
-              R.setAttribute('height', rh.toFixed(1));
-            }
-            b._b9 = b._b9 || document.getElementById('b9');
-            b._b9.style.setProperty('--temp', (0.86 * T).toFixed(3));
+          b.style.setProperty('--jaw',  ease(seg(p, 0.72, 0.92)).toFixed(4));
+          b.style.setProperty('--turn', ease(Math.min(1, seg(p, 0.94, 1) * 0.3 + exit * 0.7)).toFixed(4));
+          b._b9 = b._b9 || document.getElementById('b9');
+          b._b9.style.setProperty('--temp', (0.86 * T).toFixed(3));
+
+          /* and the opening resolves into a plain window, on the same parameter, because past a
+             certain size a letterform is only whatever stroke you happen to be inside */
+          const R = b._wr || (b._wr = document.getElementById('b8winR'));
+          if (R) {
+            const a = Math.min(1, Math.max(0, (T - 0.42) / 0.58));
+            const rw = bw * 1.35 * a * a, rh = bh * 1.35 * a * a;
+            R.setAttribute('x', (bw / 2 - rw / 2).toFixed(1));
+            R.setAttribute('y', (bh / 2 - rh / 2).toFixed(1));
+            R.setAttribute('width',  rw.toFixed(1));
+            R.setAttribute('height', rh.toFixed(1));
           }
         }
       }
@@ -2307,7 +2262,8 @@
         /* The words get a full held reading moment, then invert in place. The only geometric
            move is one perfect circular black aperture growing from their shared centre. */
         b.style.setProperty('--ready', Math.min(ease(seg(p, 0.14, 0.26)), 1 - ease(seg(p, 0.84, 0.94))).toFixed(4));
-        b.style.setProperty('--ready-invert', ease(seg(p, 0.57, 0.62)).toFixed(4));
+        /* Ink is a decisive change: the wordforms never pass through a translucent grey state. */
+        b.style.setProperty('--ready-invert', p >= 0.57 ? '1' : '0');
         /* The wordforms register before the sphere is allowed to appear; by the time the
            circle is visible there is no readable stack left at its centre. */
         b.style.setProperty('--ready-merge', ease(seg(p, 0.60, 0.635)).toFixed(4));
