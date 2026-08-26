@@ -240,7 +240,12 @@
     .b0meta{ font-size:9px; letter-spacing:.16em }
   }
 
-  #b1{ height:300svh }
+  /* Beat 1 begins one viewport before Beat 0 releases. Both stages show the same cockpit
+     frame at that overlap, so the breach resolves into a continuous shot—not a stage sliding
+     upward through a second cropped aperture. */
+  #b1{ height:300svh; margin-top:-100svh }
+  #b1 .stage{ z-index:3 }
+  #b1 .plate{ clip-path:none }
   #b1 .plate video,#b1 .plate img{ transform:scale(calc(1.04 + var(--p)*.10)) }
   .b1cap{
     position:absolute; z-index:5; left:50%; bottom:14vh; transform:translateX(-50%);
@@ -248,6 +253,8 @@
     letter-spacing:.34em; text-align:center; white-space:nowrap;
     opacity:calc(var(--p)*2.6);
   }
+  /* Opening metadata was explicitly rejected: identity and anticipation own this moment. */
+  #b1 .b1cap{ display:none }
   .b1ready{ position:absolute; z-index:6; inset:0; pointer-events:none; opacity:calc(var(--ready,0) * (1 - var(--ready-close,0))) }
   .b1ready span{ position:absolute; display:block; color:transparent; background:url('media/poster/b01_cockpit.jpg') 50%/cover; background-clip:text; -webkit-background-clip:text; -webkit-text-stroke:1px rgba(244,239,228,.52); font:950 clamp(72px,16vw,230px)/.72 Archivo,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.11em; white-space:nowrap; text-shadow:0 0 20px rgba(0,0,0,.72); mix-blend-mode:screen }
   .b1ready .are{ top:4vh; left:50%; transform:translate(-50%,calc((1 - var(--ready,0))*-42vh + var(--ready-close,0)*39vh)) scale(calc(1 - var(--ready-close,0)*.58)) }
@@ -1180,7 +1187,7 @@
 </section>
 
 <!-- ─────────── BEAT 1 · APPROACH ─────────── -->
-<section class="beat" id="b1" data-src="media/scrub/b01_cockpit.mp4" data-scrub-from="0.90" data-join-in>
+<section class="beat" id="b1" data-src="media/scrub/b01_cockpit.mp4" data-scrub-from="0.90">
   <div class="stage">
     <div class="plate">
       <img src="media/poster/b01_cockpit.jpg" alt="Approach into Mexico City">
@@ -1748,17 +1755,6 @@
 
       /* The two aperture joins. Both are read off the beat's own --p, so they reverse
          exactly like everything else and cost nothing when the beat is off screen. */
-      if (b.id === 'b1') {
-        /* Opens from Beat 0's held plate to the full frame. Ten per cent of a 300svh beat is
-           about a third of a viewport of scroll -- long enough to read as an aperture
-           releasing, short enough that the descent is not kept waiting behind it. */
-        /* Width first, then height. The ramps overlap slightly so the corners never read as
-           a stepped rectangle. */
-        b.style.setProperty('--oH', ease(seg(p, 0.00, 0.05)).toFixed(4));
-        b.style.setProperty('--oV', ease(seg(p, 0.04, 0.14)).toFixed(4));
-        b.style.setProperty('--ready', ease(seg(p, 0.18, 0.34)).toFixed(4));
-        b.style.setProperty('--ready-close', ease(seg(p, 0.62, 0.82)).toFixed(4));
-      }
       if (b.id === 'b6') {
         /* Closes into the vertical strip over the last twelve per cent, while the badge is
            still in frame. Beat 6's pan and scale are untouched. */
