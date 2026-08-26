@@ -171,7 +171,10 @@
      bleed `cover` crops the sides away, and contracting to the source aspect hands them
      back. The picture does not only get smaller, it gets more complete — Reforma is at its
      widest exactly when the image is at its smallest. */
-  #b0{ height:340svh }
+  #b0{ height:340svh; position:relative; z-index:2 }
+  /* Beat 1 must wait below the Beat 0 wing handoff instead of appearing around it. */
+  #b1{ position:relative; z-index:1 }
+  #b0 .stage{ z-index:4 }
   /* The flag moves only inside the title; the black field opens directly onto Ángel. */
   .b0intro{ position:absolute; inset:0; z-index:8; background:#050505; opacity:var(--title-black,1); pointer-events:none }
   .b0title{ position:absolute; inset:0; z-index:9; width:100%; height:100%; opacity:var(--title,1); transform:scale(calc(.94 + var(--title,1)*.06)); pointer-events:none }
@@ -183,24 +186,14 @@
   #b0 .b0frame{ width:100vw; height:100svh; outline:0; background:#050505 }
   #b0 .b0frame>.plate:not(.cockpit){ opacity:var(--angel,0); transition:none }
   #b0 .b0black{ opacity:0 !important }
+  .b0city-full{ position:absolute; inset:0; z-index:3; width:100%; height:100%; object-fit:cover; opacity:var(--city-full,0); pointer-events:none; transition:none }
   .b0fold{ position:absolute; z-index:5; top:-7vh; bottom:-7vh; width:62vw; background:url('media/print/print-field-01.jpg') 50%/cover; will-change:transform; pointer-events:none; overflow:hidden }
   .b0fold:after{ content:""; position:absolute; inset:0; background:rgba(8,8,8,.12) }
-  /* The city first exists as one registered image split across the two printed wings.  Each
-     panel carries half of the same moving frame; the wings close to the centre, then open so
-     the exact same city can take the whole screen. */
-  .b0city-inset{ position:absolute; z-index:1; top:9vh; bottom:9vh; width:54%; max-width:none; height:calc(100% - 18vh); object-fit:cover; opacity:var(--city-fold,0); filter:none; transition:none }
-  .b0fold-l .b0city-inset{ right:8%; width:200%; transform:none; transform-origin:right center; object-position:right 46%; clip-path:polygon(22% 0,100% 0,86% 100%,0 100%) }
-  .b0fold-r .b0city-inset{ left:8%; width:200%; transform:none; transform-origin:left center; object-position:left 46%; clip-path:polygon(14% 0,100% 0,100% 100%,0 100%) }
-  /* Two side windows, rather than the old single V slit: their crops are the left and right
-     halves of the same city frame and the printed wings remain visibly around them. */
-  .b0fold-l .b0city-inset{ right:5%; left:auto; width:78%; object-position:right 46%; clip-path:polygon(0 0,100% 0,82% 100%,0 100%) }
-  .b0fold-r .b0city-inset{ left:5%; right:auto; width:78%; object-position:left 46%; clip-path:polygon(18% 0,100% 0,100% 100%,0 100%) }
-  /* The two wings get explicit paired image windows. Their crops meet at the centreline;
-     they are not separate decorative clips. */
-  .b0city-side{ position:absolute; z-index:6; top:12vh; bottom:12vh; width:49vw; overflow:hidden; opacity:var(--city-fold,0); pointer-events:none }
-  .b0city-side video{ position:absolute; top:0; bottom:0; width:204%; height:100%; max-width:none; object-fit:cover }
-  .b0city-side.left{ left:0; clip-path:polygon(0 0,100% 6%,94% 94%,0 100%) }.b0city-side.left video{ right:0; object-position:right 46% }
-  .b0city-side.right{ right:0; clip-path:polygon(6% 6%,100% 0,100% 100%,0 94%) }.b0city-side.right video{ left:0; object-position:left 46% }
+  /* City materializes inside the original printed statue wings, never as detached panels.
+     Their opposing crops are halves of one moving city source. */
+  .b0city-inset{ position:absolute; z-index:1; top:8vh; bottom:8vh; width:78%; height:calc(100% - 16vh); max-width:none; object-fit:cover; opacity:var(--city-fold,0); filter:none; transition:none; pointer-events:none }
+  .b0fold-l .b0city-inset{ right:5%; left:auto; object-position:right 46%; clip-path:polygon(0 0,100% 0,82% 100%,0 100%) }
+  .b0fold-r .b0city-inset{ left:5%; right:auto; object-position:left 46%; clip-path:polygon(18% 0,100% 0,100% 100%,0 100%) }
   .b0fold-l{ left:-20vw; clip-path:polygon(0 0,73% 0,100% 100%,0 100%); transform-origin:left center; transform:translateX(calc(-58vw + var(--fold,0)*58vw - var(--release,0)*58vw)) rotateY(calc(-46deg + var(--fold,0)*46deg - var(--release,0)*46deg)) rotateZ(calc(-6deg + var(--fold,0)*6deg)) }
   .b0fold-r{ right:-20vw; clip-path:polygon(27% 0,100% 0,100% 100%,0 100%); transform-origin:right center; transform:translateX(calc(58vw - var(--fold,0)*58vw + var(--release,0)*58vw)) rotateY(calc(46deg - var(--fold,0)*46deg + var(--release,0)*46deg)) rotateZ(calc(6deg - var(--fold,0)*6deg)) }
   .b0fold-l:before,.b0fold-r:before{ content:""; position:absolute; top:0; bottom:0; width:2px; background:#ece4d6; opacity:.7 }.b0fold-l:before{right:25%}.b0fold-r:before{left:25%}
@@ -1345,7 +1338,7 @@
         <video muted playsinline preload="auto" disablepictureinpicture></video>
       </div>
     </div>
-    <div class="b0city-side left" aria-hidden="true"><video muted playsinline preload="auto" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video></div><div class="b0city-side right" aria-hidden="true"><video muted playsinline preload="auto" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video></div>
+    <video class="b0city-full" aria-hidden="true" muted playsinline preload="auto" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video>
     <div class="b0fold b0fold-l" aria-hidden="true"><video class="b0city-inset" muted playsinline preload="auto" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video></div><div class="b0fold b0fold-r" aria-hidden="true"><video class="b0city-inset" muted playsinline preload="auto" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video></div>
     <nav class="b0nav" aria-label="Site navigation"><button class="menu" type="button" aria-label="Open site index"><b>W</b><span>Menu</span></button><span class="place">01 / Arrival</span><a class="qualifier" href="https://competitioncorner.net/events/21707/details" target="_blank" rel="noopener noreferrer">Qualifier ↗</a></nav>
   </div>
@@ -2100,21 +2093,34 @@
             const ox = bw * 0.5, oy = bh * 0.42;      /* the plate's own transform origin */
             fx = ox + (fx - ox) * S;  fy = oy + (fy - oy) * S;
             fw *= S;  fh *= S;
-            /* HORIZONTALLY CENTRED, FULL STOP. His handwriting sits a few pixels right of the
-               middle of the frame, and anchoring to it meant the growth happened about a point
-               that was not the centre — four pixels at 1x, three hundred and forty at 75x. The
-               block is centred on the frame instead. The cost is that it starts about five
-               pixels off his ink, which is nothing; the drift it removes is everything.
-               Vertically it stays on his line, which is stable because the growth happens about
-               that same point. */
-            const cx = bw / 2, cy = fy + 0.4475 * fh;
+            /* BACK ONTO HIS INK, AND THAT IS NOT A STEP BACKWARDS.
+               I moved this to the frame centre to stop the sliding, but being off-centre was
+               never what caused it: the block was placed at one point and magnified about a
+               DIFFERENT one, and only the mismatch matters. A fixed point that happens to sit
+               five pixels right of the middle is not drift, it is just where his writing is.
+               Now that the ink is measured correctly the hole can sit exactly on his date and
+               expand about that same point — registered and dead steady at once. */
+            const cx = fx + 0.5115 * fw, cy = fy + 0.4475 * fh;
             const k  = (0.685 * fw) / bb.w;
             const tx = cx - (bb.x + bb.w / 2) * k;
             const ty = cy - (bb.y + bb.h / 2) * k;
-            /* the same curve the outlines rode, and it keeps going through the slide */
-            const push = Math.pow(seg(p, 0.76, 0.995), 0.85);
-            const z   = 940 * push * push + 96 * exit;
-            const mag = 1050 / (1050 - Math.min(1045, z));
+            /* ONE CONTINUOUS EXPANSION.
+               This was three motions stitched together — a push, then the stage slide, then a
+               separate aperture — each with its own easing in and out. Even joined perfectly the
+               eye reads the easing as hesitation, and he is right that it should never stop.
+
+               So there is a single parameter that runs monotonically from the moment the date
+               settles on the sheet to the end of the slide, and the opening is exponential in
+               it. Exponential because constant RELATIVE growth is what continuous expansion
+               looks like: every scroll of the wheel opens the window by the same proportion,
+               which never accelerates and never arrives. A linear scale would crawl at the start
+               and tear at the end. */
+            const T = seg(p, 0.60, 1.00) * 0.74 + exit * 0.26;
+            /* 34, not 96. Past about thirty times the frame is deep inside a single stroke,
+               which is where the glyph's own lopsidedness lives and where there is nothing left
+               to read as a letter anyway. Stopping the letters there and letting the window
+               carry the rest removes the swing without shortening the move. */
+            const mag = Math.exp(Math.log(34) * T);
             /* IT GROWS ABOUT ITSELF. Magnifying about the VIEWPORT centre was the leftward
                drift he keeps catching: the date does not sit at the middle of the screen — it
                sits where his handwriting is, seven pixels right and seventeen above — and
@@ -2145,17 +2151,27 @@
                that opens from the centre and completes what the letters started: the same hole,
                finishing as a clean opening onto the next scene rather than as a glyph. Beat 8
                is carried away by it rather than dissolved out from under it. */
+            /* THE OPENING RESOLVES INTO A WINDOW.
+
+               A magnified letterform is not symmetric — inside "18 AL 26" the 1 is narrow and
+               the 26 is wide — so past a certain size the ink mass sits left of the centre it is
+               expanding about, and that reads as movement even though the geometry is a pure
+               scale about a fixed point. Which is his own reframe, and its own answer: this is
+               not type getting bigger, it is a window opening. So from just over half way the
+               opening becomes increasingly a plain rectangle, centred on the FRAME, growing on
+               the same single parameter as everything else. The letters open it, the window
+               finishes it, and the asymmetry of the glyphs washes out as it goes. */
             const R = b._wr || (b._wr = document.getElementById('b8winR'));
             if (R) {
-              const a = ease(Math.min(1, Math.max(0, (exit - 0.18) / 0.62)));
-              const rw = bw * 1.25 * a, rh = bh * 1.25 * a;
+              const a = Math.min(1, Math.max(0, (T - 0.42) / 0.58));
+              const rw = bw * 1.35 * a * a, rh = bh * 1.35 * a * a;
               R.setAttribute('x', (bw / 2 - rw / 2).toFixed(1));
               R.setAttribute('y', (bh / 2 - rh / 2).toFixed(1));
               R.setAttribute('width',  rw.toFixed(1));
               R.setAttribute('height', rh.toFixed(1));
             }
             b._b9 = b._b9 || document.getElementById('b9');
-            b._b9.style.setProperty('--temp', (0.86 * push).toFixed(3));
+            b._b9.style.setProperty('--temp', (0.86 * T).toFixed(3));
           }
         }
       }
@@ -2207,14 +2223,17 @@
            Arrival gets 18% here against 10% in the standalone proof: the total is shorter, so
            the fraction spent at full bleed had to grow or the city would never register as a
            place before it became an object. */
-        const fold = ease(seg(p, 0.22, 0.47)), cut = ease(seg(p, 0.48, 0.68)), release = ease(seg(p, 0.68, 0.84));
+        /* Let the original statue wings remain visibly split while the city develops inside
+           them; only then do those same wings register together and release to full city. */
+        const fold = ease(seg(p, 0.22, 0.68)), cut = ease(seg(p, 0.68, 0.82)), release = ease(seg(p, 0.82, 0.94));
         b.style.setProperty('--fold', fold.toFixed(4));
         b.style.setProperty('--cut', cut.toFixed(4));
         b.style.setProperty('--cut-size', ((cut * 74) + (release * 26)).toFixed(2) + '%');
         b.style.setProperty('--release', release.toFixed(4));
         /* City arrives while the printed wings are still visibly separated, then the panels
            register at the centre before the whole-source release. */
-        b.style.setProperty('--city-fold', (ease(seg(p, 0.18, 0.38)) * (1 - release)).toFixed(4));
+        b.style.setProperty('--city-fold', (ease(seg(p, 0.34, 0.56)) * (1 - release)).toFixed(4));
+        b.style.setProperty('--city-full', ease(seg(p, 0.66, 0.80)).toFixed(4));
         b.style.setProperty('--angel', ease(seg(p, 0.24, 0.49)).toFixed(4));
         b.style.setProperty('--c', 0);
         /* Strictly inside the hold, with room at both ends. Copy still settling while the
@@ -2232,8 +2251,8 @@
           const want = Math.min(clip.duration - TAIL, 0.1 + p * Math.max(0, clip.duration - 0.15));
           if (Math.abs(clip.currentTime - want) > 1/36) clip.currentTime = want;
         }
-        const foldCities = b._foldCities || (b._foldCities = [...b.querySelectorAll('.b0city-inset,.b0city-side video')]);
-        const cityProgress = ease(seg(p, 0.35, 0.84));
+        const foldCities = b._foldCities || (b._foldCities = [...b.querySelectorAll('.b0city-inset,.b0city-full')]);
+        const cityProgress = ease(seg(p, 0.34, 0.94));
         for (const clip of foldCities) if (clip.duration && !RM) {
           const want = Math.min(clip.duration - TAIL, 0.12 + cityProgress * Math.max(0, clip.duration - 0.24));
           if (Math.abs(clip.currentTime - want) > 1/30) clip.currentTime = want;
