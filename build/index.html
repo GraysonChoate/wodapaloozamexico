@@ -221,7 +221,9 @@
   }
 
   /* Beat 1 is the city-time continuation of the Ángel, not a second aircraft scene. */
-  #b1{ height:300svh; margin-top:-100svh }
+  /* Start this stage while Ángel is still pinned. That keeps the handoff in one viewport:
+     print wings part over Ángel, then expose the city—never Ángel above / city below. */
+  #b1{ height:300svh; margin-top:-170svh }
   #b1 .stage{ z-index:3; background:transparent; isolation:isolate }
   #b1 .plate{ clip-path:none }
   /* The Ángel does not slide away. These two printed wings begin closed over it and
@@ -485,10 +487,15 @@
      pinned and stationary, and Beat 7's street simply parts to reveal it. The film knew this
      already: Beat 9's own note says a match cut on a section boundary arrives as a wipe. */
   #b8{ height:520svh; margin-top:-100svh }
-  #b8 .stage{ background:var(--ground); z-index:2 }
+  #b8 .stage{ background:var(--ground); z-index:60 }
   /* transparent, so the gap masked out of the street reveals Beat 8 rather than Beat 7's own
      black ground */
-  #b7 .stage{ background:transparent; z-index:3 }
+  /* A descending chain with gaps in it. Every beat from here sits UNDER the one before,
+     because the rule is that a scene is uncovered, never delivered — the incoming stage is
+     already pinned and at full strength before anything happens to the outgoing one. Later
+     sections paint over earlier ones by default, which is exactly backwards for that, so the
+     order has to be stated. Gaps of ten leave room to insert without renumbering. */
+  #b7 .stage{ background:transparent; z-index:70 }
   /* THE ONE BEAT THAT IS NOT FULL BLEED, and the rule it breaks is worth stating.
      Everywhere else footage is the ground and the frame crops it. Here the frame carries a
      MESSAGE, and a cropped message is not a message. The source is 1080x1920; a 1440x900
@@ -576,7 +583,7 @@
      has to be stated explicitly — later sections paint over earlier ones by default, which
      is the opposite of what an uncovering needs. */
   #b9{ height:620svh; margin-top:-100svh }
-  #b9 .stage{ z-index:1 }
+  #b9 .stage{ z-index:50 }
   #b9 .plate img.flex,#b9 .b9front{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     object-position:50% 13%;
@@ -683,12 +690,45 @@
   }
   @media (max-width:760px){ .b9type{ left:14px; right:14px } .b9type p{ font-size:12px } }
 
-  /* the cut — a step, exactly as Beat 5 */
+  /* A raking band of the film's own two colours, crossing the frame while the letters are
+     coming at the reader — light moving over the scene that is materialising through them.
+     It is APPLIED, not a grade: `screen` over a band that is transparent at both ends, so the
+     photograph underneath is never recoloured, it is only lit across. It brightens to the
+     middle of the push and is gone by the end of it, so it reads as something passing rather
+     than something switched on. Wider than the stage on both sides, or the band's own soft
+     ends would appear as edges. */
+  .b9sweep{
+    position:absolute; inset:-12% -34%; z-index:6; pointer-events:none;
+    mix-blend-mode:screen;
+    opacity:calc(var(--sweep2,0) * (1 - var(--sweep2,0)) * 1.5);
+    background:linear-gradient(101deg,
+      transparent 34%, var(--green) 44%, var(--blue) 55%, transparent 66%);
+    transform:translateX(calc((var(--sweep2,0) * 128 - 30) * 1%));
+  }
+
+  /* THE BAR OPENS THE FRAME. The lockout used to appear as a hard step — one frame the
+     photograph, the next the barbell — which is a cut, and a cut is the one thing this seam
+     did not need another of. The shot now arrives through a horizontal slit at the height of
+     the bar itself, opening up and down. The device is the image: a locked-out barbell IS a
+     horizontal line across the frame, so the line that opens the shot is already in it.
+
+     It is also the only aperture that suits this clip. The take is 0.79 seconds and the
+     athlete is overhead for all of it — there is no lift to reveal, only a hold — so an
+     opening that widens along the bar gives the shot the arrival its own footage cannot. */
   #b9 .plate.cut{
     position:absolute; inset:0; z-index:7;
     opacity:var(--cut,0); visibility:var(--cutvis,hidden);
+    clip-path:inset(calc(26% - var(--open,0) * 26%) 0 calc(74% - var(--open,0) * 74%) 0);
   }
-  #b9 .plate.cut video,#b9 .plate.cut img{ transform:scale(calc(1.02 + var(--cutp,0)*.07)) }
+  #b9 .plate.cut video,#b9 .plate.cut img{ transform:scale(calc(1.04 + var(--cutp,0)*.10)) }
+
+  /* And the bar closes it. Beat 9 does not slide away and it does not dissolve: it collapses
+     back to the same line it opened from, and Beat 10 — already pinned underneath at full
+     strength — is what is behind it. The lockout is still scrubbing while this happens, which
+     is what removes the freeze: the shot never reaches its last frame in the open. */
+  #b9 .stage{
+    clip-path:inset(calc(var(--close,0) * 26%) 0 calc(var(--close,0) * 74%) 0);
+  }
 
   /* ── B10 · WHAT THIS IS ───────────────────────────────────────────────────
      Act IV opens. After Beat 8's stillness and Beat 9's cut, this is the door opening —
@@ -704,7 +744,8 @@
      because it was magenta. The interface stays green-to-blue exactly as everywhere else.
      A cool-to-hot shift that the page painted would be a lie about the picture; one the
      footage supplies is just the truth arriving. */
-  #b10{ height:380svh }
+  #b10{ height:380svh; margin-top:-100svh }
+  #b10 .stage{ z-index:40 }
   #b10 .plate video,#b10 .plate img{ transform:scale(calc(1.02 + var(--p) * .06)) }
 
   /* THE SOURCE WATERMARK, AND WHY THIS BEAT CONTAINS ON A LANDSCAPE SCREEN.
@@ -1104,8 +1145,18 @@
   .b8words b.relay{
     -webkit-text-stroke:0; opacity:0;
     filter:brightness(calc(1 - var(--rlk,0) * .34)) contrast(calc(1 + var(--rlk,0) * .16));
-    background-image:url("media/still/b09_flex.jpg");
-    background-size:cover; background-position:50% 13%; background-attachment:fixed;
+    /* Two layers, both viewport-fixed and both clipped to the glyphs: a raking band of the
+       film's own green and blue, screened over Beat 9's frame. Fixed on BOTH, or the band
+       would scale with the letters instead of passing across them — and the first attempt put
+       this on Beat 9's own stage, which at this moment is still completely hidden behind Beat
+       8, so it lit nothing. The light has to be inside the window to be seen through it. */
+    background-image:
+      linear-gradient(101deg, transparent 34%, var(--green) 44%, var(--blue) 55%, transparent 66%),
+      url("media/still/b09_flex.jpg");
+    background-size:230% 100%, cover;
+    background-position:calc((1 - var(--sweep,0)) * 118% - 9%) 50%, 50% 13%;
+    background-attachment:fixed, fixed;
+    background-blend-mode:screen, normal;
     -webkit-background-clip:text; background-clip:text;
   }
 
@@ -1304,7 +1355,7 @@
 </section>
 
 <!-- ─────────── BEAT 9 · EARN IT ─────────── -->
-<section class="beat" id="b9" data-src="media/scrub/b09_lockout.mp4" data-scrub-range="0.88,1">
+<section class="beat" id="b9" data-src="media/scrub/b09_lockout.mp4" data-scrub-range="0.62,1" data-split-exit>
   <div class="stage">
     <div class="plate">
       <img class="flex" src="media/still/b09_flex.jpg" alt="The hooded figure, back to camera, arms raised beneath the Ángel de la Independencia">
@@ -1313,6 +1364,7 @@
     <img class="b9front" src="media/still/b09_flex.jpg" alt="" aria-hidden="true">
     <div class="b9wash"></div>
     <div class="b9edge"></div>
+    <div class="b9sweep" aria-hidden="true"></div>
     <div class="b9type">
       <h2>Es momento de<br>ganarte tu lugar.</h2>
       <p>It&rsquo;s time to earn your place.</p>
@@ -1698,7 +1750,10 @@
         ? Math.sqrt(Math.min(1, Math.max(0, (H - r.top) / (H * 0.5))))
         : Math.min(1, Math.max(0, 1 - r.top / (H * 0.5)));
       b.style.setProperty('--exit', exit.toFixed(4));
-      b.style.setProperty('--entry', enter.toFixed(4));
+      /* Beat 1 is already sticky when the wings begin. Its own scroll progress—not the
+         document's physical approach—opens that seam, so no lower stage can enter below it. */
+      const entry = b.id === 'b1' ? ease(seg(p, 0.00, 0.15)) : enter;
+      b.style.setProperty('--entry', entry.toFixed(4));
       /* A beat that leaves by SPLITTING must not also dissolve: the mask already removes it,
          and fading as well ghosts the outgoing shot over the incoming one instead of cutting
          cleanly through it. Beat 7 disappears entirely by 0.72 of its overlap, so there is
@@ -1786,9 +1841,15 @@
              it is squared, so it starts as a lean-in and ends as a rush — and most of the
              magnification is now inside --p rather than waiting on the stage slide, so the
              swallow happens while the reader is still in the beat. */
-          const push = seg(p, 0.83, 0.995);
+          /* 0.575 crawled and 0.83 overshot. This is between them, and the exponent is 1.7
+             rather than a square, so it still accelerates into the reader without snapping. */
+          const push = Math.pow(seg(p, 0.76, 0.995), 0.85);
           RL.style.transform = 'translate(-50%,-50%) translateZ(' +
             (940 * push * push + 65 * exit).toFixed(0) + 'px)';
+          /* The sweep is handed forward to Beat 9, because it belongs to the scene arriving
+             through the letters, not to the sheet they are cut into. */
+          if (b._b9 || (b._b9 = document.getElementById('b9')))
+            b._b9.style.setProperty('--sweep', push.toFixed(3));
           RL.style.setProperty('--rlk', (1 - exit).toFixed(3));
         }
       }
@@ -1924,13 +1985,26 @@
         /* Hold at full strength while the words descend. The hood and the fists are what
            take them away — fading them out early meant they vanished in open sky and the
            occlusion never happened at all. */
-        const tin = seg(p, 0.12, 0.26) * (1 - seg(p, 0.82, 0.88));
+        /* The band leaves the letters and keeps going over the open frame, same angle and
+           same direction, so it reads as one light crossing the shot rather than two effects. */
+        b.style.setProperty('--sweep2', seg(p, 0.00, 0.17).toFixed(3));
+        /* The words are away BEFORE the bar opens, not after. The original note on this beat
+           was right — it has to end on the figure alone before it can cut — but the cut used
+           to be at 0.88 and the aperture now starts at 0.62, so the old fade left the headline
+           on screen to be sliced in half by the opening band. */
+        const tin = seg(p, 0.12, 0.26) * (1 - seg(p, 0.50, 0.60));
         b.style.setProperty('--typein', tin.toFixed(3));
-        const CUT9 = 0.88;
+        /* The lockout now owns the last 38% of the beat rather than the last 12%. The take
+           is only 0.79s, so this is not more footage — it is the same footage given three
+           times the scroll to play across, which is the whole of what is available. */
+        const CUT9 = 0.62;
         const c9 = p >= CUT9 ? 1 : 0;
         b.style.setProperty('--cut', c9);
         b.style.setProperty('--cutvis', c9 ? 'visible' : 'hidden');
         b.style.setProperty('--cutp', seg(p, CUT9, 1).toFixed(3));
+        /* open along the bar, hold it open, then close along the bar onto Beat 10 */
+        b.style.setProperty('--open',  ease(seg(p, CUT9, CUT9 + 0.11)).toFixed(4));
+        b.style.setProperty('--close', ease(seg(p, 0.90, 1.00)).toFixed(4));
       }
       if (b._v && !RM) {
         /* data-scrub-range lets a clip occupy part of a beat instead of all of it, which is
