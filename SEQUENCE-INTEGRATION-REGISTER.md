@@ -4,6 +4,13 @@
 between labs, live integration, and review. Read it after `PROJECT-NERVOUS-SYSTEM.md` before
 changing a named beat. A study is never discarded merely because work has moved to another beat.
 
+> **Status reset — August 26, 2026:** Entries below preserve source and intent, but their prior
+> “integrated,” “live,” or “locked” labels are not current approval for Beats 0–7. Claude is the
+> active live-build writer. Resume with the exact opening-to-hoodie audit in
+> `PROJECT-NERVOUS-SYSTEM.md`, then log a fresh verified status only after real-browser,
+> normal-speed forward/reverse/stopped-scroll review. Do not use this register to restore an old
+> implementation or overwrite concurrent work.
+
 ## 01 · Opening identity through Beat 2
 
 | Field | Locked decision |
@@ -40,3 +47,29 @@ changing a named beat. A study is never discarded merely because work has moved 
 Work and review in film order. Before making Beat *n*, name Beat *n−1*, Beat *n*, and Beat
 *n+1*, then preserve the already-approved source and handoff decisions above. Every live change
 must update this register's status, not silently replace a study.
+
+---
+
+## SECOND HALF — BUILT IN THE CANONICAL TRACK (25–26 August)
+
+No prototypes. Every one of these lives in `build/index.html` and was judged there with its real
+neighbours, per the canonical-track rule.
+
+| position | device | source material |
+|---|---|---|
+| 8 → 9 | his handwritten date becomes a window onto Beat 9; printed shutters close over him; the world turns a quarter while the window stays upright and centred | `b08_newspaper.mp4`; SVG text mask calibrated to the ink on the source frame |
+| 9 | one scrub carrying four scenes — night platform, rope, barbells, overhead press | `b09_floorwork.mp4` from WP 1 (7.35–9.30, 10.92–13.00) and WP 3 (1.30–3.80) plus `b09_lockout` |
+| 9 → 10 | a letterbox hugs the lift and holds, the next scene materialises inside the bars, then they close to become it | `--band` / `--barsink` on `#b9 .stage` |
+| 10 | camera tracks past the stands and finds an athlete; the words are cut by the people in front of them | `b10_crowd_focus.mp4` from WP 3 (19.95–22.25, 6.00–7.05, 7.05–8.67) |
+| 10 → 11 | two diagonally converging fields, both already playing | two clipped copies of `b11_face.mp4` |
+
+**The occlusion effect is documented as a skill**, not as prose: `/kinetic-type`, copied into the
+repo at `reference/skills/kinetic-type.md` with `person-matte.swift` beside it. It carries the
+technique and the fourteen ways it was got wrong first. Read it before rebuilding anything that
+puts type inside footage.
+
+**Matte provenance:** `media/still/b10_people_matte.png` is a sprite sheet of 141 per-frame person
+mattes for base frames 137–277 of `b10_crowd_focus.mp4`, produced locally by macOS Vision. It is a
+derivative of found footage — nothing is generated. Regenerate with the Swift tool in the skill
+folder; **verify cells against the mattes afterwards**, because a wrong filter graph produces a
+sheet that looks plausible and is empty.

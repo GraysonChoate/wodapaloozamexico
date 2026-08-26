@@ -8,6 +8,64 @@ live decisions, work split, and non-negotiable direction.
 authoritative list of approved labs, their exact source contracts, their film position, and their
 integration status. Do not silently lose, replace, or duplicate an approved study.
 
+## Pause / reset — August 26, 2026 (supersedes earlier live-status claims)
+
+**Production is paused for review. Claude is the sole active owner of `build/index.html` until an
+explicit handoff.** Do not retune, repair, or "clean up" the live build while that work is in
+progress. Earlier notes that name a first-half owner, call the opening locked, or mark a seam as
+accepted are historical records, not current approval.
+
+The last pass exposed a breakdown in both continuity and verification: duplicate or frozen city,
+driving, and hoodie layers; upward-sliding replacement scenes; a broken scroll handler; wrong
+hoodie footage; missing/misassigned mosaic footage; unreadable type; and approvals inferred from
+static evidence rather than the complete live sequence. Treat all of Beats 0–7 as **unapproved
+until re-audited in the current build**. Never describe a seam as fixed merely because a previous
+file, screenshot, contact sheet, or old commit looked correct.
+
+### Tomorrow's entry order
+
+1. Establish one current writer and inspect the actual live build only after that writer hands it
+   off. Preserve the dirty working tree; never overwrite another agent's integration.
+2. Audit the opening through the hoodie/mosaic transition in continuous desktop scrolling, both
+   directions and at normal speed. At every seam, pause scrolling and confirm that footage also
+   pauses, then resume and confirm it advances exactly once.
+3. Audit Beats 6–7 only after Beats 0–5 pass. The sticker/pole entrance is known weak work and
+   needs a new, more authored relationship; it is not approved by the earlier
+   banner-to-registration-strip description.
+4. Continue in film order only through Beat 7. Do not begin a broad redesign, mobile pass, or
+   later-beat work until the preceding seam has a recorded pass/fail result.
+
+### Opening-to-hoodie acceptance contract
+
+- The Ángel remains visible until its printed wings close. Those wings become two live city
+  panels; they close to a single continuously playing city, with no frozen overlay, vertical
+  slide, duplicate city source, or late Ángel flash.
+- `ARE / YOU / READY?` stays clear of the navigation and each word remains separately legible.
+  It turns jet black, converges to one point, becomes one black circle, and that circle expands
+  to fill the screen. A rising black panel is a failure.
+- `SUCEDERÁ` is readable on black, contains the one live driving source, and expands as that
+  aperture into the same source. There is no long black wait, fade-in substitute, or duplicate
+  driving pass/loop.
+- The car remains live above and below one centred, live hoodie strip. The strip holds long
+  enough for the **exact operator-supplied Cali metrics** to tally, then opens vertically from
+  its centre into the approved crowd-surrounded hoodie scene. Do not guess, normalize, or invent
+  the metrics; recover the exact reference before locking copy.
+- The full hoodie scene fractures in place into live panels. It never slides away while another
+  copy arrives. Every intended panel has the assigned hoodie footage; the lower-right is a
+  hoodie-in-traffic shot, never a lifting clip.
+
+### Non-negotiable audit method
+
+For every boundary, record: outgoing source, incoming source, number of visible players/owners,
+forward result, reverse result, stopped-scroll result, and any blank/frozen/duplicate frame.
+Use a real desktop browser and continuous normal-speed review; screenshots and contact sheets are
+diagnostic evidence only. Stop implementation immediately on a script error, duplicate source,
+or unexplained frame owner. Fix the underlying ownership/timeline problem before styling it.
+
+After this sequence is truly stable, create reusable project skills for the proven aperture,
+circle-convergence, shutter-strip, and panel-fracture effects, plus a negative-pattern history
+covering the failures above. Do not package an effect into a skill before it passes this audit.
+
 ## The outcome
 
 Build a premium cinematic event website — not a video that happens to scroll. The reader moves
@@ -42,6 +100,33 @@ replacement, scale-through, crop/registration, and intentional black breath.
 - Review work proceeds in the reader's exact film order. A study for Beat *n* must include the
   immediately preceding approved state whenever that context is necessary to judge it; do not ask
   the user to infer a handoff from an isolated later-beat prototype.
+
+### Type inside footage — August 26
+
+The film now has a fourth device alongside the aperture, the split and the registration strip:
+**type that people in the shot walk in front of**. Three layers — the shot, the words, and the
+same frame with everything but the people erased — all through one renderer.
+
+It is documented as a skill (`/kinetic-type`, copied to `reference/skills/`) rather than described
+here, because the technique is short and the failure modes are long. Two of those failure modes
+are worth carrying at this level:
+
+- **A ghost is almost never a timing problem.** It is a wrong matte, a mismatched renderer, or a
+  stale canvas. Isolate the cut-out layer over a flat colour before investigating anything else.
+- **When the reviewer's eyes and the measurement disagree, the measurement is the suspect.**
+
+### Canonical-track rule — August 25
+
+The real `build/index.html` film is the only approval surface for a transition. A standalone
+lab may preserve a mechanism or historical work, but it is never evidence that the move belongs
+in the film. Before a transition is proposed, edited, or called complete, view it at normal speed
+with the actual preceding beat, active beat, and next live beat in their existing order. Do not
+replace, re-time, or crop the established footage sequence merely to make an isolated demo work.
+
+The immediate workflow is: name the three actual adjacent beats → make one small reversible
+transition change in the canonical track → review it forward and reverse in that track → either
+preserve it as the live source or remove it. Labs are reference evidence only; they do not
+substitute for continuity review.
 
 ### Immediate creative exception: opening identity → cockpit
 
@@ -179,7 +264,7 @@ releases before the action paper arrives.
 
 | Now | Owner | Scope |
 |---|---|---|
-| Beats 0–6 / first-half sequence studies | Codex | ordered visual studies, source contracts, and approval review |
+| Beats 0–6 / first-half canonical track | Codex | live `build/index.html` continuity work, source contracts, and approval review |
 | Beats 7 → action / second-half build | Claude | continue in film order; preserve approved 7→8 work and do not touch Beats 0–6 |
 | Preserve the approved opening | Claude | port only from `build/angel-cockpit-diagonal-lab.html`; no retune without a named review finding |
 | Functional layer / information rails | Claude | follow `reference/FUNCTIONAL-WEB-LAYER.md` after the relevant places are judged |
