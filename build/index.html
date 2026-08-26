@@ -273,14 +273,16 @@
   #b1 .b1cap{ display:none }
   /* The question holds over the live city, inverts, then resolves into one growing black
      disc. That disc is the editorial punctuation and the shared aperture for SUCEDERÁ. */
-  #b1 .stage::after{ content:""; position:absolute; inset:0; z-index:4; pointer-events:none;
-    background:radial-gradient(circle at 50% 50%,#000 0,#000 calc(var(--ready-disc,0)*145vmax),transparent calc(var(--ready-disc,0)*145vmax + 1px)); }
+  #b1 .stage::after{ display:none }
   .b1cinema{ position:absolute; z-index:5; inset:0; pointer-events:none; overflow:hidden }
   .b1cinema::before,.b1cinema::after{ content:""; position:absolute; left:0; right:0; height:10svh; background:#000; will-change:transform }
   .b1cinema::before{ top:0; transform:translateY(calc((-1 + var(--city-cinema,0))*100%)) }
   .b1cinema::after{ bottom:0; transform:translateY(calc((1 - var(--city-cinema,0))*100%)) }
   .b1ready{ position:absolute; z-index:6; inset:0; pointer-events:none;
     opacity:var(--ready,0); perspective:1200px; transform-style:preserve-3d }
+  /* The words resolve at this exact centre point; this is their solid-black continuation,
+     not a second image or a fading overlay. */
+  .b1sphere{ position:absolute; z-index:7; left:50%; top:50%; width:calc(var(--ready-sphere,0)*300vmax); height:calc(var(--ready-sphere,0)*300vmax); border-radius:50%; background:#000; transform:translate(-50%,-50%); pointer-events:none }
   /* Optical type over the SAME moving city: no second still is ever mapped into these letters. */
   .b1ready span{ position:absolute; display:block; color:rgb(239 246 242 / .52); -webkit-text-fill-color:rgb(239 246 242 / .52); -webkit-text-stroke:1px rgb(255 255 255 / .17); font:950 clamp(72px,15vw,220px)/.76 Archivo,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.09em; white-space:nowrap; text-shadow:0 1px 1px rgba(0,0,0,.34),0 0 28px rgba(0,0,0,.32); mix-blend-mode:normal; backdrop-filter:none; transform-style:preserve-3d; transform-origin:50% 50%; will-change:transform,color }
   /* A distinct ink layer—not a filter—makes the actual wordforms turn jet black before
@@ -288,9 +290,9 @@
   .b1ready span::after{ content:attr(data-word); position:absolute; inset:0; color:#000; -webkit-text-fill-color:#000; -webkit-text-stroke:0 transparent; opacity:var(--ready-invert,0); mix-blend-mode:normal; text-shadow:none }
   /* Once black, the three wordforms physically register into the same centre before the
      disc grows. They make the circle; the circle is not an unrelated layer behind them. */
-  .b1ready .are{ top:17vh; left:50%; transform:translate(-50%,calc((1 - var(--ready,0))*-20vh + var(--ready-merge,0)*33vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
-  .b1ready .you{ top:43vh; left:50%; transform:translate(calc(-50% + (1 - var(--ready,0))*38vw),calc(var(--ready-merge,0)*7vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
-  .b1ready .ready{ top:69vh; bottom:auto; left:50%; transform:translate(calc(-50% - (1 - var(--ready,0))*38vw),calc((1 - var(--ready,0))*14vh - var(--ready-merge,0)*19vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
+  .b1ready .are{ top:17vh; left:50%; transform:translate(-50%,calc(-50% + (1 - var(--ready,0))*-20vh + var(--ready-merge,0)*33vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
+  .b1ready .you{ top:43vh; left:50%; transform:translate(calc(-50% + (1 - var(--ready,0))*38vw),calc(-50% + var(--ready-merge,0)*7vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
+  .b1ready .ready{ top:69vh; bottom:auto; left:50%; transform:translate(calc(-50% - (1 - var(--ready,0))*38vw),calc(-50% + (1 - var(--ready,0))*14vh - var(--ready-merge,0)*19vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
   @media(max-width:700px){ .b1ready .are{font-size:25vw}.b1ready .you{font-size:32vw}.b1ready .ready{font-size:22vw} }
 
   /* The black wordforms stay fully opaque as they register into the central seed; the growing
@@ -1380,6 +1382,7 @@
     </div>
     <div class="b1cinema" aria-hidden="true"></div>
     <div class="b1ready" aria-hidden="true"><span class="are" data-word="ARE">ARE</span><span class="you" data-word="YOU">YOU</span><span class="ready" data-word="READY?">READY?</span></div>
+    <div class="b1sphere" aria-hidden="true"></div>
     <div class="b1cap">CIUDAD DE MÉXICO · 2,240 M</div>
   </div>
 </section>
@@ -2305,8 +2308,10 @@
            move is one perfect circular black aperture growing from their shared centre. */
         b.style.setProperty('--ready', Math.min(ease(seg(p, 0.14, 0.26)), 1 - ease(seg(p, 0.84, 0.94))).toFixed(4));
         b.style.setProperty('--ready-invert', ease(seg(p, 0.57, 0.62)).toFixed(4));
-        b.style.setProperty('--ready-merge', ease(seg(p, 0.62, 0.70)).toFixed(4));
-        b.style.setProperty('--ready-disc', ease(seg(p, 0.70, 0.80)).toFixed(4));
+        /* The wordforms register before the sphere is allowed to appear; by the time the
+           circle is visible there is no readable stack left at its centre. */
+        b.style.setProperty('--ready-merge', ease(seg(p, 0.60, 0.635)).toFixed(4));
+        b.style.setProperty('--ready-sphere', ease(seg(p, 0.63, 0.80)).toFixed(4));
         b.style.setProperty('--city-cinema', ease(seg(p, 0.29, 0.40)).toFixed(4));
       }
 
@@ -2374,7 +2379,12 @@
         /* It was arriving over the night platform, before the beat had settled into anything.
            The rope is fully formed by 0.30 of the beat, so the line lands on THAT and is gone
            again before the bars come in — it belongs to the climb, not to the whole beat. */
-        const tin = seg(p, 0.36, 0.44) * (1 - seg(p, 0.545, 0.60));
+        /* The line belongs to the barbells, not the rope. With the 0.80/0.891 warp that shot
+           runs from 0.494 to 0.80 of the beat, so the line arrives just after it starts — while
+           the bar is still being rolled — and is gone before he gets under it. It also puts the
+           words inside the letterbox band rather than over an open frame, which is where the
+           reference reel puts its type and where it reads hardest. */
+        const tin = seg(p, 0.52, 0.58) * (1 - seg(p, 0.74, 0.79));
         b.style.setProperty('--typein', tin.toFixed(3));
         /* The lockout now owns the last 38% of the beat rather than the last 12%. The take
            is only 0.79s, so this is not more footage — it is the same footage given three
