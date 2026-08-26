@@ -1180,7 +1180,7 @@
 </section>
 
 <!-- ─────────── BEAT 1 · APPROACH ─────────── -->
-<section class="beat" id="b1" data-src="media/scrub/b01_cockpit.mp4" data-join-in>
+<section class="beat" id="b1" data-src="media/scrub/b01_cockpit.mp4" data-scrub-from="0.90" data-join-in>
   <div class="stage">
     <div class="plate">
       <img src="media/poster/b01_cockpit.jpg" alt="Approach into Mexico City">
@@ -1828,6 +1828,17 @@
         b.style.setProperty('--flag-intro', (1 - ease(seg(p, 0.07, 0.16))).toFixed(4));
         b.style.setProperty('--title-black', Math.min(ease(seg(p, 0.13, 0.26)), 1 - ease(seg(p, 0.35, 0.48))).toFixed(4));
         b.style.setProperty('--paper', clamp((p - 0.18) * 3.2, 0, 1).toFixed(4));
+        /* The cockpit begins inside the breach and stays live beneath ARE / YOU / READY?.
+           Beat 1 resumes this exact source frame at 0.90s, so the aperture can release
+           without handing from a frozen preview back to the beginning of the clip. */
+        const cockpit = b._full;
+        if (cockpit && cockpit.duration && !RM) {
+          const q = seg(p, 0.48, 0.84);
+          const want = HEAD + q * Math.max(0, 0.90 - HEAD);
+          if (!cockpit._seeking && Math.abs(cockpit.currentTime - want) > 1/48) {
+            cockpit._seeking = true; cockpit.currentTime = want;
+          }
+        }
         for (const clip of [titleFlag,openingFlag]) if (clip && clip.duration && !RM) {
           const want = Math.min(clip.duration - TAIL, 0.1 + p * Math.max(0, clip.duration - 0.15));
           if (Math.abs(clip.currentTime - want) > 1/36) clip.currentTime = want;
