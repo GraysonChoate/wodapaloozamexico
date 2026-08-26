@@ -91,8 +91,22 @@ though on the shot measured here Vision never detected the distant floor figures
 filter had nothing to drop.
 The tool here does this with a fallback.
 
-Segment only the stretch the type is on screen. Feather the matte (`gblur=sigma≈1.4`) before
-the merge or the cut-out reads as a sticker.
+**HARDEN the matte; do not feather it.** A feathered edge is semi-transparent, and a
+semi-transparent person composites over the type beneath it — which is not a soft edge, it is a
+**ghost of the person's head with the words showing through**. Dilate slightly so the figure is
+fully covered, then push the alpha near-binary and leave only about a pixel of anti-aliasing:
+
+    dilation,lut=y='clip((val-92)*5,0,255)',gblur=sigma=0.6
+
+Measure it: count pixels with partial alpha (say 30–225). On one frame that went from **7.5%
+soft to 1.2%**, and the ghosting went with it. Partial alpha IS the ghost.
+
+**Put the type where the matte is cleanest.** Low in frame is usually the worst place — the
+nearest figures are largest, softest and most out of focus there, which is the hardest region to
+matte. Raising the line into the mid-band both reads better and removes most of the problem
+before it starts.
+
+Segment only the stretch the type is on screen.
 
 **Do NOT union the matte with a luminance key to catch what it missed.** Tried on a night
 shot: a luma key cannot tell a dark silhouette from a dark stadium, so it returned almost the

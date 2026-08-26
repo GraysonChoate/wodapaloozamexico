@@ -171,7 +171,9 @@
      bleed `cover` crops the sides away, and contracting to the source aspect hands them
      back. The picture does not only get smaller, it gets more complete — Reforma is at its
      widest exactly when the image is at its smallest. */
-  #b0{ height:340svh; position:relative; z-index:2 }
+  /* Beat 0 remains the one city owner through the ARE YOU READY hold. This prevents a second
+     city section from entering underneath the Angel shutter. */
+  #b0{ height:540svh; position:relative; z-index:2 }
   /* Beat 1 must wait below the Beat 0 wing handoff instead of appearing around it. */
   /* Beat 2 waits beneath the city/question until the black sphere has completed. */
   #b1{ position:relative; z-index:10 }
@@ -259,9 +261,11 @@
      for the question, never a second translucent city pass sliding over the first. */
   /* Overlap the final city shutter so this beat never has a lower edge that can slide
      upward into view. Its city image is only enabled at the exact end of Beat 0. */
-  #b1{ height:300svh; margin-top:-100svh }
-  #b1 .stage{ z-index:3; background:transparent; isolation:isolate; opacity:var(--b1-city,0); transition:none }
-  #b1 .plate{ clip-path:none; opacity:1 }
+  #b1{ height:300svh; margin-top:-200svh }
+  #b1 .stage{ z-index:3; background:transparent; isolation:isolate; opacity:1; transition:none }
+  /* The city behind the question is Beat 0's same scroll-owned video. Beat 1 owns only the
+     typography and sphere; it must never introduce another city image. */
+  #b1 .plate{ display:none }
   /* This source was captured with player controls on its outer lower edge. The city itself
      has enough overscan to remove that capture artifact by crop, rather than ever letting
      borrowed interface chrome enter the film. */
@@ -911,7 +915,12 @@
      two lines, both large, occupying the lower band the silhouetted heads cross, with the shot
      still legible above them and the navigation untouched. */
   .b10line{
-    position:absolute; z-index:2; left:5vw; right:5vw; bottom:16%; margin:0;
+    /* HIGHER. Sitting low, the words crossed the bottom of the frame where the near silhouettes
+       are largest, softest and most out of focus — the hardest region to matte and the one that
+       produced the ghost heads. Centred at 40% they sit in the stands band, across the heads
+       themselves, which is both where he wants them and where the matte is cleanest. */
+    position:absolute; z-index:2; left:5vw; right:5vw; top:40%; margin:0;
+    transform:translateY(-50%);
     font:800 clamp(34px,9.4vw,150px)/0.94 Archivo,"Helvetica Neue",Arial,sans-serif;
     letter-spacing:-.04em; text-transform:none; color:#fff;
     font-variation-settings:"wdth" 125,"wght" 800;
@@ -1493,8 +1502,8 @@
         <video muted playsinline preload="auto" disablepictureinpicture></video>
       </div>
     </div>
-    <video class="b0city-full" aria-hidden="true" muted playsinline loop autoplay preload="auto" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video>
-    <div class="b0fold b0fold-l" aria-hidden="true"><video class="b0city-inset" muted playsinline loop autoplay preload="auto" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video></div><div class="b0fold b0fold-r" aria-hidden="true"><video class="b0city-inset" muted playsinline loop autoplay preload="auto" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video></div>
+    <video class="b0city-full" aria-hidden="true" muted playsinline preload="metadata" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video>
+    <div class="b0fold b0fold-l" aria-hidden="true"><video class="b0city-inset" muted playsinline preload="metadata" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video></div><div class="b0fold b0fold-r" aria-hidden="true"><video class="b0city-inset" muted playsinline preload="metadata" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video></div>
     <nav class="b0nav" aria-label="Site navigation"><button class="menu" type="button" aria-label="Open site index"><b>W</b><span>Menu</span></button><span class="place">01 / Arrival</span><a class="qualifier" href="https://competitioncorner.net/events/21707/details" target="_blank" rel="noopener noreferrer">Qualifier ↗</a></nav>
   </div>
 </section>
@@ -1504,7 +1513,7 @@
   <div class="stage">
     <div class="plate">
       <img src="media/poster/px_city_timelapse.jpg" alt="Mexico City moving from day into night">
-      <video src="media/scrub/px_city_timelapse.mp4?cut=20260825-final" muted playsinline loop autoplay preload="auto" disablepictureinpicture></video>
+      <video muted playsinline preload="metadata" disablepictureinpicture></video>
     </div>
     <div class="b1cinema" aria-hidden="true"></div>
     <div class="b1ready" aria-hidden="true"><span class="are" data-word="ARE">ARE</span><span class="you" data-word="YOU">YOU</span><span class="ready" data-word="READY?">READY?</span></div>
@@ -1518,7 +1527,7 @@
   <div class="stage">
     <div class="plate">
       <img src="media/poster/b04_car.jpg" alt="Driving into Mexico City at night">
-      <video muted playsinline loop autoplay preload="auto" disablepictureinpicture></video>
+      <video muted playsinline preload="metadata" disablepictureinpicture></video>
     </div>
     <svg class="knockout" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <defs><mask id="cut" maskUnits="userSpaceOnUse">
@@ -1539,7 +1548,7 @@
     <canvas class="amb" width="48" height="27" aria-hidden="true"></canvas>
     <div class="plate">
       <img src="media/poster/b05_sud06.jpg" alt="A hooded Wodapalooza figure among a Mexico City crowd">
-      <video muted playsinline loop autoplay preload="auto" disablepictureinpicture></video>
+      <video muted playsinline preload="metadata" disablepictureinpicture></video>
     </div>
     <div class="b4stats" aria-hidden="true"><span><b data-count="100">1</b>brands<small>In the festival expo</small></span><span><b data-count="2500">1</b>athletes<small>From 40+ countries</small></span><span><b data-count="100">1</b>brands<small>In the festival expo</small></span></div>
     <p class="b4copy">The standard of Miami.<br><b>Now in México.</b></p>
