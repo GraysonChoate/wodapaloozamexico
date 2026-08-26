@@ -281,15 +281,15 @@
   .b1ready{ position:absolute; z-index:6; inset:0; pointer-events:none;
     opacity:calc(var(--ready,0) * (1 - var(--ready-turn-fade,0))); perspective:1200px; transform-style:preserve-3d }
   /* Optical type over the SAME moving city: no second still is ever mapped into these letters. */
-  .b1ready span{ position:absolute; display:block; color:rgb(239 246 242 / calc(.52 * (1 - var(--ready-invert,0)))); -webkit-text-fill-color:rgb(239 246 242 / calc(.52 * (1 - var(--ready-invert,0)))); -webkit-text-stroke:1px rgb(255 255 255 / calc(.17 * (1 - var(--ready-invert,0)))); font:950 clamp(72px,16vw,230px)/.72 Archivo,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.11em; white-space:nowrap; text-shadow:0 1px 1px rgba(0,0,0,.34),0 0 28px rgba(0,0,0,.32); mix-blend-mode:screen; backdrop-filter:blur(1px) saturate(1.18); transform-style:preserve-3d; transform-origin:50% 50%; will-change:transform,color }
+  .b1ready span{ position:absolute; display:block; color:rgb(239 246 242 / calc(.52 * (1 - var(--ready-invert,0)))); -webkit-text-fill-color:rgb(239 246 242 / calc(.52 * (1 - var(--ready-invert,0)))); -webkit-text-stroke:1px rgb(255 255 255 / calc(.17 * (1 - var(--ready-invert,0)))); font:950 clamp(72px,15vw,220px)/.76 Archivo,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.09em; white-space:nowrap; text-shadow:0 1px 1px rgba(0,0,0,.34),0 0 28px rgba(0,0,0,.32); mix-blend-mode:screen; backdrop-filter:blur(1px) saturate(1.18); transform-style:preserve-3d; transform-origin:50% 50%; will-change:transform,color }
   /* A distinct ink layer—not a filter—makes the actual wordforms turn jet black before
      the circle consumes them. */
   .b1ready span::after{ content:attr(data-word); position:absolute; inset:0; color:#000; -webkit-text-fill-color:#000; -webkit-text-stroke:0 transparent; opacity:var(--ready-invert,0); mix-blend-mode:normal; text-shadow:none }
   /* Once black, the three wordforms physically register into the same centre before the
      disc grows. They make the circle; the circle is not an unrelated layer behind them. */
-  .b1ready .are{ top:19vh; left:50%; transform:translate(-50%,calc((1 - var(--ready,0))*-28vh + var(--ready-merge,0)*31vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
-  .b1ready .you{ top:44vh; left:50%; font-size:clamp(92px,22vw,320px); transform:translate(calc(-50% + (1 - var(--ready,0))*50vw),calc(var(--ready-merge,0)*6vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
-  .b1ready .ready{ top:69vh; bottom:auto; left:50%; font-size:clamp(64px,15vw,220px); transform:translate(calc(-50% - (1 - var(--ready,0))*48vw),calc((1 - var(--ready,0))*18vh - var(--ready-merge,0)*19vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
+  .b1ready .are{ top:17vh; left:50%; transform:translate(-50%,calc((1 - var(--ready,0))*-20vh + var(--ready-merge,0)*34vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
+  .b1ready .you{ top:43vh; left:50%; transform:translate(calc(-50% + (1 - var(--ready,0))*38vw),calc(var(--ready-merge,0)*3vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
+  .b1ready .ready{ top:69vh; bottom:auto; left:50%; transform:translate(calc(-50% - (1 - var(--ready,0))*38vw),calc((1 - var(--ready,0))*14vh - var(--ready-merge,0)*23vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
   @media(max-width:700px){ .b1ready .are{font-size:25vw}.b1ready .you{font-size:32vw}.b1ready .ready{font-size:22vw} }
 
   /* The black wordforms disappear as they register into the circle, never lingering as a pile. */
@@ -339,7 +339,7 @@
   /* B2 owns the complete drive: driver seat → wide road → close hood. B4 begins only after
      that source has completed, on the actual hooded figure. Keep this seam clean while the
      next authored transition is selected; there is no frozen-car layer or second car pass. */
-  #b4{ height:340svh; margin-top:-100svh }
+  #b4{ height:340svh; margin-top:0 }
   #b4 .stage{
     z-index:6; background:#000;
   }
@@ -351,12 +351,13 @@
   #b4 .plate video,#b4 .plate img{
     inset:0; width:100%; height:100%; object-fit:cover; transform:none;
   }
-  /* A hand-drawn trace is the shared object between the moving hood shot and the street
-     portrait. It draws over the live car, then opens the hoodie through that same point—no
-     frozen frame and no incoming panel travelling upward. */
-  .hood-trace{ position:absolute; inset:0; z-index:4; width:100%; height:100%; pointer-events:none; opacity:calc(1 - var(--hood-open,0)); }
-  .hood-trace path{ fill:none; stroke:#78d8d3; stroke-width:7; stroke-linecap:round; stroke-linejoin:round; filter:drop-shadow(0 0 8px rgba(74,202,197,.55)); stroke-dasharray:1; stroke-dashoffset:calc(1 - var(--hood-trace,0)); }
-  .hood-trace .trace-echo{ stroke:#f3f1e8; stroke-width:1.5; opacity:.85; stroke-dashoffset:calc(1 - var(--hood-trace,0) * .82); }
+  /* The hooded street image grows out of a central aperture.  Its proof counters belong to
+     that aperture and disappear before the shot owns the page—no line drawing or rising panel. */
+  .b4stats{ position:absolute; z-index:5; inset:0; display:grid; grid-template-columns:repeat(3,1fr); gap:3vw; align-content:center; padding:0 12vw; color:#f7f5ef; opacity:var(--hood-metrics,0); pointer-events:none; text-align:center; mix-blend-mode:screen }
+  .b4stats span{ display:grid; gap:7px; font:800 10px/1 Archivo,Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase }
+  .b4stats b{ font:950 clamp(44px,7vw,112px)/.82 Archivo,Arial,sans-serif; letter-spacing:-.08em }
+  .b4stats small{ font:500 13px/1.3 Arial,sans-serif; letter-spacing:0; text-transform:none }
+  @media(max-width:700px){.b4stats{padding:0 6vw;gap:2vw}.b4stats b{font-size:15vw}.b4stats span{font-size:8px}}
   /* the light escapes its container: the frame is redrawn tiny, blown up past the edges and
      blurred to nothing, so headlight streaks bleed into the page margins the band cannot reach */
   .amb{
@@ -784,7 +785,13 @@
      because it was magenta. The interface stays green-to-blue exactly as everywhere else.
      A cool-to-hot shift that the page painted would be a lie about the picture; one the
      footage supplies is just the truth arriving. */
-  #b10{ height:380svh; margin-top:-100svh }
+  /* Beat 10 has to be PLAYING, not merely pinned, while Beat 9's letterbox is open — that is
+     the whole point of the bars: the next scene is already running, you just cannot see all of
+     it yet. At -100svh it did not arrive until Beat 9 was over, which is why the top bar stayed
+     black while the bottom showed dancers. At -190 it is on screen and moving well before the
+     bars clear. Its own track grows to match, so the extra distance is not paid for in dropped
+     frames. */
+  #b10{ height:470svh; margin-top:-190svh }
   #b10 .stage{ z-index:40 }
   #b10 .plate video,#b10 .plate img{ transform:scale(calc(1.02 + var(--p) * .06)) }
 
@@ -1385,7 +1392,7 @@
       <img src="media/poster/b05_sud08.jpg" alt="A hooded Wodapalooza figure crossing a Mexico City street">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
-    <svg class="hood-trace" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M78 468 C245 330 356 533 500 372 S746 215 936 138"></path><path class="trace-echo" pathLength="1" d="M78 468 C245 330 356 533 500 372 S746 215 936 138"></path></svg>
+    <div class="b4stats" aria-hidden="true"><span><b data-count="100">1</b>brands<small>In the festival expo</small></span><span><b data-count="2500">1</b>athletes<small>From 40+ countries</small></span><span><b data-count="100">1</b>brands<small>In the festival expo</small></span></div>
     <p class="b4copy">The standard of Miami.<br><b>Now in México.</b></p>
   </div>
 </section>
@@ -1399,7 +1406,6 @@
       <div class="cell"><video data-loop="media/loop/b05_sud03.mp4" poster="media/poster/b05_sud03.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Ángel de la Independencia"></video></div>
       <div class="cell"><video data-loop="media/loop/b05_sud05.mp4" poster="media/poster/b05_sud05.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Monumento a la Revolución"></video></div>
       <div class="cell"><video data-loop="media/loop/b05_sud06.mp4" poster="media/poster/b05_sud06.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Eje Central"></video></div>
-      <div class="cell"><video data-loop="media/loop/b05_sud08.mp4" poster="media/poster/b05_sud08.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Eje Central"></video></div>
       <div class="cell"><video data-loop="media/loop/b05_sud09.mp4" poster="media/poster/b05_sud09.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Eje Central"></video></div>
       <div class="cell"><video data-loop="media/loop/b05_sud04.mp4" poster="media/poster/b05_sud04.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Ángel de la Independencia"></video></div>
       <div class="cell is-still"><img src="media/still/b05_torre.jpg" alt="Torre Latinoamericana"></div>
@@ -1482,7 +1488,7 @@
 </section>
 
 <!-- ─────────── BEAT 9 · EARN IT ─────────── -->
-<section class="beat" id="b9" data-src="media/scrub/b09_floorwork.mp4" data-split-exit>
+<section class="beat" id="b9" data-src="media/scrub/b09_floorwork.mp4" data-scrub-warp="0.80,0.891" data-split-exit>
   <div class="stage">
     <div class="plate">
       <img src="media/still/b09_floorwork_f0.jpg" alt="Athletes competing on a lit platform at night, the city behind them">
@@ -1500,10 +1506,10 @@
 </section>
 
 <!-- ─────────── BEAT 10 · WHAT THIS IS ─────────── -->
-<section class="beat" id="b10" data-src="media/scrub/b10_floor.mp4">
+<section class="beat" id="b10" data-src="media/scrub/b10_crowd.mp4">
   <div class="stage">
     <div class="plate">
-      <img src="media/poster/b10_floor.jpg" alt="Athletes running through the giant WZA letters">
+      <img src="media/poster/b10_crowd.jpg" alt="Athletes running through the giant WZA letters">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
     <p class="b10line">Celebrate fitness. Community. Life.</p>
@@ -1998,12 +2004,18 @@
       }
 
       if (b.id === 'b4') {
-        /* The car remains a live moving layer below. First a single graphic contour draws
-           across it; only then does that trace become the aperture for the hooded shot. */
-        const trace = ease(seg(p, 0.02, 0.18));
-        const open = ease(seg(p, 0.16, 0.43));
-        b.style.setProperty('--hood-trace', trace.toFixed(4));
+        /* The street shot is one centred aperture: verified proof counts settle inside it
+           before the aperture expands. Nothing rises, slides, or repeats the hooded frame. */
+        const open = ease(seg(p, 0.10, 0.48));
+        const metrics = ease(seg(p, 0.12, 0.24)) * (1 - ease(seg(p, 0.30, 0.42)));
         b.style.setProperty('--hood-open', open.toFixed(4));
+        b.style.setProperty('--hood-metrics', metrics.toFixed(4));
+        b.querySelectorAll('.b4stats b').forEach((el, i) => {
+          const land = ease(seg(p, 0.12 + i * 0.035, 0.25 + i * 0.035));
+          const target = +el.dataset.count;
+          const shown = Math.max(1, Math.round(target * land));
+          el.textContent = target >= 1000 ? `${(shown / 1000).toFixed(1)}K+` : `${shown}+`;
+        });
       }
 
       if (b.id === 'b8') {
@@ -2223,17 +2235,18 @@
            Arrival gets 18% here against 10% in the standalone proof: the total is shorter, so
            the fraction spent at full bleed had to grow or the city would never register as a
            place before it became an object. */
-        /* Let the original statue wings remain visibly split while the city develops inside
-           them; only then do those same wings register together and release to full city. */
-        const fold = ease(seg(p, 0.22, 0.68)), cut = ease(seg(p, 0.68, 0.82)), release = ease(seg(p, 0.82, 0.94));
+        /* Texture and Ángel arrive first. Only after the wings have held does the incoming
+           city materialize inside their exact silhouettes; the same two wings then shutter
+           closed to make the full city. */
+        const fold = ease(seg(p, 0.22, 0.84)), cut = ease(seg(p, 0.84, 0.92)), release = ease(seg(p, 0.92, 0.98));
         b.style.setProperty('--fold', fold.toFixed(4));
         b.style.setProperty('--cut', cut.toFixed(4));
         b.style.setProperty('--cut-size', ((cut * 74) + (release * 26)).toFixed(2) + '%');
         b.style.setProperty('--release', release.toFixed(4));
         /* City arrives while the printed wings are still visibly separated, then the panels
            register at the centre before the whole-source release. */
-        b.style.setProperty('--city-fold', (ease(seg(p, 0.34, 0.56)) * (1 - release)).toFixed(4));
-        b.style.setProperty('--city-full', ease(seg(p, 0.66, 0.80)).toFixed(4));
+        b.style.setProperty('--city-fold', (ease(seg(p, 0.58, 0.76)) * (1 - release)).toFixed(4));
+        b.style.setProperty('--city-full', ease(seg(p, 0.78, 0.92)).toFixed(4));
         b.style.setProperty('--angel', ease(seg(p, 0.24, 0.49)).toFixed(4));
         b.style.setProperty('--c', 0);
         /* Strictly inside the hold, with room at both ends. Copy still settling while the
@@ -2252,7 +2265,7 @@
           if (Math.abs(clip.currentTime - want) > 1/36) clip.currentTime = want;
         }
         const foldCities = b._foldCities || (b._foldCities = [...b.querySelectorAll('.b0city-inset,.b0city-full')]);
-        const cityProgress = ease(seg(p, 0.34, 0.94));
+        const cityProgress = ease(seg(p, 0.58, 0.98));
         for (const clip of foldCities) if (clip.duration && !RM) {
           const want = Math.min(clip.duration - TAIL, 0.12 + cityProgress * Math.max(0, clip.duration - 0.24));
           if (Math.abs(clip.currentTime - want) > 1/30) clip.currentTime = want;
@@ -2357,11 +2370,16 @@
         /* 21, not 15. At 15 the top bar came out almost exactly the height of the navigation,
            so the beach arriving in it was hidden behind the bar that is already there and only
            the bottom one read. Wide enough to clear it, the pair reads as a pair. */
-        const band = 21 * ease(seg(p, 0.38, 0.46))     /* in, and hug the rope        */
-                   + 29 * ease(seg(p, 0.965, 1.00));   /* and finally all the way in  */
+        /* The bars arrive with the barbells at 0.47 — the lift sequence, not the rope — and
+           hold all the way through the overhead squat. The beach is already running behind
+           them by then, so the black clears the moment the squat starts rather than late, and
+           what was framing the shot turns out to have had the next scene inside it the whole
+           time. The shutter closes only in the last four per cent, so the squat plays out
+           before anything takes the frame from it. */
+        const band = 21 * ease(seg(p, 0.42, 0.52))     /* in, and hug the lift        */
+                   + 29 * ease(seg(p, 0.96, 1.00));    /* and finally all the way in  */
         b.style.setProperty('--band', band.toFixed(3));
-        /* the beach arrives in the bars once the squat is under way, and stays a while */
-        b.style.setProperty('--barsink', (1 - ease(seg(p, 0.86, 0.92))).toFixed(3));
+        b.style.setProperty('--barsink', (1 - ease(seg(p, 0.78, 0.845))).toFixed(3));
       }
       if (b._v && !RM) {
         /* data-scrub-range lets a clip occupy part of a beat instead of all of it, which is
