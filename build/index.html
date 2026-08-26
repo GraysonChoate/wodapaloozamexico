@@ -1579,7 +1579,7 @@
       <div class="cell"><video data-loop="media/loop/b05_sud09.mp4" poster="media/poster/b05_sud09.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Eje Central"></video></div>
       <div class="cell"><video data-loop="media/loop/b05_sud04.mp4" poster="media/poster/b05_sud04.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Ángel de la Independencia"></video></div>
       <div class="cell is-still"><img src="media/still/b05_torre.jpg" alt="Torre Latinoamericana"></div>
-      <div class="cell"><video data-loop="media/scrub/b05b_lift.mp4" poster="media/poster/b05b_lift.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Athlete lifting at Wodapalooza"></video></div>
+      <div class="cell"><video data-loop="media/loop/b05_sud01.mp4" poster="media/poster/b05_sud01.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Hooded Wodapalooza figure standing in Mexico City traffic"></video></div>
     </div>
     <div class="plate cut">
       <img src="media/poster/b05b_lift.jpg" alt="An athlete locking a barbell overhead">
@@ -2618,14 +2618,31 @@
              company by one — showing the layer in either case is a stale cut-out over a live
              shot, which is the ghost. Cheaper to not draw it. */
           const cell = FG._last;
-          /* requestVideoFrameCallback runs before the paint that shows the new frame, so the
-             canvas and the picture underneath land together and cannot be a frame apart in what
-             is composited. Requiring the cell to equal `i` HERE is a different question — the
-             scroll handler samples at a different instant from the callback — and demanding it
-             simply turned the layer off permanently. The only real gate is: has a cell ever been
-             drawn, and are we inside the matte's range. */
-          const on = i >= 0 && i <= 140 && cell !== undefined;
-          b.style.setProperty('--fgv', on ? 1 : 0);
+          /* THE CANVAS HOLDS WHATEVER IT DREW LAST, AND THAT IS THE GHOST.
+             requestVideoFrameCallback only fires when a NEW frame is presented. Scroll back from
+             the athlete into the track-past and no new frame may be presented for a moment — so
+             the canvas is still holding the athlete, cut out, and I was still drawing it over a
+             completely different shot. That is the outline of him "already existing in the
+             frame", and it is the thing that has been in every recording he has sent.
+
+             The layer is shown ONLY when the cell in the canvas is the frame on screen. Anything
+             else is a cut-out of one moment laid over another, which is never worth showing. And
+             the canvas is wiped the instant they part company, so there is nothing stale left in
+             it to appear later. */
+          /* VISIBILITY IS THE CALLBACK'S DECISION, NOT THIS ONE.
+             Asking here whether the canvas matches the frame is asking at the wrong instant: the
+             callback runs between scroll handlers, so the two are almost never equal when sampled
+             from here, and requiring equality turned the layer off on all but three steps in four
+             hundred and eighty — the occlusion simply vanished while scrolling, which is the only
+             time it matters. The callback knows: it draws the frame that is being presented, so
+             the moment it has drawn, the canvas IS current. It turns the layer on. All this has
+             to do is turn it off when the beat leaves the matte's range, and wipe the canvas so
+             nothing can be stranded in it. */
+          const on = i >= 0 && i <= 140;
+          if (!on) {
+            b.style.setProperty('--fgv', 0);
+            if (FG._cx && cell !== undefined) { FG._cx.clearRect(0, 0, 1280, 720); FG._last = undefined; }
+          }
           /* THE DRAW BELONGS TO THE VIDEO'S OWN FRAME CALLBACK, NOT TO THE SCROLL HANDLER.
              Drawing here looked right and measured wrong: 29 frames in 390 had the matte one
              cell behind what was on screen. The scroll handler runs, I read currentTime and
@@ -2642,7 +2659,14 @@
             b._v._rvfc = 1;
             const draw = (now, meta) => {
               const k = Math.floor(meta.mediaTime * 60 + 1e-4) - 137;
-              if (k >= 0 && k <= 140 && B10MATTE.complete && B10MATTE.naturalWidth) {
+              if (!(k >= 0 && k <= 140)) {
+                /* out of the matte's range: nothing valid to draw, so leave nothing behind */
+                if (FG._last !== undefined) {
+                  const cz = FG._cx || (FG._cx = FG.getContext('2d', {alpha:true}));
+                  cz.clearRect(0, 0, 1280, 720); FG._last = undefined;
+                  b.style.setProperty('--fgv', 0);
+                }
+              } else if (B10MATTE.complete && B10MATTE.naturalWidth) {
                 const cx = FG._cx || (FG._cx = FG.getContext('2d', {alpha:true}));
                 cx.globalCompositeOperation = 'source-over';
                 cx.clearRect(0, 0, 1280, 720);
@@ -2652,6 +2676,8 @@
                                        0, 0, 1280, 720);
                 cx.globalCompositeOperation = 'source-over';
                 FG._last = k;
+                /* drawn from the frame being presented, so it is current by definition */
+                b.style.setProperty('--fgv', 1);
               }
               b._v.requestVideoFrameCallback(draw);
             };

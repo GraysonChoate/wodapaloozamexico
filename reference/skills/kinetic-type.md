@@ -129,6 +129,21 @@ one cell: 0.09 megapixels.
 
 Both halves become incapable of being out of step rather than merely tested for it.
 
+**A CANVAS HOLDS WHATEVER IT DREW LAST — WIPE IT.** `requestVideoFrameCallback` only fires when
+a NEW frame is presented. Scroll back out of the range, or into a stretch where no new frame is
+presented for a moment, and the canvas is still holding the last cut-out it made — a person from
+one part of the shot, composited over a completely different part. This is the failure that gets
+described as "there's a ghost in the frame" or "the outline of him already exists there", and it
+is the one that survives every other fix.
+
+- Clear the canvas the moment the beat leaves the matte's range, and forget the cell.
+- Let the CALLBACK turn the layer on — it draws the frame being presented, so the canvas is
+  current by definition the instant it has drawn.
+- Do NOT gate visibility on `cell === i` from the scroll handler. The callback runs between
+  handlers so they are almost never equal when sampled there; requiring it turned the layer off
+  on all but three steps in four hundred and eighty. Measure visibility at several scroll speeds
+  and expect ~100%.
+
 **The test that proves it:** step the scroll one rAF at a time across the whole beat and, on every
 step, compare `floor(video.currentTime * fps)` against the matte cell last drawn. Anything other
 than near-zero mismatches is ghosting you will be told about later.
