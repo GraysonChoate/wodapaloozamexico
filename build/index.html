@@ -305,8 +305,11 @@
      heavier crop and that direction together pushed the window into darker material. Tracking
      toward the brighter part of the frame instead improves every measured value. */
   #b2 .plate video,#b2 .plate img{
-    transform:translate(calc(var(--p) * 1.1%), calc(var(--p) * 0.8%))
-              scale(calc(1.05 + var(--p) * .155));
+    /* Hold the word's footage steady while SUCEDERÁ is readable. Only the last release
+       expands it into the driving frame; tying this zoom to the entire scroll made the type
+       visibly pulse before it had time to register. */
+    transform:translate(calc(var(--drive-expand,0) * 1.1%), calc(var(--drive-expand,0) * .8%))
+              scale(calc(1.05 + var(--drive-expand,0) * .155));
   }
   .knockout{ position:absolute; inset:0; z-index:2; width:100%; height:100% }
   #b2 .krect{ opacity:calc(1 - var(--drive-release,0)) }
@@ -317,20 +320,16 @@
   }
   @media (max-width:760px){ .b2sub{left:14px;bottom:22px;font-size:10px} }
 
-  /* B2 ends on the one complete drive pass. B4 is the first actual hoodie frame, revealed
-     through a horizontal aperture while the final car frame remains around it. This is a
-     shared exposure (headlights → figure), not a second car pass and never a section sliding
-     in from below. Pulling B4 back one viewport makes its sticky surface exist beneath the
-     car before the aperture begins to open. */
-  #b4{ height:340svh; margin-top:-100svh }
+  /* B2 owns the complete drive: driver seat → wide road → close hood. B4 begins only after
+     that source has completed, on the actual hooded figure. Keep this seam clean while the
+     next authored transition is selected; there is no frozen-car layer or second car pass. */
+  #b4{ height:340svh }
   #b4 .stage{
-    z-index:6; opacity:1;
-    /* one frozen last driving frame, never another scrub or a replay */
-    background:#000 url("media/still/b04_car-handoff.jpg") center/cover no-repeat;
+    z-index:6; background:#000;
   }
   #b4 .plate{
     inset:0; height:100svh; overflow:hidden; z-index:2;
-    clip-path:inset(calc((1 - var(--hood-open,0)) * 50%) 0 calc((1 - var(--hood-open,0)) * 50%) 0);
+    clip-path:none;
   }
   #b4 .plate video,#b4 .plate img{
     inset:0; width:100%; height:100%; object-fit:cover; transform:none;
@@ -1426,7 +1425,7 @@
       <defs>
         <mask id="b8win" maskUnits="userSpaceOnUse" x="-6000" y="-6000" width="16000" height="16000">
           <rect x="-6000" y="-6000" width="16000" height="16000" fill="#fff"/>
-          <g id="b8winG">
+          <g id="b8winG" display="none">
             <text id="b8winT" text-anchor="middle" fill="#000" xml:space="preserve"
                   font-family="Archivo, 'Helvetica Neue', Arial, sans-serif"
                   font-weight="800" font-size="100" letter-spacing="-3.5">
@@ -1709,6 +1708,56 @@
   const ease = t => t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
   let P9 = 0;   /* Beat 9's progress, published for Beat 8's window arithmetic */
 
+  /* ── CALIBRATING THE WINDOW AGAINST HIS HANDWRITING ────────────────────────
+     One bug produced both of the things he kept catching, and it is worth naming because it
+     explains why "it drifts left" and "it does not sit on the words" were never two problems.
+
+     The mask text was measured with getBBox on the FIRST frame — before Archivo had finished
+     loading. So the numbers came from Arial: wrong widths, wrong cap height, wrong ink centre.
+     That put the letters off the handwriting to begin with, and then, because the growth is a
+     magnification about the point where the ink centre is supposed to be, whatever that first
+     measurement got wrong was multiplied by the scale. A twenty pixel error becomes fifteen
+     hundred at 75x. It did not drift because it was drifting; it drifted because it started in
+     the wrong place and then got seventy-five times bigger.
+
+     So: wait for the actual font, then measure, and until that has happened leave the mask
+     solid white — no hole at all — rather than cutting one in the wrong shape.
+
+     The fit is width-first, and the line spacing is then solved so the ink height lands on the
+     handwriting's too. That target ratio works out independent of the sheet's scale, so it is
+     computed once and never again. */
+  let MCAL = null;
+  function calibrateWindow(){
+    const T = document.getElementById('b8winT');
+    if (!T) return;
+    const sp = T.querySelectorAll('tspan');
+    let bb;
+    try { bb = T.getBBox(); } catch (e) { return; }
+    if (!bb || !bb.width) return;
+    /* His three lines occupy 445 x 320 — re-measured off the frame with the mask rendered on
+       top of the ink, which is the only way to check it. The 375 I had been using came from the
+       HTML box that used to carry this, and a line box is taller than the ink inside it; that
+       is why the leading came out too generous and the third line sat below his. Solve the
+       leading so our ink height lands on his. */
+    const cap = bb.height - 2 * 164;
+    const dy  = Math.max(1, (320 * bb.width / 445 - cap) / 2);
+    sp[1].setAttribute('dy', dy.toFixed(2));
+    sp[2].setAttribute('dy', dy.toFixed(2));
+    try { bb = T.getBBox(); } catch (e) { return; }
+    if (!bb || !bb.width) return;
+    MCAL = { x: bb.x, y: bb.y, w: bb.width, h: bb.height };
+    const G = document.getElementById('b8winG');
+    if (G) G.removeAttribute('display');
+  }
+  if (document.fonts && document.fonts.load) {
+    document.fonts.load('800 100px Archivo')
+      .then(() => document.fonts.ready)
+      .then(calibrateWindow)
+      .catch(calibrateWindow);
+  } else {
+    addEventListener('load', calibrateWindow);
+  }
+
   function identityLoop(b, p, onScreen) {
     if (!sheet) return;
     loopGate(onScreen);
@@ -1784,7 +1833,10 @@
     const m = svg.querySelector('mask');
     m.setAttribute('x',0); m.setAttribute('y',0); m.setAttribute('width',W); m.setAttribute('height',H);
     const word = svg.querySelector('.word');
-    word.style.fontVariationSettings = `"wdth" ${(62 + p*58).toFixed(1)}, "wght" 800`;
+    /* SUCEDERÁ is a held sign first. Its width must not breathe throughout the beat; it
+       widens only during the final release that turns the word into the road scene. */
+    const expand = beat.id === 'b2' ? ease(seg(p, 0.72, 0.96)) : p;
+    word.style.fontVariationSettings = `"wdth" ${(beat.id === 'b2' ? 90 + expand*30 : 62 + p*58).toFixed(1)}, "wght" 800`;
     let size = Math.min(H*0.34, W*0.30), guard = 0;
     word.setAttribute('x', W/2);
     const set = () => { word.setAttribute('font-size', size.toFixed(1));
@@ -1851,7 +1903,7 @@
          nothing left for a fade to do. */
       /* Beat 2 owns its arrival through the turning type plane below. Generic section
          opacity would make it look as though a new frame were scrolling in from the bottom. */
-      const stageVisibility = (b.id === 'b2' || b.id === 'b4') ? 1 : (b.hasAttribute('data-split-exit')
+      const stageVisibility = b.id === 'b2' ? 1 : (b.hasAttribute('data-split-exit')
         ? enter : Math.min(enter, 1 - exit));
       b.style.setProperty('--sv', stageVisibility.toFixed(4));
 
@@ -1871,8 +1923,10 @@
            the aperture. There is no y-axis entrance for either scene. */
         const arrive = ease(seg(p, 0.00, 0.16));
         b.style.setProperty('--b2-arrive', arrive.toFixed(4));
-        const release = ease(seg(p, 0.56, 0.88));
+        /* Read first; then the word slowly releases into the complete driving shot. */
+        const release = ease(seg(p, 0.72, 0.96));
         b.style.setProperty('--drive-release', release.toFixed(4));
+        b.style.setProperty('--drive-expand', release.toFixed(4));
         const word = b.querySelector('.word');
         if (word) {
           const W = innerWidth, H2 = innerHeight;
@@ -1880,14 +1934,6 @@
           const sy = (0.035 + arrive * 0.965) * (1 + release * 0.72);
           word.setAttribute('transform', `translate(${W/2} ${H2/2}) scale(${sx.toFixed(4)} ${sy.toFixed(4)}) translate(${-W/2} ${-H2/2})`);
         }
-      }
-
-      if (b.id === 'b4') {
-        /* The hooded figure does not arrive as a new panel from below. The final driving
-           frame remains visible around a central horizontal aperture; the day street expands
-           outward from that common centre and then holds as one full frame. */
-        const hoodOpen = ease(seg(p, 0.00, 0.16));
-        b.style.setProperty('--hood-open', hoodOpen.toFixed(4));
       }
 
       if (b.id === 'b8') {
@@ -1951,16 +1997,16 @@
         const WT = b._wt || (b._wt = document.getElementById('b8winT'));
         const WG = b._wg || (b._wg = document.getElementById('b8winG'));
         if (WT && WG) {
-          if (!b._bb || !b._bb.height) { try { b._bb = WT.getBBox(); } catch (e) {} }
-          const bb = b._bb;
-          if (bb && bb.height) {
+          const bb = MCAL;
+          if (bb) {
             const bw = innerWidth, bh = innerHeight, vh = bh / 100;
             const S = (1 - 0.075 * e) * (1 + 0.30 * ease(p));
             const u  = (S / 1.2834) * (bh / 900);
-            const cx = bw / 2 + 7.5 * u, cy = bh / 2 - 17.5 * u;
-            const k  = (375 * u) / bb.height;
-            const tx = cx - (bb.x + bb.width  / 2) * k;
-            const ty = cy - (bb.y + bb.height / 2) * k;
+            /* and the ink is centred 40px above the middle of the frame, not 17.5 */
+            const cx = bw / 2 + 7.5 * u, cy = bh / 2 - 40 * u;
+            const k  = (445 * u) / bb.w;
+            const tx = cx - (bb.x + bb.w / 2) * k;
+            const ty = cy - (bb.y + bb.h / 2) * k;
             /* the same curve the outlines rode, and it keeps going through the slide */
             const push = Math.pow(seg(p, 0.76, 0.995), 0.85);
             const z   = 940 * push * push + 96 * exit;
