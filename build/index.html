@@ -4,7 +4,7 @@
 <title>WODAPALOOZA MEXICO CITY</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@400;700&display=swap">
 
 <style>
   /* palette — page 2 of the client's own usage guide */
@@ -285,7 +285,7 @@
     opacity:var(--ready,0); perspective:1200px; transform-style:preserve-3d }
   /* The words resolve at this exact centre point; this is their solid-black continuation,
      not a second image or a fading overlay. */
-  .b1sphere{ position:absolute; z-index:7; left:50%; top:50%; width:calc(var(--ready-sphere,0)*300vmax); height:calc(var(--ready-sphere,0)*300vmax); border-radius:50%; background:#000; transform:translate(-50%,-50%); pointer-events:none }
+  .b1sphere{ position:absolute; z-index:7; left:50%; top:50%; width:calc(var(--ready-sphere,0)*300vmax); height:calc(var(--ready-sphere,0)*300vmax); border-radius:50%; background:#000; opacity:var(--sphere-solid,1); transform:translate(-50%,-50%); pointer-events:none }
   /* Optical type over the SAME moving city: no second still is ever mapped into these letters. */
   .b1ready span{ position:absolute; display:block; color:rgb(239 246 242 / .52); -webkit-text-fill-color:rgb(239 246 242 / .52); -webkit-text-stroke:1px rgb(255 255 255 / .17); font:950 clamp(72px,15vw,220px)/.76 Archivo,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.09em; white-space:nowrap; text-shadow:0 1px 1px rgba(0,0,0,.34),0 0 28px rgba(0,0,0,.32); mix-blend-mode:normal; backdrop-filter:none; transform-style:preserve-3d; transform-origin:50% 50%; will-change:transform,color }
   /* A distinct ink layer—not a filter—makes the actual wordforms turn jet black before
@@ -310,7 +310,11 @@
      between two registered planes, never the next scene travelling upward from below. */
   /* Beat 2 is already fixed behind the last part of Beat 1. The completed black sphere
      reveals it in place, so no black panel can travel upward into frame. */
-  #b2{ height:420svh; margin-top:-300svh }
+  /* Keep this beat in normal document order.  Its black field follows the completed
+     sphere, so the car cannot appear as a second stage climbing up beneath it. */
+  /* Only the already-black end of the sphere overlaps this stage.  The stage itself starts
+     black, so the word can arrive promptly without ever exposing a car strip underneath. */
+  #b2{ height:420svh; margin-top:-165svh }
   /* This stage takes the black field from the finished sphere immediately. It never fades in. */
   #b2 .stage{ z-index:2; background:#000; opacity:1 }
   /* ── APERTURE PARALLAX ────────────────────────────────────────────────────
@@ -353,7 +357,9 @@
      begins in one centred horizontal slit. The slit opens vertically; neither scene slides. */
   /* Keep the car/hoodie shutter above the following montage until its own full-frame
      expansion is complete; the next scene must not leak into the top or bottom field. */
-  #b4{ height:340svh; margin-top:-190svh; z-index:11 }
+  /* The hoodie aperture begins only after the driving beat owns the frame.  A physical
+     overlap here was allowing unrelated lower footage to leak into the held strip. */
+  #b4{ height:340svh; margin-top:0; z-index:11 }
   #b4 .stage{
     z-index:9; background:transparent;
   }
@@ -877,13 +883,18 @@
     position:absolute; z-index:2; left:5vw; right:5vw; bottom:16%; margin:0;
     font:800 clamp(34px,9.4vw,150px)/0.94 Archivo,"Helvetica Neue",Arial,sans-serif;
     letter-spacing:-.04em; text-transform:none; color:#fff;
-    font-variation-settings:"wdth" 112,"wght" 800;
+    font-variation-settings:"wdth" 125,"wght" 800;
     filter:blur(calc((1 - var(--b10t,0)) * 5px));
     opacity:var(--b10t,0);
   }
+  /* The second voice comes from the WIDTH AXIS, not a second typeface. Archivo is the
+     stand-in for Normalidad precisely because it carries a real `wdth`, and the brand rule is
+     one typeface with scale doing the work — borrowing the reference's serif broke both. The
+     contrast is 125 against 62 in the same family: wide and tight, which is a Normalidad move
+     and survives the swap when the Adobe kit arrives. */
   .b10line em{
-    font-family:"Instrument Serif","Times New Roman",serif;
-    font-style:italic; font-weight:400; letter-spacing:-.005em;
+    font-style:normal; font-variation-settings:"wdth" 62,"wght" 500;
+    letter-spacing:-.005em; opacity:.92;
   }
   .b10line b{ display:block; font-weight:inherit; letter-spacing:inherit }
   @media (max-width:760px){ .b10line{ left:5vw; right:5vw; font-size:clamp(40px,15vw,120px) } }
@@ -903,7 +914,22 @@
      the watermark and a clipped watermark reads as a mistake. Cropping it out here would
      have taken a woman standing on a podium with her arms up — a winner — off the right
      edge. No push-in, for the reason given in Beat 10. */
-  #b11{ height:460svh }
+  /* Beat 11 covers Beat 10 rather than being uncovered by it, so it sits ABOVE in the stack —
+     the descending chain is for scenes that get revealed, and this one arrives. Pulled up a
+     viewport so it is pinned and PLAYING while the fields are still closing. */
+  #b11{ height:460svh; margin-top:-100svh }
+  #b11 .stage{ z-index:45; background:transparent }
+  .b11f{ z-index:2 }
+  /* Each field is a triangle growing from its own corner. At --conv 1 the two exactly tile the
+     frame, meeting along the anti-diagonal with no seam and no gap. */
+  .b11f-a{ clip-path:polygon(0 0, calc(var(--conv,0) * 200%) 0, 0 calc(var(--conv,0) * 200%)) }
+  /* Field B exists only while the two are still closing. The moment they meet, field A's own
+     triangle already covers the whole frame, so B is redundant — and keeping it would leave a
+     one-frame time offset showing as a hairline along the diagonal, since two video elements
+     seeking independently can never be on the same frame every frame. It goes. */
+  .b11f-b{ visibility:var(--convvis,visible);
+           clip-path:polygon(100% 100%, 100% calc(100% - var(--conv,0) * 200%),
+                             calc(100% - var(--conv,0) * 200%) 100%) }
   #b11 .plate video,#b11 .plate img{ transform:scale(calc(1.02 + var(--p) * .05)) }
   @media (min-aspect-ratio: 11/10) and (max-aspect-ratio: 16/9){
     #b11 .plate video,#b11 .plate img{ object-fit:contain; transform:none }
@@ -1607,9 +1633,18 @@
 <!-- ─────────── BEAT 11 · THE PROOF ─────────── -->
 <section class="beat" id="b11" data-src="media/scrub/b11_face.mp4">
   <div class="stage">
-    <div class="plate">
+    <!-- TWO DIAGONALLY CONVERGING FIELDS. Beat 11 does not arrive, and it does not slide: it
+         closes over Beat 10 from opposite corners along the anti-diagonal, like a shutter cut on
+         the bias. Both fields are the same shot, running, so the scene is already playing before
+         either of them has finished arriving — the reader watches it happen rather than watching
+         it appear. Two triangles from opposite corners tile the frame exactly when they meet. -->
+    <div class="plate b11f b11f-a">
       <img src="media/poster/b11_face.jpg" alt="Two athletes holding each other on the competition floor">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
+    </div>
+    <div class="plate b11f b11f-b" aria-hidden="true">
+      <img src="media/poster/b11_face.jpg" alt="">
+      <video class="b11mirror" src="media/scrub/b11_face.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
     <div class="b11stats">
       <span data-count="16">Divisions (<b>16</b>)</span>
@@ -2020,10 +2055,8 @@
       const r = b.getBoundingClientRect();
       const travel = Math.max(1, r.height - H);
       let p = Math.min(1, Math.max(0, -r.top / travel));
-      /* Beat 2 is physically parked behind Beat 1 so the sphere can reveal it without a
-         rising frame. Its editorial timing starts only once that hidden overlap reaches the
-         sphere handoff, preserving the full word → aperture → car progression. */
-      if (b.id === 'b2') p = Math.min(1, Math.max(0, (p - 0.50) / 0.50));
+      /* Beat 2 begins inside the completed black punctuation.  Its stage is black and its
+         car is masked by the word, so its true local position is safe to use immediately. */
       b.style.setProperty('--p', p.toFixed(4));
 
       /* Neither of these can come from --p. It is pinned at 0 before the beat arrives and
@@ -2298,7 +2331,9 @@
            closed to make the full city. */
         /* The printed Ángel wings are the only surface until each carries a mapped city half.
            They move inward together as a closing shutter. */
-        const fold = ease(seg(p, 0.22, 0.86)), cut = ease(seg(p, 0.86, 0.875)), release = 0;
+        /* Establish the two textured panels early, then hold their geometry while city footage
+           materializes inside them.  Their only later movement is the final inward shutter. */
+        const fold = ease(seg(p, 0.22, 0.49)), cut = ease(seg(p, 0.86, 0.875)), release = 0;
         const shutterTakeover = ease(seg(p, 0.855, 0.875));
         const shutterClose = ease(seg(p, 0.76, 0.855));
         b.style.setProperty('--fold', fold.toFixed(4));
@@ -2364,7 +2399,7 @@
         /* The city remains visible through the reading beat, then is removed only after the
            black sphere has reached the frame edge. Beat 2 has already been stationed behind
            it, so there is no vertical black-card entrance. */
-        const cityOut = ease(seg(p, 0.80, 0.825));
+        const cityOut = ease(seg(p, 0.72, 0.735));
         b.style.setProperty('--b1-city', openingProgress >= 0.875 ? (1 - cityOut).toFixed(4) : '0');
         const sourceCity = document.querySelector('.b0city-full');
         const city = b.querySelector('.plate video');
@@ -2374,13 +2409,19 @@
         }
         /* The words get a full held reading moment, then invert in place. The only geometric
            move is one perfect circular black aperture growing from their shared centre. */
-        b.style.setProperty('--ready', Math.min(ease(seg(p, 0.14, 0.26)), 1 - ease(seg(p, 0.84, 0.94))).toFixed(4));
+        b.style.setProperty('--ready', Math.min(ease(seg(p, 0.14, 0.26)), 1 - ease(seg(p, 0.76, 0.84))).toFixed(4));
         /* Ink is a decisive change: the wordforms never pass through a translucent grey state. */
         b.style.setProperty('--ready-invert', p >= 0.57 ? '1' : '0');
         /* The wordforms register before the sphere is allowed to appear; by the time the
            circle is visible there is no readable stack left at its centre. */
-        b.style.setProperty('--ready-merge', ease(seg(p, 0.60, 0.635)).toFixed(4));
-        b.style.setProperty('--ready-sphere', ease(seg(p, 0.63, 0.80)).toFixed(4));
+        b.style.setProperty('--ready-merge', ease(seg(p, 0.59, 0.62)).toFixed(4));
+        b.style.setProperty('--ready-sphere', ease(seg(p, 0.62, 0.73)).toFixed(4));
+        /* Once the disc has covered the frame, it is the black ground for the next aperture.
+           Let that same ground release to the live word underneath—never to a sliding panel. */
+        const next = document.getElementById('b2');
+        const nr = next && next.getBoundingClientRect();
+        const np = nr ? Math.min(1, Math.max(0, -nr.top / Math.max(1, nr.height - H))) : 0;
+        b.style.setProperty('--sphere-solid', (1 - ease(seg(np, 0.018, 0.045))).toFixed(4));
         b.style.setProperty('--city-cinema', ease(seg(p, 0.29, 0.40)).toFixed(4));
       }
 
@@ -2429,6 +2470,22 @@
         });
       }
 
+      if (b.id === 'b11') {
+        /* The fields close over the first fifth of the beat and then it is simply Beat 11. */
+        const conv = ease(seg(p, 0.00, 0.20));
+        b.style.setProperty('--conv', conv.toFixed(4));
+        b.style.setProperty('--convvis', conv > 0.995 ? 'hidden' : 'visible');
+        /* The second field carries its own copy of the same clip; keep it on the same frame as
+           the one the loader scrubs, or the seam between them shows as a time offset. */
+        const MR = b._mr || (b._mr = b.querySelector('.b11mirror'));
+        const LEAD = b._v;
+        if (MR && LEAD && LEAD.duration && MR.duration) {
+          if (!MR._sk && Math.abs(MR.currentTime - LEAD.currentTime) > 1 / 48) {
+            MR._sk = 1; MR.currentTime = LEAD.currentTime;
+            MR.addEventListener('seeked', () => { MR._sk = 0; }, {once:true});
+          }
+        }
+      }
       if (b.id === 'b10') {
         /* The words arrive with the lateral move, are crossed by the crowd, and are gone before
            the camera settles on him — the beat ends on a face, not on type. */
