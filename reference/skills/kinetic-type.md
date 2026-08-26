@@ -10,6 +10,27 @@ discipline that matters more than all of them.
 
 ---
 
+## THE SCRUB THRESHOLD — check this before blaming the effect
+
+A scroll-scrubbed clip only seeks when the target has moved further than some threshold. If a
+scroll step advances the clip by LESS than that threshold, no seek is issued at all: the picture
+sits frozen, then jumps when the error finally accumulates past it. It looks like choppy footage
+and it is nothing to do with any overlay on top of it.
+
+    if (Math.abs(v.currentTime - want) > 1/120) v.currentTime = want;   // half a frame at 60fps
+
+A threshold of 1/48 is fine while a beat advances two or three frames per step, and silently
+breaks a dense beat that advances less than one. Measured on the same page:
+
+    dense beat, 1/48    0.72 frames per step   45 frozen steps in 90   jitter 1.01
+    dense beat, 1/120   0.72 frames per step    0 frozen steps in 90   jitter 0.16
+    normal beat         2.63 frames per step    0 frozen steps in 90   jitter 0.04
+
+Every frame in a scrub clip is a keyframe, so a seek is cheap; there is no reason to hold one
+back. **Test it: step the scroll one rAF at a time and count steps where currentTime did not
+change.** Zero is the only acceptable answer, and no amount of work on a matte will fix a
+non-zero one.
+
 ## THE DISCIPLINE — read this first
 
 Every one of these effects places something, then magnifies it. **Any error in the placement
