@@ -699,7 +699,17 @@
   /* 260, not 100. Beat 9 is pinned and PLAYING from 62% of Beat 8 — long before the date
      starts forward — so what shows through the letters is a scene in motion rather than a frame
      waiting to become one. Half the clip runs while the newsprint is still on screen. */
-  #b9{ height:620svh; margin-top:-260svh }
+  /* 450, not 620 — and the number comes from the rest of the film, not from taste.
+     Measured across every beat, the scroll needed to advance ONE SECOND of footage runs 97 at
+     Beat 0, 205 at Beat 7 and 262 at Beat 8 immediately before this one. At 620svh this beat
+     demanded 496. It was not the footage that was slow; it was me giving these beats twice the
+     track their material can fill, so everything inside them crawled. 450 puts it at 334, in
+     among Beat 6 and Beat 8 rather than at double their distance.
+
+     The pin scales with it. -260 of a 520 travel was half this beat running behind Beat 8 —
+     seen through the window, so not wasted, but the ratio has to be preserved or the same
+     structure means something different. -175 of 350 is the same half. */
+  #b9{ height:450svh; margin-top:-175svh }
   #b9 .stage{ z-index:50 }
   #b9 .plate video,#b9 .plate img{ transform:scale(calc(1.04 + var(--p) * .12)) }
 
@@ -832,7 +842,10 @@
      Its clip is the crowd and then the track-past, and 154svh of 300 is exactly 0.514 — the
      frame where the crowd ends. So Beat 9's bars are filled by the crowd, and the instant Beat
      9 is gone the camera starts moving. Nothing is spent unseen. */
-  #b10{ height:400svh; margin-top:-154svh }
+  /* Same correction, same reason: 381 down to 304. And the pin keeps its ratio — 123 of a 240
+     travel is 0.514, still exactly the frame where the crowd ends and the camera starts to
+     move. */
+  #b10{ height:340svh; margin-top:-123svh }
   /* the crowd walks in front of the words */
   .b10fg{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
@@ -1472,7 +1485,7 @@
   <div class="stage">
     <div class="plate">
       <img src="media/poster/b04_car.jpg" alt="Driving into Mexico City at night">
-      <video muted playsinline preload="auto" disablepictureinpicture></video>
+      <video muted playsinline loop autoplay preload="auto" disablepictureinpicture></video>
     </div>
     <svg class="knockout" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <defs><mask id="cut" maskUnits="userSpaceOnUse">
@@ -2121,12 +2134,15 @@
            immediately and at usable scale; a thin, delayed trace reads as another black hold. */
         const arrive = ease(seg(p, 0.00, 0.022));
         b.style.setProperty('--b2-arrive', arrive.toFixed(4));
+        /* This is moving footage, not a scroll-held still.  The word reveals the car while
+           its own clock runs; the exact playhead is then handed to B4 for the split-screen. */
+        if (!RM && b._v && b._v.paused) b._v.play().catch(() => {});
         /* The live car appears inside the held word, then the word becomes the window: one
            fast geometric scale-through, followed only when it has swallowed the frame. */
-        const release = ease(seg(p, 0.12, 0.24));
+        const release = ease(seg(p, 0.12, 0.18));
         b.style.setProperty('--drive-release', release.toFixed(4));
         b.style.setProperty('--drive-expand', release.toFixed(4));
-        b.style.setProperty('--drive-cut', p >= 0.24 ? '1' : '0');
+        b.style.setProperty('--drive-cut', p >= 0.18 ? '1' : '0');
         const word = b.querySelector('.word');
         if (word) {
           const W = innerWidth, H2 = innerHeight;
@@ -2144,7 +2160,7 @@
         const strip = 0.22 * ease(seg(p, 0.025, 0.10));
         const expand = ease(seg(p, 0.48, 0.70));
         const open = strip + (1 - strip) * expand;
-        const metrics = ease(seg(p, 0.12, 0.20)) * (1 - ease(seg(p, 0.56, 0.66)));
+        const metrics = ease(seg(p, 0.06, 0.14)) * (1 - ease(seg(p, 0.56, 0.66)));
         b.style.setProperty('--hood-open', open.toFixed(4));
         b.style.setProperty('--hood-metrics', metrics.toFixed(4));
         /* Begin the live drive bed from the car's current handoff frame, then let it keep
@@ -2586,7 +2602,7 @@
         b.style.setProperty('--band', band.toFixed(3));
         b.style.setProperty('--barsink', (1 - ease(seg(p, 0.78, 0.845))).toFixed(3));
       }
-      if (b._v && !RM) {
+      if (b._v && !RM && b.id !== 'b2') {
         /* data-scrub-range lets a clip occupy part of a beat instead of all of it, which is
            what makes a hard cut possible inside a single beat. */
         const rg = b._range;

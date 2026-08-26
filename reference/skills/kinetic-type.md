@@ -78,8 +78,20 @@ build it with `swiftc -O -o seg person-matte.swift`.
       -filter_complex "[1]format=gray[m];[0][m]alphamerge,format=yuva420p" \
       -c:v libvpx-vp9 -pix_fmt yuva420p -auto-alt-ref 0 -g 1 -b:v 0 -crf 38 fg.webm
 
-It finds every person in frame, not just the subject — background crowd included, which is
-usually what you want. Segment only the stretch the type is on screen.
+**Use the multi-person INSTANCE request, not the single-person one.**
+`VNGeneratePersonSegmentationRequest` reliably returns only the dominant figure — in a crowd
+that leaves everyone else unmasked, and the type shows straight through people it should be
+behind. `VNGeneratePersonInstanceMaskRequest` (macOS 14+) returns each person separately;
+union `allInstances`. On one measured frame that went from one silhouette caught to three.
+The tool here does this with a fallback.
+
+Segment only the stretch the type is on screen. Feather the matte (`gblur=sigma≈1.4`) before
+the merge or the cut-out reads as a sticker.
+
+**Do NOT union the matte with a luminance key to catch what it missed.** Tried on a night
+shot: a luma key cannot tell a dark silhouette from a dark stadium, so it returned almost the
+whole frame and buried the type completely. If segmentation misses someone, fix the
+segmentation.
 
 ### 2b · The luminance shortcut — dark subjects only
 
