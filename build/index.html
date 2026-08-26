@@ -314,9 +314,9 @@
      sphere, so the car cannot appear as a second stage climbing up beneath it. */
   /* Only the already-black end of the sphere overlaps this stage.  The stage itself starts
      black, so the word can arrive promptly without ever exposing a car strip underneath. */
-  #b2{ height:420svh; margin-top:-165svh }
+  #b2{ height:420svh; margin-top:-165svh; z-index:12 }
   /* This stage takes the black field from the finished sphere immediately. It never fades in. */
-  #b2 .stage{ z-index:2; background:#000; opacity:1 }
+#b2 .stage{ z-index:2; background:#000; opacity:var(--b2-arrive,0) }
   /* ── APERTURE PARALLAX ────────────────────────────────────────────────────
      The word is the aperture. It widens on the wdth axis; the city behind it travels and
      grows FASTER than that outer geometry, so widening reads as exposure rather than as
@@ -2123,10 +2123,10 @@
         b.style.setProperty('--b2-arrive', arrive.toFixed(4));
         /* The live car appears inside the held word, then the word becomes the window: one
            fast geometric scale-through, followed only when it has swallowed the frame. */
-        const release = ease(seg(p, 0.18, 0.34));
+        const release = ease(seg(p, 0.12, 0.24));
         b.style.setProperty('--drive-release', release.toFixed(4));
         b.style.setProperty('--drive-expand', release.toFixed(4));
-        b.style.setProperty('--drive-cut', p >= 0.34 ? '1' : '0');
+        b.style.setProperty('--drive-cut', p >= 0.24 ? '1' : '0');
         const word = b.querySelector('.word');
         if (word) {
           const W = innerWidth, H2 = innerHeight;
@@ -2477,7 +2477,14 @@
         b.style.setProperty('--convvis', conv > 0.995 ? 'hidden' : 'visible');
         /* The second field carries its own copy of the same clip; keep it on the same frame as
            the one the loader scrubs, or the seam between them shows as a time offset. */
+        /* Field B's plate is not the one the loader manages, so it never had `.ready` put on
+           it — which left its POSTER opaque on top of its video. Half of the incoming scene was
+           a still, arriving frozen while the other half played. It is marked ready as soon as it
+           has a frame of its own. */
         const MR = b._mr || (b._mr = b.querySelector('.b11mirror'));
+        if (MR && !MR._rdy && MR.readyState >= 2) {
+          MR._rdy = 1; MR.closest('.plate').classList.add('ready');
+        }
         const LEAD = b._v;
         if (MR && LEAD && LEAD.duration && MR.duration) {
           if (!MR._sk && Math.abs(MR.currentTime - LEAD.currentTime) > 1 / 48) {
@@ -2491,15 +2498,26 @@
            the camera settles on him — the beat ends on a face, not on type. */
         b.style.setProperty('--b10p', p.toFixed(3));
         b.style.setProperty('--b10t', (seg(p, 0.53, 0.60) * (1 - seg(p, 0.74, 0.80))).toFixed(3));
-        /* The cut-out people cover 2.87s to 4.53s of the clip — 0.520 to 0.821 of this beat,
-           which is the whole stretch the words are up. */
+        /* THE CUT-OUT FOLLOWS THE SHOT, NOT THE SCROLL — and that distinction was the
+           clunkiness. Driving it from `p` looked equivalent and is not: the film trims HEAD off
+           the front of every clip and TAIL off the back, so the base video's time is
+           0.04 + p * 5.427, not p * 5.517. Mapping the overlay linearly against p put it 1.6
+           frames out by the end of the window, and a cut-out sliding against the footage it was
+           cut FROM is the one error there is no hiding. Taken from the lead's own currentTime
+           minus the frame it was extracted at, it cannot drift: it is the same clock. */
+        const FGSTART = 2.862;
         const FG = b._fg || (b._fg = b.querySelector('.b10fg'));
-        if (FG) {
-          const q = (p - 0.520) / 0.301;
-          const inFG = q > -0.02 && q < 1.02;
+        if (FG && b._v) {
+          /* The lead's TARGET, not the lead's position. Read while the lead is still seeking,
+             `currentTime` is where it is coming from, so the overlay chased the previous scroll
+             position — measured at a dead-flat seven frames behind, every sample, which is the
+             signature of a one-iteration lag rather than a timing error. Both are now handed the
+             same number from the same function, so they arrive together. */
+          const t = wantAt(b._v, p, b._from) - FGSTART;
+          const inFG = t > -0.05 && t < 1.71;
           b.style.setProperty('--fgv', inFG ? 1 : 0);
           if (inFG && FG.duration) {
-            const want = Math.min(FG.duration - 0.02, Math.max(0, q) * FG.duration);
+            const want = Math.min(FG.duration - 0.02, Math.max(0, t));
             if (!FG._sk && Math.abs(FG.currentTime - want) > 1 / 48) {
               FG._sk = 1; FG.currentTime = want;
               FG.addEventListener('seeked', () => { FG._sk = 0; }, {once:true});
