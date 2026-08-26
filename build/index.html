@@ -238,17 +238,25 @@
   }
   /* Opening metadata was explicitly rejected: identity and anticipation own this moment. */
   #b1 .b1cap{ display:none }
-  .b1ready{ position:absolute; z-index:6; inset:0; pointer-events:none; opacity:calc(var(--ready,0) * (1 - var(--ready-close,0))) }
+  /* The question holds over the live city, inverts, then resolves into one growing black
+     disc. That disc is the editorial punctuation and the shared aperture for SUCEDERÁ. */
+  #b1 .stage::after{ content:""; position:absolute; inset:0; z-index:4; pointer-events:none;
+    background:radial-gradient(circle at 50% 50%,#000 0,#000 calc(var(--ready-disc,0)*145vmax),transparent calc(var(--ready-disc,0)*145vmax + 1px)); }
+  .b1ready{ position:absolute; z-index:6; inset:0; pointer-events:none;
+    opacity:calc(var(--ready,0) * (1 - var(--ready-turn-fade,0))); perspective:1200px; transform-style:preserve-3d }
   /* Optical type over the SAME moving city: no second still is ever mapped into these letters. */
-  .b1ready span{ position:absolute; display:block; color:rgba(239,246,242,.52); -webkit-text-fill-color:rgba(239,246,242,.52); -webkit-text-stroke:1px rgba(255,255,255,.17); font:950 clamp(72px,16vw,230px)/.72 Archivo,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.11em; white-space:nowrap; text-shadow:0 1px 1px rgba(0,0,0,.34),0 0 28px rgba(0,0,0,.32); mix-blend-mode:screen; backdrop-filter:blur(1px) saturate(1.18) }
-  .b1ready .are{ top:14vh; left:50%; transform:translate(calc(-50% - var(--ready-close,0)*68vw),calc((1 - var(--ready,0))*-28vh - var(--ready-close,0)*18vh)) }
-  .b1ready .you{ top:38vh; left:50%; font-size:clamp(92px,22vw,320px); transform:translate(calc(-50% + (1 - var(--ready,0))*50vw + var(--ready-close,0)*64vw),calc(var(--ready-close,0)*7vh)) }
-  .b1ready .ready{ bottom:13vh; left:50%; font-size:clamp(64px,15vw,220px); transform:translate(calc(-50% - (1 - var(--ready,0))*48vw),calc((1 - var(--ready,0))*18vh + var(--ready-close,0)*30vh)) }
+  .b1ready span{ position:absolute; display:block; color:rgba(239,246,242,.52); -webkit-text-fill-color:rgba(239,246,242,.52); -webkit-text-stroke:1px rgba(255,255,255,.17); font:950 clamp(72px,16vw,230px)/.72 Archivo,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.11em; white-space:nowrap; text-shadow:0 1px 1px rgba(0,0,0,.34),0 0 28px rgba(0,0,0,.32); mix-blend-mode:screen; backdrop-filter:blur(1px) saturate(1.18); filter:invert(var(--ready-invert,0)); transform-style:preserve-3d; transform-origin:50% 50%; will-change:transform,filter }
+  .b1ready .are{ top:14vh; left:50%; transform:translate(-50%,calc((1 - var(--ready,0))*-28vh)) }
+  .b1ready .you{ top:38vh; left:50%; font-size:clamp(92px,22vw,320px); transform:translate(calc(-50% + (1 - var(--ready,0))*50vw),0) }
+  .b1ready .ready{ top:73vh; bottom:auto; left:50%; font-size:clamp(64px,15vw,220px); transform:translate(calc(-50% - (1 - var(--ready,0))*48vw),calc((1 - var(--ready,0))*18vh)) }
   @media(max-width:700px){ .b1ready .are{font-size:25vw}.b1ready .you{font-size:32vw}.b1ready .ready{font-size:22vw} }
 
   /* B2 — the word becomes the driving scene. The black field recedes through the word;
      there is no next card rising from below. */
-  #b2{ height:420svh }
+  /* Pull the next sticky stage into the same black punctuation zone. This is an overlap
+     between two registered planes, never the next scene travelling upward from below. */
+  #b2{ height:420svh; margin-top:-100svh }
+  #b2 .stage{ z-index:5; background:#000; opacity:var(--b2-arrive,0) }
   /* ── APERTURE PARALLAX ────────────────────────────────────────────────────
      The word is the aperture. It widens on the wdth axis; the city behind it travels and
      grows FASTER than that outer geometry, so widening reads as exposure rather than as
@@ -472,7 +480,11 @@
      pinned and stationary, and Beat 7's street simply parts to reveal it. The film knew this
      already: Beat 9's own note says a match cut on a section boundary arrives as a wipe. */
   #b8{ height:520svh; margin-top:-100svh }
-  #b8 .stage{ background:var(--ground); z-index:60 }
+  /* Beat 8's ground goes with its printed edges. Left opaque, the parting frames opened onto
+     black — dead space at the exact moment the frame should be filling up. Cleared on the same
+     curve, they open onto Beat 9 instead, which is already pinned underneath: the margins, the
+     letterforms and the shot they all resolve into become the same picture. */
+  #b8 .stage{ background:rgb(0 0 0 / calc(1 - var(--jaw,0))); z-index:60 }
   /* transparent, so the gap masked out of the street reveals Beat 8 rather than Beat 7's own
      black ground */
   /* A descending chain with gaps in it. Every beat from here sits UNDER the one before,
@@ -567,63 +579,15 @@
      does not arrive, it is uncovered. Same device as 7 -> 8, and the reason the stage order
      has to be stated explicitly — later sections paint over earlier ones by default, which
      is the opposite of what an uncovering needs. */
+  /* The beat is footage now, end to end. The photograph that used to open it is gone — it
+     was the one static frame in this stretch, it could not hold 620svh, and video was always
+     the stronger answer. Everything the still needed and the video does not goes with it: the
+     subject matte, the second copy printed in front of the words, and the shared transform
+     origin those two copies had to agree on. A whole class of bug leaves with them. */
   #b9{ height:620svh; margin-top:-100svh }
   #b9 .stage{ z-index:50 }
-  #b9 .plate img.flex,#b9 .b9front{
-    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-    object-position:50% 13%;
-  }
-  /* THE TWO COPIES MUST STAY IN PERFECT REGISTER. Scaling them at different rates was the
-     first attempt at a depth cue and it is wrong: they are the SAME pixels, so any offset
-     produces a double image — two monuments, two sets of trees — not parallax. Real
-     parallax between them would need the background repainted where the subject was lifted
-     out, which is fabrication.
+  #b9 .plate video,#b9 .plate img{ transform:scale(calc(1.04 + var(--p) * .12)) }
 
-     So the photograph moves as one, and the TYPE moves against it. That is the only element
-     that can travel without ghosting, and it is enough: the words drift and grow at their
-     own rate between two locked planes, which reads as them occupying a place in the scene. */
-  /* Both planes must darken by the SAME amount. Washing only the base made the sky dark
-     and the trees bright, which drew a bright silhouette along the matte edge and gave the
-     whole thing away. Same filter on both copies, no step. */
-  /* The beat holds this frame for almost nine tenths of 620svh before it cuts, and a five
-     per cent scale across that distance is not a move, it is a stillness with a rounding
-     error. It is now a real slow push — 1.03 to 1.20 with a two-viewport-percent rise — which
-     is the oldest cinematic answer to a static frame and the only one available here: the two
-     copies MUST carry the identical transform (see the note above), so the depth cannot come
-     from moving them against each other. It comes from moving the frame against the type,
-     which descends while the picture climbs. */
-  #b9 .plate img.flex,#b9 .b9front{
-    /* Both copies must scale about the SAME point. `.plate img` carries a 50% 46% origin from
-       the film's base rule and `.b9front` is not inside a plate, so it was using 50% 50% - the
-       identical transform about origins 36px apart, which at the end of the beat is a seven
-       pixel offset between two copies of one photograph. That is the double image the note
-       above warns about, arriving through the back door. Stated explicitly on both. */
-    transform-origin:50% 50%;
-    transform:scale(calc(1.03 + var(--p) * .17)) translateY(calc(var(--p) * -2.2vh));
-  }
-  /* A seventeen per cent push is a slow move on a landscape frame and a shove on a portrait
-     one: `cover` at 375 wide is already cropped hard into the figure, so the same number puts
-     the hood and the shoulders across the whole headline. Measured at the middle of the beat,
-     the line was in pieces — "momento de / ganarte lugar" with the rest behind his arm. Mobile
-     gets a gentler push and no rise. */
-  @media (max-width:760px){
-    #b9 .plate img.flex,#b9 .b9front{
-      transform:scale(calc(1.02 + var(--p) * .07)); translate:none;
-    }
-    filter:brightness(calc(1 - var(--typein,0) * .54)) contrast(calc(1 + var(--typein,0) * .10));
-  }
-  #b9 .b9front{
-    z-index:4; pointer-events:none;
-    -webkit-mask-image:url("media/still/b09_subject_matte.png");
-            mask-image:url("media/still/b09_subject_matte.png");
-    /* The mask must be cropped EXACTLY as the image is. object-fit:cover crops the picture,
-       but mask-size:100% 100% STRETCHES the mask to the box instead — so the two were never
-       aligned, and opaque parts of the matte landed over open sky and bit chunks out of the
-       words. Same fit, same position, or the whole effect is noise. */
-    -webkit-mask-size:cover;         mask-size:cover;
-    -webkit-mask-position:50% 13%;   mask-position:50% 13%;
-    -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
-  }
   /* neutral, never a tint: this is the same wash the rest of the film uses for legibility */
   /* the wash is strongest behind the words and clears toward the bottom, so the figure and
      the street keep their own light */
@@ -644,7 +608,7 @@
      full-width, the line was completely buried. In the open sky band it reads, and the
      column runs straight through it, which is the whole point of the beat. */
   .b9type{
-    position:absolute; z-index:3;              /* behind .b9front, above the base frame */
+    position:absolute; z-index:3;
     left:17vw; right:17vw; top:11%;
     /* The words arrive clear in the open sky and DESCEND into the figure. By the end of the
        beat the hood and the raised fists have taken the second line — the message is
@@ -697,21 +661,8 @@
     transform:translateX(calc((var(--sweep2,0) * 138 - 40) * 1%));
   }
 
-  /* THE BAR OPENS THE FRAME. The lockout used to appear as a hard step — one frame the
-     photograph, the next the barbell — which is a cut, and a cut is the one thing this seam
-     did not need another of. The shot now arrives through a horizontal slit at the height of
-     the bar itself, opening up and down. The device is the image: a locked-out barbell IS a
-     horizontal line across the frame, so the line that opens the shot is already in it.
-
-     It is also the only aperture that suits this clip. The take is 0.79 seconds and the
-     athlete is overhead for all of it — there is no lift to reveal, only a hold — so an
-     opening that widens along the bar gives the shot the arrival its own footage cannot. */
-  #b9 .plate.cut{
-    position:absolute; inset:0; z-index:7;
-    opacity:var(--cut,0); visibility:var(--cutvis,hidden);
-    clip-path:inset(calc(26% - var(--open,0) * 26%) 0 calc(74% - var(--open,0) * 74%) 0);
-  }
-  #b9 .plate.cut video,#b9 .plate.cut img{ transform:scale(calc(1.04 + var(--cutp,0)*.10)) }
+  /* (The opening aperture is gone with the still. The date's letterforms are what open this
+     shot now, and a shot cannot arrive twice.) */
 
   /* And the bar closes it. Beat 9 does not slide away and it does not dissolve: it collapses
      back to the same line it opened from, and Beat 10 — already pinned underneath at full
@@ -1160,7 +1111,7 @@
        same arithmetic Beat 9 uses on the same file. Nothing here is a tint, a blend or a
        filter: light belongs on the tapestry above, where it falls on the whole frame at once
        and therefore cannot pull the window out of register. */
-    background-image:url("media/still/b09_flex.jpg");
+    background-image:url("media/still/b09_lockout_f0.jpg");
     background-attachment:fixed;
     -webkit-background-clip:text; background-clip:text;
   }
@@ -1191,8 +1142,14 @@
   }
   .b8ink img{ position:absolute; top:0; height:100%; width:44vw; max-width:none;
               object-fit:cover; display:block }
-  .b8ink-l{ left:0 }  .b8ink-l img{ right:0; object-position:14% 50% }
-  .b8ink-r{ right:0 } .b8ink-r img{ left:0;  object-position:86% 50% }
+  /* The two printed edges are the last thing holding the frame in as a page. They part and
+     leave on exactly the curve the date comes forward on, so the paper world opens out as the
+     window takes the screen — rather than sitting there framing a shot that has already stopped
+     being a page. Outward, not inward: collapsing them toward the middle would close over the
+     picture at the moment the picture is the whole point. */
+  .b8ink{ transform:translateX(calc(var(--jaw,0) * var(--jawdir,0) * 118%)) }
+  .b8ink-l{ left:0; --jawdir:-1 }  .b8ink-l img{ right:0; object-position:14% 50% }
+  .b8ink-r{ right:0; --jawdir:1 } .b8ink-r img{ left:0;  object-position:86% 50% }
   #b8 .plate{ z-index:1 }
 
 
@@ -1241,7 +1198,6 @@
               width:max-content; color:#f5f5f5 }
     #b8 .plate{ transform:none !important }
     .b9wash{ opacity:.55 !important }
-    #b9 .b9front{ display:none }
     #b6 .plate video,#b6 .plate img{ object-position:50% 50% !important }
   }
 </style>
@@ -1380,23 +1336,18 @@
 </section>
 
 <!-- ─────────── BEAT 9 · EARN IT ─────────── -->
-<section class="beat" id="b9" data-src="media/scrub/b09_lockout.mp4" data-scrub-range="0.62,1" data-split-exit>
+<section class="beat" id="b9" data-src="media/scrub/b09_lockout.mp4" data-split-exit>
   <div class="stage">
     <div class="plate">
-      <img class="flex" src="media/still/b09_flex.jpg" alt="The hooded figure, back to camera, arms raised beneath the Ángel de la Independencia">
+      <img src="media/still/b09_lockout_f0.jpg" alt="An athlete locking a barbell overhead on the competition floor">
+      <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
-    <!-- the same photograph, masked to its subject, printed in front of the words -->
-    <img class="b9front" src="media/still/b09_flex.jpg" alt="" aria-hidden="true">
     <div class="b9wash"></div>
     <div class="b9edge"></div>
     <div class="b9sweep" aria-hidden="true"></div>
     <div class="b9type">
       <h2>Es momento de<br>ganarte tu lugar.</h2>
       <p>It&rsquo;s time to earn your place.</p>
-    </div>
-    <div class="plate cut">
-      <img src="media/poster/b09_lockout.jpg" alt="An athlete locking a barbell overhead on the competition floor">
-      <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
   </div>
 </section>
@@ -1788,8 +1739,11 @@
          and fading as well ghosts the outgoing shot over the incoming one instead of cutting
          cleanly through it. Beat 7 disappears entirely by 0.72 of its overlap, so there is
          nothing left for a fade to do. */
-      b.style.setProperty('--sv', (b.hasAttribute('data-split-exit')
-        ? enter : Math.min(enter, 1 - exit)).toFixed(4));
+      /* Beat 2 owns its arrival through the turning type plane below. Generic section
+         opacity would make it look as though a new frame were scrolling in from the bottom. */
+      const stageVisibility = b.id === 'b2' ? 1 : (b.hasAttribute('data-split-exit')
+        ? enter : Math.min(enter, 1 - exit));
+      b.style.setProperty('--sv', stageVisibility.toFixed(4));
 
       // how far through the WHOLE page are we — drives the altimeter
       /* Two and a half viewports of lead. Enough for the largest clip in the film to be
@@ -1802,14 +1756,19 @@
       if (b.id === 'b5') identityLoop(b, p, r.top < H * 1.6 && r.bottom > -H * 0.6);
 
       if (b.id === 'b2') {
-        /* The word holds the moving car, then expands toward the reader until the black
-           around it is gone. This is an aperture release, not an upward replacement. */
+        /* The thin horizontal trace is the far edge of the turned question-plane. It opens
+           into SUCEDERÁ with the car already moving inside the letters, then scales through
+           the aperture. There is no y-axis entrance for either scene. */
+        const arrive = ease(seg(p, 0.00, 0.16));
+        b.style.setProperty('--b2-arrive', arrive.toFixed(4));
         const release = ease(seg(p, 0.56, 0.88));
         b.style.setProperty('--drive-release', release.toFixed(4));
         const word = b.querySelector('.word');
         if (word) {
-          const W = innerWidth, H2 = innerHeight, scale = 1 + release * 0.72;
-          word.setAttribute('transform', `translate(${W/2} ${H2/2}) scale(${scale.toFixed(4)}) translate(${-W/2} ${-H2/2})`);
+          const W = innerWidth, H2 = innerHeight;
+          const sx = (0.40 + arrive * 0.60) * (1 + release * 0.72);
+          const sy = (0.035 + arrive * 0.965) * (1 + release * 0.72);
+          word.setAttribute('transform', `translate(${W/2} ${H2/2}) scale(${sx.toFixed(4)} ${sy.toFixed(4)}) translate(${-W/2} ${-H2/2})`);
         }
       }
 
@@ -1879,17 +1838,25 @@
              scale so the offset tracks the paper instead of sliding across it. */
           const S = (1 - 0.075 * e) * (1 + 0.30 * ease(p)), vh = innerHeight / 100;
           /* THE WINDOW'S FILL, COMPUTED FROM BEAT 9'S OWN ARITHMETIC.
-             Beat 9 paints b09_flex.jpg with object-fit:cover at 50% 13% and then scales it by
-             1.03 + p*0.17 about the centre of its box. Reproduced here exactly, in px, against
-             the viewport — which is the positioning area, because the layer is fixed. Get this
-             wrong by one per cent and the letters stop being holes and become stickers. */
-          const NW = 1400, NH = 1959, bw = innerWidth, bh = innerHeight;
+             Beat 9 paints b09_lockout.mp4 with object-fit:cover, no object-position, about a
+             50%/46% origin, scaled 1.04 + p*0.12. Reproduced here exactly, in px, against the
+             viewport — which is the positioning area, because the layer is fixed. Get this wrong
+             by one per cent and the letters stop being holes and become stickers.
+
+             The fill is the clip's own first frame at full resolution, not a poster. Beat 9's
+             video is parked on that frame for the whole seam — its own progress barely moves
+             while Beat 8 is still on screen — so a still and a live element would paint the same
+             pixels here. The difference is that this one cannot stall on a seek. The moment the
+             newsprint is gone, the video underneath takes over from the identical frame and
+             starts moving. */
+          const NW = 1280, NH = 848, bw = innerWidth, bh = innerHeight;
           const c = Math.max(bw / NW, bh / NH);
           const iw = NW * c, ih = NH * c;
-          const s9 = 1.03 + P9 * 0.17, ty9 = P9 * -2.2 * vh;
+          const s9 = 1.04 + P9 * 0.12;
+          const ox = bw / 2, oy = bh * 0.46;         /* the plate's transform origin */
           const fw = iw * s9, fh = ih * s9;
-          const fx = bw / 2 + ((bw - iw) * 0.50 - bw / 2) * s9;
-          const fy = bh / 2 + ((bh - ih) * 0.13 - bh / 2) * s9 + ty9 * s9;
+          const fx = ox + ((bw - iw) * 0.50 - ox) * s9;
+          const fy = oy + ((bh - ih) * 0.50 - oy) * s9;
           RL.style.backgroundSize = fw.toFixed(1) + 'px ' + fh.toFixed(1) + 'px';
           RL.style.backgroundPosition = fx.toFixed(1) + 'px ' + fy.toFixed(1) + 'px';
           RL.style.transform = 'translate(-50%,-50%) translate(' +
@@ -1905,6 +1872,15 @@
              happen if the reveal is to be invisible. */
           RL.style.setProperty('--rlk', (1 - push).toFixed(3));
           b._b9.style.setProperty('--temp', (0.86 * push).toFixed(3));
+          /* The frames part on `exit`, not on `--p`, and that timing is not cosmetic. Beat 9 is
+             pinned exactly when Beat 8 begins to slide; before that its sticky stage still sits
+             below the top of the viewport, so clearing Beat 8's ground any earlier opened the
+             margins onto the gap above it — a black band across the top of the frame at the one
+             moment the frame should be filling up. Tied to `exit`, the printed edges part, the
+             ground clears and Beat 9 is already there to be opened onto. The push is still
+             running through all of it — the letters reach their largest during this — so it
+             still reads as the frames opening while the date comes at the reader. */
+          b.style.setProperty('--jaw', ease(exit).toFixed(4));
         }
       }
 
@@ -1980,11 +1956,12 @@
       }
 
       if (b.id === 'b1') {
-        /* The city-time plate is the pressure between the Ángel and the night aperture.
-           The three words arrive as a compact stack beneath the protected rail, then peel
-           apart so the footage—not a frozen title card—carries the last moment. */
-        b.style.setProperty('--ready', Math.min(ease(seg(p, 0.14, 0.26)), 1 - ease(seg(p, 0.64, 0.80))).toFixed(4));
-        b.style.setProperty('--ready-close', ease(seg(p, 0.60, 0.83)).toFixed(4));
+        /* The words get a full held reading moment, then invert in place. The only geometric
+           move is one perfect circular black aperture growing from their shared centre. */
+        b.style.setProperty('--ready', Math.min(ease(seg(p, 0.14, 0.26)), 1 - ease(seg(p, 0.84, 0.94))).toFixed(4));
+        b.style.setProperty('--ready-invert', ease(seg(p, 0.57, 0.68)).toFixed(4));
+        b.style.setProperty('--ready-disc', ease(seg(p, 0.66, 0.84)).toFixed(4));
+        b.style.setProperty('--ready-turn-fade', ease(seg(p, 0.78, 0.90)).toFixed(4));
       }
 
       if (b.id === 'b12') {
@@ -2048,18 +2025,13 @@
            was right — it has to end on the figure alone before it can cut — but the cut used
            to be at 0.88 and the aperture now starts at 0.62, so the old fade left the headline
            on screen to be sliced in half by the opening band. */
-        const tin = seg(p, 0.12, 0.26) * (1 - seg(p, 0.50, 0.60));
+        const tin = seg(p, 0.14, 0.28) * (1 - seg(p, 0.74, 0.84));
         b.style.setProperty('--typein', tin.toFixed(3));
         /* The lockout now owns the last 38% of the beat rather than the last 12%. The take
            is only 0.79s, so this is not more footage — it is the same footage given three
            times the scroll to play across, which is the whole of what is available. */
-        const CUT9 = 0.62;
-        const c9 = p >= CUT9 ? 1 : 0;
-        b.style.setProperty('--cut', c9);
-        b.style.setProperty('--cutvis', c9 ? 'visible' : 'hidden');
-        b.style.setProperty('--cutp', seg(p, CUT9, 1).toFixed(3));
-        /* open along the bar, hold it open, then close along the bar onto Beat 10 */
-        b.style.setProperty('--open',  ease(seg(p, CUT9, CUT9 + 0.11)).toFixed(4));
+        /* The shot runs the whole beat now, so the only thing left to schedule is the close:
+           the frame collapses to the bar's own line and Beat 10 is behind it. */
         b.style.setProperty('--close', ease(seg(p, 0.90, 1.00)).toFixed(4));
       }
       if (b._v && !RM) {
