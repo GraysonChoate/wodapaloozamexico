@@ -183,19 +183,21 @@
      the V folds release the Ángel into the city-time transition. */
   .b0flagintro{ position:absolute; inset:0; z-index:10; opacity:var(--flag-intro,1); pointer-events:none }
   .b0flagintro video{ width:100%; height:100%; object-fit:cover; filter:saturate(.88) contrast(1.05) }
-  #b0 .b0frame{ width:100vw; height:100svh; outline:0; background:#050505 }
+  #b0 .b0frame{ width:100vw; height:100svh; outline:0; background:#050505; opacity:var(--angel-frame,1); transition:none }
   #b0 .b0frame>.plate:not(.cockpit){ opacity:var(--angel,0); transition:none }
   #b0 .b0black{ opacity:0 !important }
   .b0city-full{ position:absolute; inset:0; z-index:3; width:100%; height:100%; object-fit:cover; opacity:var(--city-full,0); pointer-events:none; transition:none }
-  .b0fold{ position:absolute; z-index:5; top:-7vh; bottom:-7vh; width:62vw; background:url('media/print/print-field-01.jpg') 50%/cover; will-change:transform; pointer-events:none; overflow:hidden }
-  .b0fold:after{ content:""; position:absolute; inset:0; background:rgba(8,8,8,.12) }
-  /* City materializes inside the original printed statue wings, never as detached panels.
-     Their opposing crops are halves of one moving city source. */
-  .b0city-inset{ position:absolute; z-index:1; top:8vh; bottom:8vh; width:78%; height:calc(100% - 16vh); max-width:none; object-fit:cover; opacity:var(--city-fold,0); filter:none; transition:none; pointer-events:none }
-  .b0fold-l .b0city-inset{ right:5%; left:auto; object-position:right 46%; clip-path:polygon(0 0,100% 0,82% 100%,0 100%) }
-  .b0fold-r .b0city-inset{ left:5%; right:auto; object-position:left 46%; clip-path:polygon(18% 0,100% 0,100% 100%,0 100%) }
-  .b0fold-l{ left:-20vw; clip-path:polygon(0 0,73% 0,100% 100%,0 100%); transform-origin:left center; transform:translateX(calc(-58vw + var(--fold,0)*58vw - var(--release,0)*58vw)) rotateY(calc(-46deg + var(--fold,0)*46deg - var(--release,0)*46deg)) rotateZ(calc(-6deg + var(--fold,0)*6deg)) }
-  .b0fold-r{ right:-20vw; clip-path:polygon(27% 0,100% 0,100% 100%,0 100%); transform-origin:right center; transform:translateX(calc(58vw - var(--fold,0)*58vw + var(--release,0)*58vw)) rotateY(calc(46deg - var(--fold,0)*46deg + var(--release,0)*46deg)) rotateZ(calc(6deg - var(--fold,0)*6deg)) }
+  .b0fold{ position:absolute; z-index:5; top:-7vh; bottom:-7vh; width:62vw; background:url('media/print/print-field-01.jpg') 50%/cover; opacity:var(--fold-visible,1); will-change:transform; pointer-events:none; overflow:hidden }
+  .b0fold:after{ content:""; position:absolute; z-index:2; inset:0; background:rgba(8,8,8,.10); pointer-events:none }
+  /* The night city occupies exactly the existing wing silhouettes.  It does not appear behind
+     them and it carries no secondary rectangular inset or fade. */
+  .b0city-inset{ position:absolute; z-index:1; top:0; bottom:0; width:200%; height:100%; max-width:none; object-fit:cover; object-position:center 46%; opacity:var(--city-fold,0); filter:none; transition:none; pointer-events:none }
+  /* Each physical wing carries its corresponding half of one city image. The halves meet at
+     the centre; there is no separately fading city behind the print object. */
+  .b0fold-l .b0city-inset{ left:0; right:auto }
+  .b0fold-r .b0city-inset{ right:0; left:auto }
+  .b0fold-l{ left:-20vw; clip-path:polygon(0 0,calc(73% + var(--shutter,0)*27%) 0,100% 100%,0 100%); transform-origin:left center; transform:translateX(calc(-58vw + var(--fold,0)*66vw)) rotateY(calc(-46deg + var(--fold,0)*46deg)) rotateZ(calc(-6deg + var(--fold,0)*6deg)) }
+  .b0fold-r{ right:-20vw; clip-path:polygon(calc(27% - var(--shutter,0)*27%) 0,100% 0,100% 100%,0 100%); transform-origin:right center; transform:translateX(calc(58vw - var(--fold,0)*66vw)) rotateY(calc(46deg - var(--fold,0)*46deg)) rotateZ(calc(6deg - var(--fold,0)*6deg)) }
   .b0fold-l:before,.b0fold-r:before{ content:""; position:absolute; top:0; bottom:0; width:2px; background:#ece4d6; opacity:.7 }.b0fold-l:before{right:25%}.b0fold-r:before{left:25%}
   .b0intro{ z-index:6; opacity:var(--title-black,0) }
   .b0title{ z-index:7; opacity:var(--word,0); transform:scale(calc(.92 + var(--word,0)*.08)) }
@@ -791,7 +793,11 @@
      black while the bottom showed dancers. At -190 it is on screen and moving well before the
      bars clear. Its own track grows to match, so the extra distance is not paid for in dropped
      frames. */
-  #b10{ height:470svh; margin-top:-190svh }
+  /* The dancing is out of this seam entirely — he wants what comes through the bars to be the
+     crowd on its feet, not people on a beach, and he is right: the shot the letterbox opens
+     onto should answer the lift, not change the subject. b10_floor.mp4 is untouched and still
+     in the media set for wherever he places it. */
+  #b10{ height:400svh; margin-top:-190svh }
   #b10 .stage{ z-index:40 }
   #b10 .plate video,#b10 .plate img{ transform:scale(calc(1.02 + var(--p) * .06)) }
 
@@ -1509,7 +1515,7 @@
 <section class="beat" id="b10" data-src="media/scrub/b10_crowd.mp4">
   <div class="stage">
     <div class="plate">
-      <img src="media/poster/b10_crowd.jpg" alt="Athletes running through the giant WZA letters">
+      <img src="media/poster/b10_crowd.jpg" alt="The crowd on their feet, arms up, under the lights">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
     <p class="b10line">Celebrate fitness. Community. Life.</p>
@@ -2238,16 +2244,25 @@
         /* Texture and Ángel arrive first. Only after the wings have held does the incoming
            city materialize inside their exact silhouettes; the same two wings then shutter
            closed to make the full city. */
-        const fold = ease(seg(p, 0.22, 0.84)), cut = ease(seg(p, 0.84, 0.92)), release = ease(seg(p, 0.92, 0.98));
+        /* The printed Ángel wings are the only surface until each carries a mapped city half.
+           They move inward together as a closing shutter. */
+        const fold = ease(seg(p, 0.22, 0.86)), cut = ease(seg(p, 0.86, 0.875)), release = 0;
+        const shutterTakeover = ease(seg(p, 0.855, 0.875));
+        const shutterClose = ease(seg(p, 0.76, 0.855));
         b.style.setProperty('--fold', fold.toFixed(4));
+        b.style.setProperty('--shutter', shutterClose.toFixed(4));
         b.style.setProperty('--cut', cut.toFixed(4));
-        b.style.setProperty('--cut-size', ((cut * 74) + (release * 26)).toFixed(2) + '%');
+        b.style.setProperty('--cut-size', (cut * 74).toFixed(2) + '%');
         b.style.setProperty('--release', release.toFixed(4));
-        /* City arrives while the printed wings are still visibly separated, then the panels
-           register at the centre before the whole-source release. */
-        b.style.setProperty('--city-fold', (ease(seg(p, 0.58, 0.76)) * (1 - release)).toFixed(4));
-        b.style.setProperty('--city-full', ease(seg(p, 0.78, 0.92)).toFixed(4));
+        /* The city materializes only inside the two wing silhouettes. The full source replaces
+           them only at their occluded meeting point, so it cannot read as a background fade. */
+        b.style.setProperty('--city-fold', (ease(seg(p, 0.58, 0.76)) * (1 - shutterTakeover)).toFixed(4));
+        b.style.setProperty('--city-full', shutterTakeover.toFixed(4));
+        b.style.setProperty('--fold-visible', (1 - shutterTakeover).toFixed(4));
         b.style.setProperty('--angel', ease(seg(p, 0.24, 0.49)).toFixed(4));
+        /* Once the city is entering the two wings, remove the old full-frame Ángel plate so
+           no city/Ángel image can remain visible outside the physical shutter surfaces. */
+        b.style.setProperty('--angel-frame', (1 - ease(seg(p, 0.575, 0.595))).toFixed(4));
         b.style.setProperty('--c', 0);
         /* Strictly inside the hold, with room at both ends. Copy still settling while the
            frame is still settling reads as one more animated element rather than as print. */
@@ -2265,7 +2280,7 @@
           if (Math.abs(clip.currentTime - want) > 1/36) clip.currentTime = want;
         }
         const foldCities = b._foldCities || (b._foldCities = [...b.querySelectorAll('.b0city-inset,.b0city-full')]);
-        const cityProgress = ease(seg(p, 0.58, 0.98));
+        const cityProgress = ease(seg(p, 0.58, 0.875));
         for (const clip of foldCities) if (clip.duration && !RM) {
           const want = Math.min(clip.duration - TAIL, 0.12 + cityProgress * Math.max(0, clip.duration - 0.24));
           if (Math.abs(clip.currentTime - want) > 1/30) clip.currentTime = want;
@@ -2344,7 +2359,10 @@
            was right — it has to end on the figure alone before it can cut — but the cut used
            to be at 0.88 and the aperture now starts at 0.62, so the old fade left the headline
            on screen to be sliced in half by the opening band. */
-        const tin = seg(p, 0.14, 0.28) * (1 - seg(p, 0.74, 0.84));
+        /* It was arriving over the night platform, before the beat had settled into anything.
+           The rope is fully formed by 0.30 of the beat, so the line lands on THAT and is gone
+           again before the bars come in — it belongs to the climb, not to the whole beat. */
+        const tin = seg(p, 0.30, 0.38) * (1 - seg(p, 0.50, 0.58));
         b.style.setProperty('--typein', tin.toFixed(3));
         /* The lockout now owns the last 38% of the beat rather than the last 12%. The take
            is only 0.79s, so this is not more footage — it is the same footage given three
