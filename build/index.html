@@ -863,23 +863,29 @@
      The other two things he is doing: two voices in one line — a bold grotesque against a
      flowing italic — and a slight defocus so the type sits in the shot's depth of field rather
      than on top of it. Both are here. */
+  /* 9.4vw, and the number is a consequence, not a taste.
+     The reference sets a single lowercase letter at a fifth of the frame's height — but its
+     copy is EIGHT characters. This line is thirty-four. At that size thirty-four characters is
+     three stacked lines, which buries the shot, runs into the navigation, and stops being a
+     composition. Character count sets the ceiling: at roughly 0.52em average advance, eighteen
+     characters inside 90vw puts the ceiling at about 9.4vw, and that is where this sits.
+
+     Reference SCALE and this COPY cannot both be had. Until the copy is decided, the frame wins:
+     two lines, both large, occupying the lower band the silhouetted heads cross, with the shot
+     still legible above them and the navigation untouched. */
   .b10line{
-    position:absolute; z-index:2; left:5vw; right:5vw; top:44%; margin:0;
-    transform:translateY(-50%);
-    font:800 clamp(64px,17vw,300px)/0.86 Archivo,"Helvetica Neue",Arial,sans-serif;
-    letter-spacing:-.045em; text-transform:none; color:#fff;
+    position:absolute; z-index:2; left:5vw; right:5vw; bottom:16%; margin:0;
+    font:800 clamp(34px,9.4vw,150px)/0.94 Archivo,"Helvetica Neue",Arial,sans-serif;
+    letter-spacing:-.04em; text-transform:none; color:#fff;
     font-variation-settings:"wdth" 112,"wght" 800;
-    filter:blur(calc((1 - var(--b10t,0)) * 6px));
+    filter:blur(calc((1 - var(--b10t,0)) * 5px));
     opacity:var(--b10t,0);
   }
   .b10line em{
-    font:400 1.06em/0.86 "Instrument Serif","Times New Roman",serif;
-    font-style:italic; letter-spacing:-.01em;
+    font-family:"Instrument Serif","Times New Roman",serif;
+    font-style:italic; font-weight:400; letter-spacing:-.005em;
   }
-  .b10line b{
-    display:block; font-weight:800; font-size:.52em; letter-spacing:-.035em;
-    font-variation-settings:"wdth" 118,"wght" 800;
-  }
+  .b10line b{ display:block; font-weight:inherit; letter-spacing:inherit }
   @media (max-width:760px){ .b10line{ left:5vw; right:5vw; font-size:clamp(40px,15vw,120px) } }
 
   /* ── B11 · THE PROOF ──────────────────────────────────────────────────────
@@ -1585,14 +1591,15 @@
       <img src="media/poster/b10_crowd_focus.jpg" alt="The crowd on their feet; the camera tracks past them and finds an athlete alone in his head">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
-    <p class="b10line">Celebrate <em>fitness.</em><b>Community. Life.</b></p>
-    <!-- The same footage again, keyed off its own luminance so only the near-black silhouettes
-         survive, laid OVER the line. Nothing is rotoscoped and nothing is generated: every pixel
-         this layer keeps is identical to the pixel beneath it, so the key does not have to be
-         accurate — it can only be seen where the words are, which is the one place it matters.
-         It exists only for the 63 frames the silhouettes do; past the cut there is no dark
-         foreground left to occlude anything. -->
-    <video class="b10fg" src="media/scrub/b10_focus_fg.webm" muted playsinline preload="auto"
+    <p class="b10line">Celebrate <em>fitness.</em><b>Community. <em>Life.</em></b></p>
+    <!-- THE SAME SCENE OVER ITSELF WITH THE BACKGROUND REMOVED — which is exactly what the
+         reference edit is doing, and what a luminance key can only imitate when the subject
+         happens to be dark. Here the people are cut out properly: macOS's own Vision framework
+         segments a person per frame, locally, with no model download and nothing generated. The
+         matte is of found footage, frame by frame, and the layer above the words is the shot
+         itself with everything but the people erased.
+         100 frames, covering the whole stretch the words are on screen. -->
+    <video class="b10fg" src="media/scrub/b10_people_fg.webm" muted playsinline preload="auto"
            disablepictureinpicture aria-hidden="true"></video>
   </div>
 </section>
@@ -2427,12 +2434,11 @@
            the camera settles on him — the beat ends on a face, not on type. */
         b.style.setProperty('--b10p', p.toFixed(3));
         b.style.setProperty('--b10t', (seg(p, 0.53, 0.60) * (1 - seg(p, 0.74, 0.80))).toFixed(3));
-        /* The keyed foreground is its own clip and it covers only the 63 frames of silhouettes,
-           which are 0.514 to 0.704 of this beat — the track-past. Outside that stretch there is
-           no dark foreground left to occlude anything, so it is hidden. */
+        /* The cut-out people cover 2.87s to 4.53s of the clip — 0.520 to 0.821 of this beat,
+           which is the whole stretch the words are up. */
         const FG = b._fg || (b._fg = b.querySelector('.b10fg'));
         if (FG) {
-          const q = (p - 0.514) / 0.190;
+          const q = (p - 0.520) / 0.301;
           const inFG = q > -0.02 && q < 1.02;
           b.style.setProperty('--fgv', inFG ? 1 : 0);
           if (inFG && FG.duration) {

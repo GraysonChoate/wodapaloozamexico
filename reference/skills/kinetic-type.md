@@ -62,6 +62,29 @@ wrong.**
 
 ## 2 · THE FOREGROUND WALKS IN FRONT OF THE WORDS
 
+**The real technique is the same scene over itself with the background removed** — a cut-out of
+the people, laid on top of the type. Everything else here is an imitation of that, and only
+works in special cases.
+
+### 2a · Proper segmentation — the one that always works
+
+macOS does person segmentation locally, no model download, no network, nothing generated. It is
+a matte of found footage, frame by frame. `person-matte.swift` in this skill folder is the tool;
+build it with `swiftc -O -o seg person-matte.swift`.
+
+    ffmpeg -ss IN -t DUR -i shot.mp4 -vf "scale=1280:-2" in/f%04d.png
+    ./seg in out                                   # ~100 frames in 11s, .accurate quality
+    ffmpeg -framerate 60 -i in/f%04d.png -framerate 60 -i out/f%04d.png \
+      -filter_complex "[1]format=gray[m];[0][m]alphamerge,format=yuva420p" \
+      -c:v libvpx-vp9 -pix_fmt yuva420p -auto-alt-ref 0 -g 1 -b:v 0 -crf 38 fg.webm
+
+It finds every person in frame, not just the subject — background crowd included, which is
+usually what you want. Segment only the stretch the type is on screen.
+
+### 2b · The luminance shortcut — dark subjects only
+
+
+
 Text between the scene and a keyed copy of that same scene.
 
     ffmpeg -i shot.mp4 -vf "lumakey=threshold=0.26:tolerance=0.16:softness=0.10,format=yuva420p" \
@@ -74,9 +97,11 @@ against a test ground; `ffprobe` reports the base `pix_fmt` and will not show it
 the matte does not have to be accurate. It can only be seen where the type is. Nothing is
 rotoscoped and nothing is generated.
 
-**It only works when the foreground is dark against a bright ground** — silhouettes, night
-crowds, backlit figures. A *bright* subject needs real segmentation; say so rather than
-promising it.
+**Only when the foreground is dark against a bright ground** — silhouettes, night crowds,
+backlit figures. On a lit subject it produces nothing readable as depth, and on a dark subject
+against a dark ground the occlusion is technically correct but invisible: the viewer cannot tell
+a person from a fade. **If the depth has to READ, use 2a.** That mistake cost a whole round here:
+the mechanism was right, the shot could not show it.
 
 Encode only the frames the silhouettes exist for, and hide the layer outside them. `-g 1` for
 scrubbing. Drive its `currentTime` from the same scroll parameter as the base clip.
