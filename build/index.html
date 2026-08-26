@@ -607,7 +607,13 @@
      Beat 2 was tested for this first and cannot do it: its Ángel is floodlit against lit
      office towers at exactly the same brightness (monument box 33.9% vs tower box 31.3% of
      pixels above luma 110), and the camera leaves the monument entirely by 0.85s. */
-  #b9{ height:620svh }
+  /* Beat 9 is pulled up a full viewport so it is ALREADY pinned, at full strength, behind
+     Beat 8 while Beat 8 is still playing. Nothing travels at this seam: the incoming beat
+     does not arrive, it is uncovered. Same device as 7 -> 8, and the reason the stage order
+     has to be stated explicitly — later sections paint over earlier ones by default, which
+     is the opposite of what an uncovering needs. */
+  #b9{ height:620svh; margin-top:-100svh }
+  #b9 .stage{ z-index:1 }
   #b9 .plate img.flex,#b9 .b9front{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
     object-position:50% 13%;
@@ -1089,6 +1095,34 @@
     -webkit-text-stroke:2px rgba(255,255,255,.94);
     transform:translate(-50%,-50%);
   }
+  /* THE LAST SHEET IS THE SEAM. The first three outlines arrive, pass the reader and are
+     gone. The fourth does something else: a second copy of the same glyph, at the same size
+     and riding the same push, carries Beat 9's own opening frame inside its counters. The
+     date stops being ink on his newsprint and becomes a window onto a person.
+
+     The fill is `background-attachment:fixed`, cropped exactly as Beat 9 crops it — cover at
+     50% 13%. That is the whole trick: the picture does not grow with the letters, the letters
+     grow across a picture that is already sitting at its final size and position. So when a
+     single stroke has swallowed the frame, what is on screen IS Beat 9's first frame, and the
+     handover underneath has nothing left to reveal.
+
+     No stroke on this copy. An outline on a filled glyph reads as a sticker laid on the shot;
+     without it the letterform is simply an opening. */
+  /* The window has to be DARKER than the paper it is cut into, or it does not read as a
+     cut at all. Beat 9's sky is pale and so is his newsprint, and at full size the top line
+     was white type on a white sheet — a ghost, not an opening. The fill is darkened only
+     while the paper is still there to be cut, and released on exactly the curve the paper
+     leaves on, so the picture inside the letters arrives at Beat 9's true brightness at the
+     instant Beat 9 takes over. The filter touches nothing but the glyph: everything else in
+     this element is transparent. */
+  .b8words b.relay{
+    -webkit-text-stroke:0; opacity:0;
+    filter:brightness(calc(1 - var(--rlk,0) * .34)) contrast(calc(1 + var(--rlk,0) * .16));
+    background-image:url("media/still/b09_flex.jpg");
+    background-size:cover; background-position:50% 13%; background-attachment:fixed;
+    -webkit-background-clip:text; background-clip:text;
+  }
+
   /* Beat 8's own margins stop being empty black: the paper is held against printed edges. */
   .b8ink{
     position:absolute; top:0; bottom:0; z-index:0; overflow:hidden; opacity:.9;
@@ -1291,7 +1325,7 @@
     <div class="b8ink b8ink-l"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
     <div class="b8ink b8ink-r"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
     <div class="b8words" aria-hidden="true">
-      <b>RECUERDA</b><b>EL ONLINE<br>QUALIFIER</b><b>COMIENZA</b><b>ES DEL<br>18 AL 26<br>DE AGOSTO</b>
+      <b>RECUERDA</b><b>EL ONLINE<br>QUALIFIER</b><b>COMIENZA</b><b>ES DEL<br>18 AL 26<br>DE AGOSTO</b><b class="relay">ES DEL<br>18 AL 26<br>DE AGOSTO</b>
     </div>
     <div class="plate">
       <img src="media/poster/b08_newspaper.jpg" alt="A hand-written newspaper sheet reading RECUERDA held up in the street">
@@ -1738,7 +1772,7 @@
         b.style.setProperty('--grow', (1 + 0.30 * ease(p)).toFixed(4));
         /* One word per sheet: outlined, forward, gone — then he drops the paper and the next
            one takes its place. Windows located in the clip and mapped back through the warp. */
-        const WW = b._ww || (b._ww = [...b.querySelectorAll('.b8words b')]);
+        const WW = b._ww || (b._ww = [...b.querySelectorAll('.b8words b:not(.relay)')]);
         const WIN = [[0.020,0.084],[0.157,0.328],[0.362,0.541],[0.575,0.957]];
         for (let i = 0; i < WW.length; i++) {
           const a = WIN[i][0], z = WIN[i][1], span = z - a;
@@ -1750,6 +1784,21 @@
           const o = Math.min(seg(p, a, a + span * 0.12), 1 - seg(p, a + span * 0.90, z));
           WW[i].style.opacity = o.toFixed(3);
           WW[i].style.transform = 'translate(-50%,-50%) translateZ(' + (t * 880).toFixed(0) + 'px)';
+        }
+        /* The twin takes the last window over from its outline and then keeps going, because
+           --p is pinned at 1 for the whole slide and the seam lives in that slide. Adding
+           `exit` carries the push from 780 to 1005 against a 1900 perspective, which is where
+           one stroke is wider than the frame. The twin needs no exit of its own: it is inside
+           Beat 8's stage, so Beat 8's own dissolve removes it — over Beat 9 holding the
+           identical photograph at the identical crop, which is why that dissolve cannot be
+           seen. */
+        const RL = b._rl || (b._rl = b.querySelector('.b8words b.relay'));
+        if (RL) {
+          const a = 0.575, z = 0.957, span = z - a;
+          RL.style.opacity = seg(p, a + span * 0.42, a + span * 0.74).toFixed(3);
+          RL.style.transform = 'translate(-50%,-50%) translateZ(' +
+            (780 * seg(p, a, z) + 225 * exit).toFixed(0) + 'px)';
+          RL.style.setProperty('--rlk', (1 - exit).toFixed(3));
         }
       }
 
