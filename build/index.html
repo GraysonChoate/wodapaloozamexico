@@ -113,6 +113,29 @@
     .alt{top:16px;right:14px;font-size:10px}
   }
 
+  /* ── persistent website navigation ──────────────────────────────────────
+     A functional event rail: visible as a deliberate site object, never a ghosted label
+     lying on the film. Its own dark ground reserves the protected top zone for controls. */
+  .site-nav{ position:fixed; z-index:100; top:12px; left:20px; right:20px; min-height:78px;
+    display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:28px;
+    padding:8px 10px 8px 22px; color:#fff; background:rgba(12,12,12,.78);
+    border:1px solid rgba(255,255,255,.30); border-radius:20px; box-shadow:0 14px 42px rgba(0,0,0,.22);
+    backdrop-filter:blur(16px) saturate(1.1); font:800 11px/1 Archivo,"Helvetica Neue",Arial,sans-serif;
+    letter-spacing:.14em; text-transform:uppercase }
+  .site-nav a,.site-nav button{ color:inherit; font:inherit; letter-spacing:inherit; text-transform:inherit; text-decoration:none; border:0; background:none; cursor:pointer }
+  .site-brand{ display:flex; align-items:center; width:105px; min-width:105px; height:60px; white-space:nowrap }
+  .site-brand img{ width:94px; height:60px; object-fit:contain; object-position:left center; filter:drop-shadow(0 2px 5px rgba(0,0,0,.35)) }
+  .site-links{ justify-self:center; display:flex; align-items:center; gap:clamp(17px,2.15vw,38px); color:rgba(255,255,255,.72) }.site-links a{ padding:8px 0; position:relative }.site-links a:first-child{color:#fff}.site-links a:first-child::after{content:"";position:absolute;left:0;right:0;bottom:1px;height:2px;background:#fff}.site-links a:hover{color:#fff}
+  .site-actions{ display:flex; gap:12px; align-items:center; padding-left:14px; border-left:1px solid rgba(255,255,255,.25) }.site-menu{ padding:15px 18px; border:1px solid rgba(255,255,255,.42)!important }.site-qualifier{ padding:16px 21px; color:#050505!important; background:#fff!important }
+  .site-panel{ position:fixed; z-index:99; top:101px; right:20px; width:min(390px,calc(100vw - 40px)); padding:18px;
+    background:rgba(5,7,8,.96); border:1px solid rgba(255,255,255,.2); box-shadow:0 18px 50px rgba(0,0,0,.4);
+    transform:translateY(-12px); opacity:0; pointer-events:none; transition:opacity .18s ease,transform .18s ease }
+  .site-panel.is-open{ transform:none; opacity:1; pointer-events:auto }.site-panel p{ margin:0 0 13px; color:rgba(255,255,255,.54); font:700 9px/1.4 "JetBrains Mono",ui-monospace,monospace; letter-spacing:.16em; text-transform:uppercase }
+  .site-panel a{ display:flex; justify-content:space-between; padding:14px 0; color:#fff; border-top:1px solid rgba(255,255,255,.13); text-decoration:none; font:800 16px/1 Archivo,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.02em }
+  .site-panel a span{ color:var(--green); font:700 10px/1.8 "JetBrains Mono",ui-monospace,monospace; letter-spacing:.12em; text-transform:uppercase }
+  .b0nav{ display:none!important }
+  @media(max-width:760px){ .site-nav{top:10px;left:10px;right:10px;min-height:58px;padding:5px 6px 5px 12px;gap:8px;border-radius:15px}.site-links{display:none}.site-brand{width:76px;min-width:76px;height:46px}.site-brand img{width:76px;height:46px}.site-actions{gap:6px;padding-left:7px}.site-menu{padding:12px 10px!important}.site-qualifier{padding:13px 10px!important}.site-panel{top:78px;right:10px;width:calc(100vw - 20px)} }
+
   /* ── a beat is a tall track with a sticky stage ─────────────────────────── */
   .beat{ position:relative }
   .stage{
@@ -245,7 +268,10 @@
   .b1ready{ position:absolute; z-index:6; inset:0; pointer-events:none;
     opacity:calc(var(--ready,0) * (1 - var(--ready-turn-fade,0))); perspective:1200px; transform-style:preserve-3d }
   /* Optical type over the SAME moving city: no second still is ever mapped into these letters. */
-  .b1ready span{ position:absolute; display:block; color:rgba(239,246,242,.52); -webkit-text-fill-color:rgba(239,246,242,.52); -webkit-text-stroke:1px rgba(255,255,255,.17); font:950 clamp(72px,16vw,230px)/.72 Archivo,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.11em; white-space:nowrap; text-shadow:0 1px 1px rgba(0,0,0,.34),0 0 28px rgba(0,0,0,.32); mix-blend-mode:screen; backdrop-filter:blur(1px) saturate(1.18); filter:invert(var(--ready-invert,0)); transform-style:preserve-3d; transform-origin:50% 50%; will-change:transform,filter }
+  .b1ready span{ position:absolute; display:block; color:rgb(239 246 242 / calc(.52 * (1 - var(--ready-invert,0)))); -webkit-text-fill-color:rgb(239 246 242 / calc(.52 * (1 - var(--ready-invert,0)))); -webkit-text-stroke:1px rgb(255 255 255 / calc(.17 * (1 - var(--ready-invert,0)))); font:950 clamp(72px,16vw,230px)/.72 Archivo,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.11em; white-space:nowrap; text-shadow:0 1px 1px rgba(0,0,0,.34),0 0 28px rgba(0,0,0,.32); mix-blend-mode:screen; backdrop-filter:blur(1px) saturate(1.18); transform-style:preserve-3d; transform-origin:50% 50%; will-change:transform,color }
+  /* A distinct ink layer—not a filter—makes the actual wordforms turn jet black before
+     the circle consumes them. */
+  .b1ready span::after{ content:attr(data-word); position:absolute; inset:0; color:#000; -webkit-text-fill-color:#000; -webkit-text-stroke:0 transparent; opacity:var(--ready-invert,0); mix-blend-mode:normal; text-shadow:none }
   .b1ready .are{ top:14vh; left:50%; transform:translate(-50%,calc((1 - var(--ready,0))*-28vh)) }
   .b1ready .you{ top:38vh; left:50%; font-size:clamp(92px,22vw,320px); transform:translate(calc(-50% + (1 - var(--ready,0))*50vw),0) }
   .b1ready .ready{ top:73vh; bottom:auto; left:50%; font-size:clamp(64px,15vw,220px); transform:translate(calc(-50% - (1 - var(--ready,0))*48vw),calc((1 - var(--ready,0))*18vh)) }
@@ -584,7 +610,10 @@
      the stronger answer. Everything the still needed and the video does not goes with it: the
      subject matte, the second copy printed in front of the words, and the shared transform
      origin those two copies had to agree on. A whole class of bug leaves with them. */
-  #b9{ height:620svh; margin-top:-100svh }
+  /* 260, not 100. Beat 9 is pinned and PLAYING from 62% of Beat 8 — long before the date
+     starts forward — so what shows through the letters is a scene in motion rather than a frame
+     waiting to become one. Half the clip runs while the newsprint is still on screen. */
+  #b9{ height:620svh; margin-top:-260svh }
   #b9 .stage{ z-index:50 }
   #b9 .plate video,#b9 .plate img{ transform:scale(calc(1.04 + var(--p) * .12)) }
 
@@ -1095,26 +1124,24 @@
      comes forward, rather than matching at exactly one instant and drifting either side of it.
      The sheet is a 720x1280 portrait in a `contain` box, so its size is governed by viewport
      HEIGHT; svh is the correct unit here and vw would break the match on any other window. */
-  .b8words b.relay{
-    -webkit-text-stroke:0; opacity:0;
-    font-size:calc(6.6svh * var(--fit,1) * var(--grow,1));
-    line-height:1.64;
-    filter:brightness(calc(1 - var(--rlk,0) * .34)) contrast(calc(1 + var(--rlk,0) * .16));
-    /* ONE layer, and its geometry is computed rather than described. `cover` at `50% 13%`
-       is what Beat 9 uses, but Beat 9 also scales its photograph by 1.03 before you ever see
-       it — so a plain `cover` window was three per cent off, and three per cent is fourteen
-       pixels at this width. The seam only works if it is exact: when the newsprint dissolves,
-       the pixels inside the letters must already BE the pixels behind them, so that nothing
-       about the image changes and all that happens is the paper leaving.
+  /* THE DATE IS A HOLE, NOT A FILL.
 
-       So `background-size` and `background-position` are written in px each frame from the
-       same arithmetic Beat 9 uses on the same file. Nothing here is a tint, a blend or a
-       filter: light belongs on the tapestry above, where it falls on the whole frame at once
-       and therefore cannot pull the window out of register. */
-    background-image:url("media/still/b09_lockout_f0.jpg");
-    background-attachment:fixed;
-    -webkit-background-clip:text; background-clip:text;
-  }
+     It used to be `background-clip:text` over a still of the incoming shot, and that could
+     never be what he asked for: a background image cannot be a video, so the scene inside the
+     letters was always a frozen frame waiting to become live. Painting it accurately was work
+     spent on the wrong problem.
+
+     Beat 8's stage is now masked by the date itself — white everywhere, black in the glyphs —
+     so the letterforms are genuinely cut out of the newsprint and Beat 9 is seen THROUGH them,
+     playing, at its own size, needing no arithmetic to agree with. There is one copy of that
+     scene in the document and the window is a hole in the thing in front of it. Registration
+     stops being something to get right and becomes something that cannot be wrong.
+
+     The mask text is calibrated at runtime rather than described: measured once with getBBox
+     at a nominal size, then mapped onto the box his handwriting occupies. Font metrics are not
+     guessed anywhere. */
+  #b8 .stage{ mask:url(#b8win); -webkit-mask-box-image:none }
+  .b8mask{ position:absolute; width:0; height:0; overflow:hidden }
 
   /* AMB-06 · colour temperature drift, from the effects library. The library's version maps
      white balance to whole-page scroll depth; here the same idea is compressed into the seam
@@ -1210,6 +1237,16 @@
   <div class="alt"><b id="metres">2,240</b><span class="unit"> M</span></div>
 </div>
 
+<nav class="site-nav" aria-label="Wodapalooza Mexico navigation">
+  <a class="site-brand" href="#top" aria-label="Back to the beginning"><img src="media/logo/mark-gradient.png" alt="Wodapalooza Mexico City"></a>
+  <div class="site-links" aria-label="Explore"><a href="#top">Home</a><a href="#b8">Compete</a><a href="#b1">Mexico City</a><a href="#b12">Event Info</a></div>
+  <div class="site-actions"><button class="site-menu" type="button" aria-expanded="false" aria-controls="site-panel">Menu</button><a class="site-qualifier" href="https://competitioncorner.net/events/21707/details" target="_blank" rel="noopener noreferrer">Enter Qualifier ↗</a></div>
+</nav>
+<aside class="site-panel" id="site-panel" aria-label="Site index">
+  <p>Wodapalooza Mexico City · Diciembre 2026</p>
+  <a href="#b1">The City <span>01</span></a><a href="#b8">Online Qualifier <span>02</span></a><a href="#b12">The Event <span>03</span></a><a href="#action">Information &amp; Entry <span>04</span></a>
+</aside>
+
 <!-- ─────────── BEAT 0 · THE CITY AS AN OBJECT ─────────── -->
 <section class="beat" id="b0" data-src="media/scrub/px_angel_pullback.mp4">
   <div class="stage">
@@ -1236,7 +1273,7 @@
       <img src="media/poster/px_angel_pullback.jpg" alt="Mexico City moving from day into night">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
-    <div class="b1ready" aria-hidden="true"><span class="are">ARE</span><span class="you">YOU</span><span class="ready">READY?</span></div>
+    <div class="b1ready" aria-hidden="true"><span class="are" data-word="ARE">ARE</span><span class="you" data-word="YOU">YOU</span><span class="ready" data-word="READY?">READY?</span></div>
     <div class="b1cap">CIUDAD DE MÉXICO · 2,240 M</div>
   </div>
 </section>
@@ -1325,8 +1362,24 @@
     <div class="b8ink b8ink-l"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
     <div class="b8ink b8ink-r"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
     <div class="b8temp" aria-hidden="true"></div>
+    <svg class="b8mask" aria-hidden="true" focusable="false">
+      <defs>
+        <mask id="b8win" maskUnits="userSpaceOnUse" x="-6000" y="-6000" width="16000" height="16000">
+          <rect x="-6000" y="-6000" width="16000" height="16000" fill="#fff"/>
+          <g id="b8winG">
+            <text id="b8winT" text-anchor="middle" fill="#000" xml:space="preserve"
+                  font-family="Archivo, 'Helvetica Neue', Arial, sans-serif"
+                  font-weight="800" font-size="100" letter-spacing="-3.5">
+              <tspan x="0" dy="0">ES DEL</tspan>
+              <tspan x="0" dy="164">18 AL 26</tspan>
+              <tspan x="0" dy="164">DE AGOSTO</tspan>
+            </text>
+          </g>
+        </mask>
+      </defs>
+    </svg>
     <div class="b8words" aria-hidden="true">
-      <b>RECUERDA</b><b>EL ONLINE<br>QUALIFIER</b><b>COMIENZA</b><b class="relay">ES DEL<br>18 AL 26<br>DE AGOSTO</b>
+      <b>RECUERDA</b><b>EL ONLINE<br>QUALIFIER</b><b>COMIENZA</b>
     </div>
     <div class="plate">
       <img src="media/poster/b08_newspaper.jpg" alt="A hand-written newspaper sheet reading RECUERDA held up in the street">
@@ -1336,10 +1389,10 @@
 </section>
 
 <!-- ─────────── BEAT 9 · EARN IT ─────────── -->
-<section class="beat" id="b9" data-src="media/scrub/b09_lockout.mp4" data-split-exit>
+<section class="beat" id="b9" data-src="media/scrub/b09_night.mp4" data-split-exit>
   <div class="stage">
     <div class="plate">
-      <img src="media/still/b09_lockout_f0.jpg" alt="An athlete locking a barbell overhead on the competition floor">
+      <img src="media/still/b09_night_f0.jpg" alt="Athletes competing on a lit platform at night, the city behind them">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
     <div class="b9wash"></div>
@@ -1818,69 +1871,45 @@
            Beat 8's stage, so Beat 8's own dissolve removes it — over Beat 9 holding the
            identical photograph at the identical crop, which is why that dissolve cannot be
            seen. */
-        const RL = b._rl || (b._rl = b.querySelector('.b8words b.relay'));
-        if (RL) {
-          const a = 0.575, z = 0.957, span = z - a;
-          /* The date arrives fast and READS while he holds the sheet — that stretch is him
-             holding it, so it is the clip's content, not dead scroll. */
-          RL.style.opacity = seg(p, a, a + span * 0.07).toFixed(3);
-          /* Then it goes. The push used to be spread across the whole rest of the beat, which
-             is why it crawled: 0.575 to 0.957 of a 520svh beat is roughly two screens of
-             scrolling to travel toward the reader. It is now the last sixth of the beat and
-             it is squared, so it starts as a lean-in and ends as a rush — and most of the
-             magnification is now inside --p rather than waiting on the stage slide, so the
-             swallow happens while the reader is still in the beat. */
-          /* 0.575 crawled and 0.83 overshot. This is between them, and the exponent is 1.7
-             rather than a square, so it still accelerates into the reader without snapping. */
-          const push = Math.pow(seg(p, 0.76, 0.995), 0.85);
-          /* The ink is not dead centre — it sits 7.5px right and 17.5px above the middle of
-             the frame at the moment it is held. Measured, then divided back out by the sheet's
-             scale so the offset tracks the paper instead of sliding across it. */
-          const S = (1 - 0.075 * e) * (1 + 0.30 * ease(p)), vh = innerHeight / 100;
-          /* THE WINDOW'S FILL, COMPUTED FROM BEAT 9'S OWN ARITHMETIC.
-             Beat 9 paints b09_lockout.mp4 with object-fit:cover, no object-position, about a
-             50%/46% origin, scaled 1.04 + p*0.12. Reproduced here exactly, in px, against the
-             viewport — which is the positioning area, because the layer is fixed. Get this wrong
-             by one per cent and the letters stop being holes and become stickers.
+        /* THE HOLE. Same window as the outlines that came before it, driven the same way,
+           except that it is cut out of the beat rather than painted on top of it.
 
-             The fill is the clip's own first frame at full resolution, not a poster. Beat 9's
-             video is parked on that frame for the whole seam — its own progress barely moves
-             while Beat 8 is still on screen — so a still and a live element would paint the same
-             pixels here. The difference is that this one cannot stall on a seek. The moment the
-             newsprint is gone, the video underneath takes over from the identical frame and
-             starts moving. */
-          const NW = 1280, NH = 848, bw = innerWidth, bh = innerHeight;
-          const c = Math.max(bw / NW, bh / NH);
-          const iw = NW * c, ih = NH * c;
-          const s9 = 1.04 + P9 * 0.12;
-          const ox = bw / 2, oy = bh * 0.46;         /* the plate's transform origin */
-          const fw = iw * s9, fh = ih * s9;
-          const fx = ox + ((bw - iw) * 0.50 - ox) * s9;
-          const fy = oy + ((bh - ih) * 0.50 - oy) * s9;
-          RL.style.backgroundSize = fw.toFixed(1) + 'px ' + fh.toFixed(1) + 'px';
-          RL.style.backgroundPosition = fx.toFixed(1) + 'px ' + fy.toFixed(1) + 'px';
-          RL.style.transform = 'translate(-50%,-50%) translate(' +
-            (0.649 * S * vh).toFixed(2) + 'px,' + (-1.514 * S * vh).toFixed(2) + 'px) translateZ(' +
-            (940 * push * push + 96 * exit).toFixed(0) + 'px)';
-          /* The sweep is handed forward to Beat 9, because it belongs to the scene arriving
-             through the letters, not to the sheet they are cut into. */
-          if (b._b9 || (b._b9 = document.getElementById('b9')))
-            b._b9.style.setProperty('--sweep', push.toFixed(3));
-          /* The window is darkened only while there is newsprint to cut into, and it is back
-             to Beat 9's true brightness BEFORE the paper starts to go — tying it to `exit` meant
-             the fill was still changing during the handover, which is the one thing that cannot
-             happen if the reveal is to be invisible. */
-          RL.style.setProperty('--rlk', (1 - push).toFixed(3));
-          b._b9.style.setProperty('--temp', (0.86 * push).toFixed(3));
-          /* The frames part on `exit`, not on `--p`, and that timing is not cosmetic. Beat 9 is
-             pinned exactly when Beat 8 begins to slide; before that its sticky stage still sits
-             below the top of the viewport, so clearing Beat 8's ground any earlier opened the
-             margins onto the gap above it — a black band across the top of the frame at the one
-             moment the frame should be filling up. Tied to `exit`, the printed edges part, the
-             ground clears and Beat 9 is already there to be opened onto. The push is still
-             running through all of it — the letters reach their largest during this — so it
-             still reads as the frames opening while the date comes at the reader. */
-          b.style.setProperty('--jaw', ease(exit).toFixed(4));
+           Calibrated once with getBBox at font-size 100, then mapped onto the box his
+           handwriting occupies — 445x375 at 505,245, measured off the frame at a viewport of
+           1440x900 where the sheet's own scale was 1.2834, and carried from there by that scale
+           and by viewport height. Nothing about the font is assumed.
+
+           The growth is written as a scale rather than a translateZ because for a flat plane
+           under perspective they are the same operation: a push to z against a perspective of
+           P magnifies by P/(P-z) and nothing else. Expressed directly, it survives being put
+           inside an SVG, which has no third dimension to push into. */
+        const WT = b._wt || (b._wt = document.getElementById('b8winT'));
+        const WG = b._wg || (b._wg = document.getElementById('b8winG'));
+        if (WT && WG) {
+          if (!b._bb || !b._bb.height) { try { b._bb = WT.getBBox(); } catch (e) {} }
+          const bb = b._bb;
+          if (bb && bb.height) {
+            const bw = innerWidth, bh = innerHeight, vh = bh / 100;
+            const S = (1 - 0.075 * e) * (1 + 0.30 * ease(p));
+            const u  = (S / 1.2834) * (bh / 900);
+            const cx = bw / 2 + 7.5 * u, cy = bh / 2 - 17.5 * u;
+            const k  = (375 * u) / bb.height;
+            const tx = cx - (bb.x + bb.width  / 2) * k;
+            const ty = cy - (bb.y + bb.height / 2) * k;
+            /* the same curve the outlines rode, and it keeps going through the slide */
+            const push = Math.pow(seg(p, 0.76, 0.995), 0.85);
+            const z   = 940 * push * push + 96 * exit;
+            const mag = 1050 / (1050 - Math.min(1045, z));
+            WG.setAttribute('transform',
+              'translate(' + (bw / 2).toFixed(1) + ',' + (bh / 2).toFixed(1) + ') ' +
+              'scale(' + mag.toFixed(4) + ') ' +
+              'translate(' + (-bw / 2).toFixed(1) + ',' + (-bh / 2).toFixed(1) + ') ' +
+              'translate(' + tx.toFixed(1) + ',' + ty.toFixed(1) + ') ' +
+              'scale(' + k.toFixed(5) + ')');
+            b.style.setProperty('--jaw', ease(exit).toFixed(4));
+            b._b9 = b._b9 || document.getElementById('b9');
+            b._b9.style.setProperty('--temp', (0.86 * push).toFixed(3));
+          }
         }
       }
 
@@ -2108,6 +2137,19 @@
   addEventListener('scroll', onScroll, {passive:true});
   addEventListener('resize', onScroll);
   addEventListener('visibilitychange', onScroll);
+
+  /* The compact rail is a real navigation system, not decorative copy. */
+  const siteMenu = document.querySelector('.site-menu');
+  const sitePanel = document.querySelector('.site-panel');
+  if (siteMenu && sitePanel) {
+    const closeSiteMenu = () => { sitePanel.classList.remove('is-open'); siteMenu.setAttribute('aria-expanded','false'); };
+    siteMenu.addEventListener('click', () => {
+      const open = sitePanel.classList.toggle('is-open');
+      siteMenu.setAttribute('aria-expanded', String(open));
+    });
+    sitePanel.querySelectorAll('a').forEach(link => link.addEventListener('click', closeSiteMenu));
+    addEventListener('keydown', event => { if (event.key === 'Escape') closeSiteMenu(); });
+  }
 
   /* NEVER hang correctness on the scroll event alone. It does not fire at all in some
      embedded and automated contexts — scrollY moved 0 -> 6037 with exactly zero scroll
