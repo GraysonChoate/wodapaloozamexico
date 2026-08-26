@@ -324,11 +324,13 @@
      car before the aperture begins to open. */
   #b4{ height:340svh; margin-top:-100svh }
   #b4 .stage{
-    z-index:6; background:#000; opacity:1;
-    clip-path:inset(calc((1 - var(--hood-open,0)) * 50%) 0 calc((1 - var(--hood-open,0)) * 50%) 0);
+    z-index:6; opacity:1;
+    /* one frozen last driving frame, never another scrub or a replay */
+    background:#000 url("media/still/b04_car-handoff.jpg") center/cover no-repeat;
   }
   #b4 .plate{
     inset:0; height:100svh; overflow:hidden; z-index:2;
+    clip-path:inset(calc((1 - var(--hood-open,0)) * 50%) 0 calc((1 - var(--hood-open,0)) * 50%) 0);
   }
   #b4 .plate video,#b4 .plate img{
     inset:0; width:100%; height:100%; object-fit:cover; transform:none;
@@ -527,10 +529,20 @@
      carrying the paper, the shutters and the date-shaped hole together, while the date keeps
      growing through it. Scaled to 1.6 as it goes, because a 1440x900 box turned ninety degrees
      no longer covers the viewport and the corners would open onto nothing. */
-  #b8 .stage{
-    background:var(--ground); z-index:60;
+  #b8 .stage{ background:var(--ground); z-index:60 }
+  /* THE SCENE TURNS. THE WINDOW DOES NOT.
+     Rotating the stage turned the mask with it, so the date went over on its side — which is
+     not what he asked for and is the third form the same complaint has taken. The quarter turn
+     belongs to the world INSIDE the frame: the sheet, the man holding it, and the two printed
+     edges that have just closed over him. The hole stays bolt upright in the middle of the
+     screen, growing straight at the reader, while everything behind it goes over.
+     Scaled to 1.6 through the turn, because a 1440x900 box on its side no longer covers the
+     viewport and the corners would open onto nothing. */
+  .b8world{
+    position:absolute; inset:0; z-index:0;
     transform:rotate(calc(var(--turn,0) * 90deg)) scale(calc(1 + var(--turn,0) * .6));
   }
+  #b8 .b8world .plate{ z-index:1 }
   /* transparent, so the gap masked out of the street reveals Beat 8 rather than Beat 7's own
      black ground */
   /* A descending chain with gaps in it. Every beat from here sits UNDER the one before,
@@ -717,14 +729,24 @@
      back to the same line it opened from, and Beat 10 — already pinned underneath at full
      strength — is what is behind it. The lockout is still scrubbing while this happens, which
      is what removes the freeze: the shot never reaches its last frame in the open. */
-  /* Beat 9 leaves by being CRUSHED. A black bar comes down from the top and up from the
-     bottom until the scene is a horizontal line, and Beat 10 is behind it. Symmetric, so the
-     squeeze reads as pressure on the shot rather than as a lid closing over it. */
+  /* THE LETTERBOX FILLS. Bars close in from the top and the bottom and frame the overhead
+     press — the last of Beat 9's three scenes — and hold there while it plays. Then the black
+     in those bars clears and the NEXT scene is inside them, because Beat 10 is already pinned
+     behind and the bars are simply where Beat 9 has stopped covering it. Then they keep coming
+     until they meet, and what was framing the shot has become the shot.
+
+     The pulsing squeeze that used to sit at the internal joins is gone. It read as a glitch,
+     not as a frame. */
   #b9 .stage{
-    clip-path:inset(calc(var(--close,0) * 50%) 0 calc(var(--close,0) * 50%) 0);
+    clip-path:inset(calc(var(--band,0) * 1%) 0 calc(var(--band,0) * 1%) 0);
   }
-  /* The same bar language, briefly, at each of the three scenes' own joins. */
-  #b9 .plate{ clip-path:inset(calc(var(--sq,0) * 19%) 0 calc(var(--sq,0) * 19%) 0) }
+  /* Black in the bars first, the next scene second. It lives outside the clipped stage, above
+     Beat 10 and below Beat 9, so it can be black exactly where Beat 9 no longer is. */
+  .b9bars{
+    position:fixed; inset:0; z-index:45; pointer-events:none; opacity:var(--barsink,0);
+    background:linear-gradient(#000 0 calc(var(--band,0) * 1%), transparent calc(var(--band,0) * 1%)
+      calc(100% - var(--band,0) * 1%), #000 calc(100% - var(--band,0) * 1%) 100%);
+  }
 
   /* ── B10 · WHAT THIS IS ───────────────────────────────────────────────────
      Act IV opens. After Beat 8's stillness and Beat 9's cut, this is the door opening —
@@ -1391,8 +1413,14 @@
 <!-- ─────────── BEAT 8 · THE MESSAGE ─────────── -->
 <section class="beat" id="b8" data-src="media/scrub/b08_newspaper.mp4" data-scrub-warp="0.60,0.71" data-join-in>
   <div class="stage">
-    <div class="b8ink b8ink-l"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
-    <div class="b8ink b8ink-r"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
+    <div class="b8world">
+      <div class="plate">
+        <img src="media/poster/b08_newspaper.jpg" alt="A hand-written newspaper sheet reading RECUERDA held up in the street">
+        <video muted playsinline preload="auto" disablepictureinpicture></video>
+      </div>
+      <div class="b8ink b8ink-l"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
+      <div class="b8ink b8ink-r"><img src="media/print/print-field-01.jpg" alt="" aria-hidden="true"></div>
+    </div>
     <div class="b8temp" aria-hidden="true"></div>
     <svg class="b8mask" aria-hidden="true" focusable="false">
       <defs>
@@ -1413,10 +1441,6 @@
     <div class="b8words" aria-hidden="true">
       <b>RECUERDA</b><b>EL ONLINE<br>QUALIFIER</b><b>COMIENZA</b>
     </div>
-    <div class="plate">
-      <img src="media/poster/b08_newspaper.jpg" alt="A hand-written newspaper sheet reading RECUERDA held up in the street">
-      <video muted playsinline preload="auto" disablepictureinpicture></video>
-    </div>
   </div>
 </section>
 
@@ -1428,6 +1452,7 @@
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
     <div class="b9wash"></div>
+    <div class="b9bars" aria-hidden="true"></div>
     <div class="b9edge"></div>
     <div class="b9sweep" aria-hidden="true"></div>
     <div class="b9type">
@@ -1956,10 +1981,14 @@
             /* The shutters can close on --p again now. They were tied to the slide only
                because Beat 9 used to pin late; pinned at -260svh it is present and playing from
                62% of this beat, so there is nothing left to wait for. */
-            b.style.setProperty('--jaw',  ease(seg(p, 0.78, 0.97)).toFixed(4));
+            b.style.setProperty('--jaw',  ease(seg(p, 0.74, 0.93)).toFixed(4));
             /* The turn starts once the shutters are nearly shut and finishes into the slide, so
                the quarter and the last of the push happen together rather than in sequence. */
-            b.style.setProperty('--turn', ease(Math.min(1, seg(p, 0.88, 1) * 0.6 + exit * 0.4)).toFixed(4));
+            /* The turn waits until the shutters have fully closed over him — that was his
+               sequence and the order matters: collapse, then spin, while the date comes on
+               regardless. It finishes into the slide, by which point the fitness scene has
+               come all the way through the letters. */
+            b.style.setProperty('--turn', ease(Math.min(1, seg(p, 0.94, 1) * 0.3 + exit * 0.7)).toFixed(4));
             b._b9 = b._b9 || document.getElementById('b9');
             b._b9.style.setProperty('--temp', (0.86 * push).toFixed(3));
           }
@@ -2115,14 +2144,17 @@
            times the scroll to play across, which is the whole of what is available. */
         /* The shot runs the whole beat now, so the only thing left to schedule is the close:
            the frame collapses to the bar's own line and Beat 10 is behind it. */
-        b.style.setProperty('--close', ease(seg(p, 0.90, 1.00)).toFixed(4));
-        /* Three scenes live in this one clip — the night platform, the overhead press he asked
-           to keep, and the rope — cut end to end so the scrub stays continuous and every frame
-           is a real frame. The joins are at 0.403 and 0.569 of the file; each gets a short
-           squeeze of the same bar language the beat ends on, so an internal cut is felt as
-           pressure rather than seen as a jump. */
-        const spike = (x, c) => Math.max(0, 1 - Math.abs(x - c) / 0.028);
-        b.style.setProperty('--sq', Math.max(spike(p, 0.403), spike(p, 0.569)).toFixed(3));
+        /* Three scenes, cut end to end into one continuous scrub so every frame is a real
+           frame: the night platform to 0.403, the rope to 0.834, and the overhead press from
+           there — last, because it is the one the letterbox frames.
+
+           The bars arrive at 0.80 and hold at 17% while the press plays inside them. At 0.90
+           the black clears and Beat 10 is what is in them, already pinned behind. From 0.93
+           they keep closing until they meet at the middle, and the frame around the shot has
+           become the shot. */
+        const band = 17 * ease(seg(p, 0.80, 0.88)) + 33 * ease(seg(p, 0.93, 1.00));
+        b.style.setProperty('--band', band.toFixed(3));
+        b.style.setProperty('--barsink', (1 - ease(seg(p, 0.90, 0.965))).toFixed(3));
       }
       if (b._v && !RM) {
         /* data-scrub-range lets a clip occupy part of a beat instead of all of it, which is
