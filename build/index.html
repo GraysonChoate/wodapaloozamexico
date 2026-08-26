@@ -924,7 +924,10 @@
     font:800 clamp(34px,9.4vw,150px)/0.94 Archivo,"Helvetica Neue",Arial,sans-serif;
     letter-spacing:-.04em; text-transform:none; color:#fff;
     font-variation-settings:"wdth" 125,"wght" 800;
-    filter:blur(calc((1 - var(--b10t,0)) * 5px));
+    /* NO BLUR ON THE WAY IN. A five pixel blur across the fade is a soft copy of the words
+       spreading past their own edges, and against a hard-edged cut-out that is indistinguishable
+       from a ghost trailing the type — which is what he has been pointing at. It fades on opacity
+       alone; the depth-of-field idea belongs to the shot, not to a transition. */
     opacity:var(--b10t,0);
   }
   /* The second voice comes from the WIDTH AXIS, not a second typeface. Archivo is the
@@ -2175,9 +2178,8 @@
            immediately and at usable scale; a thin, delayed trace reads as another black hold. */
         const arrive = ease(seg(p, 0.00, 0.022));
         b.style.setProperty('--b2-arrive', arrive.toFixed(4));
-        /* This is moving footage, not a scroll-held still.  The word reveals the car while
-           its own clock runs; the exact playhead is then handed to B4 for the split-screen. */
-        if (!RM && b._v && b._v.paused) b._v.play().catch(() => {});
+        /* The car is scroll-owned. It advances only with the reader and never loops or starts
+           a second independent playback clock beneath the hoodie shutter. */
         /* The live car appears inside the held word, then the word becomes the window: one
            fast geometric scale-through, followed only when it has swallowed the frame. */
         const release = ease(seg(p, 0.12, 0.18));
@@ -2372,6 +2374,10 @@
 
 
       if (b.id === 'b0') {
+        /* Beat 0 has been extended behind Beat 1 so this one stage can carry the city from
+           the Angel shutter through the question. Map its original choreography into the
+           first 340svh; the remainder is a held, scroll-scrubbed city ground. */
+        const openingP = Math.min(1, p / (340 / 440));
         /* Four movements, and the hold is simply the stretch where the contraction has
            finished and the blackout has not begun — it cannot drift out of sync with itself.
            Arrival gets 18% here against 10% in the standalone proof: the total is shorter, so
@@ -2384,9 +2390,9 @@
            They move inward together as a closing shutter. */
         /* Establish the two textured panels early, then hold their geometry while city footage
            materializes inside them.  Their only later movement is the final inward shutter. */
-        const fold = ease(seg(p, 0.22, 0.49)), cut = ease(seg(p, 0.86, 0.875)), release = 0;
-        const shutterTakeover = ease(seg(p, 0.855, 0.875));
-        const shutterClose = ease(seg(p, 0.76, 0.855));
+        const fold = ease(seg(openingP, 0.22, 0.49)), cut = ease(seg(openingP, 0.86, 0.875)), release = 0;
+        const shutterTakeover = ease(seg(openingP, 0.855, 0.875));
+        const shutterClose = ease(seg(openingP, 0.76, 0.855));
         b.style.setProperty('--fold', fold.toFixed(4));
         b.style.setProperty('--shutter', shutterClose.toFixed(4));
         b.style.setProperty('--cut', cut.toFixed(4));
@@ -2394,73 +2400,55 @@
         b.style.setProperty('--release', release.toFixed(4));
         /* The city materializes only inside the two wing silhouettes. The full source replaces
            them only at their occluded meeting point, so it cannot read as a background fade. */
-        b.style.setProperty('--city-fold', (ease(seg(p, 0.58, 0.76)) * (1 - shutterTakeover)).toFixed(4));
+        b.style.setProperty('--city-fold', (ease(seg(openingP, 0.58, 0.76)) * (1 - shutterTakeover)).toFixed(4));
         /* The full live city is revealed only after the two panels have met. It is a handoff,
            not a fade layered beneath a moving second city. */
-        b.style.setProperty('--city-full', p >= 0.875 ? '1' : '0');
+        b.style.setProperty('--city-full', openingP >= 0.875 ? '1' : '0');
         b.style.setProperty('--fold-visible', (1 - shutterTakeover).toFixed(4));
         /* The Ángel remains present through the entire printed-frame hold; city material begins
            only after that hold and replaces it inside the same two physical panels. */
-        b.style.setProperty('--angel', ease(seg(p, 0.24, 0.49)).toFixed(4));
+        b.style.setProperty('--angel', ease(seg(openingP, 0.24, 0.49)).toFixed(4));
         /* The Ángel remains behind the two physical frames until they have fully met. It is
            the source scene that the shutter closes over; removing it during the city reveal
            leaves a false city background around the panels. */
-        b.style.setProperty('--angel-frame', p < 0.875 ? '1' : '0');
+        b.style.setProperty('--angel-frame', openingP < 0.875 ? '1' : '0');
         b.style.setProperty('--c', 0);
         /* Strictly inside the hold, with room at both ends. Copy still settling while the
            frame is still settling reads as one more animated element rather than as print. */
         b.style.setProperty('--capt',
-          Math.min(seg(p, 0.46, 0.54), 1 - seg(p, 0.72, 0.78)).toFixed(4));
+          Math.min(seg(openingP, 0.46, 0.54), 1 - seg(openingP, 0.72, 0.78)).toFixed(4));
         /* The step. Not eased — three per cent of the beat, which at reading pace is a cut. */
-        b.style.setProperty('--blackout', seg(p, 0.79, 0.82).toFixed(4));
-        b.style.setProperty('--word', Math.min(ease(seg(p, 0.09, 0.19)), 1 - ease(seg(p, 0.34, 0.55))).toFixed(4));
-        b.style.setProperty('--opening-nav', ease(seg(p, 0.10, 0.22)).toFixed(4));
-        b.style.setProperty('--flag-intro', (1 - ease(seg(p, 0.07, 0.16))).toFixed(4));
-        b.style.setProperty('--title-black', Math.min(ease(seg(p, 0.13, 0.26)), 1 - ease(seg(p, 0.35, 0.48))).toFixed(4));
-        b.style.setProperty('--paper', clamp((p - 0.18) * 3.2, 0, 1).toFixed(4));
+        b.style.setProperty('--blackout', seg(openingP, 0.79, 0.82).toFixed(4));
+        b.style.setProperty('--word', Math.min(ease(seg(openingP, 0.09, 0.19)), 1 - ease(seg(openingP, 0.34, 0.55))).toFixed(4));
+        b.style.setProperty('--opening-nav', ease(seg(openingP, 0.10, 0.22)).toFixed(4));
+        b.style.setProperty('--flag-intro', (1 - ease(seg(openingP, 0.07, 0.16))).toFixed(4));
+        b.style.setProperty('--title-black', Math.min(ease(seg(openingP, 0.13, 0.26)), 1 - ease(seg(openingP, 0.35, 0.48))).toFixed(4));
+        b.style.setProperty('--paper', clamp((openingP - 0.18) * 3.2, 0, 1).toFixed(4));
         for (const clip of [titleFlag,openingFlag]) if (clip && clip.duration && !RM) {
-          const want = Math.min(clip.duration - TAIL, 0.1 + p * Math.max(0, clip.duration - 0.15));
+          const want = Math.min(clip.duration - TAIL, 0.1 + openingP * Math.max(0, clip.duration - 0.15));
           if (Math.abs(clip.currentTime - want) > 1/36) clip.currentTime = want;
         }
-        /* These three surfaces are live versions of one source. They are never scroll-seeked,
-           so neither the mapped panels nor the shutter handoff can become a frozen frame. */
+        /* These three masks are one source at one scroll position. No player is allowed to run
+           independently: stopped scrolling means stopped footage, and the three surfaces stay
+           registered frame-for-frame. */
         const foldCities = b._foldCities || (b._foldCities = [...b.querySelectorAll('.b0city-inset,.b0city-full')]);
-        /* Lock the three render surfaces to one live playhead as soon as the city first
-           appears. From this point on none of them is scroll-seeked or replaced by a still. */
-        if (!RM && p >= 0.58 && !b._cityLive) {
-          const master = foldCities[0];
-          const t = master && master.readyState > 1 ? master.currentTime : 0;
-          for (const clip of foldCities) {
-            if (clip !== master && clip.readyState > 1) clip.currentTime = t;
-            clip.play().catch(() => {});
+        const question = document.getElementById('b1');
+        const qTravel = question ? Math.max(1, question.offsetHeight - H) : 1;
+        const qProgress = question ? Math.min(1, Math.max(0, -question.getBoundingClientRect().top / qTravel)) : 0;
+        const cityProgress = openingP < 1
+          ? Math.max(0, (openingP - 0.58) / 0.42) * 0.46
+          : 0.46 + qProgress * 0.54;
+        for (const clip of foldCities) {
+          if (!RM && clip.duration) {
+            const want = wantAt(clip, cityProgress, 0);
+            if (Math.abs(clip.currentTime - want) > 1/48) clip.currentTime = want;
           }
-          b._cityLive = true;
         }
       }
 
       if (b.id === 'b1') {
-        /* Beat 1 inherits the city at the shutter's current frame and then simply lets it run.
-           This removes the duplicate city pass that previously rose beneath the question. */
-        const opening = document.getElementById('b0');
-        const openingTravel = opening ? Math.max(1, opening.offsetHeight - H) : 1;
-        const openingProgress = opening ? Math.min(1, Math.max(0, -opening.getBoundingClientRect().top / openingTravel)) : 1;
-        /* The question scene must not sit underneath the angel frames. It becomes visible only
-           once their physical shutter has completely closed, so the opening holds on Ángel
-           rather than exposing an unrelated city background around the panels. */
-        /* The city remains visible through the reading beat, then is removed only after the
-           black sphere has reached the frame edge. Beat 2 has already been stationed behind
-           it, so there is no vertical black-card entrance. */
-        const cityOut = ease(seg(p, 0.72, 0.735));
-        const cityVisible = openingProgress >= 0.875;
-        b.style.setProperty('--b1-city', cityVisible ? (1 - cityOut).toFixed(4) : '0');
-        const sourceCity = document.querySelector('.b0city-full');
-        const city = b.querySelector('.plate video');
-        if (!RM && sourceCity && city && cityVisible && !b._citySynced && sourceCity.readyState > 1 && city.readyState > 1) {
-          city.currentTime = sourceCity.currentTime;
-          city.play().catch(() => {});
-          b._citySynced = true;
-        }
-        if (!cityVisible) b._citySynced = false;
+        /* Beat 1 deliberately has no city media. It is a transparent typography layer over
+           Beat 0's single scroll-scrubbed city source. */
         /* The words get a full held reading moment, then invert in place. The only geometric
            move is one perfect circular black aperture growing from their shared centre. */
         b.style.setProperty('--ready', Math.min(ease(seg(p, 0.14, 0.26)), 1 - ease(seg(p, 0.76, 0.84))).toFixed(4));
@@ -2579,7 +2567,15 @@
           b.style.setProperty('--fgv', inFG ? 1 : 0);
           if (inFG && FG.duration) {
             const want = Math.min(FG.duration - 0.02, Math.max(0, t));
-            if (!FG._sk && Math.abs(FG.currentTime - want) > 1 / 48) {
+            /* IF IT CANNOT KEEP UP, DO NOT DRAW IT. VP9 seeks are far slower than the h264 the
+               beat scrubs, so on a fast flick the cut-out lags the shot by several frames — and a
+               cut-out of a person offset from that same person IS a double image. That is the
+               doubling, and it only happens in motion, which is why every still I measured looked
+               fine. Two frames out and the layer is hidden: the words are briefly unoccluded,
+               which is invisible, instead of a ghost, which is not. */
+            const off = Math.abs(FG.currentTime - want);
+            if (off > 2 / 60) b.style.setProperty('--fgv', 0);
+            if (!FG._sk && off > 1 / 48) {
               FG._sk = 1; FG.currentTime = want;
               FG.addEventListener('seeked', () => { FG._sk = 0; }, {once:true});
             }
@@ -2647,7 +2643,7 @@
         b.style.setProperty('--band', band.toFixed(3));
         b.style.setProperty('--barsink', (1 - ease(seg(p, 0.78, 0.845))).toFixed(3));
       }
-      if (b._v && !RM && b.id !== 'b2' && b.id !== 'b4') {
+      if (b._v && !RM) {
         /* data-scrub-range lets a clip occupy part of a beat instead of all of it, which is
            what makes a hard cut possible inside a single beat. */
         const rg = b._range;
@@ -2750,7 +2746,7 @@
 
     // seek on its own cadence — never queue a seek while one is in flight
     for (const b of beats){
-      const v = b._v; if (!v || RM || b._seeking || b.id === 'b2' || b.id === 'b4') continue;
+      const v = b._v; if (!v || RM || b._seeking) continue;
       if (v.duration && Math.abs(v.currentTime - b._want) > 1/48){
         b._seeking = true; v.currentTime = b._want;
       }

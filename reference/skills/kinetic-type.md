@@ -101,6 +101,22 @@ fully covered, then push the alpha near-binary and leave only about a pixel of a
 Measure it: count pixels with partial alpha (say 30–225). On one frame that went from **7.5%
 soft to 1.2%**, and the ghosting went with it. Partial alpha IS the ghost.
 
+**And do not blur the type on its way in.** A fade that blurs is a soft copy of the words
+spreading past their own edges; against a hard-edged cut-out that is indistinguishable from a
+ghost trailing the type. Fade on opacity alone.
+
+**GUARD THE OVERLAY AGAINST ITS OWN SEEK LATENCY.** VP9 seeks far slower than the H.264 the beat
+scrubs, so on a fast scroll the cut-out lags the shot — measured at **4.2 frames during a flick**
+— and a cut-out of a person offset from that same person IS a double image. It only happens in
+motion, so every still you measure looks perfect while the user watches it double.
+
+    const off = Math.abs(FG.currentTime - want);
+    if (off > 2 / 60) hide the layer;          // unoccluded for a frame beats a ghost
+
+Test by scrolling across the range at one step per rAF with no settling, and count samples DRAWN
+while out of sync. Shrinking the alpha layer (960 wide, higher CRF) makes the seeks cheap enough
+that it rarely trips.
+
 **Put the type where the matte is cleanest.** Low in frame is usually the worst place — the
 nearest figures are largest, softest and most out of focus there, which is the hardest region to
 matte. Raising the line into the mid-band both reads better and removes most of the problem
