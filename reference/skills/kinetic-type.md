@@ -109,7 +109,29 @@ wrong. Instead:
   `floor(t*fps)`. Rounding picks the next frame for every time landing in the upper half of an
   interval — a one-frame mask mismatch on half of all frames.
 
+**DRAW IN `requestVideoFrameCallback`, NOT IN THE SCROLL HANDLER.** This is the one that hides
+longest. Drawing the canvas from the scroll handler looks right and measures wrong: the handler
+runs, reads `currentTime`, draws — and then the video finishes seeking and repaints with a NEWER
+frame in the same compositing pass. The cut-out ends up a frame stale against the shot it is cut
+from. Measured: **29 of 390 frames** mismatched. `requestVideoFrameCallback` fires before the
+paint that shows a new frame and hands over that frame's own `mediaTime`; draw there and the
+canvas, the matte cell and the picture underneath are the same frame by construction. Down to 3
+of 390, all at range boundaries.
+
+Register the callback unconditionally. Gating it on "is the layer visible" where visibility
+depends on a cell having been drawn is a deadlock — the layer never appears at all.
+
+**And do not use a CSS mask sprite.** `mask-size:1200%` asks the browser to rasterise the whole
+sheet at twelve times the element every time the position changes — for an 1100px element that is
+13200x8400, **111 megapixels per frame**. It made things dramatically worse. Composite inside the
+canvas with `destination-in` and `drawImage(sprite, sx, sy, sw, sh, ...)`, which reads only the
+one cell: 0.09 megapixels.
+
 Both halves become incapable of being out of step rather than merely tested for it.
+
+**The test that proves it:** step the scroll one rAF at a time across the whole beat and, on every
+step, compare `floor(video.currentTime * fps)` against the matte cell last drawn. Anything other
+than near-zero mismatches is ghosting you will be told about later.
 
 
 

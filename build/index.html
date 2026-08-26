@@ -293,7 +293,7 @@
      not a second image or a fading overlay. */
   .b1sphere{ position:absolute; z-index:7; left:50%; top:50%; width:calc(var(--ready-sphere,0)*250vmax); height:calc(var(--ready-sphere,0)*250vmax); border-radius:50%; background:#000; opacity:var(--sphere-solid,1); transform:translate(-50%,-50%); pointer-events:none }
   /* Optical type over the SAME moving city: no second still is ever mapped into these letters. */
-  .b1ready span{ position:absolute; display:block; color:rgb(239 246 242 / .52); -webkit-text-fill-color:rgb(239 246 242 / .52); -webkit-text-stroke:1px rgb(255 255 255 / .17); font:950 clamp(72px,15vw,220px)/.76 Archivo,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.09em; white-space:nowrap; text-shadow:0 1px 1px rgba(0,0,0,.34),0 0 28px rgba(0,0,0,.32); mix-blend-mode:normal; backdrop-filter:none; transform-style:preserve-3d; transform-origin:50% 50%; will-change:transform,color }
+  .b1ready span{ position:absolute; display:block; color:rgb(239 246 242 / .52); -webkit-text-fill-color:rgb(239 246 242 / .52); -webkit-text-stroke:1px rgb(255 255 255 / .17); font:950 clamp(72px,12.2vw,180px)/.84 Archivo,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.06em; white-space:nowrap; text-shadow:0 1px 1px rgba(0,0,0,.34),0 0 28px rgba(0,0,0,.32); mix-blend-mode:normal; backdrop-filter:none; transform-style:preserve-3d; transform-origin:50% 50%; will-change:transform,color }
   /* A distinct ink layer—not a filter—makes the actual wordforms turn jet black before
      the circle consumes them. */
   .b1ready span::after{ content:attr(data-word); position:absolute; inset:0; color:#000; -webkit-text-fill-color:#000; -webkit-text-stroke:0 transparent; opacity:var(--ready-invert,0); mix-blend-mode:normal; text-shadow:none }
@@ -301,9 +301,9 @@
      disc grows. They make the circle; the circle is not an unrelated layer behind them. */
   /* The reading stack clears the persistent navigation with a real safety margin at every
      desktop size. Important type is never permitted to enter the navigation's space. */
-  .b1ready .are{ top:34vh; left:50%; transform:translate(-50%,calc(-50% + (1 - var(--ready,0))*-12vh + var(--ready-merge,0)*16vh)) scale(calc(1 - var(--ready-merge,0)*.75)) }
-  .b1ready .you{ top:51vh; left:50%; transform:translate(calc(-50% + (1 - var(--ready,0))*38vw),calc(-50% - var(--ready-merge,0)*1vh)) scale(calc(1 - var(--ready-merge,0)*.75)) }
-  .b1ready .ready{ top:68vh; bottom:auto; left:50%; transform:translate(calc(-50% - (1 - var(--ready,0))*38vw),calc(-50% + (1 - var(--ready,0))*10vh - var(--ready-merge,0)*18vh)) scale(calc(1 - var(--ready-merge,0)*.75)) }
+  .b1ready .are{ top:29vh; left:50%; transform:translate(-50%,calc(-50% + (1 - var(--ready,0))*-5vh + var(--ready-merge,0)*21vh)) scale(calc(1 - var(--ready-merge,0)*.75)) }
+  .b1ready .you{ top:51vh; left:50%; transform:translate(calc(-50% + (1 - var(--ready,0))*16vw),calc(-50% - var(--ready-merge,0)*1vh)) scale(calc(1 - var(--ready-merge,0)*.75)) }
+  .b1ready .ready{ top:73vh; bottom:auto; left:50%; transform:translate(calc(-50% - (1 - var(--ready,0))*16vw),calc(-50% + (1 - var(--ready,0))*5vh - var(--ready-merge,0)*23vh)) scale(calc(1 - var(--ready-merge,0)*.75)) }
   @media(max-width:700px){ .b1ready .are{font-size:25vw}.b1ready .you{font-size:32vw}.b1ready .ready{font-size:22vw} }
 
   /* The black wordforms stay fully opaque as they register into the central seed; the growing
@@ -872,14 +872,11 @@
     z-index:3; pointer-events:none; opacity:var(--fgv,0);
     transform-origin:50% 46%;
     transform:scale(calc(1.02 + var(--p) * .06));
-    /* the people are cut out by a sprite sheet of the mattes: one image, 141 cells, no decoding
-       and no seeking, so the matte has no clock of its own and cannot lag either */
-    -webkit-mask-image:url("media/still/b10_people_matte.png");
-            mask-image:url("media/still/b10_people_matte.png");
-    -webkit-mask-size:1200% 1200%;  mask-size:1200% 1200%;
-    -webkit-mask-repeat:no-repeat;  mask-repeat:no-repeat;
-    -webkit-mask-position:var(--mx,0%) var(--my,0%);
-            mask-position:var(--mx,0%) var(--my,0%);
+    /* NO CSS MASK. `mask-size:1200%` asks the browser to rasterise the WHOLE sprite sheet at
+       twelve times the element on every frame the position changes — 13200 x 8400, a hundred and
+       eleven megapixels, sixty times a second. That is what made it worse rather than better.
+       The masking happens inside the canvas instead, reading only the one cell it needs:
+       0.09 megapixels. Same result, a thousandth of the work. */
   }
   #b10 .stage{ z-index:40 }
   #b10 .plate video,#b10 .plate img{ transform:scale(calc(1.02 + var(--p) * .06)) }
@@ -1565,7 +1562,7 @@
       <img src="media/poster/b05_sud06.jpg" alt="A hooded Wodapalooza figure among a Mexico City crowd">
       <video muted playsinline preload="metadata" disablepictureinpicture></video>
     </div>
-    <div class="b4stats" aria-hidden="true"><span><b data-count="16">1</b>divisions<small>Competition categories</small></span><span><b data-count="3">1</b>cities<small>Host cities to date</small></span><span><b data-count="1">1</b>first edition<small>Wodapalooza México</small></span></div>
+    <div class="b4stats" aria-hidden="true"><span><b data-count="16">1</b>divisions</span><span><b data-count="3">1</b>cities ever</span><span><b data-count="1">1</b>first edition</span></div>
     <p class="b4copy">The standard of Miami.<br><b>Now in México.</b></p>
   </div>
 </section>
@@ -1582,6 +1579,7 @@
       <div class="cell"><video data-loop="media/loop/b05_sud09.mp4" poster="media/poster/b05_sud09.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Eje Central"></video></div>
       <div class="cell"><video data-loop="media/loop/b05_sud04.mp4" poster="media/poster/b05_sud04.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Ángel de la Independencia"></video></div>
       <div class="cell is-still"><img src="media/still/b05_torre.jpg" alt="Torre Latinoamericana"></div>
+      <div class="cell"><video data-loop="media/scrub/b05b_lift.mp4" poster="media/poster/b05b_lift.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Athlete lifting at Wodapalooza"></video></div>
     </div>
     <div class="plate cut">
       <img src="media/poster/b05b_lift.jpg" alt="An athlete locking a barbell overhead">
@@ -2002,6 +2000,13 @@
   const ease = t => t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
   let P9 = 0;   /* Beat 9's progress, published for Beat 8's window arithmetic */
 
+  /* The cut-out's matte sheet, decoded up front. Left to load lazily it decodes on the first
+     frame that needs it, which is a 95ms stall at the exact moment the beat begins — measured,
+     and the only frame in the whole beat over two vsyncs. */
+  const B10MATTE = new Image();
+  B10MATTE.src = 'media/still/b10_people_matte.png';
+  if (B10MATTE.decode) B10MATTE.decode().catch(() => {});
+
   /* ── CALIBRATING THE WINDOW AGAINST HIS HANDWRITING ────────────────────────
      One bug produced both of the things he kept catching, and it is worth naming because it
      explains why "it drifts left" and "it does not sit on the words" were never two problems.
@@ -2029,8 +2034,9 @@
     /* one -> nine -> one. Scale 3 puts the centre cell exactly over the frame, so the
        full-bleed shot and the contact sheet are the same object at two scales. */
     let sc;
-    if (p < 0.24)      sc = 3.15 - 0.15 * seg(p, 0, 0.24);      // the crop tightens
-    else if (p < 0.56) sc = 3.00 - 2.00 * ease(seg(p, 0.24, 0.56));
+    /* Do not replay a full-screen hoodie clip after the crowd scene. Beat 4 owns that
+       moment; beat 5 enters as an honest contact sheet and stays one. */
+    if (p < 0.56)      sc = 1.00;
     else if (p < 0.74) sc = 1.00;                               // the sheet holds
     /* The dive must FINISH before the cut, and then hold. Cutting mid-zoom cuts away from a
        grid that is still visibly a grid, and the storyboard beat is nine becoming ONE frame
@@ -2041,10 +2047,12 @@
        LOCK — twelve percent of the beat where the grid is exact and completely still.
        Previously registration ran to 0.72 against a dive starting at 0.74, so the sheet was
        still settling as it began to move and never read as one precise object. */
-    const reg  = lock(seg(p, 0.26, 0.62));
+    /* The grid must already be fully registered on its first visible frame. Building it
+       from one centre cell reads as the previous hoodie shot returning through black. */
+    const reg  = 1;
     /* The gap must be fully shut before the dive gets going, or the seams between cells are
        magnified along with everything else and cut black lines across a full-bleed shot. */
-    const gap  = seg(p, 0.30, 0.56) * (1 - seg(p, 0.66, 0.74));
+    const gap  = 0;
     sheet.style.setProperty('--sc', sc.toFixed(4));
 
     /* THE CUT. A step, not a ramp — one frame of scroll and the street is a competition
@@ -2069,7 +2077,7 @@
          holes punched in the grid while the late panels are still at zero, which reads as
          broken loading rather than a contact sheet being laid down. They arrive close
          together and then register individually via the drift below. */
-      else cells[i].style.opacity = seg(p, 0.21 + i * 0.008, 0.31 + i * 0.008).toFixed(3);
+      else cells[i].style.opacity = 1;
       const [dx, dy, dr, dz, rx, ry] = DRIFT[i] || [0,0,0,0,0,0];
       const k = 1 - reg;
       /* EXACTLY zero at the lock. k reaches 0 when reg reaches 1, so every panel resolves to
@@ -2215,14 +2223,14 @@
         /* Reveal a narrow, live centre strip early; hold it while the car keeps running
            above and below; then use the same strip as the vertical shutter into the hoodie. */
         const strip = 0.22 * ease(seg(p, 0.025, 0.10));
-        const expand = ease(seg(p, 0.48, 0.70));
+        const expand = ease(seg(p, 0.62, 0.84));
         const open = strip + (1 - strip) * expand;
-        const metrics = ease(seg(p, 0.06, 0.14)) * (1 - ease(seg(p, 0.56, 0.66)));
+        const metrics = ease(seg(p, 0.07, 0.18)) * (1 - ease(seg(p, 0.76, 0.86)));
         b.style.setProperty('--hood-open', open.toFixed(4));
         b.style.setProperty('--hood-metrics', metrics.toFixed(4));
         b.querySelectorAll('.b4stats b').forEach((el, i) => {
           /* Give each metric its own slower landing during the held-strip interval. */
-          const land = ease(seg(p, 0.15 + i * 0.055, 0.38 + i * 0.065));
+          const land = ease(seg(p, 0.14 + i * 0.07, 0.52 + i * 0.06));
           const target = +el.dataset.count;
           const shown = Math.max(1, Math.round(target * land));
           el.textContent = String(shown);
@@ -2581,6 +2589,22 @@
            exactly what the reader is looking at rather than something synchronised to it. */
         const FG = b._fg || (b._fg = b.querySelector('.b10fg'));
         if (FG && b._v && b._v.readyState >= 2) {
+          /* WARM THE CANVAS BEFORE IT IS NEEDED. Measured at 93, 95 and 150ms on three runs, and
+             always at the same place: the very first frame the cut-out draws. It is not the
+             sprite decoding — that is preloaded — it is the canvas backing store being allocated
+             and the first video frame uploaded to the GPU. Done once while the beat is still on
+             the crowd and the layer is invisible, it costs nothing anyone can see. */
+          if (!FG._warm && p > 0.15) {
+            FG._warm = 1;
+            const w = FG.getContext('2d', {alpha:true});
+            try { w.drawImage(b._v, 0, 0, 1280, 720); } catch (e) {}
+            if (B10MATTE.complete) {
+              w.globalCompositeOperation = 'destination-in';
+              w.drawImage(B10MATTE, 0, 0, 400, 226, 0, 0, 1280, 720);
+              w.globalCompositeOperation = 'source-over';
+            }
+            w.clearRect(0, 0, 1280, 720);
+          }
           /* FLOOR, NOT ROUND. A decoder shows the frame CONTAINING currentTime, so the frame on
              screen is floor(t * 60). Rounding picks the next one for every time that lands in the
              upper half of a frame's interval — that is a one-frame mask mismatch on half of all
@@ -2588,13 +2612,50 @@
              are. The mask has to be indexed the way the decoder indexes, not the way arithmetic
              would prefer. */
           const i = Math.floor(b._v.currentTime * 60 + 1e-4) - 137;
-          const on = i >= 0 && i <= 140;
+          /* Drawn only when the frame callback has actually produced a cell, and only while that
+             cell still belongs to the frame on screen. Before the first callback there is nothing
+             in the canvas, and at either end of the matte's range the cell and the frame part
+             company by one — showing the layer in either case is a stale cut-out over a live
+             shot, which is the ghost. Cheaper to not draw it. */
+          const cell = FG._last;
+          /* requestVideoFrameCallback runs before the paint that shows the new frame, so the
+             canvas and the picture underneath land together and cannot be a frame apart in what
+             is composited. Requiring the cell to equal `i` HERE is a different question — the
+             scroll handler samples at a different instant from the callback — and demanding it
+             simply turned the layer off permanently. The only real gate is: has a cell ever been
+             drawn, and are we inside the matte's range. */
+          const on = i >= 0 && i <= 140 && cell !== undefined;
           b.style.setProperty('--fgv', on ? 1 : 0);
-          if (on) {
-            const cx = FG._cx || (FG._cx = FG.getContext('2d', {alpha:true}));
-            try { cx.drawImage(b._v, 0, 0, 1280, 720); } catch (e) {}
-            b.style.setProperty('--mx', ((i % 12) / 11 * 100).toFixed(4) + '%');
-            b.style.setProperty('--my', (Math.floor(i / 12) / 11 * 100).toFixed(4) + '%');
+          /* THE DRAW BELONGS TO THE VIDEO'S OWN FRAME CALLBACK, NOT TO THE SCROLL HANDLER.
+             Drawing here looked right and measured wrong: 29 frames in 390 had the matte one
+             cell behind what was on screen. The scroll handler runs, I read currentTime and
+             draw — and then the video finishes seeking and repaints with a NEWER frame in the
+             same compositing pass. The cut-out is a frame stale against the shot it is cut
+             from, which is the ghosting, in a new place.
+
+             requestVideoFrameCallback fires when a frame is actually PRESENTED and hands over
+             that frame's own mediaTime. Draw there and the canvas, the matte cell and the
+             picture underneath are the same frame by construction. */
+          /* Registered unconditionally. Gating this on `on` was a deadlock: `on` requires a cell
+             to have been drawn, and only this callback draws one. */
+          if (!b._v._rvfc && 'requestVideoFrameCallback' in b._v) {
+            b._v._rvfc = 1;
+            const draw = (now, meta) => {
+              const k = Math.floor(meta.mediaTime * 60 + 1e-4) - 137;
+              if (k >= 0 && k <= 140 && B10MATTE.complete && B10MATTE.naturalWidth) {
+                const cx = FG._cx || (FG._cx = FG.getContext('2d', {alpha:true}));
+                cx.globalCompositeOperation = 'source-over';
+                cx.clearRect(0, 0, 1280, 720);
+                try { cx.drawImage(b._v, 0, 0, 1280, 720); } catch (e) {}
+                cx.globalCompositeOperation = 'destination-in';
+                cx.drawImage(B10MATTE, (k % 12) * 400, Math.floor(k / 12) * 226, 400, 226,
+                                       0, 0, 1280, 720);
+                cx.globalCompositeOperation = 'source-over';
+                FG._last = k;
+              }
+              b._v.requestVideoFrameCallback(draw);
+            };
+            b._v.requestVideoFrameCallback(draw);
           }
         }
       }
