@@ -257,7 +257,9 @@
 
   /* Beat 1 begins only after Beat 0's shutter has completed. It is the continuing city frame
      for the question, never a second translucent city pass sliding over the first. */
-  #b1{ height:300svh; margin-top:0 }
+  /* Overlap the final city shutter so this beat never has a lower edge that can slide
+     upward into view. Its city image is only enabled at the exact end of Beat 0. */
+  #b1{ height:300svh; margin-top:-100svh }
   #b1 .stage{ z-index:3; background:transparent; isolation:isolate; opacity:var(--b1-city,0); transition:none }
   #b1 .plate{ clip-path:none; opacity:1 }
   /* This source was captured with player controls on its outer lower edge. The city itself
@@ -295,9 +297,9 @@
      disc grows. They make the circle; the circle is not an unrelated layer behind them. */
   /* The reading stack clears the persistent navigation with a real safety margin at every
      desktop size. Important type is never permitted to enter the navigation's space. */
-  .b1ready .are{ top:29vh; left:50%; transform:translate(-50%,calc(-50% + (1 - var(--ready,0))*-20vh + var(--ready-merge,0)*21vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
-  .b1ready .you{ top:51vh; left:50%; transform:translate(calc(-50% + (1 - var(--ready,0))*38vw),calc(-50% + var(--ready-merge,0)*3vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
-  .b1ready .ready{ top:73vh; bottom:auto; left:50%; transform:translate(calc(-50% - (1 - var(--ready,0))*38vw),calc(-50% + (1 - var(--ready,0))*12vh - var(--ready-merge,0)*17vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
+  .b1ready .are{ top:29vh; left:50%; transform:translate(-50%,calc(-50% + (1 - var(--ready,0))*-20vh + var(--ready-merge,0)*21vh)) scale(calc(1 - var(--ready-merge,0)*.75)) }
+  .b1ready .you{ top:51vh; left:50%; transform:translate(calc(-50% + (1 - var(--ready,0))*38vw),calc(-50% - var(--ready-merge,0)*1vh)) scale(calc(1 - var(--ready-merge,0)*.75)) }
+  .b1ready .ready{ top:73vh; bottom:auto; left:50%; transform:translate(calc(-50% - (1 - var(--ready,0))*38vw),calc(-50% + (1 - var(--ready,0))*12vh - var(--ready-merge,0)*23vh)) scale(calc(1 - var(--ready-merge,0)*.75)) }
   @media(max-width:700px){ .b1ready .are{font-size:25vw}.b1ready .you{font-size:32vw}.b1ready .ready{font-size:22vw} }
 
   /* The black wordforms stay fully opaque as they register into the central seed; the growing
@@ -359,13 +361,12 @@
      expansion is complete; the next scene must not leak into the top or bottom field. */
   /* The hoodie aperture begins only after the driving beat owns the frame.  A physical
      overlap here was allowing unrelated lower footage to leak into the held strip. */
-  #b4{ height:340svh; margin-top:0; z-index:11 }
+  /* Beat 4 begins over the last 270svh of the single Beat 2 drive. The transparent
+     field therefore shows that same live player above and below the hoodie strip. */
+  #b4{ height:340svh; margin-top:-270svh; z-index:13 }
   #b4 .stage{
     z-index:9; background:transparent;
   }
-  /* The outgoing drive is a live bed, not a frozen carryover from Beat 2. It remains visible
-     above and below the hoodie aperture for the entire held-strip and expansion interval. */
-  .b4drive{ position:absolute; z-index:1; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none }
   #b4 .amb{ display:none }
   #b4 .plate{
     inset:0; height:100svh; overflow:hidden; z-index:2;
@@ -1533,13 +1534,12 @@
 <!-- ─────────── BEAT 4 · STREET ARRIVAL ─────────── -->
 <!-- Car completes once in Beat 2. The next actual shot is the hooded figure in the city,
      not a second pass through the same drive. -->
-<section class="beat" id="b4" data-src="media/loop/b05_sud08.mp4" data-join-in data-ambient data-ground>
+<section class="beat" id="b4" data-src="media/loop/b05_sud06.mp4" data-join-in data-ambient data-ground>
   <div class="stage">
     <canvas class="amb" width="48" height="27" aria-hidden="true"></canvas>
-    <video class="b4drive" aria-hidden="true" muted playsinline loop autoplay preload="auto" src="media/scrub/b04_car.mp4"></video>
     <div class="plate">
-      <img src="media/poster/b05_sud08.jpg" alt="A hooded Wodapalooza figure crossing a Mexico City street">
-      <video muted playsinline preload="auto" disablepictureinpicture></video>
+      <img src="media/poster/b05_sud06.jpg" alt="A hooded Wodapalooza figure among a Mexico City crowd">
+      <video muted playsinline loop autoplay preload="auto" disablepictureinpicture></video>
     </div>
     <div class="b4stats" aria-hidden="true"><span><b data-count="100">1</b>brands<small>In the festival expo</small></span><span><b data-count="2500">1</b>athletes<small>From 40+ countries</small></span><span><b data-count="100">1</b>brands<small>In the festival expo</small></span></div>
     <p class="b4copy">The standard of Miami.<br><b>Now in México.</b></p>
@@ -2198,15 +2198,6 @@
         const metrics = ease(seg(p, 0.06, 0.14)) * (1 - ease(seg(p, 0.56, 0.66)));
         b.style.setProperty('--hood-open', open.toFixed(4));
         b.style.setProperty('--hood-metrics', metrics.toFixed(4));
-        /* Begin the live drive bed from the car's current handoff frame, then let it keep
-           playing while the centre strip holds and opens. */
-        const driveBed = b.querySelector('.b4drive');
-        const driveSource = document.querySelector('#b2 .plate video');
-        if (!RM && p < 0.03 && driveBed && driveSource && driveBed.readyState > 1 && driveSource.readyState > 1 && !b._driveBedSynced) {
-          driveBed.currentTime = driveSource.currentTime;
-          driveBed.play().catch(() => {});
-          b._driveBedSynced = true;
-        }
         b.querySelectorAll('.b4stats b').forEach((el, i) => {
           /* Give each metric its own slower landing during the held-strip interval. */
           const land = ease(seg(p, 0.15 + i * 0.055, 0.38 + i * 0.065));
@@ -2451,13 +2442,16 @@
            black sphere has reached the frame edge. Beat 2 has already been stationed behind
            it, so there is no vertical black-card entrance. */
         const cityOut = ease(seg(p, 0.72, 0.735));
-        b.style.setProperty('--b1-city', openingProgress >= 0.875 ? (1 - cityOut).toFixed(4) : '0');
+        const cityVisible = openingProgress >= 0.875;
+        b.style.setProperty('--b1-city', cityVisible ? (1 - cityOut).toFixed(4) : '0');
         const sourceCity = document.querySelector('.b0city-full');
         const city = b.querySelector('.plate video');
-        if (!RM && sourceCity && city && p < 0.018 && sourceCity.readyState > 1 && Math.abs(city.currentTime - sourceCity.currentTime) > 0.08) {
+        if (!RM && sourceCity && city && cityVisible && !b._citySynced && sourceCity.readyState > 1 && city.readyState > 1) {
           city.currentTime = sourceCity.currentTime;
           city.play().catch(() => {});
+          b._citySynced = true;
         }
+        if (!cityVisible) b._citySynced = false;
         /* The words get a full held reading moment, then invert in place. The only geometric
            move is one perfect circular black aperture growing from their shared centre. */
         b.style.setProperty('--ready', Math.min(ease(seg(p, 0.14, 0.26)), 1 - ease(seg(p, 0.76, 0.84))).toFixed(4));
@@ -2465,8 +2459,8 @@
         b.style.setProperty('--ready-invert', p >= 0.57 ? '1' : '0');
         /* The wordforms register before the sphere is allowed to appear; by the time the
            circle is visible there is no readable stack left at its centre. */
-        b.style.setProperty('--ready-merge', ease(seg(p, 0.59, 0.62)).toFixed(4));
-        b.style.setProperty('--ready-sphere', ease(seg(p, 0.62, 0.73)).toFixed(4));
+        b.style.setProperty('--ready-merge', ease(seg(p, 0.59, 0.65)).toFixed(4));
+        b.style.setProperty('--ready-sphere', ease(seg(p, 0.65, 0.75)).toFixed(4));
         /* Once the disc has covered the frame, it is the black ground for the next aperture.
            Let that same ground release to the live word underneath—never to a sliding panel. */
         const next = document.getElementById('b2');
@@ -2549,7 +2543,10 @@
            the camera settles on him — the beat ends on a face, not on type. */
         b.style.setProperty('--b10p', p.toFixed(3));
         /* the lateral move runs 0.4631 to 0.6745 of this beat and the athlete from there */
-        b.style.setProperty('--b10t', (seg(p, 0.48, 0.55) * (1 - seg(p, 0.86, 0.92))).toFixed(3));
+        /* Gone before the diagonal arrives. Beat 11 pins at 0.781 of this beat, and the words
+           holding on into the convergence made the frame busy — two things happening where one
+           should be finishing. */
+        b.style.setProperty('--b10t', (seg(p, 0.48, 0.55) * (1 - seg(p, 0.70, 0.775))).toFixed(3));
         /* THE CUT-OUT FOLLOWS THE SHOT, NOT THE SCROLL — and that distinction was the
            clunkiness. Driving it from `p` looked equivalent and is not: the film trims HEAD off
            the front of every clip and TAIL off the back, so the base video's time is
@@ -2641,7 +2638,7 @@
         b.style.setProperty('--band', band.toFixed(3));
         b.style.setProperty('--barsink', (1 - ease(seg(p, 0.78, 0.845))).toFixed(3));
       }
-      if (b._v && !RM && b.id !== 'b2') {
+      if (b._v && !RM && b.id !== 'b2' && b.id !== 'b4') {
         /* data-scrub-range lets a clip occupy part of a beat instead of all of it, which is
            what makes a hard cut possible inside a single beat. */
         const rg = b._range;
@@ -2744,7 +2741,7 @@
 
     // seek on its own cadence — never queue a seek while one is in flight
     for (const b of beats){
-      const v = b._v; if (!v || RM || b._seeking || b.id === 'b2') continue;
+      const v = b._v; if (!v || RM || b._seeking || b.id === 'b2' || b.id === 'b4') continue;
       if (v.duration && Math.abs(v.currentTime - b._want) > 1/48){
         b._seeking = true; v.currentTime = b._want;
       }

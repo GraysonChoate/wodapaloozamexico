@@ -78,11 +78,17 @@ build it with `swiftc -O -o seg person-matte.swift`.
       -filter_complex "[1]format=gray[m];[0][m]alphamerge,format=yuva420p" \
       -c:v libvpx-vp9 -pix_fmt yuva420p -auto-alt-ref 0 -g 1 -b:v 0 -crf 38 fg.webm
 
-**Use the multi-person INSTANCE request, not the single-person one.**
-`VNGeneratePersonSegmentationRequest` reliably returns only the dominant figure — in a crowd
-that leaves everyone else unmasked, and the type shows straight through people it should be
-behind. `VNGeneratePersonInstanceMaskRequest` (macOS 14+) returns each person separately;
-union `allInstances`. On one measured frame that went from one silhouette caught to three.
+**Run BOTH requests and union them — neither is sufficient alone.**
+`VNGeneratePersonInstanceMaskRequest` (macOS 14+) returns each person separately and is much
+better on distinct near figures — one measured frame went from one silhouette caught to three —
+but it CAPS at a handful of instances and silently drops the rest, which leaves the rows of
+spectators behind the subject unmasked. `VNGeneratePersonSegmentationRequest` returns one
+combined mask for everybody it can see, so it covers those rows. Union the two.
+
+Instances can also be filtered by mask area, which is a usable depth cue: people in the stands
+and in front of the camera are large, competitors out on the floor are small. Worth knowing,
+though on the shot measured here Vision never detected the distant floor figures at all, so the
+filter had nothing to drop.
 The tool here does this with a fallback.
 
 Segment only the stretch the type is on screen. Feather the matte (`gblur=sigma≈1.4`) before
