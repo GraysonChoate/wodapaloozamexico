@@ -183,8 +183,14 @@
   #b0 .b0frame{ width:100vw; height:100svh; outline:0; background:#050505 }
   #b0 .b0frame>.plate:not(.cockpit){ opacity:var(--angel,0); transition:none }
   #b0 .b0black{ opacity:0 !important }
-  .b0fold{ position:absolute; z-index:5; top:-7vh; bottom:-7vh; width:62vw; background:url('media/print/print-field-01.jpg') 50%/cover; will-change:transform; pointer-events:none }
+  .b0fold{ position:absolute; z-index:5; top:-7vh; bottom:-7vh; width:62vw; background:url('media/print/print-field-01.jpg') 50%/cover; will-change:transform; pointer-events:none; overflow:hidden }
   .b0fold:after{ content:""; position:absolute; inset:0; background:rgba(8,8,8,.12) }
+  /* The city first exists as one registered image split across the two printed wings.  Each
+     panel carries half of the same moving frame; the wings close to the centre, then open so
+     the exact same city can take the whole screen. */
+  .b0city-inset{ position:absolute; z-index:1; top:9vh; bottom:9vh; width:54%; max-width:none; height:calc(100% - 18vh); object-fit:cover; opacity:var(--city-fold,0); filter:none; transition:none }
+  .b0fold-l .b0city-inset{ right:8%; width:200%; transform:none; transform-origin:right center; object-position:right 46%; clip-path:polygon(22% 0,100% 0,86% 100%,0 100%) }
+  .b0fold-r .b0city-inset{ left:8%; width:200%; transform:none; transform-origin:left center; object-position:left 46%; clip-path:polygon(14% 0,100% 0,100% 100%,0 100%) }
   .b0fold-l{ left:-20vw; clip-path:polygon(0 0,73% 0,100% 100%,0 100%); transform-origin:left center; transform:translateX(calc(-58vw + var(--fold,0)*58vw - var(--release,0)*58vw)) rotateY(calc(-46deg + var(--fold,0)*46deg - var(--release,0)*46deg)) rotateZ(calc(-6deg + var(--fold,0)*6deg)) }
   .b0fold-r{ right:-20vw; clip-path:polygon(27% 0,100% 0,100% 100%,0 100%); transform-origin:right center; transform:translateX(calc(58vw - var(--fold,0)*58vw + var(--release,0)*58vw)) rotateY(calc(46deg - var(--fold,0)*46deg + var(--release,0)*46deg)) rotateZ(calc(6deg - var(--fold,0)*6deg)) }
   .b0fold-l:before,.b0fold-r:before{ content:""; position:absolute; top:0; bottom:0; width:2px; background:#ece4d6; opacity:.7 }.b0fold-l:before{right:25%}.b0fold-r:before{left:25%}
@@ -265,6 +271,10 @@
      disc. That disc is the editorial punctuation and the shared aperture for SUCEDERÁ. */
   #b1 .stage::after{ content:""; position:absolute; inset:0; z-index:4; pointer-events:none;
     background:radial-gradient(circle at 50% 50%,#000 0,#000 calc(var(--ready-disc,0)*145vmax),transparent calc(var(--ready-disc,0)*145vmax + 1px)); }
+  .b1cinema{ position:absolute; z-index:5; inset:0; pointer-events:none; overflow:hidden }
+  .b1cinema::before,.b1cinema::after{ content:""; position:absolute; left:0; right:0; height:10svh; background:#000; will-change:transform }
+  .b1cinema::before{ top:0; transform:translateY(calc((-1 + var(--city-cinema,0))*100%)) }
+  .b1cinema::after{ bottom:0; transform:translateY(calc((1 - var(--city-cinema,0))*100%)) }
   .b1ready{ position:absolute; z-index:6; inset:0; pointer-events:none;
     opacity:calc(var(--ready,0) * (1 - var(--ready-turn-fade,0))); perspective:1200px; transform-style:preserve-3d }
   /* Optical type over the SAME moving city: no second still is ever mapped into these letters. */
@@ -274,9 +284,9 @@
   .b1ready span::after{ content:attr(data-word); position:absolute; inset:0; color:#000; -webkit-text-fill-color:#000; -webkit-text-stroke:0 transparent; opacity:var(--ready-invert,0); mix-blend-mode:normal; text-shadow:none }
   /* Once black, the three wordforms physically register into the same centre before the
      disc grows. They make the circle; the circle is not an unrelated layer behind them. */
-  .b1ready .are{ top:14vh; left:50%; transform:translate(-50%,calc((1 - var(--ready,0))*-28vh + var(--ready-merge,0)*28vh)) scale(calc(1 - var(--ready-merge,0)*.42)) }
-  .b1ready .you{ top:38vh; left:50%; font-size:clamp(92px,22vw,320px); transform:translate(calc(-50% + (1 - var(--ready,0))*50vw),calc(var(--ready-merge,0)*4vh)) scale(calc(1 - var(--ready-merge,0)*.42)) }
-  .b1ready .ready{ top:73vh; bottom:auto; left:50%; font-size:clamp(64px,15vw,220px); transform:translate(calc(-50% - (1 - var(--ready,0))*48vw),calc((1 - var(--ready,0))*18vh - var(--ready-merge,0)*31vh)) scale(calc(1 - var(--ready-merge,0)*.42)) }
+  .b1ready .are{ top:19vh; left:50%; transform:translate(-50%,calc((1 - var(--ready,0))*-28vh + var(--ready-merge,0)*31vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
+  .b1ready .you{ top:44vh; left:50%; font-size:clamp(92px,22vw,320px); transform:translate(calc(-50% + (1 - var(--ready,0))*50vw),calc(var(--ready-merge,0)*6vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
+  .b1ready .ready{ top:69vh; bottom:auto; left:50%; font-size:clamp(64px,15vw,220px); transform:translate(calc(-50% - (1 - var(--ready,0))*48vw),calc((1 - var(--ready,0))*18vh - var(--ready-merge,0)*19vh)) scale(calc(1 - var(--ready-merge,0)*.94)) }
   @media(max-width:700px){ .b1ready .are{font-size:25vw}.b1ready .you{font-size:32vw}.b1ready .ready{font-size:22vw} }
 
   /* B2 — the word becomes the driving scene. The black field recedes through the word;
@@ -323,17 +333,24 @@
   /* B2 owns the complete drive: driver seat → wide road → close hood. B4 begins only after
      that source has completed, on the actual hooded figure. Keep this seam clean while the
      next authored transition is selected; there is no frozen-car layer or second car pass. */
-  #b4{ height:340svh }
+  #b4{ height:340svh; margin-top:-100svh }
   #b4 .stage{
-    z-index:6; background:#000;
+    z-index:6; background:transparent;
   }
+  #b4 .amb{ display:none }
   #b4 .plate{
     inset:0; height:100svh; overflow:hidden; z-index:2;
-    clip-path:none;
+    clip-path:circle(calc(var(--hood-open,0) * 155vmax) at 52% 53%);
   }
   #b4 .plate video,#b4 .plate img{
     inset:0; width:100%; height:100%; object-fit:cover; transform:none;
   }
+  /* A hand-drawn trace is the shared object between the moving hood shot and the street
+     portrait. It draws over the live car, then opens the hoodie through that same point—no
+     frozen frame and no incoming panel travelling upward. */
+  .hood-trace{ position:absolute; inset:0; z-index:4; width:100%; height:100%; pointer-events:none; opacity:calc(1 - var(--hood-open,0)); }
+  .hood-trace path{ fill:none; stroke:#78d8d3; stroke-width:7; stroke-linecap:round; stroke-linejoin:round; filter:drop-shadow(0 0 8px rgba(74,202,197,.55)); stroke-dasharray:1; stroke-dashoffset:calc(1 - var(--hood-trace,0)); }
+  .hood-trace .trace-echo{ stroke:#f3f1e8; stroke-width:1.5; opacity:.85; stroke-dashoffset:calc(1 - var(--hood-trace,0) * .82); }
   /* the light escapes its container: the frame is redrawn tiny, blown up past the edges and
      blurred to nothing, so headlight streaks bleed into the page margins the band cannot reach */
   .amb{
@@ -1312,7 +1329,7 @@
         <video muted playsinline preload="auto" disablepictureinpicture></video>
       </div>
     </div>
-    <div class="b0fold b0fold-l" aria-hidden="true"></div><div class="b0fold b0fold-r" aria-hidden="true"></div>
+    <div class="b0fold b0fold-l" aria-hidden="true"><video class="b0city-inset" muted playsinline preload="auto" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video></div><div class="b0fold b0fold-r" aria-hidden="true"><video class="b0city-inset" muted playsinline preload="auto" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video></div>
     <nav class="b0nav" aria-label="Site navigation"><button class="menu" type="button" aria-label="Open site index"><b>W</b><span>Menu</span></button><span class="place">01 / Arrival</span><a class="qualifier" href="https://competitioncorner.net/events/21707/details" target="_blank" rel="noopener noreferrer">Qualifier ↗</a></nav>
   </div>
 </section>
@@ -1324,6 +1341,7 @@
       <img src="media/poster/px_angel_pullback.jpg" alt="Mexico City moving from day into night">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
+    <div class="b1cinema" aria-hidden="true"></div>
     <div class="b1ready" aria-hidden="true"><span class="are" data-word="ARE">ARE</span><span class="you" data-word="YOU">YOU</span><span class="ready" data-word="READY?">READY?</span></div>
     <div class="b1cap">CIUDAD DE MÉXICO · 2,240 M</div>
   </div>
@@ -1357,6 +1375,7 @@
       <img src="media/poster/b05_sud08.jpg" alt="A hooded Wodapalooza figure crossing a Mexico City street">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
+    <svg class="hood-trace" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M78 468 C245 330 356 533 500 372 S746 215 936 138"></path><path class="trace-echo" pathLength="1" d="M78 468 C245 330 356 533 500 372 S746 215 936 138"></path></svg>
     <p class="b4copy">The standard of Miami.<br><b>Now in México.</b></p>
   </div>
 </section>
@@ -1734,13 +1753,10 @@
     let bb;
     try { bb = T.getBBox(); } catch (e) { return; }
     if (!bb || !bb.width) return;
-    /* His three lines occupy 445 x 320 — re-measured off the frame with the mask rendered on
-       top of the ink, which is the only way to check it. The 375 I had been using came from the
-       HTML box that used to carry this, and a line box is taller than the ink inside it; that
-       is why the leading came out too generous and the third line sat below his. Solve the
-       leading so our ink height lands on his. */
+    /* His writing is 0.7189 as tall as it is wide. That is a property of the sheet, not of any
+       particular window, so the leading is solved from it once. */
     const cap = bb.height - 2 * 164;
-    const dy  = Math.max(1, (320 * bb.width / 445 - cap) / 2);
+    const dy  = Math.max(1, (0.7189 * bb.width - cap) / 2);
     sp[1].setAttribute('dy', dy.toFixed(2));
     sp[2].setAttribute('dy', dy.toFixed(2));
     try { bb = T.getBBox(); } catch (e) { return; }
@@ -1903,7 +1919,7 @@
          nothing left for a fade to do. */
       /* Beat 2 owns its arrival through the turning type plane below. Generic section
          opacity would make it look as though a new frame were scrolling in from the bottom. */
-      const stageVisibility = b.id === 'b2' ? 1 : (b.hasAttribute('data-split-exit')
+      const stageVisibility = (b.id === 'b2' || b.id === 'b4') ? 1 : (b.hasAttribute('data-split-exit')
         ? enter : Math.min(enter, 1 - exit));
       b.style.setProperty('--sv', stageVisibility.toFixed(4));
 
@@ -1924,7 +1940,7 @@
         const arrive = ease(seg(p, 0.00, 0.16));
         b.style.setProperty('--b2-arrive', arrive.toFixed(4));
         /* Read first; then the word slowly releases into the complete driving shot. */
-        const release = ease(seg(p, 0.72, 0.96));
+        const release = ease(seg(p, 0.50, 0.78));
         b.style.setProperty('--drive-release', release.toFixed(4));
         b.style.setProperty('--drive-expand', release.toFixed(4));
         const word = b.querySelector('.word');
@@ -1934,6 +1950,15 @@
           const sy = (0.035 + arrive * 0.965) * (1 + release * 0.72);
           word.setAttribute('transform', `translate(${W/2} ${H2/2}) scale(${sx.toFixed(4)} ${sy.toFixed(4)}) translate(${-W/2} ${-H2/2})`);
         }
+      }
+
+      if (b.id === 'b4') {
+        /* The car remains a live moving layer below. First a single graphic contour draws
+           across it; only then does that trace become the aperture for the hooded shot. */
+        const trace = ease(seg(p, 0.02, 0.18));
+        const open = ease(seg(p, 0.16, 0.43));
+        b.style.setProperty('--hood-trace', trace.toFixed(4));
+        b.style.setProperty('--hood-open', open.toFixed(4));
       }
 
       if (b.id === 'b8') {
@@ -1999,12 +2024,32 @@
         if (WT && WG) {
           const bb = MCAL;
           if (bb) {
-            const bw = innerWidth, bh = innerHeight, vh = bh / 100;
+            /* THE WINDOW IS TIED TO THE SHEET, NOT TO MY MONITOR.
+
+               This is what he kept seeing and what my own instrumentation kept missing. Every
+               number here used to be a pixel measurement taken at 1440x900 and scaled by
+               viewport height — so it was right at exactly one window size and wrong at every
+               other, and I only ever tested the one I calibrated at. In a narrower window the
+               sheet lands somewhere else, the hole lands off his writing, and then the
+               magnification multiplies that error until the letters visibly slide away.
+
+               So nothing is measured in pixels any more. The clip is 720x1280 inside a
+               `contain` box and is then scaled by the sheet's own --fit and --grow about
+               50%/42%, all of which can be computed exactly at any size. His handwriting is
+               stored as fractions OF THAT FRAME — it starts 16.9% across it and is 68.5% of its
+               width — because that is a fact about the sheet and stays true no matter how big
+               the window is. */
+            const bw = innerWidth, bh = innerHeight;
             const S = (1 - 0.075 * e) * (1 + 0.30 * ease(p));
-            const u  = (S / 1.2834) * (bh / 900);
-            /* and the ink is centred 40px above the middle of the frame, not 17.5 */
-            const cx = bw / 2 + 7.5 * u, cy = bh / 2 - 40 * u;
-            const k  = (445 * u) / bb.w;
+            const VW = 720, VH = 1280;
+            const fit = Math.min(bw / VW, bh / VH);
+            let fw = VW * fit, fh = VH * fit;
+            let fx = (bw - fw) / 2, fy = (bh - fh) / 2;
+            const ox = bw * 0.5, oy = bh * 0.42;      /* the plate's own transform origin */
+            fx = ox + (fx - ox) * S;  fy = oy + (fy - oy) * S;
+            fw *= S;  fh *= S;
+            const cx = fx + 0.5115 * fw, cy = fy + 0.4475 * fh;
+            const k  = (0.685 * fw) / bb.w;
             const tx = cx - (bb.x + bb.w / 2) * k;
             const ty = cy - (bb.y + bb.h / 2) * k;
             /* the same curve the outlines rode, and it keeps going through the slide */
@@ -2093,6 +2138,7 @@
         b.style.setProperty('--cut', cut.toFixed(4));
         b.style.setProperty('--cut-size', ((cut * 74) + (release * 26)).toFixed(2) + '%');
         b.style.setProperty('--release', release.toFixed(4));
+        b.style.setProperty('--city-fold', ease(seg(p, 0.35, 0.55)).toFixed(4));
         b.style.setProperty('--angel', ease(seg(p, 0.24, 0.49)).toFixed(4));
         b.style.setProperty('--c', 0);
         /* Strictly inside the hold, with room at both ends. Copy still settling while the
@@ -2110,6 +2156,12 @@
           const want = Math.min(clip.duration - TAIL, 0.1 + p * Math.max(0, clip.duration - 0.15));
           if (Math.abs(clip.currentTime - want) > 1/36) clip.currentTime = want;
         }
+        const foldCities = b._foldCities || (b._foldCities = [...b.querySelectorAll('.b0city-inset')]);
+        const cityProgress = ease(seg(p, 0.35, 0.84));
+        for (const clip of foldCities) if (clip.duration && !RM) {
+          const want = Math.min(clip.duration - TAIL, 0.12 + cityProgress * Math.max(0, clip.duration - 0.24));
+          if (Math.abs(clip.currentTime - want) > 1/30) clip.currentTime = want;
+        }
       }
 
       if (b.id === 'b1') {
@@ -2120,6 +2172,7 @@
         b.style.setProperty('--ready-merge', ease(seg(p, 0.66, 0.78)).toFixed(4));
         b.style.setProperty('--ready-disc', ease(seg(p, 0.74, 0.88)).toFixed(4));
         b.style.setProperty('--ready-turn-fade', ease(seg(p, 0.80, 0.91)).toFixed(4));
+        b.style.setProperty('--city-cinema', ease(seg(p, 0.29, 0.40)).toFixed(4));
       }
 
       if (b.id === 'b12') {
