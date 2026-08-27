@@ -85,7 +85,7 @@
   .alt{ position:absolute; z-index:1 }
   .alt::before,
   .b1cap::before,.b2sub::before,.b3line::before,.b4copy::before,
-  .b5cap::before,.b5bcap::before,.b7strip span::before,.b11stats span::before,.b12type h2::before,.b12type p::before,.b9type p::before{
+  .b5cap::before,.b5bcap::before,.b7strip span::before,.b11stats span::before,.b9type p::before{
     content:""; position:absolute; inset:-20px -34px; z-index:-1;
     /* Size the ellipse EXPLICITLY rather than letting it default to farthest-corner. On a
        long single line the default fades out well before the last few glyphs, which is
@@ -1083,48 +1083,16 @@
      occupy exactly the same box. Containing guarantees it. Cover would also have clipped the
      source watermark on the bright dusk frame. */
   #b12{ height:340svh }
-  #b12 .stage{
-    background:#efe9dc url("media/print/print-field-01.jpg") center/cover no-repeat;
-  }
-  /* ── THE SQUARE AS A PHOTOGRAPH BEING CONSIDERED ──────────────────────────
-     Both plates are boxed to the source's own 16:9 rather than letterboxed inside a
-     viewport-shaped box. That matters for one specific reason: the frame edge then sits
-     exactly on the picture, so the border during the widen is the photograph's boundary and
-     not a rectangle drawn some distance away from it. At scale 1 the geometry is identical
-     to the contain framing this beat already had, at every viewport.
-
-     The empty plate opens contained — an object on black — makes ONE slow widen, and locks
-     at exactly 1 well before the swap. The full plate never scales, never fades and is never
-     animated: it arrives at the identical box, as a step. The whole argument of this beat is
-     that the same city reads two ways, and a crowd that grows in would be a different and
-     much weaker claim. */
+  /* The old Zócalo plate and paper frame are retired from the live composition. Beat 12 is
+     now one active city passage with no redundant background or secondary plate. */
   #b12 .plate,#b12 .plate.full{
-    position:absolute; inset:auto; left:50%; top:50%;
-    width:min(100vw, calc(100svh * 16 / 9)); aspect-ratio:16 / 9; height:auto;
-    transform:translate(-50%,-50%) scale(var(--zw,1));
+    position:absolute; inset:0; left:auto; top:auto;
+    width:100%; aspect-ratio:auto; height:100%;
+    transform:none;
   }
   #b12 .plate video,#b12 .plate img{ object-fit:cover; transform:none }
-  /* a hairline, not a card: no radius, no gradient, no shadow. outline so it costs no layout. */
-  #b12 .plate{ outline:1px solid rgba(255,255,255,var(--zb,0)); outline-offset:0 }
-  #b12 .plate.full{ transform:translate(-50%,-50%); z-index:3;
-    opacity:var(--swap,0); visibility:var(--swapvis,hidden); outline:0 }
-  #b12{ --zstart:0.60 }
-  @media (max-width:760px){ #b12{ --zstart:0.78 } }
-  .b12type{
-    position:absolute; z-index:5; left:0; right:0; bottom:12vh; text-align:center;
-    opacity:calc(var(--datein,0));
-  }
-  .b12type h2{
-    margin:0; font-weight:800; font-size:clamp(22px,4.6vw,58px); line-height:1;
-    letter-spacing:.02em; font-variation-settings:"wdth" 112, "wght" 800;
-    position:relative; z-index:1;
-  }
-  .b12type p{
-    margin:.85em 0 0; font:700 11px/1 "JetBrains Mono",ui-monospace,monospace;
-    letter-spacing:.34em; text-transform:uppercase; opacity:.7;
-    position:relative; z-index:1;
-  }
-  @media (max-width:760px){ .b12type{ bottom:10vh } .b12type p{ font-size:9px; letter-spacing:.2em } }
+  /* The two city excerpts meet on a direct editorial cut. The footage keeps moving; no
+     shutter, frame, or decorative layer is added at the splice. */
 
   /* ── B13 · CLOSE ──────────────────────────────────────────────────────────
      54.97–57.80 is the film's own ending: the Monumento a la Revolución lit red, the badge
@@ -1138,7 +1106,7 @@
      appears instead as a hairline under the links, on black, where it is plainly the page.
 
      The links land on the black the film supplies. Nothing is dimmed to make room. */
-  #b13{ height:280svh; margin-top:-125svh }
+  #b13{ height:280svh; margin-top:0 }
   #b13 .stage{ z-index:38 }
   #b13 .plate video,#b13 .plate img{ transform:scale(calc(1.02 + var(--p) * .04)) }
   @media (min-aspect-ratio: 11/10) and (max-aspect-ratio: 16/9){
@@ -1525,9 +1493,6 @@
     .b9type{ opacity:1 !important }
     .b10line{ opacity:1 !important }
     .b11stats span{ opacity:1 !important }
-    .b12type{ opacity:1 !important }
-    #b12 .plate,#b12 .plate.full{ transform:translate(-50%,-50%) !important }
-    #b12 .plate{ outline:0 !important }
     #action{ height:auto }
     .astage{ position:relative; height:auto; min-height:100svh; padding:6vh 0 }
     .aindex{ opacity:1 !important; transform:none !important }
@@ -1780,15 +1745,11 @@
 </section>
 
 <!-- ─────────── BEAT 12 · THE CITY IS THE VENUE ─────────── -->
-<section class="beat" id="b12" data-src="media/scrub/b12_zocalo_empty.mp4">
+<section class="beat" id="b12" data-src="media/scrub/b12_city_landmarks.mp4">
   <div class="stage">
     <div class="plate">
-      <img src="media/poster/b12_zocalo_empty.jpg" alt="Mexico City architecture at dusk">
+      <img src="media/poster/b12_city_landmarks.jpg" alt="Mexico City landmarks moving from the Torre Latinoamericana to Palacio de Bellas Artes">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
-    </div>
-    <div class="b12type">
-      <h2>MEXICO CITY · DECEMBER 4–6 · 2026</h2>
-      <p>WODAPALOOZA MEXICO CITY</p>
     </div>
   </div>
 </section>
@@ -2554,17 +2515,6 @@
         const np = nr ? Math.min(1, Math.max(0, -nr.top / Math.max(1, nr.height - H))) : 0;
         b.style.setProperty('--sphere-solid', (1 - ease(seg(np, 0.018, 0.045))).toFixed(4));
         b.style.setProperty('--city-cinema', ease(seg(p, 0.29, 0.40)).toFixed(4));
-      }
-
-      if (b.id === 'b12') {
-        /* Claude's final late-pass removed the crowded night plate. The remaining daytime
-           photograph is a framed object on the print field, so its movement runs for the
-           whole beat rather than widening into a second plate and then holding. */
-        const grow = ease(seg(p, 0.02, 0.94));
-        const z0 = parseFloat(getComputedStyle(b).getPropertyValue('--zstart')) || 0.60;
-        b.style.setProperty('--zw', (z0 + (1 - z0) * grow).toFixed(4));
-        b.style.setProperty('--zb', (0.24 * (1 - grow)).toFixed(3));
-        b.style.setProperty('--datein', seg(p, 0.20, 0.34).toFixed(3));
       }
 
       if (b.id === 'b13') {
