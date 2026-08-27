@@ -1138,7 +1138,8 @@
      appears instead as a hairline under the links, on black, where it is plainly the page.
 
      The links land on the black the film supplies. Nothing is dimmed to make room. */
-  #b13{ height:560svh }
+  #b13{ height:280svh; margin-top:-125svh }
+  #b13 .stage{ z-index:38 }
   #b13 .plate video,#b13 .plate img{ transform:scale(calc(1.02 + var(--p) * .04)) }
   @media (min-aspect-ratio: 11/10) and (max-aspect-ratio: 16/9){
     #b13 .plate video,#b13 .plate img{ object-fit:contain; transform:none }
@@ -1156,10 +1157,10 @@
 
      Approved visual study: reference/prototypes/final-action-index.html
      Integration contract:  FINAL-ACTION-INDEX-INTEGRATION.md                            */
-  #action{ position:relative; height:300svh; background:var(--ground) }
+  #action{ position:relative; height:300svh; margin-top:-240svh; background:var(--ground) }
   .astage{
     position:sticky; top:0; height:100svh; overflow:hidden;
-    background:var(--ground); display:grid; place-items:center;
+    background:var(--ground); display:grid; place-items:center; z-index:56;
   }
   /* The first page-owned colour after the film. A hairline, not a rule — and it arrives
      before the paper does, so the black is announced rather than merely ending. */
@@ -1177,7 +1178,8 @@
     transform-origin:center bottom;
     transform:translateY(calc((1 - var(--aenter,1)) * 125svh))
               rotateX(calc((1 - var(--aenter,1)) * 8deg))
-              scale(calc(.86 + var(--aenter,1) * .14));
+              scale(calc(.86 + var(--aenter,1) * .14))
+              scale(calc(1 + (1 - var(--adoor,1)) * .085));
     opacity:var(--aenter,1);
     box-shadow:0 34px 100px #000;
     display:grid; grid-template-columns:minmax(170px,.65fr) minmax(0,1.5fr);
@@ -2563,6 +2565,23 @@
         b.style.setProperty('--zw', (z0 + (1 - z0) * grow).toFixed(4));
         b.style.setProperty('--zb', (0.24 * (1 - grow)).toFixed(3));
         b.style.setProperty('--datein', seg(p, 0.20, 0.34).toFixed(3));
+      }
+
+      if (b.id === 'b13') {
+        /* The existing badge is the door into THE INDEX. The incoming page is already pinned
+           behind this closing plate; only its shield-shaped aperture changes with scroll. */
+        const A = document.getElementById('action'), AS = A && A.querySelector('.astage');
+        if (AS) {
+          const open = seg(p, 0.46, 1.00);
+          const shield = [[.499,0],[.847,.143],[.838,.232],[.996,.241],[1,.268],[.982,.543],[.918,.561],[.847,.610],[.783,.671],[.772,.762],[.752,.854],[.705,.884],[.596,.945],[.499,.997],[.403,.945],[.295,.884],[.248,.854],[.228,.762],[.217,.671],[.155,.610],[.086,.561],[.018,.543],[0,.268],[.004,.241],[.162,.232],[.153,.143]];
+          if (open <= 0) AS.style.clipPath = 'polygon(0 0,0 0,0 0)';
+          else if (open >= 1) AS.style.clipPath = 'none';
+          else {
+            const k = 1 + 1.86 * open;
+            AS.style.clipPath = 'polygon(' + shield.map(([x,y]) => `${(50+(x-.5)*34*k).toFixed(2)}% ${(60+(y-.5)*45*k).toFixed(2)}%`).join(',') + ')';
+          }
+          A.style.setProperty('--adoor', open.toFixed(4));
+        }
       }
 
       if (b.id === 'b11') {
