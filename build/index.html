@@ -1091,15 +1091,21 @@
     transform:none;
   }
   #b12 .plate video,#b12 .plate img{ object-fit:cover; transform:none }
-  /* The two city excerpts meet on a direct editorial cut. The footage keeps moving; no
-     shutter, frame, or decorative layer is added at the splice. */
+  /* The city materializes from the centre as an ink-shaped aperture. It is an entrance only;
+     the two city excerpts still meet on a direct editorial cut. */
+  #b12 .plate{ clip-path:var(--city-reveal,none) }
   /* A single perimeter matte hides the source watermark without putting paper over the
      picture. Its radial mask leaves the centre untouched and feathers the texture into the
-     moving city; the dark lower-right portion does the practical cover-up. */
+     moving city; the dark lower-right portion does the practical cover-up. It retracts before
+     the final monument cut. */
   .b12edge{ position:absolute; inset:0; z-index:3; pointer-events:none; opacity:.92;
     background:url('media/print/city-edge-paper-02.png') center/cover no-repeat;
     -webkit-mask-image:radial-gradient(ellipse at center, transparent 47%, rgba(0,0,0,.12) 58%, #000 78%, #000 100%);
     mask-image:radial-gradient(ellipse at center, transparent 47%, rgba(0,0,0,.12) 58%, #000 78%, #000 100%);
+    clip-path:var(--city-reveal,none); opacity:calc(.92 * (1 - var(--edge-out,0)));
+  }
+  .b12edge::after{ content:""; position:absolute; inset:0;
+    background:radial-gradient(ellipse at 100% 100%, rgba(5,5,5,.99) 0 16%, rgba(5,5,5,.78) 27%, transparent 44%);
   }
 
   /* ── B13 · CLOSE ──────────────────────────────────────────────────────────
@@ -2541,6 +2547,20 @@
           }
           A.style.setProperty('--adoor', open.toFixed(4));
         }
+      }
+
+      if (b.id === 'b12') {
+        /* Materialize Beat 12 from a compact ink-like diamond at the celebration handoff.
+           Once open, hold the city full-frame; near the next cut, pull the perimeter matte
+           away so Beat 13 arrives without a sliding layer over it. */
+        const reveal = ease(seg(p, 0.015, 0.16));
+        if (reveal >= 1) b.style.setProperty('--city-reveal', 'none');
+        else {
+          const pts = [[50,0],[100,50],[50,100],[0,50]];
+          b.style.setProperty('--city-reveal', 'polygon(' + pts.map(([x,y]) =>
+            `${(50 + (x - 50) * reveal).toFixed(2)}% ${(50 + (y - 50) * reveal).toFixed(2)}%`).join(',') + ')');
+        }
+        b.style.setProperty('--edge-out', ease(seg(p, 0.92, 0.995)).toFixed(4));
       }
 
       if (b.id === 'b11') {
