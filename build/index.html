@@ -1367,6 +1367,9 @@
      drops the paper that reveals the next. Four sheets, four words, one technique repeating —
      which is what makes it a device rather than an effect used once. Outline only: it echoes
      the handwriting, it does not imitate it. */
+  /* Recovery checkpoint: Claude's final late-pass removes the newspaper scene entirely. Keep
+     its markup available for archaeology, but take it out of layout and paint. */
+  #b8.recovery-retired{ display:none !important }
   .b8words{ position:absolute; inset:0; z-index:4; pointer-events:none; perspective:1050px }
   .b8words b{
     position:absolute; left:50%; top:50%; opacity:0;
@@ -1666,7 +1669,7 @@
 </section>
 
 <!-- ─────────── BEAT 8 · THE MESSAGE ─────────── -->
-<section class="beat" id="b8" data-src="media/scrub/b08_newspaper.mp4" data-scrub-warp="0.60,0.71" data-join-in>
+<section class="beat recovery-retired" id="b8" data-src="media/scrub/b08_newspaper.mp4" data-scrub-warp="0.60,0.71" data-join-in>
   <div class="stage">
     <div class="b8world">
       <div class="plate">
