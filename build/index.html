@@ -85,7 +85,7 @@
   .alt{ position:absolute; z-index:1 }
   .alt::before,
   .b1cap::before,.b2sub::before,.b3line::before,.b4copy::before,
-  .b5cap::before,.b5bcap::before,.b7strip span::before,.b11stats span::before,.b9type p::before{
+  .b11stats span::before,.b9type p::before{
     content:""; position:absolute; inset:-20px -34px; z-index:-1;
     /* Size the ellipse EXPLICITLY rather than letting it default to farthest-corner. On a
        long single line the default fades out well before the last few glyphs, which is
@@ -186,16 +186,22 @@
      the V folds release the Ángel into the city-time transition. */
   .b0flagintro{ position:absolute; inset:0; z-index:10; opacity:var(--flag-intro,1); pointer-events:none }
   .b0flagintro video{ width:100%; height:100%; object-fit:cover; filter:saturate(.88) contrast(1.05) }
+  .scroll-cue{position:absolute;left:50%;bottom:7vh;z-index:12;display:flex;flex-direction:column;align-items:center;gap:10px;color:rgba(255,255,255,.78);opacity:1;transform:translateX(-50%);transition:opacity .2s}
+  .scroll-cue span{font:600 10px/1 "JetBrains Mono",ui-monospace,monospace;letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}
+  .scroll-cue i{width:1px;height:28px;background:currentColor;position:relative}
+  .scroll-cue i:after{content:"";position:absolute;bottom:0;left:-3px;width:7px;height:7px;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg)}
   #b0 .b0frame{ width:100vw; height:100svh; outline:0; background:#050505; opacity:var(--angel-frame,1); transition:none }
   #b0 .b0frame>.plate:not(.cockpit){ opacity:var(--angel,0); transition:none }
   #b0 .b0black{ opacity:0 !important }
-  .b0fitness-full{ position:absolute; inset:0; z-index:3; width:100%; height:100%; object-fit:cover; object-position:center 50%; opacity:var(--fitness-full,0); filter:saturate(.82) contrast(1.04); pointer-events:none; transition:none }
-  .b0fold{ position:absolute; z-index:5; top:-7vh; bottom:-7vh; width:62vw; background:transparent; opacity:var(--fold-visible,1); will-change:transform; pointer-events:none; overflow:hidden }
+  .b0fold{ position:absolute; z-index:5; top:-7vh; bottom:-7vh; width:62vw; background:transparent; opacity:var(--fold-visible,1); visibility:var(--panel-visible,visible); will-change:transform; pointer-events:none; overflow:hidden }
   /* The supplied paper is the physical face of each panel. The fitness shot sits beneath it,
      at a restrained opacity, so the athlete reads as an impression inside the print rather
      than as a new rectangular video card. */
-  .b0fold:before{ content:""; position:absolute; z-index:2; inset:0; background-position:center; background-size:cover; background-repeat:no-repeat; opacity:.72; pointer-events:none }
-  .b0fold:after{ content:""; position:absolute; z-index:3; inset:0; background:rgba(8,8,8,.10); pointer-events:none }
+  .b0fold .b0panel-video{ position:absolute; z-index:1; top:0; bottom:0; width:200%; max-width:none; height:100%; object-fit:cover; opacity:var(--fitness-panel,0); filter:saturate(.82) contrast(1.04); pointer-events:none; transition:none }
+  .b0fold-l .b0panel-video{ left:0; right:auto }
+  .b0fold-r .b0panel-video{ right:0; left:auto }
+  .b0fold:before{ content:""; position:absolute; z-index:2; inset:0; background-position:center; background-size:cover; background-repeat:no-repeat; opacity:.58; transform:scaleX(-1); transform-origin:center; pointer-events:none }
+  .b0fold:after{ content:""; position:absolute; z-index:3; inset:0; background:rgba(8,8,8,.06); pointer-events:none }
   .b0fold-l:before{ background-image:url('media/print/fitness-panel-left.png') }
   .b0fold-r:before{ background-image:url('media/print/fitness-panel-right.png') }
   .b0fold-l{ left:-20vw; clip-path:polygon(0 0,calc(73% + var(--shutter,0)*27%) 0,100% 100%,0 100%); transform-origin:left center; transform:translateX(calc(-58vw + var(--fold,0)*66vw)) rotateY(calc(-46deg + var(--fold,0)*46deg)) rotateZ(calc(-6deg + var(--fold,0)*6deg)) }
@@ -297,7 +303,7 @@
      not a second image or a fading overlay. */
   .b1sphere{ position:absolute; z-index:7; left:50%; top:50%; width:calc(var(--ready-sphere,0)*250vmax); height:calc(var(--ready-sphere,0)*250vmax); border-radius:50%; background:#000; opacity:var(--sphere-solid,1); transform:translate(-50%,-50%); pointer-events:none }
   /* Optical type over the SAME moving city: no second still is ever mapped into these letters. */
-  .b1ready span{ position:absolute; display:block; color:#fff; -webkit-text-fill-color:#fff; -webkit-text-stroke:0 transparent; font:950 clamp(72px,12.2vw,180px)/.84 Archivo,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.06em; white-space:nowrap; text-shadow:0 2px 10px rgba(0,0,0,.66); mix-blend-mode:normal; backdrop-filter:none; transform-style:preserve-3d; transform-origin:50% 50%; will-change:transform,color }
+  .b1ready span{ position:absolute; display:block; color:#fff; -webkit-text-fill-color:#fff; -webkit-text-stroke:0 transparent; font:950 clamp(72px,13.5vw,200px)/.84 Archivo,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.06em; white-space:nowrap; text-shadow:0 2px 10px rgba(0,0,0,.66); mix-blend-mode:normal; backdrop-filter:none; transform-style:preserve-3d; transform-origin:50% 50%; will-change:transform,color }
   /* A distinct ink layer—not a filter—makes the actual wordforms turn jet black before
      the circle consumes them. */
   .b1ready span::after{ content:attr(data-word); position:absolute; inset:0; color:#000; -webkit-text-fill-color:#000; -webkit-text-stroke:0 transparent; opacity:var(--ready-invert,0); mix-blend-mode:normal; text-shadow:none }
@@ -459,22 +465,11 @@
        and at scale 3 it would open black bars across a shot that is meant to be full bleed */
     transform:scale(var(--cs,1));
   }
+  .hoodie-slot{ position:absolute; inset:0; overflow:hidden }
+  .hoodie-slot video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover }
   /* a phone shows the same nine at a third the size, so the same Z reads as a far bigger
      throw. The depth is scaled to the frame rather than fixed in pixels. */
   @media (max-width:760px){ .sheet{ perspective:760px } }
-  .cell.is-still::after{
-    content:"STF00176"; position:absolute; left:6px; bottom:5px;
-    font:700 8px/1 "JetBrains Mono",ui-monospace,monospace; letter-spacing:.14em;
-    opacity:calc(var(--sheet-on,0) * .5);
-  }
-  .b5cap{
-    position:absolute; z-index:6; left:28px; bottom:30px; margin:0; width:max-content; max-width:calc(100% - 56px);
-    font:700 11px/1.8 "JetBrains Mono",ui-monospace,monospace;
-    letter-spacing:.28em; text-transform:uppercase;
-    opacity:calc(var(--sheet-on,0) * .85);
-  }
-  @media (max-width:760px){ .b5cap{ left:14px; bottom:22px; font-size:9px } }
-
   /* ── THE MATCH CUT ────────────────────────────────────────────────────────
      A match cut is a CUT. It cannot sit on a section boundary: a sticky stage releases and
      slides, so the boundary version arrived as a wipe between a dark street and a white
@@ -486,13 +481,9 @@
     opacity:var(--cut,0); visibility:var(--cutvis,hidden);
   }
   #b5 .plate.cut video,#b5 .plate.cut img{ transform:scale(calc(1.02 + var(--cutp,0)*.06)) }
-  .b5bcap{
-    position:absolute; z-index:5; left:50%; bottom:13vh; transform:translateX(-50%);
-    font:700 11px/1.8 "JetBrains Mono",ui-monospace,monospace;
-    letter-spacing:.3em; text-align:center; white-space:nowrap;
-    opacity:calc(var(--cutcap,0) * .9);
-  }
-
+  #b5 .streetlight-source{ position:absolute; inset:0; z-index:4; opacity:var(--streetlight,0); visibility:var(--streetlightvis,hidden); }
+  #b5 .streetlight-source video,#b5 .streetlight-source img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  #b5 .streetlight-source video{ transform:scale(calc(1.02 + var(--streetlight-p,0) * .04)); }
   /* ── B6 · THE BANNER ──────────────────────────────────────────────────────
      The storyboard called for a scroll-driven UNFURL. The footage does not contain one:
      the lona is fully hung in frame 0 and breathes in the wind on a locked-off camera for
@@ -506,14 +497,15 @@
      slow push-in. Each viewport gets exactly the move its material can pay for.
 
      No type is added. The banner carries its own. */
-  #b6{ height:460svh }
-  #b6 .plate video,#b6 .plate img{
+  /* Legacy banner styling removed: the duplicate vertical handoff no longer exists. */
+  /*
     /* start below the blank stone at the very top of the frame — two full stops of empty
        wall is not stillness, it is a gap. The descent runs from just above the figure on
        the ledge, down past the banner, to the steps at the foot of the monument. */
-    object-position:50% calc(16% + var(--p) * 84%);
-    transform:scale(calc(1.02 + var(--p) * .07));
+    object-position:50% 50%;
+    transform:scale(1.02);
   }
+  */
   /* No synthetic colour flood here. A mixed magenta-to-cyan field read as a pale wash, and
      the banner it was supposed to represent is right there in the frame — richer, real, and
      lit by the actual afternoon. The descent simply lands on the steps at the foot of the
@@ -541,7 +533,8 @@
      mine to make, and NO CUTS is contradicted by footage that is nothing but cuts — the
      count is 74, stable at 73-75 across detection thresholds. Saying so is stronger than
      the line that was planned. */
-  .b7strip{
+  /* Legacy ticker styling removed: the ticker markup is no longer part of the sequence. */
+  /* .b7strip{
     /* Gone the instant the split starts. It is absolutely positioned inside a stage that is
        releasing, so it rode upward AND kept running sideways — the black bar of type drifting
        up and to the left through the whole opening. It belongs to the street beat; it has no
@@ -558,7 +551,7 @@
     font:700 11px/1 "JetBrains Mono",ui-monospace,monospace;
     letter-spacing:.34em; text-transform:uppercase; opacity:.82;
   }
-  @media (max-width:760px){ .b7strip{ bottom:22px } .b7strip span{ font-size:9px } }
+  @media (max-width:760px){ .b7strip{ bottom:22px } .b7strip span{ font-size:9px } } */
 
   /* ── B8 · THE MESSAGE ─────────────────────────────────────────────────────
      The one beat that carries information, and the one that does the least to it.
@@ -1064,7 +1057,8 @@
     font:700 11px/1 "JetBrains Mono",ui-monospace,monospace;
     letter-spacing:.26em; text-transform:uppercase;
   }
-  .b11stats span{ position:relative; z-index:1; opacity:0; color:rgba(255,255,255,.66) }
+  #b11 .stage::after{ content:""; position:absolute; z-index:3; inset:0; background:rgba(0,0,0,.16); pointer-events:none }
+  .b11stats span{ position:relative; z-index:5; opacity:0; color:rgba(255,255,255,.66) }
   /* The numbers were green and measured 2.49:1 over the confetti. Green sits near 0.44
      relative luminance and cannot clear 4.5:1 on a bright frame without a plate deep enough
      to read as a card. Colour was the wrong tool for hierarchy anyway: the interface here is
@@ -1203,15 +1197,15 @@
   .aactions{ border-top:1px solid #171717 }
   .aaction{
     min-height:64px; padding:15px 0; border-bottom:1px solid #171717;
-    display:grid; grid-template-columns:44px 1fr auto; gap:16px; align-items:center;
+    display:grid; grid-template-columns:44px minmax(0,1fr) auto; gap:16px; align-items:center;
     color:#111; text-decoration:none;
     transition:padding .25s ease, background .25s ease, color .25s ease;
   }
   .aaction:hover{ padding-left:12px; background:#111; color:#f4f0e9 }
   .aaction:focus-visible{ outline:3px solid var(--blue); outline-offset:3px }
   .aaction .anum{ font:700 10px/1 "JetBrains Mono",ui-monospace,monospace; letter-spacing:.08em }
-  .aaction strong{ font-size:clamp(18px,2.1vw,31px); letter-spacing:-.055em; line-height:.95 }
-  .aaction i{ font:700 10px/1 "JetBrains Mono",ui-monospace,monospace; font-style:normal; letter-spacing:.08em }
+  .aaction strong{ min-width:0; overflow-wrap:anywhere; font-size:clamp(18px,2.1vw,31px); letter-spacing:-.055em; line-height:.95 }
+  .aaction i{ white-space:nowrap; font:700 10px/1 "JetBrains Mono",ui-monospace,monospace; font-style:normal; letter-spacing:.08em }
   /* Pre-Registro is SHOWN and inert. The operator supplied the Microsoft Forms URL only in
      truncated form, and a guessed href at the film's climax would be a broken conversion
      action. It is not an <a>, so it is not focusable and not clickable — the absence is
@@ -1302,15 +1296,9 @@
      Beat 0. Once those two halves open, this is the whole, uninterrupted city frame. */
   #b1 .plate{ clip-path:none }
 
-  /* 6 -> 7 · the public claim is registered into the physical act. The banner's WODAPALOOZA
-     badge is still readable at Beat 6's last frame, and Beat 7 opens on the same hooded
-     figure reaching to place that same badge on a pole. Both are vertical objects, so the
-     aperture closes HORIZONTALLY into a vertical strip -- print registration, not a wipe.
-     The strip holds the badge on the way out and the pole on the way in. */
-  #b6 .plate{
-    clip-path:inset(0 calc(var(--reg,0) * 41%) 0 calc(var(--reg,0) * 41%));
-  }
-  /* Beat 7 opens from the 6 → 7 registration strip, then LEAVES by splitting. */
+  /* 6 -> 7 · the streetlight shot hands directly into the sticker montage. The montage
+     must open as a full frame; the old registration strip created the unwanted narrow
+     vertical plate. Beat 7 still leaves through its existing split into the rope scene. */
   #b7 .plate{
     clip-path:inset(0 calc(var(--reg,0) * 41%) 0 calc(var(--reg,0) * 41%));
     transform:scale(calc(1.03 + var(--p) * .05 + var(--fwd,0) * .09));
@@ -1510,7 +1498,7 @@
     /* the static page shows the printed city, not the aircraft that follows it */
     #b0 .plate.cockpit{ display:none !important }
     #b1 .plate{ clip-path:none !important }
-    #b6 .plate,#b7 .plate{ clip-path:none !important }
+    #b7 .plate{ clip-path:none !important }
     #b7 .plate{ mask-image:none !important }
     .b7half,.b7badge,.b8words{ display:none !important }
     .b8ink{ display:none !important }
@@ -1522,8 +1510,6 @@
     .sheet{ transform:none !important; perspective:none }
     .cell{ transform:none !important }
     .cell video,.cell img{ transform:none !important }
-    .b5cap,.b5bcap{ opacity:1 !important }
-    .b7strip span{ transform:none !important }
     .b9type{ opacity:1 !important }
     .b10line{ opacity:1 !important }
     .b11stats span{ opacity:1 !important }
@@ -1535,7 +1521,6 @@
               width:max-content; color:#f5f5f5 }
     #b8 .plate{ transform:none !important }
     .b9wash{ opacity:.55 !important }
-    #b6 .plate video,#b6 .plate img{ object-position:50% 50% !important }
   }
 </style>
 
@@ -1561,6 +1546,7 @@
 <section class="beat" id="b0" data-src="media/scrub/px_angel_pullback.mp4">
   <div class="stage">
     <div class="b0flagintro" aria-hidden="true"><video muted playsinline preload="auto" poster="media/poster/mexico-flag-title.jpg"><source src="media/scrub/mexico-flag-clean.mp4" type="video/mp4"></video></div>
+    <div class="scroll-cue" aria-hidden="true"><span>SCROLL TO EXPLORE</span><i></i></div>
     <div class="b0intro" aria-hidden="true"></div>
     <svg class="b0title" viewBox="0 0 1600 900" role="img" aria-label="Wodapalooza Mexico City"><defs><clipPath id="opening-title-mask"><text x="800" y="410" text-anchor="middle" font-family="Archivo,Arial,sans-serif" font-size="176" font-weight="900" letter-spacing="-15">WODAPALOOZA</text><text x="800" y="595" text-anchor="middle" font-family="Archivo,Arial,sans-serif" font-size="154" font-weight="900" letter-spacing="-11">MEXICO CITY</text></clipPath></defs><foreignObject width="1600" height="900" clip-path="url(#opening-title-mask)"><div xmlns="http://www.w3.org/1999/xhtml" style="width:1600px;height:900px"><video muted playsinline preload="auto" poster="media/poster/mexico-flag-title.jpg"><source src="media/scrub/mexico-flag-clean.mp4" type="video/mp4"></video></div></foreignObject></svg>
     <img class="b0ground" src="media/print/print-field-01.jpg" alt="" aria-hidden="true">
@@ -1571,8 +1557,8 @@
         <video muted playsinline preload="auto" disablepictureinpicture></video>
       </div>
     </div>
-    <video class="b0fitness-full" aria-hidden="true" muted playsinline preload="metadata" poster="media/poster/b05_sud06.jpg" src="media/source/wp3_panel_excerpt.mp4"></video>
-    <div class="b0fold b0fold-l" aria-hidden="true"></div><div class="b0fold b0fold-r" aria-hidden="true"></div>
+    <div class="b0fold b0fold-l" aria-hidden="true"><video class="b0panel-video" muted playsinline preload="metadata" poster="media/poster/b05_sud06.jpg" src="media/source/wp3_panel_excerpt.mp4"></video></div>
+    <div class="b0fold b0fold-r" aria-hidden="true"><video class="b0panel-video" muted playsinline preload="metadata" poster="media/poster/b05_sud06.jpg" src="media/source/wp3_panel_excerpt.mp4"></video></div>
     <nav class="b0nav" aria-label="Site navigation"><button class="menu" type="button" aria-label="Open site index"><b>W</b><span>Menu</span></button><span class="place">01 / Arrival</span><a class="qualifier" href="https://competitioncorner.net/events/21707/details" target="_blank" rel="noopener noreferrer">Qualifier ↗</a></nav>
   </div>
 </section>
@@ -1593,10 +1579,10 @@
 </section>
 
 <!-- ─────────── BEAT 2 · SUCEDERÁ ─────────── -->
-<section class="beat" id="b2" data-src="media/scrub/b04_car.mp4">
+<section class="beat" id="b2" data-src="media/scrub/b06_walk.mp4">
   <div class="stage">
     <div class="plate">
-      <img src="media/poster/b04_car.jpg" alt="Driving into Mexico City at night">
+      <img src="media/poster/b06_walk.jpg" alt="Athletes walking through the Wodapalooza crowd">
       <video muted playsinline preload="metadata" disablepictureinpicture></video>
     </div>
     <svg class="knockout" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -1626,40 +1612,28 @@
 </section>
 
 <!-- ─────────── BEAT 5 · THE IDENTITY LOOP ─────────── -->
-<section class="beat" id="b5" data-src="media/scrub/b05b_lift.mp4" data-scrub-range="0.88,1">
+<section class="beat" id="b5" data-src="media/scrub/streetlight-placement.mp4">
   <div class="stage">
     <div class="sheet">
       <div class="cell"><video data-loop="media/loop/b05_sud01.mp4" poster="media/poster/b05_sud01.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Reforma"></video></div>
       <div class="cell"><video data-loop="media/loop/b05_sud02.mp4" poster="media/poster/b05_sud02.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Ángel de la Independencia"></video></div>
       <div class="cell"><video data-loop="media/loop/b05_sud03.mp4" poster="media/poster/b05_sud03.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Ángel de la Independencia"></video></div>
       <div class="cell"><video data-loop="media/loop/b05_sud05.mp4" poster="media/poster/b05_sud05.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Monumento a la Revolución"></video></div>
-      <div class="cell"><video data-loop="media/loop/b05_sud08.mp4" poster="media/poster/b05_sud08.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Mexico City crosswalk"></video></div>
+      <div class="cell hoodie-center"><div class="hoodie-slot" aria-label="Hoodie figure center frame"></div></div>
       <div class="cell"><video data-loop="media/loop/b05_sud09.mp4" poster="media/poster/b05_sud09.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Eje Central"></video></div>
       <div class="cell"><video data-loop="media/loop/b05_sud04.mp4" poster="media/poster/b05_sud04.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Ángel de la Independencia"></video></div>
       <div class="cell is-still"><img src="media/still/b05_torre.jpg" alt="Torre Latinoamericana"></div>
       <div class="cell"><video data-loop="media/loop/b05_sud01.mp4" poster="media/poster/b05_sud01.jpg" muted loop playsinline preload="metadata" disablepictureinpicture aria-label="Hooded Wodapalooza figure standing in Mexico City traffic"></video></div>
     </div>
-    <div class="plate cut">
-      <img src="media/poster/b05b_lift.jpg" alt="An athlete locking a barbell overhead">
-      <video muted playsinline preload="auto" disablepictureinpicture></video>
-    </div>
-    <p class="b5cap">One figure · nine monuments · the city never stops</p>
-    <div class="b5bcap">GÁNATE TU LUGAR</div>
-  </div>
-</section>
-
-
-<!-- ─────────── BEAT 6 · THE BANNER ─────────── -->
-<section class="beat" id="b6" data-src="media/scrub/b06_banner.mp4">
-  <div class="stage">
-    <div class="plate">
-      <img src="media/poster/b06_banner.jpg" alt="A banner reading SUCEDERÁ EN CDMX hung on the Monumento a la Revolución">
+    <div class="plate streetlight-source">
+      <img src="media/poster/streetlight-placement.jpg" alt="Hooded figure approaching a streetlight to place a sticker">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
   </div>
 </section>
 
-<!-- ─────────── BEAT 7 · OCCUPATION ─────────── -->
+
+<!-- ─────────── BEAT 6 · OCCUPATION ─────────── -->
 <section class="beat" id="b7" data-src="media/scrub/b07_stickers.mp4" data-scrub-warp="0.34,0.21" data-join-in data-split-exit>
   <div class="stage">
     <div class="plate">
@@ -1669,7 +1643,6 @@
     <div class="b7half b7half-l"><img src="media/poster/b07_end.jpg" alt="" aria-hidden="true"></div>
     <div class="b7half b7half-r"><img src="media/poster/b07_end.jpg" alt="" aria-hidden="true"></div>
     <div class="b7badge" aria-hidden="true"><img src="media/logo/mark-gradient.png" alt=""></div>
-    <div class="b7strip" data-marquee><span>REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;REFORMA&nbsp;·&nbsp;ONE MARK&nbsp;·&nbsp;SEVENTY-FOUR CUTS&nbsp;·&nbsp;NO GRADE&nbsp;·&nbsp;</span></div>
   </div>
 </section>
 
@@ -1907,12 +1880,16 @@
   const beats = [...document.querySelectorAll('.beat')];
   const metres = document.getElementById('metres');
   const ground = document.querySelector('[data-ground]');
+  /* Primary film sources are scroll-held. The mosaic tiles and the ARE/YOU/READY panels are
+     the two bounded loop exceptions; scene gates still pause them whenever their scene leaves. */
+  const CONTINUOUS_IDS = new Set();
   /* Where the DESCENT begins. Beat 0 is above the city and before the aircraft. */
   const descent = document.getElementById('b1');
   const actIdx  = document.getElementById('action');
   const titleFlag = document.querySelector('.b0title video');
   const openingFlag = document.querySelector('.b0flagintro video');
-  for (const clip of [titleFlag,openingFlag]) if (clip) clip.addEventListener('loadedmetadata', () => { clip.pause(); }, {once:true});
+  const scrollCue = document.querySelector('.scroll-cue');
+  for (const clip of [titleFlag,openingFlag]) if (clip) { clip.loop = false; clip.pause(); }
 
   /* attach a video to every beat that declares one, and hold its poster until a frame
      has ACTUALLY been painted — `loadeddata` only means bytes arrived, and a video that
@@ -1944,6 +1921,7 @@
     if (!v) { console.warn('beat ' + b.id + ' declares data-src but has no video'); continue; }
     const plate = v.closest('.plate') || b.querySelector('.plate');
     b._v = v; b._want = HEAD; b._seeking = false;
+    b._continuous = CONTINUOUS_IDS.has(b.id);
     b._range = b.dataset.scrubRange ? b.dataset.scrubRange.split(',').map(Number) : null;
     b._from  = b.dataset.scrubFrom ? +b.dataset.scrubFrom : 0;
     b._warp  = b.dataset.scrubWarp  ? b.dataset.scrubWarp.split(',').map(Number)  : null;
@@ -1984,7 +1962,7 @@
       const fbegin = () => { farm(); fullEl._seeking = true; try { fullEl.currentTime = HEAD; } catch(e){} };
       fullEl.addEventListener('loadedmetadata', fbegin, {once:true});
       b._full = fullEl;
-      b._loadFull = () => { fullEl.src = fullEl.dataset.full; if (fullEl.readyState >= 1) fbegin(); };
+      b._loadFull = () => { fullEl.src = fullEl.dataset.full; fullEl.load(); if (fullEl.readyState >= 1) fbegin(); };
     }
     if (b.hasAttribute('data-ambient')) {
       const c = b.querySelector('.amb');
@@ -1996,7 +1974,10 @@
        the video element paints nothing and the poster hides a black rectangle. */
     const prime = () => { b._seeking = true;
       try { v.currentTime = Math.max(HEAD, b._from || 0); } catch(e){} };
-    const begin = () => { armReveal(); prime(); };
+    const begin = () => {
+      armReveal();
+      prime();
+    };
 
     v.addEventListener('loadedmetadata', begin, {once:true});
 
@@ -2005,7 +1986,7 @@
        desktop with a local server, a wall on a phone on cellular. The src is assigned when
        the beat comes within reach instead, from the tick below. The poster is what shows
        until then, which is what it has always been for. */
-    b._load = () => { v.src = src; if (v.readyState >= 1) begin(); };
+    b._load = () => { v.src = src; v.load(); v.loop = false; v.pause(); if (v.readyState >= 1) begin(); };
   }
 
   /* ── the identity loop ───────────────────────────────────────────────────
@@ -2015,8 +1996,16 @@
   const sheet  = document.querySelector('.sheet');
   const cells  = sheet ? [...sheet.children] : [];
   const triptychVideos = [...document.querySelectorAll('.b1triptych video[data-trip]')];
+  const panelVideos = [...document.querySelectorAll('#b0 .b0panel-video')];
   for (const v of triptychVideos) {
     v.src = v.dataset.trip;
+    v.loop = true;
+    v.muted = true;
+    v.pause();
+  }
+  for (const v of panelVideos) {
+    v.loop = false;
+    v.muted = true;
     v.pause();
   }
   const CENTRE = 4;                         // the dive target — see the note in the CSS
@@ -2044,6 +2033,7 @@
     const v = c.querySelector('video[data-loop]');
     if (!v) continue;
     v.src = v.dataset.loop;
+    v.loop = true;
     v.playbackRate = 0.78 + cells.indexOf(c) * 0.055;
     v._want = false;
   }
@@ -2052,8 +2042,8 @@
     for (const c of cells) {
       const v = c.querySelector('video[data-loop]');
       if (!v) continue;
-      if (near && v.paused) { const q = v.play(); if (q) q.catch(()=>{}); }
-      else if (!near && !v.paused) v.pause();
+      if (near && v.paused && v.readyState >= 2) v.play().catch(()=>{});
+      if (!near && !v.paused) v.pause();
     }
   }
 
@@ -2091,6 +2081,22 @@
     loopGate(onScreen);
     if (RM) return;                          // reduced motion: CSS holds the plain grid
 
+    /* One source owns the hoodie handoff. The metrics aperture's video is physically moved
+       into the mosaic center cell, so the center frame keeps its decoded moment and never
+       flashes, restarts, or fights a duplicate center video. Reverse scrolling moves the same
+       element back into the aperture plate. */
+    const hood = document.getElementById('b4');
+    const hoodVideo = hood && hood._v;
+    const hoodSlot = cells[CENTRE] && cells[CENTRE].querySelector('.hoodie-slot');
+    const hoodPlate = hood && hood.querySelector('.plate');
+    if (hoodVideo && hoodSlot && hoodPlate) {
+      if (p > 0.015 && hoodVideo.parentElement !== hoodSlot) {
+        hoodSlot.appendChild(hoodVideo);
+      } else if (p <= 0.015 && hoodVideo.parentElement !== hoodPlate) {
+        hoodPlate.appendChild(hoodVideo);
+      }
+    }
+
     /* one -> nine -> one. Scale 3 puts the centre cell exactly over the frame, so the
        full-bleed shot and the contact sheet are the same object at two scales. */
     let sc;
@@ -2116,16 +2122,28 @@
     const gap  = 0;
     sheet.style.setProperty('--sc', sc.toFixed(4));
 
-    /* THE CUT. A step, not a ramp — one frame of scroll and the street is a competition
-       floor. visibility keeps the lift out of the compositor until it is needed. */
-    const CUT = 0.88;
-    const cut = p >= CUT ? 1 : 0;
-    b.style.setProperty('--cut', cut);
-    b.style.setProperty('--cutvis', cut ? 'visible' : 'hidden');
-    b.style.setProperty('--cutp', seg(p, CUT, 1).toFixed(3));
-    b.style.setProperty('--cutcap', seg(p, CUT + 0.05, CUT + 0.09).toFixed(3));
-    sheet.style.opacity = cut ? 0 : 1;
-    b.style.setProperty('--sheet-on', (seg(p,0.50,0.62) * (1 - seg(p,0.66,0.74))).toFixed(3));
+    /* The streetlight clip replaces the old barbell/crowd handoff. The same decoded player is
+       moved from its loading plate into the centre tile, then the tile itself becomes full
+       frame as the mosaic dives. There is no second streetlight plate to duplicate it. */
+    const streetVideo = b._v;
+    const streetPlate = streetVideo && streetVideo.closest('.streetlight-source');
+    const streetTake = ease(seg(p, 0.58, 0.68));
+    const streetFull = ease(seg(p, 0.74, 0.86));
+    if (streetVideo && streetPlate && hoodSlot) {
+      if (streetTake > 0 && streetVideo.parentElement !== hoodSlot) {
+        if (hoodVideo && hoodVideo.parentElement === hoodSlot) hoodPlate.appendChild(hoodVideo);
+        hoodSlot.appendChild(streetVideo);
+      } else if (streetTake <= 0 && streetVideo.parentElement !== streetPlate) {
+        streetPlate.appendChild(streetVideo);
+      }
+      streetPlate.style.visibility = streetVideo.parentElement === streetPlate ? 'hidden' : 'visible';
+      streetPlate.style.opacity = streetVideo.parentElement === streetPlate ? '0' : '1';
+    }
+    sheet.style.opacity = 1;
+    b.style.setProperty('--streetlight', streetTake.toFixed(4));
+    b.style.setProperty('--streetlightvis', streetTake > 0 ? 'visible' : 'hidden');
+    b.style.setProperty('--streetlight-p', streetFull.toFixed(4));
+    b.style.setProperty('--sheet-on', '1');
 
     for (let i = 0; i < cells.length; i++) {
       const media = cells[i].firstElementChild;
@@ -2153,6 +2171,7 @@
       cst.setProperty('--ry',  (ry * k).toFixed(2) + 'deg');
       media.style.setProperty('--cs',  (1 - 0.038 * gap).toFixed(4));
     }
+    if (streetVideo && !RM) streetVideo.pause();
   }
 
   /* the word is sized in REAL CSS PIXELS. A scaled viewBox with `slice` always crops,
@@ -2183,6 +2202,7 @@
      scroll; use rAF only for work that genuinely needs a paint tick. */
   function frame(){
     const H = innerHeight;
+    if (scrollCue) scrollCue.style.opacity = String(Math.max(0, 1 - Math.min(1, window.scrollY / (H * .72))));
     let deepest = 0;
 
     /* Beat 8 needs Beat 9's progress to build its window, and Beat 8 is processed first, so it
@@ -2443,16 +2463,10 @@
 
       /* The two aperture joins. Both are read off the beat's own --p, so they reverse
          exactly like everything else and cost nothing when the beat is off screen. */
-      if (b.id === 'b6') {
-        /* Closes into the vertical strip over the last twelve per cent, while the badge is
-           still in frame. Beat 6's pan and scale are untouched. */
-        b.style.setProperty('--reg', ease(seg(p, 0.88, 1.00)).toFixed(4));
-      }
       if (b.id === 'b7') {
-        /* Opens from the 6 → 7 strip, and now closes back into it. The same vertical device
-           brackets the whole street occupation, and the strip it closes to is the vertical the
-           flag plate arrives out of. */
-        b.style.setProperty('--reg', (1 - ease(seg(p, 0.00, 0.09))).toFixed(4));
+        /* The montage is full-frame from its first pixel. The former --reg ramp was the
+           legacy vertical handoff and made this scene appear as a thin bar. */
+        b.style.setProperty('--reg', '0');
         /* Beat 7 does not collapse to a thin strip any more — it SPLITS. The badge advances
            toward the reader while a gap opens down the pole, and the message that was always
            behind the street shows through it. Half-gap in vw, so 50 is a fully parted frame. */
@@ -2513,12 +2527,12 @@
            and it stays faint beneath the supplied paper until the panels resolve. */
         b.style.setProperty('--city-fold', '0');
         b.style.setProperty('--city-full', '0');
-        const fitness = document.querySelector('.b0fitness-full');
         const fitnessProgress = clamp((openingP - 0.58) / 0.295, 0, 1);
         const fitnessOpacity = fitnessProgress <= 0 ? 0
-          : 0.34 + 0.38 * ease(seg(fitnessProgress, 0.74, 1));
-        b.style.setProperty('--fitness-full', fitnessOpacity.toFixed(4));
+          : 0.46 + 0.18 * ease(seg(fitnessProgress, 0.74, 1));
+        b.style.setProperty('--fitness-panel', fitnessOpacity.toFixed(4));
         b.style.setProperty('--fold-visible', (1 - shutterTakeover).toFixed(4));
+        b.style.setProperty('--panel-visible', openingP < 0.875 ? 'visible' : 'hidden');
         /* The Ángel remains present through the entire printed-frame hold; city material begins
            only after that hold and replaces it inside the same two physical panels. */
         b.style.setProperty('--angel', ease(seg(openingP, 0.24, 0.49)).toFixed(4));
@@ -2544,16 +2558,24 @@
         b.style.setProperty('--flag-intro', (1 - ease(seg(openingP, 0.16, 0.30))).toFixed(4));
         b.style.setProperty('--title-black', Math.min(ease(seg(openingP, 0.13, 0.26)), 1 - ease(seg(openingP, 0.35, 0.48))).toFixed(4));
         b.style.setProperty('--paper', clamp((openingP - 0.18) * 3.2, 0, 1).toFixed(4));
-        for (const clip of [titleFlag,openingFlag]) if (clip && clip.duration && !RM) {
+        for (const clip of [titleFlag,openingFlag]) if (clip && clip.duration && !RM && !b._continuous) {
           const want = Math.min(clip.duration - TAIL, 0.1 + openingP * Math.max(0, clip.duration - 0.15));
           if (Math.abs(clip.currentTime - want) > 1/36) clip.currentTime = want;
         }
         /* One player, one scroll clock. The source continues through the crowd movement and
            lands on the overhead squat as the panels collapse; there are no duplicate city
            players or independent playback timers left behind. */
-        if (fitness && fitness.duration && !RM) {
-          const want = wantAt(fitness, fitnessProgress, 0);
-          if (Math.abs(fitness.currentTime - want) > 1/48) fitness.currentTime = want;
+        for (const panel of panelVideos) {
+          if (openingP >= 0.875) {
+            panel.pause();
+            panel.style.visibility = 'hidden';
+            continue;
+          }
+          panel.style.visibility = 'visible';
+          if (panel.duration && !RM) {
+            const want = Math.min(panel.duration - TAIL, 0.1 + openingP * Math.max(0, panel.duration - 0.15));
+            if (Math.abs(panel.currentTime - want) > 1/120) panel.currentTime = want;
+          }
         }
       }
 
@@ -2565,11 +2587,11 @@
         b.style.setProperty('--b1-stage', b1StageOn);
         const tripOn = b1StageOn * (1 - seg(p, 0.86, 0.94));
         b.style.setProperty('--triptych', tripOn.toFixed(4));
+        /* The three ARE/YOU/READY panels are the second bounded loop exception. */
         if (!RM) for (const tile of triptychVideos) {
-          if (tile.duration) {
-            const want = wantAt(tile, p, 0);
-            if (Math.abs(tile.currentTime - want) > 1/48) tile.currentTime = want;
-          }
+          tile.loop = true;
+          if (tripOn > 0 && tile.paused && tile.readyState >= 2) tile.play().catch(()=>{});
+          if (tripOn <= 0 && !tile.paused) tile.pause();
         }
         /* Each word owns a discrete reading checkpoint, but all three derive from this one
            parent progress value. The short crossfades only soften the edit; the words never
@@ -2593,6 +2615,7 @@
         b.style.setProperty('--sphere-solid', (1 - ease(seg(np, 0.018, 0.045))).toFixed(4));
         b.style.setProperty('--city-cinema', ease(seg(p, 0.29, 0.40)).toFixed(4));
       }
+
 
       if (b.id === 'b13') {
         /* The existing badge is the door into THE INDEX. The incoming page is already pinned
@@ -2914,7 +2937,9 @@
     for (const b of beats){
       const v = b._v;
       const lateScrub = b.id === 'b11' || b.id === 'b12' || b.id === 'b13';
-      if (!v || RM || (b._seeking && !lateScrub)) continue;
+      if (!v || RM) continue;
+      if (!v.paused) v.pause();
+      if (b._seeking && !lateScrub) continue;
       /* HALF A FRAME AT 60fps, NOT A FRAME AND A QUARTER.
          1/48 was fine while every beat advanced two or three frames per scroll step. Beat 10 is
          dense enough that a step moves 0.72 of a frame — BELOW the old threshold — so no seek was
