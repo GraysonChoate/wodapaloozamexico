@@ -189,19 +189,19 @@
   #b0 .b0frame{ width:100vw; height:100svh; outline:0; background:#050505; opacity:var(--angel-frame,1); transition:none }
   #b0 .b0frame>.plate:not(.cockpit){ opacity:var(--angel,0); transition:none }
   #b0 .b0black{ opacity:0 !important }
-  .b0city-full{ position:absolute; inset:0; z-index:3; width:100%; height:100%; object-fit:cover; object-position:center 46%; opacity:var(--city-full,0); pointer-events:none; transition:none }
-  .b0fold{ position:absolute; z-index:5; top:-7vh; bottom:-7vh; width:62vw; background:url('media/print/print-field-01.jpg') 50%/cover; opacity:var(--fold-visible,1); will-change:transform; pointer-events:none; overflow:hidden }
-  .b0fold:after{ content:""; position:absolute; z-index:2; inset:0; background:rgba(8,8,8,.10); pointer-events:none }
-  /* The night city occupies exactly the existing wing silhouettes.  It does not appear behind
-     them and it carries no secondary rectangular inset or fade. */
-  .b0city-inset{ position:absolute; z-index:1; top:0; bottom:0; width:200%; height:100%; max-width:none; object-fit:cover; object-position:center 46%; opacity:var(--city-fold,0); filter:none; transition:none; pointer-events:none }
-  /* Each physical wing carries its corresponding half of one city image. The halves meet at
-     the centre; there is no separately fading city behind the print object. */
-  .b0fold-l .b0city-inset{ left:0; right:auto }
-  .b0fold-r .b0city-inset{ right:0; left:auto }
+  .b0fitness-full{ position:absolute; inset:0; z-index:3; width:100%; height:100%; object-fit:cover; object-position:center 50%; opacity:var(--fitness-full,0); filter:saturate(.82) contrast(1.04); pointer-events:none; transition:none }
+  .b0fold{ position:absolute; z-index:5; top:-7vh; bottom:-7vh; width:62vw; background:transparent; opacity:var(--fold-visible,1); will-change:transform; pointer-events:none; overflow:hidden }
+  /* The supplied paper is the physical face of each panel. The fitness shot sits beneath it,
+     at a restrained opacity, so the athlete reads as an impression inside the print rather
+     than as a new rectangular video card. */
+  .b0fold:before{ content:""; position:absolute; z-index:2; inset:0; background-position:center; background-size:cover; background-repeat:no-repeat; opacity:.72; pointer-events:none }
+  .b0fold:after{ content:""; position:absolute; z-index:3; inset:0; background:rgba(8,8,8,.10); pointer-events:none }
+  .b0fold-l:before{ background-image:url('media/print/fitness-panel-left.png') }
+  .b0fold-r:before{ background-image:url('media/print/fitness-panel-right.png') }
   .b0fold-l{ left:-20vw; clip-path:polygon(0 0,calc(73% + var(--shutter,0)*27%) 0,100% 100%,0 100%); transform-origin:left center; transform:translateX(calc(-58vw + var(--fold,0)*66vw)) rotateY(calc(-46deg + var(--fold,0)*46deg)) rotateZ(calc(-6deg + var(--fold,0)*6deg)) }
   .b0fold-r{ right:-20vw; clip-path:polygon(calc(27% - var(--shutter,0)*27%) 0,100% 0,100% 100%,0 100%); transform-origin:right center; transform:translateX(calc(58vw - var(--fold,0)*66vw)) rotateY(calc(46deg - var(--fold,0)*46deg)) rotateZ(calc(6deg - var(--fold,0)*6deg)) }
-  .b0fold-l:before,.b0fold-r:before{ content:""; position:absolute; top:0; bottom:0; width:2px; background:#ece4d6; opacity:.7 }.b0fold-l:before{right:25%}.b0fold-r:before{left:25%}
+  /* The panel artwork above owns the full pseudo-element; the former two-pixel rule would
+     collapse it back to a line and silently discard the supplied textures. */
   .b0intro{ z-index:6; opacity:var(--title-black,0) }
   .b0title{ z-index:7; opacity:var(--word,0); transform:scale(calc(.92 + var(--word,0)*.08)) }
   .b0nav{ position:absolute; z-index:11; top:0; left:0; right:0; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; height:70px; padding:0 24px; opacity:var(--opening-nav,0); transform:translateY(calc((1 - var(--opening-nav,0))*-18px)); pointer-events:none; color:#f6f0e6; mix-blend-mode:difference }.b0nav:after{content:"";position:absolute;bottom:0;left:24px;right:24px;height:1px;background:currentColor;opacity:.72}.b0nav a,.b0nav button{pointer-events:auto;color:inherit;background:none;border:0;padding:0;font:inherit;text-decoration:none;text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:.14em}.b0nav .menu{justify-self:start;display:flex;align-items:center;gap:10px}.b0nav .menu b{display:grid;place-items:center;width:27px;height:22px;border:1px solid currentColor;font-size:9px;letter-spacing:0}.b0nav .place{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}.b0nav .qualifier{justify-self:end;display:flex;gap:11px;align-items:center}.b0nav .qualifier:before{content:"";display:block;width:28px;height:1px;background:currentColor}
@@ -262,10 +262,14 @@
   /* Overlap the final city shutter so this beat never has a lower edge that can slide
      upward into view. Its city image is only enabled at the exact end of Beat 0. */
   #b1{ height:300svh; margin-top:-242svh }
-  #b1 .stage{ z-index:3; background:transparent; isolation:isolate; opacity:1; transition:none }
-  /* The city behind the question is Beat 0's same scroll-owned video. Beat 1 owns only the
-     typography and sphere; it must never introduce another city image. */
-  #b1 .plate{ display:none }
+  #b1 .stage{ z-index:3; background:#050505; isolation:isolate; opacity:var(--b1-stage,0); transition:none }
+  /* The corrected handoff lands on three authored tiles, not another city plate. The tiles
+     are one centered composition with equal geometry and a shared scroll clock. */
+  .b1triptych{ position:absolute; z-index:1; left:6vw; right:6vw; top:18vh; bottom:13vh;
+    display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.2vw;
+    opacity:var(--triptych,0); pointer-events:none }
+  .b1triptych video{ width:100%; height:100%; min-width:0; object-fit:cover; object-position:center; background:#090909 }
+  @media(max-width:700px){ .b1triptych{left:3vw;right:3vw;top:21vh;bottom:16vh;gap:1.4vw} }
   /* This source was captured with player controls on its outer lower edge. The city itself
      has enough overscan to remove that capture artifact by crop, rather than ever letting
      borrowed interface chrome enter the film. */
@@ -293,7 +297,7 @@
      not a second image or a fading overlay. */
   .b1sphere{ position:absolute; z-index:7; left:50%; top:50%; width:calc(var(--ready-sphere,0)*250vmax); height:calc(var(--ready-sphere,0)*250vmax); border-radius:50%; background:#000; opacity:var(--sphere-solid,1); transform:translate(-50%,-50%); pointer-events:none }
   /* Optical type over the SAME moving city: no second still is ever mapped into these letters. */
-  .b1ready span{ position:absolute; display:block; color:rgb(239 246 242 / .52); -webkit-text-fill-color:rgb(239 246 242 / .52); -webkit-text-stroke:1px rgb(255 255 255 / .17); font:950 clamp(72px,12.2vw,180px)/.84 Archivo,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.06em; white-space:nowrap; text-shadow:0 1px 1px rgba(0,0,0,.34),0 0 28px rgba(0,0,0,.32); mix-blend-mode:normal; backdrop-filter:none; transform-style:preserve-3d; transform-origin:50% 50%; will-change:transform,color }
+  .b1ready span{ position:absolute; display:block; color:#fff; -webkit-text-fill-color:#fff; -webkit-text-stroke:0 transparent; font:950 clamp(72px,12.2vw,180px)/.84 Archivo,"Helvetica Neue",Arial,sans-serif; letter-spacing:-.06em; white-space:nowrap; text-shadow:0 2px 10px rgba(0,0,0,.66); mix-blend-mode:normal; backdrop-filter:none; transform-style:preserve-3d; transform-origin:50% 50%; will-change:transform,color }
   /* A distinct ink layer—not a filter—makes the actual wordforms turn jet black before
      the circle consumes them. */
   .b1ready span::after{ content:attr(data-word); position:absolute; inset:0; color:#000; -webkit-text-fill-color:#000; -webkit-text-stroke:0 transparent; opacity:var(--ready-invert,0); mix-blend-mode:normal; text-shadow:none }
@@ -1564,8 +1568,8 @@
         <video muted playsinline preload="auto" disablepictureinpicture></video>
       </div>
     </div>
-    <video class="b0city-full" aria-hidden="true" muted playsinline preload="metadata" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video>
-    <div class="b0fold b0fold-l" aria-hidden="true"><video class="b0city-inset" muted playsinline preload="metadata" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video></div><div class="b0fold b0fold-r" aria-hidden="true"><video class="b0city-inset" muted playsinline preload="metadata" poster="media/poster/px_city_timelapse.jpg" src="media/scrub/px_city_timelapse.mp4?cut=20260825-final"></video></div>
+    <video class="b0fitness-full" aria-hidden="true" muted playsinline preload="metadata" poster="media/poster/b05_sud06.jpg" src="media/source/wp3_panel_excerpt.mp4"></video>
+    <div class="b0fold b0fold-l" aria-hidden="true"></div><div class="b0fold b0fold-r" aria-hidden="true"></div>
     <nav class="b0nav" aria-label="Site navigation"><button class="menu" type="button" aria-label="Open site index"><b>W</b><span>Menu</span></button><span class="place">01 / Arrival</span><a class="qualifier" href="https://competitioncorner.net/events/21707/details" target="_blank" rel="noopener noreferrer">Qualifier ↗</a></nav>
   </div>
 </section>
@@ -1573,9 +1577,10 @@
 <!-- ─────────── BEAT 1 · CITY TIME ─────────── -->
 <section class="beat" id="b1" data-join-in>
   <div class="stage">
-    <div class="plate">
-      <img src="media/poster/px_city_timelapse.jpg" alt="Mexico City moving from day into night">
-      <video muted playsinline preload="metadata" disablepictureinpicture></video>
+    <div class="b1triptych" aria-hidden="true">
+      <video data-trip="media/loop/b05_sud01.mp4" poster="media/poster/b05_sud01.jpg" muted playsinline preload="metadata"></video>
+      <video data-trip="media/loop/b05_sud02.mp4" poster="media/poster/b05_sud02.jpg" muted playsinline preload="metadata"></video>
+      <video data-trip="media/loop/b05_sud03.mp4" poster="media/poster/b05_sud03.jpg" muted playsinline preload="metadata"></video>
     </div>
     <div class="b1cinema" aria-hidden="true"></div>
     <div class="b1ready" aria-hidden="true"><span class="are" data-word="ARE">ARE</span><span class="you" data-word="YOU">YOU</span><span class="ready" data-word="READY?">READY?</span></div>
@@ -2006,6 +2011,11 @@
      would read as a single video tiled nine times rather than nine separate takes. */
   const sheet  = document.querySelector('.sheet');
   const cells  = sheet ? [...sheet.children] : [];
+  const triptychVideos = [...document.querySelectorAll('.b1triptych video[data-trip]')];
+  for (const v of triptychVideos) {
+    v.src = v.dataset.trip;
+    v.pause();
+  }
   const CENTRE = 4;                         // the dive target — see the note in the CSS
   // authored, not random: the drift has to be identical on every frame and every reload,
   // or the contact sheet jitters instead of registering
@@ -2496,10 +2506,15 @@
         b.style.setProperty('--release', release.toFixed(4));
         /* The city materializes only inside the two wing silhouettes. The full source replaces
            them only at their occluded meeting point, so it cannot read as a background fade. */
-        b.style.setProperty('--city-fold', (ease(seg(openingP, 0.58, 0.76)) * (1 - shutterTakeover)).toFixed(4));
-        /* The full live city is revealed only after the two panels have met. It is a handoff,
-           not a fade layered beneath a moving second city. */
-        b.style.setProperty('--city-full', openingP >= 0.875 ? '1' : '0');
+        /* The cityscape has been removed from this handoff. WP 3 is the only incoming source,
+           and it stays faint beneath the supplied paper until the panels resolve. */
+        b.style.setProperty('--city-fold', '0');
+        b.style.setProperty('--city-full', '0');
+        const fitness = document.querySelector('.b0fitness-full');
+        const fitnessProgress = clamp((openingP - 0.58) / 0.295, 0, 1);
+        const fitnessOpacity = fitnessProgress <= 0 ? 0
+          : 0.34 + 0.38 * ease(seg(fitnessProgress, 0.74, 1));
+        b.style.setProperty('--fitness-full', fitnessOpacity.toFixed(4));
         b.style.setProperty('--fold-visible', (1 - shutterTakeover).toFixed(4));
         /* The Ángel remains present through the entire printed-frame hold; city material begins
            only after that hold and replaces it inside the same two physical panels. */
@@ -2514,7 +2529,10 @@
         b.style.setProperty('--capt',
           Math.min(seg(openingP, 0.46, 0.54), 1 - seg(openingP, 0.72, 0.78)).toFixed(4));
         /* The step. Not eased — three per cent of the beat, which at reading pace is a cut. */
-        b.style.setProperty('--blackout', seg(openingP, 0.79, 0.82).toFixed(4));
+        /* Leave the fitness source visible through the panel collapse. The old blackout began
+           before the requested overhead-squat landing and created the exact dead freeze we are
+           removing. The tile owner arrives first; its own black punctuation can follow. */
+        b.style.setProperty('--blackout', seg(openingP, 0.92, 0.96).toFixed(4));
         b.style.setProperty('--word', Math.min(ease(seg(openingP, 0.09, 0.19)), 1 - ease(seg(openingP, 0.34, 0.55))).toFixed(4));
         b.style.setProperty('--opening-nav', ease(seg(openingP, 0.10, 0.22)).toFixed(4));
         /* Give the flag a real moving hold behind the title. The old .07-.16 window
@@ -2527,27 +2545,28 @@
           const want = Math.min(clip.duration - TAIL, 0.1 + openingP * Math.max(0, clip.duration - 0.15));
           if (Math.abs(clip.currentTime - want) > 1/36) clip.currentTime = want;
         }
-        /* These three masks are one source at one scroll position. No player is allowed to run
-           independently: stopped scrolling means stopped footage, and the three surfaces stay
-           registered frame-for-frame. */
-        const foldCities = b._foldCities || (b._foldCities = [...b.querySelectorAll('.b0city-inset,.b0city-full')]);
-        const question = document.getElementById('b1');
-        const qTravel = question ? Math.max(1, question.offsetHeight - H) : 1;
-        const qProgress = question ? Math.min(1, Math.max(0, -question.getBoundingClientRect().top / qTravel)) : 0;
-        const cityProgress = openingP < 1
-          ? Math.max(0, (openingP - 0.58) / 0.42) * 0.46
-          : 0.46 + qProgress * 0.54;
-        for (const clip of foldCities) {
-          if (!RM && clip.duration) {
-            const want = wantAt(clip, cityProgress, 0);
-            if (Math.abs(clip.currentTime - want) > 1/48) clip.currentTime = want;
-          }
+        /* One player, one scroll clock. The source continues through the crowd movement and
+           lands on the overhead squat as the panels collapse; there are no duplicate city
+           players or independent playback timers left behind. */
+        if (fitness && fitness.duration && !RM) {
+          const want = wantAt(fitness, fitnessProgress, 0);
+          if (Math.abs(fitness.currentTime - want) > 1/48) fitness.currentTime = want;
         }
       }
 
       if (b.id === 'b1') {
-        /* Beat 1 deliberately has no city media. It is a transparent typography layer over
-           Beat 0's single scroll-scrubbed city source. */
+        /* Beat 1 is the three-tile landing after the panel collapse. The city plate is gone;
+           the tiles and the words share this beat's one deterministic scroll position. */
+        const b1StageOn = b.getBoundingClientRect().top <= 0 ? 1 : 0;
+        b.style.setProperty('--b1-stage', b1StageOn);
+        const tripOn = b1StageOn * (1 - seg(p, 0.80, 0.90));
+        b.style.setProperty('--triptych', tripOn.toFixed(4));
+        if (!RM) for (const tile of triptychVideos) {
+          if (tile.duration) {
+            const want = wantAt(tile, p, 0);
+            if (Math.abs(tile.currentTime - want) > 1/48) tile.currentTime = want;
+          }
+        }
         /* The words get a full held reading moment, then invert in place. The only geometric
            move is one perfect circular black aperture growing from their shared centre. */
         b.style.setProperty('--ready', Math.min(ease(seg(p, 0.07, 0.18)), 1 - ease(seg(p, 0.80, 0.90))).toFixed(4));
