@@ -312,7 +312,10 @@
 
   /* The black wordforms stay fully opaque as they register into the central seed; the growing
      disc then carries that seed to the edges. No transparency is used in the transformation. */
-  .b1ready span{ opacity:1 }
+  .b1ready span{ opacity:0 }
+  .b1ready .are{ opacity:var(--word-are,0) }
+  .b1ready .you{ opacity:var(--word-you,0) }
+  .b1ready .ready{ opacity:var(--word-ready,0) }
 
   /* B2 — the word becomes the driving scene. The black field recedes through the word;
      there is no next card rising from below. */
@@ -2555,11 +2558,12 @@
       }
 
       if (b.id === 'b1') {
-        /* Beat 1 is the three-tile landing after the panel collapse. The city plate is gone;
-           the tiles and the words share this beat's one deterministic scroll position. */
+        /* This is the current build's Beat 5 parent: one three-panel composition and one
+           shared type layer. The historic id remains b1 so the surrounding recovered seams
+           do not move, but the architecture is the canonical Beat 5 model. */
         const b1StageOn = b.getBoundingClientRect().top <= 0 ? 1 : 0;
         b.style.setProperty('--b1-stage', b1StageOn);
-        const tripOn = b1StageOn * (1 - seg(p, 0.80, 0.90));
+        const tripOn = b1StageOn * (1 - seg(p, 0.86, 0.94));
         b.style.setProperty('--triptych', tripOn.toFixed(4));
         if (!RM) for (const tile of triptychVideos) {
           if (tile.duration) {
@@ -2567,15 +2571,20 @@
             if (Math.abs(tile.currentTime - want) > 1/48) tile.currentTime = want;
           }
         }
-        /* The words get a full held reading moment, then invert in place. The only geometric
-           move is one perfect circular black aperture growing from their shared centre. */
-        b.style.setProperty('--ready', Math.min(ease(seg(p, 0.07, 0.18)), 1 - ease(seg(p, 0.80, 0.90))).toFixed(4));
+        /* Each word owns a discrete reading checkpoint, but all three derive from this one
+           parent progress value. The short crossfades only soften the edit; the words never
+           drift independently or become labels attached to individual panels. */
+        const wordWindow = (a, z) => ease(seg(p, a, a + 0.035)) * (1 - ease(seg(p, z - 0.035, z)));
+        b.style.setProperty('--word-are', wordWindow(0.20, 0.40).toFixed(4));
+        b.style.setProperty('--word-you', wordWindow(0.40, 0.60).toFixed(4));
+        b.style.setProperty('--word-ready', wordWindow(0.60, 0.80).toFixed(4));
+        b.style.setProperty('--ready', Math.min(1, 1 - ease(seg(p, 0.86, 0.94))).toFixed(4));
         /* Ink is a decisive change: the wordforms never pass through a translucent grey state. */
-        b.style.setProperty('--ready-invert', p >= 0.57 ? '1' : '0');
+        b.style.setProperty('--ready-invert', p >= 0.80 ? '1' : '0');
         /* The wordforms register before the sphere is allowed to appear; by the time the
            circle is visible there is no readable stack left at its centre. */
-        b.style.setProperty('--ready-merge', ease(seg(p, 0.59, 0.67)).toFixed(4));
-        b.style.setProperty('--ready-sphere', ease(seg(p, 0.67, 0.82)).toFixed(4));
+        b.style.setProperty('--ready-merge', ease(seg(p, 0.80, 0.88)).toFixed(4));
+        b.style.setProperty('--ready-sphere', ease(seg(p, 0.88, 0.98)).toFixed(4));
         /* Once the disc has covered the frame, it is the black ground for the next aperture.
            Let that same ground release to the live word underneath—never to a sliding panel. */
         const next = document.getElementById('b2');
