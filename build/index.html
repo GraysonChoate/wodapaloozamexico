@@ -1093,6 +1093,14 @@
   #b12 .plate video,#b12 .plate img{ object-fit:cover; transform:none }
   /* The two city excerpts meet on a direct editorial cut. The footage keeps moving; no
      shutter, frame, or decorative layer is added at the splice. */
+  /* A single perimeter matte hides the source watermark without putting paper over the
+     picture. Its radial mask leaves the centre untouched and feathers the texture into the
+     moving city; the dark lower-right portion does the practical cover-up. */
+  .b12edge{ position:absolute; inset:0; z-index:3; pointer-events:none; opacity:.92;
+    background:url('media/print/city-edge-paper-02.png') center/cover no-repeat;
+    -webkit-mask-image:radial-gradient(ellipse at center, transparent 47%, rgba(0,0,0,.12) 58%, #000 78%, #000 100%);
+    mask-image:radial-gradient(ellipse at center, transparent 47%, rgba(0,0,0,.12) 58%, #000 78%, #000 100%);
+  }
 
   /* ── B13 · CLOSE ──────────────────────────────────────────────────────────
      54.97–57.80 is the film's own ending: the Monumento a la Revolución lit red, the badge
@@ -1751,6 +1759,7 @@
       <img src="media/poster/b12_city_landmarks.jpg" alt="Mexico City landmarks moving from the Torre Latinoamericana to Palacio de Bellas Artes">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
+    <div class="b12edge" aria-hidden="true"></div>
   </div>
 </section>
 
