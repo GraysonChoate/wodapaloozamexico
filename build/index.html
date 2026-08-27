@@ -1102,7 +1102,6 @@
     background:url('media/print/city-edge-paper-02.png') center/cover no-repeat;
     -webkit-mask-image:radial-gradient(ellipse at center, transparent 47%, rgba(0,0,0,.12) 58%, #000 78%, #000 100%);
     mask-image:radial-gradient(ellipse at center, transparent 47%, rgba(0,0,0,.12) 58%, #000 78%, #000 100%);
-    opacity:calc(1 - var(--edge-out,0));
   }
   .b12edge::after{ content:""; position:absolute; inset:0;
     background:radial-gradient(ellipse at 100% 100%, rgba(5,5,5,1) 0 22%, rgba(5,5,5,.82) 33%, transparent 47%);
@@ -1123,6 +1122,23 @@
   #b13{ height:280svh; margin-top:0 }
   #b13 .stage{ position:fixed; inset:0; z-index:47 }
   #b13 .plate video,#b13 .plate img{ transform:scale(calc(1.02 + var(--p) * .04)) }
+  .b13edge{ position:absolute; inset:0; z-index:3; pointer-events:none;
+    background:url('media/print/city-edge-paper-03.png') center/cover no-repeat;
+    -webkit-mask-image:radial-gradient(ellipse at center, transparent 47%, rgba(0,0,0,.12) 58%, #000 78%, #000 100%);
+    mask-image:radial-gradient(ellipse at center, transparent 47%, rgba(0,0,0,.12) 58%, #000 78%, #000 100%);
+    opacity:calc(1 - var(--final-edge,0));
+    transform:translateX(calc(var(--final-edge,0) * 86%)) rotate(calc(var(--final-edge,0) * 1.2deg));
+    transform-origin:100% 50%;
+  }
+  .b13edge::before{ content:""; position:absolute; inset:0;
+    background:url('media/print/city-edge-paper-04.png') center/cover no-repeat;
+    opacity:calc(.42 * (1 - var(--final-edge,0)));
+    transform:translate(calc(var(--paper-drift,0) * -1.5%), calc(var(--paper-drift,0) * 1%));
+    mix-blend-mode:multiply;
+  }
+  .b13edge::after{ content:""; position:absolute; inset:0;
+    background:radial-gradient(ellipse at 100% 100%, rgba(5,5,5,1) 0 22%, rgba(5,5,5,.82) 33%, transparent 47%);
+  }
   @media (min-aspect-ratio: 11/10) and (max-aspect-ratio: 16/9){
     #b13 .plate video,#b13 .plate img{ object-fit:contain; transform:none }
   }
@@ -1776,6 +1792,7 @@
       <img src="media/poster/b13_close.jpg" alt="The Monumento a la Revolución lit red, the Wodapalooza mark locking over it">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
+    <div class="b13edge" aria-hidden="true"></div>
   </div>
 </section>
 
@@ -2550,12 +2567,13 @@
           }
           A.style.setProperty('--adoor', open.toFixed(4));
         }
+        b.style.setProperty('--final-edge', ease(seg(p, 0.04, 0.34)).toFixed(4));
+        b.style.setProperty('--paper-drift', Math.sin(p * Math.PI * 2) * .8);
       }
 
       if (b.id === 'b12') {
-        /* The scene is a hard cut from celebration. Only the perimeter matte retracts at the
-           end of the city passage, revealing the final monument frame cleanly. */
-        b.style.setProperty('--edge-out', ease(seg(p, 0.92, 0.995)).toFixed(4));
+        /* The scene is a hard cut from celebration. The perimeter matte stays through this
+           entire city passage; Beat 13 owns its pull-away over the final watermark shot. */
       }
 
       if (b.id === 'b11') {
@@ -2852,7 +2870,9 @@
 
     // seek on its own cadence — never queue a seek while one is in flight
     for (const b of beats){
-      const v = b._v; if (!v || RM || b._seeking) continue;
+      const v = b._v;
+      const lateScrub = b.id === 'b11' || b.id === 'b12' || b.id === 'b13';
+      if (!v || RM || (b._seeking && !lateScrub)) continue;
       /* HALF A FRAME AT 60fps, NOT A FRAME AND A QUARTER.
          1/48 was fine while every beat advanced two or three frames per scroll step. Beat 10 is
          dense enough that a step moves 0.72 of a frame — BELOW the old threshold — so no seek was
@@ -2862,7 +2882,7 @@
          than anything to do with the overlay. Every frame in these clips is a keyframe, so a seek
          is cheap and there is no reason to hold one back. */
       if (v.duration && Math.abs(v.currentTime - b._want) > 1/120){
-        b._seeking = true; v.currentTime = b._want;
+        b._seeking = !lateScrub; v.currentTime = b._want;
       }
       /* redraw the ambient spill from the frame that is already decoded. 48x27 costs
          nothing and CSS does the blur, so this is an upscale, not a real blur pass. */
