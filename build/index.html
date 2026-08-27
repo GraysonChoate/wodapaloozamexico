@@ -1082,7 +1082,10 @@
      device is one frame replaced by another on a single scroll gesture, so the two have to
      occupy exactly the same box. Containing guarantees it. Cover would also have clipped the
      source watermark on the bright dusk frame. */
-  #b12{ height:540svh }
+  #b12{ height:340svh }
+  #b12 .stage{
+    background:#efe9dc url("media/print/print-field-01.jpg") center/cover no-repeat;
+  }
   /* ── THE SQUARE AS A PHOTOGRAPH BEING CONSIDERED ──────────────────────────
      Both plates are boxed to the source's own 16:9 rather than letterboxed inside a
      viewport-shaped box. That matters for one specific reason: the frame edge then sits
@@ -1778,16 +1781,12 @@
 <section class="beat" id="b12" data-src="media/scrub/b12_zocalo_empty.mp4">
   <div class="stage">
     <div class="plate">
-      <img src="media/poster/b12_zocalo_empty.jpg" alt="The Zócalo at dusk, nearly empty">
+      <img src="media/poster/b12_zocalo_empty.jpg" alt="Mexico City architecture at dusk">
       <video muted playsinline preload="auto" disablepictureinpicture></video>
     </div>
-    <div class="plate full">
-      <img src="media/poster/b12b_zocalo_full.jpg" alt="The same view of the Zócalo at night, filled with people">
-      <video data-full="media/scrub/b12b_zocalo_full.mp4" muted playsinline preload="auto" disablepictureinpicture></video>
-    </div>
     <div class="b12type">
-      <h2>December 4 · 5 · 6 · 2026</h2>
-      <p>Ciudad de México</p>
+      <h2>MEXICO CITY · DECEMBER 4–6 · 2026</h2>
+      <p>WODAPALOOZA MEXICO CITY</p>
     </div>
   </div>
 </section>
@@ -2556,32 +2555,14 @@
       }
 
       if (b.id === 'b12') {
-        /* The whole beat is one gesture: the square is empty, and then it is full. A step,
-           not a fade — a dissolve here would show the crowd growing, which is a different
-           and much weaker idea than the same frame being replaced. */
-        /* ONE slow widen, finished long before the step. The photograph is considered, then
-           it fills the field of view, then it holds empty — and only then is it replaced.
-           The widen must end before the swap or the reader is still moving when the argument
-           lands. */
-        const ZW = 0.30;
-        const grow = ease(seg(p, 0.02, ZW));
+        /* Claude's final late-pass removed the crowded night plate. The remaining daytime
+           photograph is a framed object on the print field, so its movement runs for the
+           whole beat rather than widening into a second plate and then holding. */
+        const grow = ease(seg(p, 0.02, 0.94));
         const z0 = parseFloat(getComputedStyle(b).getPropertyValue('--zstart')) || 0.60;
         b.style.setProperty('--zw', (z0 + (1 - z0) * grow).toFixed(4));
         b.style.setProperty('--zb', (0.24 * (1 - grow)).toFixed(3));
-
-        const SWAP = 0.56;
-        const sw = p >= SWAP ? 1 : 0;
-        b.style.setProperty('--swap', sw);
-        b.style.setProperty('--swapvis', sw ? 'visible' : 'hidden');
-        b.style.setProperty('--datein', seg(p, 0.62, 0.72).toFixed(3));
-        const full = b._full;
-        if (full && full.duration && !RM) {
-          const q = seg(p, SWAP, 1);
-          const want = HEAD + q * Math.max(0, full.duration - HEAD - TAIL);
-          if (!full._seeking && Math.abs(full.currentTime - want) > 1/48) {
-            full._seeking = true; full.currentTime = want;
-          }
-        }
+        b.style.setProperty('--datein', seg(p, 0.20, 0.34).toFixed(3));
       }
 
       if (b.id === 'b11') {
