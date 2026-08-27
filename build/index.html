@@ -2177,8 +2177,18 @@
        the seam; the alternative is a second getComputedStyle every frame for nothing. */
     for (const b of beats){
       const r = b.getBoundingClientRect();
-      const travel = Math.max(1, r.height - H);
-      let p = Math.min(1, Math.max(0, -r.top / travel));
+      /* The fixed late stages remain on screen through the full section, not merely through
+         the normal sticky travel.  Using height - viewport made b12 reach its last frame
+         almost a viewport before b13 arrived, which looked like a freeze at the cut. Beat 11
+         gets the small overlap added to its range so it is still moving while it fades out. */
+      const lateTiming = b.id === 'b11' || b.id === 'b12' || b.id === 'b13';
+      const travel = lateTiming
+        ? Math.max(1, r.height + (b.id === 'b11' ? H * .18 : 0))
+        : Math.max(1, r.height - H);
+      /* Start the final clip a few pixels before the section boundary. That makes the cut
+         happen while the city is still moving, instead of exposing a one-frame handoff gap. */
+      const cutLead = H * .04;
+      let p = Math.min(1, Math.max(0, (b.id === 'b13' ? -r.top + cutLead : -r.top) / travel));
       /* Beat 2 begins inside the completed black punctuation.  Its stage is black and its
          car is masked by the word, so its true local position is safe to use immediately. */
       b.style.setProperty('--p', p.toFixed(4));
@@ -2227,7 +2237,7 @@
       const stageVisibility = lateFixed
         ? (b.id === 'b11'
           ? (r.bottom > -H * .18 ? Math.min(1, Math.max(0, 1 + r.bottom / (H * .18))) : 0)
-          : (r.top <= 0 && r.bottom > 0 ? (b.id === 'b12'
+          : (r.top <= cutLead && r.bottom > cutLead ? (b.id === 'b12'
             ? Math.min(1, Math.max(0, -r.top / (H * .18)))
             : 1) : 0))
         : (b.id === 'b4' ? (exit > 0 ? 0 : 1) : (b.id === 'b2' ? 1 : (b.hasAttribute('data-split-exit')
@@ -2507,7 +2517,10 @@
         b.style.setProperty('--blackout', seg(openingP, 0.79, 0.82).toFixed(4));
         b.style.setProperty('--word', Math.min(ease(seg(openingP, 0.09, 0.19)), 1 - ease(seg(openingP, 0.34, 0.55))).toFixed(4));
         b.style.setProperty('--opening-nav', ease(seg(openingP, 0.10, 0.22)).toFixed(4));
-        b.style.setProperty('--flag-intro', (1 - ease(seg(openingP, 0.07, 0.16))).toFixed(4));
+        /* Give the flag a real moving hold behind the title. The old .07-.16 window
+           collapsed it almost immediately, so the opening read as a pop instead of a living
+           flag carrying the title in. */
+        b.style.setProperty('--flag-intro', (1 - ease(seg(openingP, 0.16, 0.30))).toFixed(4));
         b.style.setProperty('--title-black', Math.min(ease(seg(openingP, 0.13, 0.26)), 1 - ease(seg(openingP, 0.35, 0.48))).toFixed(4));
         b.style.setProperty('--paper', clamp((openingP - 0.18) * 3.2, 0, 1).toFixed(4));
         for (const clip of [titleFlag,openingFlag]) if (clip && clip.duration && !RM) {
