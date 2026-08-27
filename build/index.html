@@ -1030,7 +1030,7 @@
      (260 - M) + 21 <= 160 puts the minimum at 121, and 120 was a viewport-percent the wrong side
      of it. 130 leaves nine to spare. */
   #b11{ height:460svh; margin-top:-130svh }
-  #b11 .stage{ z-index:45; background:transparent }
+  #b11 .stage{ position:fixed; inset:0; z-index:45; background:transparent }
   .b11f{ z-index:2 }
   /* Field B is a CANVAS of field A's own frame, not a second video. Two videos seeking
      independently were a frame apart — measured, consistently — and the two fields meet along a
@@ -1091,21 +1091,21 @@
     transform:none;
   }
   #b12 .plate video,#b12 .plate img{ object-fit:cover; transform:none }
-  /* The city materializes from the centre as an ink-shaped aperture. It is an entrance only;
-     the two city excerpts still meet on a direct editorial cut. */
-  #b12 .plate{ clip-path:var(--city-reveal,none) }
+  /* Beat 12 is a fixed full-frame stage so it replaces celebration at a true section boundary.
+     The two city excerpts meet on a direct editorial cut. */
+  #b12 .stage{ position:fixed; inset:0; z-index:46 }
   /* A single perimeter matte hides the source watermark without putting paper over the
      picture. Its radial mask leaves the centre untouched and feathers the texture into the
      moving city; the dark lower-right portion does the practical cover-up. It retracts before
      the final monument cut. */
-  .b12edge{ position:absolute; inset:0; z-index:3; pointer-events:none; opacity:.92;
+  .b12edge{ position:absolute; inset:0; z-index:3; pointer-events:none; opacity:1;
     background:url('media/print/city-edge-paper-02.png') center/cover no-repeat;
     -webkit-mask-image:radial-gradient(ellipse at center, transparent 47%, rgba(0,0,0,.12) 58%, #000 78%, #000 100%);
     mask-image:radial-gradient(ellipse at center, transparent 47%, rgba(0,0,0,.12) 58%, #000 78%, #000 100%);
-    clip-path:var(--city-reveal,none); opacity:calc(.92 * (1 - var(--edge-out,0)));
+    opacity:calc(1 - var(--edge-out,0));
   }
   .b12edge::after{ content:""; position:absolute; inset:0;
-    background:radial-gradient(ellipse at 100% 100%, rgba(5,5,5,.99) 0 16%, rgba(5,5,5,.78) 27%, transparent 44%);
+    background:radial-gradient(ellipse at 100% 100%, rgba(5,5,5,1) 0 22%, rgba(5,5,5,.82) 33%, transparent 47%);
   }
 
   /* ── B13 · CLOSE ──────────────────────────────────────────────────────────
@@ -1121,7 +1121,7 @@
 
      The links land on the black the film supplies. Nothing is dimmed to make room. */
   #b13{ height:280svh; margin-top:0 }
-  #b13 .stage{ z-index:38 }
+  #b13 .stage{ position:fixed; inset:0; z-index:47 }
   #b13 .plate video,#b13 .plate img{ transform:scale(calc(1.02 + var(--p) * .04)) }
   @media (min-aspect-ratio: 11/10) and (max-aspect-ratio: 16/9){
     #b13 .plate video,#b13 .plate img{ object-fit:contain; transform:none }
@@ -2209,8 +2209,11 @@
          nothing left for a fade to do. */
       /* Beat 2 owns its arrival through the turning type plane below. Generic section
          opacity would make it look as though a new frame were scrolling in from the bottom. */
-      const stageVisibility = b.id === 'b4' ? (exit > 0 ? 0 : 1) : (b.id === 'b2' ? 1 : (b.hasAttribute('data-split-exit')
-        ? enter : Math.min(enter, 1 - exit)));
+      const lateFixed = b.id === 'b11' || b.id === 'b12' || b.id === 'b13';
+      const stageVisibility = lateFixed
+        ? (r.top <= 0 && r.bottom > 0 ? 1 : 0)
+        : (b.id === 'b4' ? (exit > 0 ? 0 : 1) : (b.id === 'b2' ? 1 : (b.hasAttribute('data-split-exit')
+          ? enter : Math.min(enter, 1 - exit))));
       b.style.setProperty('--sv', stageVisibility.toFixed(4));
 
       // how far through the WHOLE page are we — drives the altimeter
@@ -2550,16 +2553,8 @@
       }
 
       if (b.id === 'b12') {
-        /* Materialize Beat 12 from a compact ink-like diamond at the celebration handoff.
-           Once open, hold the city full-frame; near the next cut, pull the perimeter matte
-           away so Beat 13 arrives without a sliding layer over it. */
-        const reveal = ease(seg(p, 0.015, 0.16));
-        if (reveal >= 1) b.style.setProperty('--city-reveal', 'none');
-        else {
-          const pts = [[50,0],[100,50],[50,100],[0,50]];
-          b.style.setProperty('--city-reveal', 'polygon(' + pts.map(([x,y]) =>
-            `${(50 + (x - 50) * reveal).toFixed(2)}% ${(50 + (y - 50) * reveal).toFixed(2)}%`).join(',') + ')');
-        }
+        /* The scene is a hard cut from celebration. Only the perimeter matte retracts at the
+           end of the city passage, revealing the final monument frame cleanly. */
         b.style.setProperty('--edge-out', ease(seg(p, 0.92, 0.995)).toFixed(4));
       }
 
