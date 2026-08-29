@@ -35,6 +35,10 @@ file, screenshot, contact sheet, or old commit looked correct.
 4. Continue in film order only through Beat 7. Do not begin a broad redesign, mobile pass, or
    later-beat work until the preceding seam has a recorded pass/fail result.
 
+Current narrow correction: Beat 7's `b07_stickers.mp4` scrubs only through its first 10.0 seconds
+before the existing split handoff into the rope scene. This is a timing cap only; Beats 8 onward
+remain untouched.
+
 ### Opening-to-hoodie acceptance contract
 
 - The Ángel remains visible until its printed wings close. Those wings become two live city
